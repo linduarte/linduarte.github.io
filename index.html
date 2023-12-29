@@ -3,9 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#cc99cc">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
     <title>Under construction</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
-  <img src="images/underv1-construction.png" alt = "Under construction" style="width:450px;height:318px;">        
+  <div id="grad" class="box grad image"> <!-- Add the 'grad' class here -->
+    <header>
+      <h1>Aprenda 'Git' e seus comandos para o mundo do desenvolvimento de código</h1>
+      <p class="sub">Git é hoje uma ferramenta indispensável para os desenvolvedores de programas</p>
+      <img src="images/Git-logo_1.png" alt="Simbolo do Git">
+    </header>
+  </div>
+  
+  <section>
+    <div class="row">
+      <div class="column left">
+        <p>Text on the left side.</p></div>
+      <div class="column middle"></div>
+      <div class="column right"></div>
+    <p class="main_image"><img src="images/comput_wired.png" alt="Computadores usando o Git"></p>
+    
+    <article>
+    <p class="def"><strong>O que é o Git?</strong></p>
+    
+    <em><p class="sec"><strong>Gestão de versões e trabalho distribuído.</strong></p></em>
+
+        <p class="sec">Git é um tipo de sistema de gerenciamento de código fonte chamado de sistema de controle de versão distribuída.
+       É uma ferramenta para facilitar o trabalho de desenvolvimento registrando e acompanhando as mudanças
+       de versão dos arquivos, comparando o passado aos atuais arquivos e evidenciando as alterações.
+       O sistema ainda permite que múltiplos desenvolvedores editem os arquivos de onde estejam.</p>
+      
+
+    <em><p class="sec"><strong>O que significa usar o 'Git'</strong></p></em>
+
+    
+
+    <p class="sec">Primeiro, faça uma cópia do arquivo ou de outros arquivos em um local de armazenamento que possa
+      ser compartilhado por todos (referido como "repositório remoto") no seu computador (referido
+      como "repositório local"), e depois adicione ou edite novo código ou arquivos.
+      Em seguida, os arquivos serão atualizados ao registrá-los do repositório local para o repositório remoto.</p>
+    
+
+    </article> 
+
+    <p class="distr"><img src="images/workflow.png" alt="Conceito - Repositório local/remoto"></p>
+    <article>
+    <p class="sec">A imagem acima representa o fluxo de trabalho sob a ótica do Git. Primeiramente seu diretório de trabalho 
+      não está "assistido" pelo Git, é simplesmente um diretório que contem seus arquivos de desenvolvimento, ou como se costuma falar, 'unstaged files'.
+      Ao inicializar o Git em seu "repositório local" este aguardará pelos comandos do Git que são nesta ordem, 'add', seus arquivos ficarão sujeitos a um agrupamento,
+      em uma 'área' denominada 'Staging area'de onde eles serão 'comitados', ou seja, este conjunto de arquivos serão os primeiros a serem
+      'carimbados' como uma primeira versão de seu desenvolvimento.Assim se dará início ao processo de registro de arquivos sob os 'olhos' do Git.
+      É importante salientar até aqui que este processo até então descrito está acontecendo localmente em seu computador.
+      Para que este conjunto de arquivos sejam armazenados e/ou trabalhados por um ou mais desenvolvedores voce deverá emitir o comando denominado 'push'
+      para um repositório remoto (GitHub, GitLab).<br>
+
+      <em><p class="sec"><strong>Git clone e Git pull</strong></p></em>
+
+      <p class="sec">O 'Git clone' se caracteriza por ser o início de algo novo que se pretende trabalhar. Dá-se início a criação de um
+      repositório remoto e a partir dele faz-se um 'clone'em seu repositório local.
+      O 'Git pull' é realizado quando se quer atualizar os arquivos do repositório local buscando o que há de novo feito por outros 
+      desenvolvedores repositório remoto.
+
+    </p>  
+    </p>  
+
+    </article>
+    <p class="status"><img src="images/git_status.png" alt="git status no terminal"></p>
+
+       
+    </div>   
+  </section>
 </body>
 </html>
