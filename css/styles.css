@@ -1,0 +1,159 @@
+/* Fonts */
+h1 {
+  font-family: 'VictorMono NF Italic', sans-serif;
+}
+
+h2 { /* Contact, Skills, Education, About me, Work Experience */
+  font-family: 'FiraMono', sans-serif;
+}
+
+h3 { /* Accountant */
+  font-family: 'HackNerdFont', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { background-color: #000; } 
+
+body {
+    min-height: 100vh;
+    max-width: 1000px;
+    background-color:papayawhip; 
+    margin: 0 auto;
+}
+
+.box {
+  width: 1000px;
+  height: 80px;
+  position: relative;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: rgb(216, 83, 21);
+}
+
+h1 {
+  color: rgb(227, 230, 238);
+  font-family: 'VictorMono NF Italic', sans-serif;
+  position: absolute;
+  text-shadow: 2px 2px 5px rgb(216, 69, 15);
+  top: 5px;
+  left: 5px;
+  font-size: 185%;
+}
+
+.sub {
+  color: rgb(227, 230, 238);
+  font-family: 'VictorMono NF Italic', sans-serif;
+  position: absolute;
+  text-shadow: 2px 2px 5px rgb(216, 69, 15);
+  top: 30px;
+  left: 5px;
+  font-size: 150%;
+}
+/* gradient */
+.grad {
+  background: linear-gradient(to bottom right, rgba(219, 100, 76, 0.97), rgb(203, 162, 38));
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  height: 80px;
+  position: relative;
+}
+
+/* images */
+.image img {
+  width: 100px;
+  height:42px;
+  position:relative;
+  top:20px;
+  left:890px;
+  
+}     
+
+.main_image img {
+  width: 650px;
+  height:325px;
+  margin-right: 175px;
+  margin-left:175px;
+}
+
+.distr img{
+  width: 650px;
+  height:186px;
+  margin-right: 175px;
+  margin-left:175px;
+}
+
+.status img{
+  width:500px;
+  height:138px;
+  margin-left:250px;
+  margin-right:250px;
+}  
+
+/* paragraphs */  
+
+
+.def {
+  color:black;
+  font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size:25px;
+  margin-left:10px;
+  margin-bottom:10px;
+}
+.sec{
+  color:black;
+  font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  margin-left:10px;
+  margin-bottom:10px;
+
+}
+
+article {
+  width: 90%;
+  max-width: 75ch;
+  margin: 2rem auto;
+}
+
+.row {
+  overflow: hidden; /* Clear the float */
+}
+
+.column {
+  float: left;
+}
+
+.left {
+  width: 175px;
+}
+
+.right {
+  width: 175px;
+  margin-left: 825px;
+  margin-right:175px;
+}
+
+.middle {
+  width: calc(100% - 350px); /* Adjust based on the combined width of left and right columns */
+}
+
+
+
+/* Your other styles remain unchanged */
+
+/* Responsive Design */
+@media only screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .middle {
+    width: 100%;
+  }
+}
