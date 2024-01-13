@@ -16,7 +16,11 @@ body {
 
 .header {
     grid-area:header;
+    background-image: linear-gradient(to right, #150839 45%, #e95d74);
+    border-radius: 13px 13px 13px 13px;
+    box-shadow: 1px 1px 1px black;  
     background-color: slategray;
+    margin-top:10px;
     
 }
 
@@ -35,16 +39,14 @@ body {
 
 header h1 {
     font-size: 30px;
-    font-weight: 600;
-    background-image: linear-gradient(to right, #150839 45%, #e95d74);
+    font-weight: 600;    
     font-family:'Times New Roman', Times, serif;
-    color: lightcyan;
-    margin: 0 auto;
-    margin-bottom:40px;
+    color: lightcyan;     
+    margin-bottom:20px;
     position: relative;
     padding: 60px 60px;
     border-radius: 13px 13px 13px 13px;
-    box-shadow: 1px 1px 1px black;    
+      
 }
 
 h5 {
@@ -96,7 +98,7 @@ h5 {
     width:100%;
     grid-template-rows: 500px 500px;
     grid-template-columns: 60% 40%; /* Consider using percentage-based columns */
-    grid-gap:10px;
+    
 
     
     
@@ -155,7 +157,6 @@ h5 {
 
 .subject-title {
     background-image:linear-gradient(to right, #150839 45%, #e95d74);
-    /*background-color:Plum; /* Light background color for titles */
     padding: 5px; /* Padding for spacing */
     border-radius: 13px; /* Rounded corners for a modern look */
     box-shadow: 0 2px 4px rgba(237, 233, 233, 0.1); /* Subtle box shadow for depth */
@@ -167,7 +168,7 @@ h5 {
     font-size: 25px;
     color:lightcyan; /* Title text color */
     letter-spacing: 1px; /* Adjust letter spacing for style */
-    margin-bottom: 20px; /* Bottom margin for spacing */
+    margin-bottom: 10px; /* Bottom margin for spacing */
     margin-left: 20px;
 }
 
@@ -185,9 +186,7 @@ h5 {
     letter-spacing: 1px; /* Adjust letter spacing for style */
     margin-bottom: 10px; /* Bottom margin for spacing */
     margin-left: 20px;
-    strong {
-      color:indigo ;/* your desired color */
-  }
+    
 }  
 
 .topics::before {
