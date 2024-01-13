@@ -1,0 +1,393 @@
+/*New website*/
+
+html { background-color:slategray;}
+
+body {
+    min-height: 100vh;
+    max-width: 1000px;
+    background-color:rgb(228, 226, 236);
+    border-radius: 13px 13px 0 0;    
+    margin: auto;
+    margin-bottom: 60px;
+    font-size: calc(15px + 0.390625vw);
+}
+
+
+
+.header {
+    grid-area:header;
+    background-color: slategray;
+    
+}
+
+
+/* Footer */
+.footer {
+    grid-area: footer;
+    height: 100px;
+    font-family:'Times New Roman', Times, serif;
+    font-size:large;
+    /*border-radius: 13px 13px 13px 13px;
+    box-shadow: 1px 1px 1px black;*/   
+    
+}
+
+
+header h1 {
+    font-size: 30px;
+    font-weight: 600;
+    background-image: linear-gradient(to right, #150839 45%, #e95d74);
+    font-family:'Times New Roman', Times, serif;
+    color: lightcyan;
+    margin: 0 auto;
+    margin-bottom:40px;
+    position: relative;
+    padding: 60px 60px;
+    border-radius: 13px 13px 13px 13px;
+    box-shadow: 1px 1px 1px black;    
+}
+
+h5 {
+  font-size:20px;
+  font-family:'Times New Roman', Times, serif;
+
+}
+
+.box {
+    width: 100%; /* Consider using percentage-based width */
+    max-width: 1000px;
+    height: 190px;
+    border-radius: 13px;
+}
+    
+    
+
+/*images */
+
+.logo img{
+   position:absolute;
+   margin-left:830px;
+   margin-top: 70px;
+   width:100px;
+   height:42px;
+   z-index: 1; /*bring the image to front*/ 
+}
+
+#fig_pos{
+    
+    width: 100%;
+    height: auto;
+    display: inline-block;
+    
+}
+
+
+#fig-term {
+  font-size: 11px;
+  text-align: center;
+  width: 50%;
+  margin-bottom: 10px;
+}
+
+/* Grid Container */
+.grid-container {
+    background-color: slategray;
+    display: table;
+    width:100%;
+    grid-template-rows: 500px 500px;
+    grid-template-columns: 60% 40%; /* Consider using percentage-based columns */
+    grid-gap:10px;
+
+    
+    
+}
+
+
+
+/* Columns */
+.column1,
+.column2 {
+    border-radius: 13px;
+    box-shadow: 1px 1px 1px black;
+    margin-top: 10px;
+}
+
+
+.column1 {
+    background-color:whitesmoke;/* Set the background color for the first column */
+    height:max-content;
+    
+    
+}
+
+.column2 {
+    background-color:whitesmoke;/*background-color: peachpuff; /* Set the background color for the second column */
+    height:max-content;
+
+    
+   
+}
+
+.grid-item {
+    display:table-cell;
+    text-align:left;
+    line-height: 1.5; /* Adjust as needed for better spacing */
+}
+
+.grid-item {
+    padding: 20px; /* Adjust as needed for spacing around the text */
+    margin-bottom: 20px; /* Adjust as needed for spacing between grid-items */
+}
+
+.grid-item p {
+    font-family:'Times New Roman', Times, serif; /* Choose a suitable font family */
+    font-size: 19px; /* Adjust as needed for text size */
+    color: #333; /* Choose a suitable text color */
+    strong {
+        color:indigo ;/* your desired color */
+    }
+    
+}
+
+.grid-block{
+    padding: 2px;
+}
+
+.subject-title {
+    background-image:linear-gradient(to right, #150839 45%, #e95d74);
+    /*background-color:Plum; /* Light background color for titles */
+    padding: 5px; /* Padding for spacing */
+    border-radius: 13px; /* Rounded corners for a modern look */
+    box-shadow: 0 2px 4px rgba(237, 233, 233, 0.1); /* Subtle box shadow for depth */
+    
+}
+
+.subject-title h4 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 25px;
+    color:lightcyan; /* Title text color */
+    letter-spacing: 1px; /* Adjust letter spacing for style */
+    margin-bottom: 20px; /* Bottom margin for spacing */
+    margin-left: 20px;
+}
+
+.curse-title {
+    background-image:linear-gradient(to right, #150839 45%, #e95d74);
+    padding: 5px; /* Padding for spacing */
+    border-radius: 13px; /* Rounded corners for a modern look */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle box shadow for depth */
+}
+
+.curse-title h4 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size:25px;
+    color:lightcyan;
+    letter-spacing: 1px; /* Adjust letter spacing for style */
+    margin-bottom: 10px; /* Bottom margin for spacing */
+    margin-left: 20px;
+    strong {
+      color:indigo ;/* your desired color */
+  }
+}  
+
+.topics::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius:0%;
+    left: -10px;
+    top: 50%; /* Adjust this value for vertical alignment */
+    transform: translateY(-50%); /* Adjust this value for vertical alignment */
+    background:#b393d3;
+    border: 2px solid #ea0e0e;
+}
+
+.topics {
+    position: relative;
+    padding-left: 20px; /* Adjust the padding to make space for the ::before circle */
+    /*font-weight: bold; /* Example: Make the text bold */
+    line-height: 1.2; /* Adjust this value for better vertical alignment */
+    display: inline-block; /* Make the element inline-block to align with the pseudo-element */
+}
+
+/* Main topics in Column 2 */
+.column2 .main-topic {
+    font-family:'Times New Roman', Times, serif;
+    font-size: 19px; /* Adjust the font size for main topics */
+}
+
+/* Items in Column 2 */
+.column2 .item {
+    font-size: 16px; /* Adjust the font size for items */
+        
+}
+
+/* Items in clumn 1 */
+
+.cltwo {
+    font-family:'Times New Roman', Times, serif;
+    font-size:18px;
+    strong {
+      color:indigo ;/* your desired color */
+  }    
+
+}
+
+.clthree {
+    font-family:'Times New Roman', Times, serif;
+    font-size:18px;
+    strong {
+      color:indigo ;/* your desired color */
+  }    
+
+}
+
+.code-style {
+    font-size: 18px;
+    line-height: 28px;
+    background-color:peachpuff;
+    color: #180202;
+  }
+
+
+/* Navigation on column1 */
+  
+nav {
+    width: 500px;
+    display: inline-block;
+    
+    }
+
+
+nav ul {
+    list-style-type:square;
+    margin: 1;
+    padding: 1;
+    overflow: hidden;
+    background-color:lavender;
+    }
+
+nav li {
+    display: block
+    }
+
+
+nav li a {
+    display: block;
+    color:indigo;
+    text-align: left;
+    padding: 10px 10px;
+    text-decoration: none;
+    font-family:'Times New Roman', Times, serif;
+    font-size:18px;
+    }
+
+
+nav li a:hover,
+nav li a.active{
+    background-color: plum;
+    }
+    
+/* Special paragraph for column2*/
+
+.paragraph {background:lavender; padding:15px; width:300px;}
+
+
+/* Navigation column2 */
+
+.myNav {
+    width: 320px;
+    display: inline-block;
+}
+
+/* Remove bullets, margin and padding */
+.myNav ul {
+    list-style:circle;
+    padding: 5;
+    margin: 5;
+}
+  
+.myNav li {
+    float:left; /* Or you can use display: inline; */
+}
+  
+  /* Define the block styling for the links */
+.myNav li a {
+    display:grid;
+    text-align: center;
+    padding: 10px 10px;
+}
+  
+  /* This is optional, however if you want to display the 
+  active link differently apply a background to it */
+.myNav li a.active {
+    background-color: #3786e1;
+}
+
+
+/* NEEDED STYLES */
+label {
+    display: block;    
+	padding: 8px 22px;
+    margin: 0 0 1px 0;
+	cursor: pointer;
+	background-image:linear-gradient(to right, #150839 45%, #e95d74);
+	border-radius: 13px;
+	color:lightcyan;
+    transition: ease .5s;
+	position: relative;
+}
+
+
+label:hover {
+	background:rgb(23, 23, 62);
+}
+
+label::after {
+    content: '+';
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute;
+    right: 10px;
+    top: 2px;
+}
+
+
+ul {
+    /*list-style-type:decimal-leading-zero; /* Remove bullets */
+    padding: 10; /* Remove padding */
+    margin: 0; /* Remove margins */
+    font-family:'Times New Roman', Times, serif;
+    font-size: 16px;
+    strong {
+      color:indigo ;/* your desired color */
+  }
+    
+  }
+
+input:checked + label::after {
+    content: '-';
+    right: 14px;
+    top: 3px;
+}
+
+.content {
+    background:lightcyan;
+    padding: 10px 25px;
+    border: 1px solid #A7A7A7;
+	margin: 0 0 1px 0;
+	border-radius: 13px;
+}
+
+input + label + .content {
+	display: none;
+}
+
+input:checked + label + .content {
+	display: block;
+}
+
+input {
+	display: none;
+}
