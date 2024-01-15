@@ -249,41 +249,41 @@ h5 {
   }
 
 
-/* Navigation on column1 */
+/* Navigation on column1*/ 
   
-nav {
+.nav {
     width: 500px;
     display: inline-block;
     
     }
 
 
-nav ul {
-    list-style-type:square;
+.nav ul {
+    list-style-type:none;
     margin: 1;
     padding: 1;
     overflow: hidden;
     background-color:lavender;
     }
 
-nav li {
-    display: block
+.nav li {
+    display:block;
     }
 
 
-nav li a {
-    display: block;
+.nav li a {
+    display:block;
     color:indigo;
     text-align: left;
     padding: 10px 10px;
     text-decoration: none;
     font-family:'Times New Roman', Times, serif;
-    font-size:18px;
+    font-size:16px;
     }
 
 
-nav li a:hover,
-nav li a.active{
+.nav li a:hover,
+.nav li a.active{
     background-color: plum;
     }
     
@@ -294,33 +294,39 @@ nav li a.active{
 
 /* Navigation column2 */
 
-.myNav {
-    width: 320px;
+.mynav {
+    width: 300px;
     display: inline-block;
 }
 
 /* Remove bullets, margin and padding */
-.myNav ul {
-    list-style:circle;
-    padding: 5;
-    margin: 5;
+.mynav ul {
+    list-style-type:none;
+    margin: 1;
+    padding: 1;
+    overflow: hidden;
+    background-color:lavender;
 }
   
-.myNav li {
-    float:left; /* Or you can use display: inline; */
+.mynav li {
+    display:block; /* Or you can use display: inline; */
 }
   
   /* Define the block styling for the links */
-.myNav li a {
-    display:grid;
-    text-align: center;
+.mynav li a {
+    display:block;
+    text-align:left;
     padding: 10px 10px;
+    text-decoration: none;
+    font-family:'Times New Roman', Times, serif;
+    font-size:16px;
 }
   
   /* This is optional, however if you want to display the 
   active link differently apply a background to it */
-.myNav li a.active {
-    background-color: #3786e1;
+.mynav li a:hover, 
+       li a.active {
+    background-color: plum;
 }
 
 
