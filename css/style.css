@@ -14,15 +14,7 @@ body {
 
 
 
-.header {
-    grid-area:header;
-    background-image: linear-gradient(to right, #150839 45%, #e95d74);
-    border-radius: 13px 13px 13px 13px;
-    box-shadow: 1px 1px 1px black;  
-    background-color: slategray;
-    margin-top:10px;
-    
-}
+
 
 
 /* Footer */
@@ -37,17 +29,7 @@ body {
 }
 
 
-header h1 {
-    font-size: 20px;
-    font-weight: 600;    
-    font-family:'Times New Roman', Times, serif;
-    color: lightcyan;     
-    margin-bottom:20px;
-    position: absolute;
-    padding: 60px 60px;
-    border-radius: 13px 13px 13px 13px;
-      
-}
+
 
 h5 {
   font-size:20px;
@@ -67,7 +49,7 @@ h5 {
 
 .logo img{
    position:absolute;
-   margin-left:830px;
+   margin-left:100px;
    margin-top: 70px;
    width:100px;
    height:42px;
@@ -338,7 +320,7 @@ label {
 	cursor: pointer;
 	background-image:linear-gradient(to right, #150839 45%, #e95d74);
 	border-radius: 13px;
-	color:lightcyan;
+	color:lavender;
     transition: ease .5s;
 	position: relative;
 }
@@ -377,7 +359,7 @@ input:checked + label::after {
 }
 
 .content {
-    background:lightcyan;
+    background:lavender;
     padding: 10px 25px;
     border: 1px solid #A7A7A7;
 	margin: 0 0 1px 0;
@@ -395,3 +377,64 @@ input:checked + label + .content {
 input {
 	display: none;
 }
+
+/*Responsive header */
+
+.header {
+    overflow:hidden;
+    background-image: linear-gradient(to left, #150839 45%, #e95d74);
+    border-radius: 13px 13px 13px 13px;
+    padding:25px 10px;
+    margin-top:30px ;
+    
+}
+
+/* Style the header links */
+.header a {
+    float: left;
+    color: black;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 25px;
+    border-radius: 4px;
+  }
+
+/* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
+.header a.logo {
+    font-size: 30px;
+    font-weight: bold;
+  }
+  
+/* Change the background color on mouse-over */
+.header a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  /* Style the active/current link*/
+  .header a.active {
+    background-color: lightcoral;
+    color: white;
+  }
+  
+  /* Float the link section to the right */
+  .header-right {
+    float: right;
+  }
+
+
+ 
+  
+  /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
+  @media screen and (max-width: 500px) {
+    .header a {
+      float: none;
+      display: block;
+      text-align: left;
+    }
+    .header-right {
+      float: none;
+    }
+  }  
