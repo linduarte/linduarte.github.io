@@ -49,10 +49,10 @@ h5 {
 
 .logo img{
    position:absolute;
-   margin-left:100px;
-   margin-top: 70px;
-   width:100px;
-   height:42px;
+   margin-left:700px;
+   margin-top:0px;
+   width:150px;
+   height:63px;
    z-index: 1; /*bring the image to front*/ 
 }
 
@@ -111,6 +111,22 @@ h5 {
    
 }
 
+ /* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+    .grid-container {
+        display: block;
+    }
+
+    .column1,
+    .column2 {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+
+
+
 .grid-item {
     display:table-cell;
     text-align:left;
@@ -126,9 +142,7 @@ h5 {
     font-family:'Times New Roman', Times, serif; /* Choose a suitable font family */
     font-size: 19px; /* Adjust as needed for text size */
     color: #333; /* Choose a suitable text color */
-    strong {
-        color:indigo ;/* your desired color */
-    }
+    
     
 }
 
@@ -208,18 +222,14 @@ h5 {
 .cltwo {
     font-family:'Times New Roman', Times, serif;
     font-size:18px;
-    strong {
-      color:indigo ;/* your desired color */
-  }    
+        
 
 }
 
 .clthree {
     font-family:'Times New Roman', Times, serif;
     font-size:18px;
-    strong {
-      color:indigo ;/* your desired color */
-  }    
+       
 
 }
 
@@ -242,8 +252,8 @@ h5 {
 
 .nav ul {
     list-style-type:none;
-    margin: 1;
-    padding: 1;
+    margin: 1px;
+    padding: 1px;
     overflow: hidden;
     background-color:lavender;
     }
@@ -284,8 +294,8 @@ h5 {
 /* Remove bullets, margin and padding */
 .mynav ul {
     list-style-type:none;
-    margin: 1;
-    padding: 1;
+    margin: 1px;
+    padding: 1px;
     overflow: hidden;
     background-color:lavender;
 }
@@ -342,13 +352,11 @@ label::after {
 
 ul {
     /*list-style-type:decimal-leading-zero; /* Remove bullets */
-    padding: 10; /* Remove padding */
-    margin: 0; /* Remove margins */
+    padding: 10px; /* Remove padding */
+    margin: 0px; /* Remove margins */
     font-family:'Times New Roman', Times, serif;
     font-size: 16px;
-    strong {
-      color:indigo ;/* your desired color */
-  }
+    
     
   }
 
@@ -382,7 +390,7 @@ input {
 
 .header {
     overflow:hidden;
-    background-image: linear-gradient(to left, #150839 45%, #e95d74);
+    background-image: linear-gradient(to right, #150839 45%, #e95d74);
     border-radius: 13px 13px 13px 13px;
     padding:25px 10px;
     margin-top:30px ;
@@ -425,16 +433,31 @@ input {
   }
 
 
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+    .header {
+        padding: 15px 10px; /* Adjust padding for smaller screens */
+    }
+
+    .header a {
+        float: none;
+        display: block;
+        text-align: left;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px; /* Adjust padding for better spacing */
+    }
+
+    .header-right {
+        float: none;
+        text-align: left;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px; /* Adjust padding for better spacing */
+    }
+}
+
+
  
   
-  /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
-  @media screen and (max-width: 500px) {
-    .header a {
-      float: none;
-      display: block;
-      text-align: left;
-    }
-    .header-right {
-      float: none;
-    }
-  }  
+

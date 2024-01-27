@@ -2,34 +2,41 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Novo site</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/common-styles.css"> <!-- Link to the common styles -->
 </head>
 <body>
-    <header class="header">
-        <img src="images/Git-Logo_1.png" alt="Simbolo do Git">
-        <a href="default" class="logo">Aprenda</a>
-        <div class="header-right">
-            <a class="active" href="Curso">Curso</a>
-            <a href="Definição">Definição</a>
-            <a href="about">About</a>
+    <header class="header logo">
+        <img alt="Git Logo"
+        width="150px" height="63px"        
+        src="images/GitLogo_sp.png"
+        srcset = "images/GitLogo_sp-2x.png 2x, images/GitLogo_sp-3x.png 3x"> 
+          
+        <div class="navbar">
+            <a href="#" class="logo">Aprenda</a>
+            <div class="navbar-right">
+                <a href="Curso">Curso</a>
+                <a href="Definição">Definição</a>
+                <a href="about">About</a>
+            </div>
+               
         </div>
     </header>
     <div class="grid-container">
         <div class="column1 grid-item">
             <div class="column1 grid-item subject-title">
-               <strong><h4>O que é <em>'Git'</em>? E porque ele é importante!</h4></strong>
+               <h4><strong>O que é <em>'Git'</em>? E porque ele é importante!</strong></h4>
             </div>
-            <section>
+            <div>
                 <p><strong><em>É um sistema de controle de versão distribuída</em></strong> permitindo que vários desenvolvedores possam colaborar em um projeto de maneira simultanea.<br>
                 O <strong>Git</strong> acompanha as alterações que ocorrem nos códigos fonte, permite o versionamento, e facilita a colaboração entre os membros de um grupo.<br>
                 O <strong>Git</strong> se tornou importante porque é muito 'robusto', flexível e eficiente no controle das alterações de versão no ambiente colaborativo de desenvolvimento.<br>
                 Sua ampla adoção, poderosas funcionalidades e suporte ao mais diversos fluxos de trabalho fazem dele uma ferramenta essencial nas práticas de desenvolvimento.<br>
                 Trabalhando em pequenos projetos ou em aplicações de larga escala em ambientes corporativos o <strong>Git</strong> com suas várias funcionalidades contribue para as atividades de desenvolvimento de software. 
                 </p>
-            </section>
+            </div>
             
             <section >
 
@@ -61,9 +68,9 @@
              <h5 id="base2">Conceitos chave:'Repositories','Commits' e 'Branches'</h5>
              
              <ul class="cltwo">
-                <li><strong>'Repositories'</strong>: Os repositórios <strong>Git</strong> são recipientes de projetos, armazenamento de arquivos e sua revisão hitórica</li><br>
+                <li><strong>'Repositories'</strong>: Os repositórios <strong>Git</strong> são recipientes de projetos, armazenamento de arquivos e sua revisão hitórica</li>
 
-                <li><strong>'Commits'</strong>: Cada 'commit' representa um 'instantâneo'em um determinado tempo permitindo aos usuários voltar atras em estatus anteriores</li><br>
+                <li><strong>'Commits'</strong>: Cada 'commit' representa um 'instantâneo'em um determinado tempo permitindo aos usuários voltar atras em estatus anteriores</li>
 
                 <li><strong>'Branches'</strong>: Eles permitem desenvolvimentos paralelos de tal sorte que os desenvolvedores possam trabalhar em diferentes características ou até mesmo corrigir falhas no software (bugs) independentemente.</li>
 
@@ -73,10 +80,10 @@
             <h5 id="base3"><strong>Git</strong> workflow (fluxo de trabalho)</h5>
    
             <ul class="clthree">
-                <li>Inicializando um repositório: <code class="code-style">git init</code></li><br>
-                <li>Adicionando arquivos na área de 'staging': <code class="code-style">git add</code></li><br>
-                <li>Realizando um 'commit': <code class="code-style">git commit -m "Commit message"</code></li><br>
-                <li>Verificando o estatus: <code class="code-style">git status</code></li><br>
+                <li>Inicializando um repositório: <code class="code-style">git init</code></li>
+                <li>Adicionando arquivos na área de 'staging': <code class="code-style">git add</code></li>
+                <li>Realizando um 'commit': <code class="code-style">git commit -m "Commit message"</code></li>
+                <li>Verificando o estatus: <code class="code-style">git status</code></li>
                 <li>Vendo o histórico dos commits: <code class="code-style">git log</code></li>
    
             </ul>
@@ -91,9 +98,18 @@
             Esta transparência é de todo crucial para o entendimento das complexidades do controle de versão permitindo atuações de maneira imediata.<br>
             Deve-se salientar ainda que o terminal permite criar 'scripts' que auxiliam os desenvolvedores a automatizar tarefas repetitivas ou customizar
             fluxos de trabalho específicos de seus projetos.<br>
-
-            <img src="images/cl_sample.jpg" alt="Tela de terminal Git" title="Terminal Git" id="fig_pos">
-            <figcaption id="fig-term">Terminal Git</figcaption>
+            <div>    
+            <picture>
+                <img src="images/cl_new-tr.png"
+                  srcset="images/cl_new-tr-100.png?width=100 100w, images/cl_new-tr-200.png?width=200 200w, images/cl_new-tr-400.png?width=400 400w, images/cl_new-tr-800.png?width=800 800w"
+                  sizes="(max-width: 800px) 100vw, 50vw"
+                  style="width: 100%; aspect-ratio: 2.0522388059701493"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Terminal Git bash"/>
+            </picture>
+            </div>  
+            
             
 
 
@@ -112,102 +128,107 @@
                 
             </section>
             <footer class="footer">
-                Hosted on GitHub Pages  
+                Hosted on GitHub Pages 
+                <p>
+                    <a href="http://jigsaw.w3.org/css-validator/check/referer">
+                        <img style="border:0;width:88px;height:31px" src="http://jigsaw.w3.org/css-validator/images/vcss" alt="CSS válido!">
+                    </a>
+                </p> 
             </footer>
 
             </div>
         <div class="column2 grid-item">
             <div class="column2 grid-item curse-title ">
-                <strong><h4>Programa do Curso</h4></strong></div>                
+                <h4><strong>Programa do Curso</strong></h4></div>                
 
-            <input type="checkbox" id="topic1"/>
+            <input type="checkbox" id="topic1">
             <label for="topic1" class="main-topic">Instalação e Customização</label>
             
             
             <div class="content">
-                <ul><strong>
-                    <li>Instalação do terminal do Windows Powershell</li><br>
-                    <li>Instalação do 'Git' para Windows</li><br>
-                    <li>Linha de comando (git bash)</li><br>
-                    <li>Configuração do Git</li><br>
+                <ul>
+                    <li>Instalação do terminal do Windows Powershell</li>
+                    <li>Instalação do 'Git' para Windows</li>
+                    <li>Linha de comando (git bash)</li>
+                    <li>Configuração do Git</li>
                     <li>Criando conta e conectando ao GitHub</li>
-                 </ul></strong>           
+                 </ul>           
             </div>
 
-            <input type="checkbox" id="topic2"/>
+            <input type="checkbox" id="topic2">
             <label for="topic2" class="main-topic">Hospedando seu projeto no GitHub</label>
 
             <div class="content">
-                <ul><strong>
-                    <li>Projeto de website fonético</li><br>
-                    <li>Hospedando seu projeto</li><br>
-                    <li>Clonando o repositório</li><br>
-                    <li>Adicionando arquivos ao projeto</li><br>
-                    <li>Adicionando arquivos ao 'index' (staging area)</li><br>
-                    <li>Comitando as alterações no repositório</li><br>
+                <ul>
+                    <li>Projeto de website fonético</li>
+                    <li>Hospedando seu projeto</li>
+                    <li>Clonando o repositório</li>
+                    <li>Adicionando arquivos ao projeto</li>
+                    <li>Adicionando arquivos ao 'index' (staging area)</li>
+                    <li>Comitando as alterações no repositório</li>
                     <li>'Pushing' da nova versão para o GitHub</li>
-                 </ul></strong>  
+                 </ul>  
             </div>
 
-            <input type="checkbox" id="topic3"/>
+            <input type="checkbox" id="topic3">
             <label for="topic3" class="main-topic">Trabalhando com 'branches'</label>
 
             <div class="content">
-                <ul><strong>
-                    <li>Movendo, deletando e renomeando arquivos</li><br>
-                    <li>Chaveando 'branches' sem 'merging'</li><br>
-                    <li>'Merging'</li><br>
-                    <li>Resolvendo conflitos</li><br>
-                </ul></strong>
+                <ul>
+                    <li>Movendo, deletando e renomeando arquivos</li>
+                    <li>Chaveando 'branches' sem 'merging'</li>
+                    <li>'Merging'</li>
+                    <li>Resolvendo conflitos</li>
+                </ul>
             </div>
 
-            <input type="checkbox" id="topic4"/>
+            <input type="checkbox" id="topic4">
             <label for="topic4" class="main-topic">Repositório local</label>
     
             <div class="content">
-                <ul><strong>
-                    <li>Inicializando um repositório local</li><br>
-                    <li>Voltando atras na história</li><br>
-                    <li>Alterando a história</li><br>
-                    <li>Salvando as alterações</li><br>
-                </ul></strong>
+                <ul>
+                    <li>Inicializando um repositório local</li>
+                    <li>Voltando atras na história</li>
+                    <li>Alterando a história</li>
+                    <li>Salvando as alterações</li>
+                </ul>
 
             </div>
            
-            <input type="checkbox" id="topic5"/>
+            <input type="checkbox" id="topic5">
             <label for="topic5" class="main-topic">Banco de dados do repositório</label>
 
             <div class="content">
-            <ul><strong>
-                <li>Uma visão histórica sofisticada</li><br>
-                <li>Ignorando arquivos</li><br>
-            </ul></strong>   
+            <ul>
+                <li>Uma visão histórica sofisticada</li>
+                <li>Ignorando arquivos</li>
+            </ul>   
             </div>
 
-            <input type="checkbox" id="topic6"/>
+            <input type="checkbox" id="topic6">
             <label for="topic6" class="main-topic">Requisitos</label>
 
 
             <div class="content">
-                <ul><strong>
+                <ul>
                     <li>Não há necessidade de conhecimento prévio do Git, GitHub ou desenvolvimento web.</li>
                     <li>Um endereço de e-mail é necessario para criação de conta gratuita no GitHub.</li>
                     <li>O curso será ministrado em ambiente Windows.</li>
-                </ul></strong>
+                </ul>
             </div>
 
 
-            <input type="checkbox" id="topic7"/>
+            <input type="checkbox" id="topic7">
             <label for="topic7" class="main-topic">Condições comerciais</label>
 
             <div class="content">
-                <ul><strong>
+                <ul>
                     <li>São 5 módulos com as seguintes distribuições de cargas horárias:</li>
                     <li>Módulos 1 - 2h / Módulo 2 e 3 - 2 1/2h / Módulo 4 - 2h / Módulo 5 - 1 1/2h</li>
                     <li>Custo total   -  R$ 400,00  - Número máximo de 4 alunos/grupo.</li>
                     <li>Grupos maiores de 4 alunos a negociar.</li>
                     <li>Os custos de deslocamento terão como base R$ 5,00/km.</li>
-                </ul></strong>
+                </ul>
             </div>
 
             
@@ -216,11 +237,11 @@
             <h5>Navegação</h5>    
             <nav class="mynav">
                 <ul>
-                  <li class="active hover"><a href="#about1">Sobre o Git</a></li><br>
-                  <li class="active hover"><a href="#about2">Por que se chama Git?</a></li><br>
-                  <li class="active hover"><a href="#about3">Por que Linus Torvalds criou o Git?</a></li><br>
-                  <li class="active hover"><a href="#about4">Um pouco mais sobre Git</a></li><br>
-                  <li class="active hover"><a href="#about5">Uma vantagem do Git</a></li><br>
+                  <li class="active hover"><a href="#about1">Sobre o Git</a></li>
+                  <li class="active hover"><a href="#about2">Por que se chama Git?</a></li>
+                  <li class="active hover"><a href="#about3">Por que Linus Torvalds criou o Git?</a></li>
+                  <li class="active hover"><a href="#about4">Um pouco mais sobre Git</a></li>
+                  <li class="active hover"><a href="#about5">Uma vantagem do Git</a></li>
                   <li class="active hover"><a href="#about6">Alternativas ao Git</a></li>
                 </ul>
               </nav>
@@ -263,7 +284,7 @@
         </div>
         
         
-    </div>
+    
 
     
     
