@@ -56,21 +56,16 @@ h5 {
    z-index: 1; /*bring the image to front*/ 
 }
 
-#fig_pos{
-    
-    width: 100%;
-    height: auto;
-    display: inline-block;
-    
+.call h4{
+    font-family: 'Times New Roman', Times, serif;
+    font-size:26px;
+    color:lightcyan;
+    letter-spacing: 1px; /* Adjust letter spacing for style */
+    margin-bottom: 10px; /* Bottom margin for spacing */
+    margin-left: 40px;
+
 }
 
-
-#fig-term {
-  font-size: 11px;
-  text-align: center;
-  width: 50%;
-  margin-bottom: 10px;
-}
 
 /* Grid Container */
 .grid-container {
@@ -80,8 +75,7 @@ h5 {
     grid-template-rows: 500px 500px;
     grid-template-columns: 60% 40%; /* Consider using percentage-based columns */
     
-
-    
+  
     
 }
 
@@ -242,6 +236,35 @@ h5 {
 
 
 /* Navigation on column1*/ 
+
+.header {
+    background-color: #be1414;
+    padding: 15px;
+}
+
+.navbar {
+    display: flex;
+    /*justify-content: right;*/
+    align-items: left;
+}
+
+.logo_a {
+    color:plum;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/*.navbar-right a {
+    color: plum;
+    text-decoration: none;
+    margin-right: 190px;
+}
+
+.navbar-right a:hover {
+    border-bottom: 2px solid plum;
+}*/
+
   
 .nav {
     width: 500px;
