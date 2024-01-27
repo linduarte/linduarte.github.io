@@ -1,6 +1,7 @@
-/*New website*/
 
-html { background-color:slategray;}
+html { background-color:slategray;
+
+}
 
 body {
     min-height: 100vh;
@@ -58,10 +59,10 @@ h5 {
 
 .call h4{
     font-family: 'Times New Roman', Times, serif;
-    font-size:26px;
+    font-size:32px;
     color:lightcyan;
     letter-spacing: 1px; /* Adjust letter spacing for style */
-    margin-bottom: 10px; /* Bottom margin for spacing */
+    margin-bottom: 5px; /* Bottom margin for spacing */
     margin-left: 40px;
 
 }
@@ -199,6 +200,12 @@ h5 {
     display: inline-block; /* Make the element inline-block to align with the pseudo-element */
 }
 
+.cl{
+    aspect-ratio: 2.0522388059701493"
+    style="width: 100%"; 
+    
+}
+
 /* Main topics in Column 2 */
 .column2 .main-topic {
     font-family:'Times New Roman', Times, serif;
@@ -237,33 +244,7 @@ h5 {
 
 /* Navigation on column1*/ 
 
-.header {
-    background-color: #be1414;
-    padding: 15px;
-}
 
-.navbar {
-    display: flex;
-    /*justify-content: right;*/
-    align-items: left;
-}
-
-.logo_a {
-    color:plum;
-    text-decoration: none;
-    font-size: 22px;
-    font-weight: bold;
-}
-
-/*.navbar-right a {
-    color: plum;
-    text-decoration: none;
-    margin-right: 190px;
-}
-
-.navbar-right a:hover {
-    border-bottom: 2px solid plum;
-}*/
 
   
 .nav {
@@ -278,7 +259,7 @@ h5 {
     margin: 1px;
     padding: 1px;
     overflow: hidden;
-    background-color:lavender;
+    background-image:linear-gradient(to right, #150839 45%, #e95d74);
     }
 
 .nav li {
@@ -288,10 +269,10 @@ h5 {
 
 .nav li a {
     display:block;
-    color:indigo;
+    color:lavender;
     text-align: left;
     padding: 10px 10px;
-    text-decoration: none;
+    text-decoration:solid;
     font-family:'Times New Roman', Times, serif;
     font-size:16px;
     }
@@ -299,7 +280,7 @@ h5 {
 
 .nav li a:hover,
 .nav li a.active{
-    background-color: plum;
+    background-color: indigo;
     }
     
 /* Special paragraph for column2*/
@@ -320,7 +301,7 @@ h5 {
     margin: 1px;
     padding: 1px;
     overflow: hidden;
-    background-color:lavender;
+    background-image:linear-gradient(to right, #150839 45%, #e95d74);
 }
   
 .mynav li {
@@ -330,6 +311,7 @@ h5 {
   /* Define the block styling for the links */
 .mynav li a {
     display:block;
+    color:lavender;
     text-align:left;
     padding: 10px 10px;
     text-decoration: none;
@@ -341,7 +323,7 @@ h5 {
   active link differently apply a background to it */
 .mynav li a:hover, 
        li a.active {
-    background-color: plum;
+    background-color: indigo;
 }
 
 
