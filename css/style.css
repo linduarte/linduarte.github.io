@@ -59,7 +59,7 @@ h5 {
 
 .call h4{
     font-family: 'Times New Roman', Times, serif;
-    font-size:32px;
+    font-size:30px;
     color:lightcyan;
     letter-spacing: 1px; /* Adjust letter spacing for style */
     margin-bottom: 5px; /* Bottom margin for spacing */
@@ -256,6 +256,7 @@ h5 {
 
 .nav ul {
     list-style-type:none;
+    border-radius: 13px 13px 13px 13px;
     margin: 1px;
     padding: 1px;
     overflow: hidden;
@@ -298,6 +299,7 @@ h5 {
 /* Remove bullets, margin and padding */
 .mynav ul {
     list-style-type:none;
+    border-radius: 13px 13px 13px 13px;
     margin: 1px;
     padding: 1px;
     overflow: hidden;
