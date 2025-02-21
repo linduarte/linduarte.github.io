@@ -1,4 +1,6 @@
 # created by virtualenv automatically
-.vscode/
-.vscode/settings.json
-
+.venv/
+.python-version
+app/__pycache__/
+app/__init__.py
+uv.lock
