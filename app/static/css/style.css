@@ -6,7 +6,7 @@ body {
     min-height: 100vh;
     max-width: 1000px;
     background-color:rgb(228, 226, 236);
-    border-radius: 13px 13px 0 0;    
+    border-radius: 13px 13px 0 0;
     margin: auto;
     margin-bottom: 60px;
     font-size: calc(15px + 0.390625vw);
@@ -51,8 +51,8 @@ body {
     font-family:'Times New Roman', Times, serif;
     font-size:large;
     /*border-radius: 13px 13px 13px 13px;
-    box-shadow: 1px 1px 1px black;*/   
-    
+    box-shadow: 1px 1px 1px black;*/
+
 }
 
 
@@ -69,8 +69,8 @@ h5 {
     height: 190px;
     border-radius: 13px;
 }
-    
-    
+
+
 
 /*images */
 
@@ -80,7 +80,7 @@ h5 {
    margin-top:0px;
    width:150px;
    height:63px;
-   z-index: 1; /*bring the image to front*/ 
+   z-index: 1; /*bring the image to front*/
 }
 
 .call h4{
@@ -101,9 +101,9 @@ h5 {
     width:100%;
     grid-template-rows: 500px 500px;
     grid-template-columns: 60% 40%; /* Consider using percentage-based columns */
-    
-  
-    
+
+
+
 }
 
 
@@ -120,16 +120,16 @@ h5 {
 .column1 {
     background-color:whitesmoke;/* Set the background color for the first column */
     height:max-content;
-    
-    
+
+
 }
 
 .column2 {
     background-color:whitesmoke;/*background-color: peachpuff; /* Set the background color for the second column */
     height:max-content;
 
-    
-   
+
+
 }
 
  /* Responsive styles for smaller screens */
@@ -163,8 +163,8 @@ h5 {
     font-family:'Times New Roman', Times, serif; /* Choose a suitable font family */
     font-size: 19px; /* Adjust as needed for text size */
     color: #333; /* Choose a suitable text color */
-    
-    
+
+
 }
 
 .grid-block{
@@ -176,7 +176,7 @@ h5 {
     padding: 5px; /* Padding for spacing */
     border-radius: 13px; /* Rounded corners for a modern look */
     box-shadow: 0 2px 4px rgba(237, 233, 233, 0.1); /* Subtle box shadow for depth */
-    
+
 }
 
 .subject-title h4 {
@@ -202,8 +202,8 @@ h5 {
     letter-spacing: 1px; /* Adjust letter spacing for style */
     margin-bottom: 10px; /* Bottom margin for spacing */
     margin-left: 20px;
-    
-}  
+
+}
 
 .topics::before {
     content: "";
@@ -228,8 +228,8 @@ h5 {
 
 .cl{
     aspect-ratio: 2.0522388059701493"
-    style="width: 100%"; 
-    
+    style="width: 100%";
+
 }
 
 /* Main topics in Column 2 */
@@ -241,7 +241,7 @@ h5 {
 /* Items in Column 2 */
 .column2 .item {
     font-size: 16px; /* Adjust the font size for items */
-        
+
 }
 
 /* Items in clumn 1 */
@@ -249,14 +249,14 @@ h5 {
 .cltwo {
     font-family:'Times New Roman', Times, serif;
     font-size:18px;
-        
+
 
 }
 
 .clthree {
     font-family:'Times New Roman', Times, serif;
     font-size:18px;
-       
+
 
 }
 
@@ -268,15 +268,15 @@ h5 {
   }
 
 
-/* Navigation on column1*/ 
+/* Navigation on column1*/
 
 
 
-  
+
 .nav {
     width: 500px;
     display: inline-block;
-    
+
     }
 
 
@@ -309,7 +309,7 @@ h5 {
 .nav li a.active{
     background-color: indigo;
     }
-    
+
 /* Special paragraph for column2*/
 
 .paragraph {background:lavender; padding:15px; width:300px;}
@@ -331,11 +331,11 @@ h5 {
     overflow: hidden;
     background-image:linear-gradient(to right, #150839 45%, #e95d74);
 }
-  
+
 .mynav li {
     display:block; /* Or you can use display: inline; */
 }
-  
+
   /* Define the block styling for the links */
 .mynav li a {
     display:block;
@@ -346,10 +346,10 @@ h5 {
     font-family:'Times New Roman', Times, serif;
     font-size:16px;
 }
-  
-  /* This is optional, however if you want to display the 
+
+  /* This is optional, however if you want to display the
   active link differently apply a background to it */
-.mynav li a:hover, 
+.mynav li a:hover,
        li a.active {
     background-color: indigo;
 }
@@ -357,7 +357,7 @@ h5 {
 
 /* NEEDED STYLES */
 label {
-    display: block;    
+    display: block;
 	padding: 8px 22px;
     margin: 0 0 1px 0;
 	cursor: pointer;
@@ -389,8 +389,8 @@ ul {
     margin: 0px; /* Remove margins */
     font-family:'Times New Roman', Times, serif;
     font-size: 16px;
-    
-    
+
+
   }
 
 input:checked + label::after {
@@ -427,7 +427,7 @@ input {
     border-radius: 13px 13px 13px 13px;
     padding:25px 10px;
     margin-top:30px ;
-    
+
 }
 
 /* Style the header links */
@@ -447,19 +447,19 @@ input {
     font-size: 30px;
     font-weight: bold;
   }
-  
+
 /* Change the background color on mouse-over */
 .header a:hover {
     background-color: #ddd;
     color: black;
   }
-  
+
   /* Style the active/current link*/
   .header a.active {
     background-color: lightcoral;
     color: white;
   }
-  
+
   /* Float the link section to the right */
   .header-right {
     float: right;
@@ -491,6 +491,19 @@ input {
 }
 
 
- 
-  
 
+
+
+.terminal-image {
+    max-width: 600px;
+    margin: 20px auto;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.terminal-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
