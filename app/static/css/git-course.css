@@ -1,0 +1,48 @@
+/* Estilos Glassmorphism com tons terrosos */
+body {
+    font-family: 'serif', serif; /* Fonte serif moderna */
+    background-color: #f0e9e0; /* Cor de fundo terrosa clara */
+    color: #5c4033; /* Cor do texto marrom escuro */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+h1, h2, h3 {
+    color: #a0522d; /* Cor do título marrom avermelhado */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+pre {
+    background-color: #f8f4f0; /* Cor de fundo off-white para o código */
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+    }
+}
