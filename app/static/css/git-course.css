@@ -1,12 +1,13 @@
 /* Estilos Glassmorphism com tons terrosos */
 body {
-    font-family: 'serif', serif; /* Fonte serif moderna */
+    font-family: 'Roboto Mono', monospace; /* Fonte nerd moderna */
     background-color: #f0e9e0; /* Cor de fundo terrosa clara */
     color: #5c4033; /* Cor do texto marrom escuro */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
+    font-size: 16px; /* Tamanho da fonte padrão */
 }
 
 .container {
@@ -22,6 +23,7 @@ body {
 
 h1, h2, h3 {
     color: #a0522d; /* Cor do título marrom avermelhado */
+    font-size: 1.5em; /* Tamanho da fonte dos títulos */
 }
 
 img {
@@ -38,6 +40,7 @@ pre {
     padding: 10px;
     border-radius: 5px;
     overflow-x: auto;
+    font-size: 0.9em; /* Tamanho da fonte do código */
 }
 
 /* Responsividade */
