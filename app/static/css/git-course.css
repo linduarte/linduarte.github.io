@@ -1,13 +1,13 @@
 /* Estilos Glassmorphism com tons terrosos */
 body {
-    font-family: 'Roboto Mono', monospace; /* Fonte nerd moderna */
+    font-family: 'Victor Mono', monospace; /* Fonte nerd moderna */
     background-color: #f0e9e0; /* Cor de fundo terrosa clara */
     color: #5c4033; /* Cor do texto marrom escuro */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
-    font-size: 16px; /* Tamanho da fonte padrão */
+    font-size: 14px; /* Tamanho da fonte padrão */
 }
 
 .container {
@@ -26,6 +26,10 @@ h1, h2, h3 {
     font-size: 1.5em; /* Tamanho da fonte dos títulos */
 }
 
+p {
+    font-size: 1em; /* Tamanho da fonte dos parágrafos */
+}
+
 img {
     max-width: 100%;
     height: auto;
@@ -35,13 +39,30 @@ img {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-pre {
-    background-color: #f8f4f0; /* Cor de fundo off-white para o código */
+.image-description {
+    font-size: 0.9em;
+    color: #5c4033;
+    text-align: justify; /* Justify text */
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+p, .image-description {
+    font-size: 1em; /* Ensure consistency */
+}
+
+
+pre[class*="language-"], code[class*="language-"] {
+    background-color: #2d2d2d !important;
+    color: #f8f8f2 !important;
     padding: 10px;
     border-radius: 5px;
     overflow-x: auto;
-    font-size: 0.9em; /* Tamanho da fonte do código */
+    font-size: 0.9em;
 }
+
+
+
 
 /* Responsividade */
 @media (max-width: 768px) {
