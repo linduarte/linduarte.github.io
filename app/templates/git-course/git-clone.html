@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>git clone</title>
+    <link rel="stylesheet" href="/app/static/css/git-course.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>git clone</h1>
+        <pre><code class="language-bash">git clone remote_repository_location path/to/directory</code></pre>
+        <p>Uma das operações fundamentais no Git é o comando git clone. Esse comando é essencial para criar uma cópia local de um repositório remoto,
+            preparando o cenário para trabalho offline, revisões de código e colaboração. Esteja você trabalhando em projetos de código aberto ou repositórios privados,
+            dominar o comando git clone expande sua capacidade de gerenciar e manipular bases de código com eficiência.</p>
+        <img src="/app/static/images/clone_local.png" alt="Screenshot do comando git clone">
+        <p class="image-description">Ao iniciar o trabalho em um projeto, muitas vezes você precisa ter uma cópia local do repositório em sua máquina.
+            Ao clonar um repositório existente, você captura todos os seus arquivos, histórico de commits e ramificações.
+            Esse caso de uso geralmente é a primeira etapa antes de contribuir para uma base de código ou realizar uma revisão de código abrangente.</p>
+        <ul style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px; padding-left: 20px;">
+            <li><strong>'remote_repository_location':</strong> Essa é a URL ou o caminho para o repositório que você deseja clonar. Pode ser um URL HTTP/HTTPS,
+            um URL SSH ou um caminho de arquivo para repositórios locais.</li>
+            <li><strong>'path/to/directory':</strong> Isso especifica onde você deseja que o clone seja armazenado em sua máquina local. Se isso for omitido,
+             o Git usará o nome do repositório como o nome do diretório.</li>
+        </ul>
+        <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">
+            Tanto <strong>git init</strong> quanto <strong>git clone</strong> são comandos essenciais do Git usados para criar repositórios locais, mas diferem em seus propósitos e formas de operação.
+        </p>
+        <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">
+            <strong>Criação de Repositório Local:</strong><br>
+            <strong>git init:</strong> Inicia um novo repositório Git em um diretório existente. Ele cria a estrutura de diretórios necessária e arquivos de configuração do Git (.git), mas não traz nenhum arquivo de um repositório remoto.<br>
+            <strong>git clone:</strong> Faz uma cópia de um repositório remoto em um novo diretório local. Ele copia não apenas a estrutura de diretórios e arquivos de configuração, mas também todo o histórico de commits.
+        </p>
+        <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">
+            <strong>Ponto de Partida:</strong><br>
+            <strong>git init:</strong> É ideal quando você está começando um novo projeto do zero e deseja inicializar o controle de versão no diretório atual.<br>
+            <strong>git clone:</strong> É usado quando você deseja trabalhar em um projeto já existente, baixando todo o seu conteúdo e histórico de versões a partir de um repositório remoto.
+        </p>
+        <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">
+            <strong>Configuração Remota:</strong><br>
+            <strong>git init:</strong> Não configura automaticamente um repositório remoto. Após usar git init, você precisa adicionar manualmente um repositório remoto com git remote add origin &lt;url-do-repositorio&gt;.<br>
+            <strong>git clone:</strong> Configura automaticamente o repositório remoto como origin, facilitando a interação futura com o repositório de origem.
+        </p>
+        <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">
+            Apesar dessas diferenças, ambos os comandos estabelecem o início de um repositório Git local, mas cada um é adequado a diferentes cenários e necessidades no fluxo de trabalho com Git.
+        </p>
+        <img src="/app/static/images/git-graph.png" alt="Imagem GitGraph">
+        <p class="image-description">Este gráfico mostra o fluxo de trabalho básico do Git, incluindo commits e branches.</p>
+        <a href="git-add.html">Próximo: git add</a>
+        <a href="index.html">Voltar</a>
+    </div>
+</body>
+</html>

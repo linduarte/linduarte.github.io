@@ -28,6 +28,7 @@ h1, h2, h3 {
 
 p {
     font-size: 1em; /* Tamanho da fonte dos parágrafos */
+    text-align: justify; /* Justify text */
 }
 
 img {
@@ -40,17 +41,23 @@ img {
 }
 
 .image-description {
-    font-size: 0.9em;
+    font-size: 1em; /* Ensure consistency */
     color: #5c4033;
     text-align: justify; /* Justify text */
     margin-top: -10px;
     margin-bottom: 20px;
 }
 
-p, .image-description {
-    font-size: 1em; /* Ensure consistency */
+.special-note {
+    background-color: #fff3cd;
+    border-left: 6px solid #ffeeba;
+    padding: 10px;
+    margin-bottom: 20px;
 }
 
+.special-note h2 {
+    margin-top: 0;
+}
 
 pre[class*="language-"], code[class*="language-"] {
     background-color: #2d2d2d !important;
@@ -61,8 +68,10 @@ pre[class*="language-"], code[class*="language-"] {
     font-size: 0.9em;
 }
 
-
-
+/* Custom styles for Prism.js tokens */
+span.token.function {
+    color: #00ff00 !important; /* Change function color to green */
+}
 
 /* Responsividade */
 @media (max-width: 768px) {
