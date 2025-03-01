@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Novo site</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/common-styles.css"> <!-- Link to the common styles -->
+    <link rel="stylesheet" href="/app/static/css/style.css">
+    <link rel="stylesheet" href="/app/static/css/common-styles.css"> <!-- Link to the common styles -->
 </head>
 <body>
     <header class="header logo" role="banner">
         <img alt="Git Logo"
         width="150" height="63"
-        src="images/GitLogo_sp.png"
-        srcset = "images/GitLogo_sp-2x.png 2x, images/GitLogo_sp-3x.png 3x">
+        src="/app/static/images/GitLogo_sp.png"
+        srcset="/app/static/images/GitLogo_sp-2x.png 2x, /app/static/images/GitLogo_sp-3x.png 3x">
         <div class="call">
             <h1 class="banner-message">Aprenda Git de forma prática e eficiente!</h1>
             <p class="banner-submessage">Aguarde curso de Git neste site!</p>
@@ -32,10 +32,8 @@
                 </p>
             </div>
 
-            <section >
-
+            <section>
                 <h5>Navegação</h5>
-
                 <nav class="nav">
                     <ul>
                         <li class="active hover"><a href="#base1">Principais estados dos arquivos no Git</a></li>
@@ -43,80 +41,58 @@
                         <li class="active hover"><a href="#base3">Git workflow (fluxo de trabalho)</a></li>
                         <li class="active hover"><a href="#base4">Terminal Git e porque não uma interface gráfica</a></li>
                         <li class="active hover"><a href="#base5">E como não falar de GitHub?</a></li>
+                    </ul>
+                </nav>
+                <article>
+                    <h5 id="base1">Principais estados dos arquivos no <strong>Git</strong></h5>
+                    <p>O <strong>Git</strong> possui três estados nos quais seus arquivos podem ser armazenados.Estes estados correspodem a estágios de um projeto a saber:
+                    "modificado", "staged" e "comitado".<br>
+                    "Modificado" - significa que houve uma alteração em seu arquivo mas o mesmo não foi ainda "comitado".<br>
+                    "Staged" - significa que voce marcou o arquivo modificado para que ele seja encaminhado ao próximo 'commit'.<br>
+                    "Comitado" - significa que os dados pertinentes ao seu arquivo estão seguros em sua base de dados.
+                    </p>
 
+                    <h5 id="base2">Conceitos chave:'Repositories','Commits' e 'Branches'</h5>
+                    <ul class="cltwo">
+                        <li><strong>'Repositories'</strong>: Os repositórios <strong>Git</strong> são recipientes de projetos, armazenamento de arquivos e sua revisão hitórica</li>
+                        <li><strong>'Commits'</strong>: Cada 'commit' representa um 'instantâneo'em um determinado tempo permitindo aos usuários voltar atras em estatus anteriores</li>
+                        <li><strong>'Branches'</strong>: Eles permitem desenvolvimentos paralelos de tal sorte que os desenvolvedores possam trabalhar em diferentes características ou até mesmo corrigir falhas no software (bugs) independentemente.</li>
                     </ul>
 
-                </nav>
-            <article>
+                    <h5 id="base3"><strong>Git</strong> workflow (fluxo de trabalho)</h5>
+                    <ul class="clthree">
+                        <li>Inicializando um repositório: <code class="code-style">git init</code></li>
+                        <li>Adicionando arquivos na área de 'staging': <code class="code-style">git add</code></li>
+                        <li>Realizando um 'commit': <code class="code-style">git commit -m "Commit message"</code></li>
+                        <li>Verificando o estatus: <code class="code-style">git status</code></li>
+                        <li>Vendo o histórico dos commits: <code class="code-style">git log</code></li>
+                    </ul>
 
-            <h5 id="base1">Principais estados dos arquivos no <strong>Git</strong></h5>
-            <p>O <strong>Git</strong> possui três estados nos quais seus arquivos podem ser armazenados.Estes estados correspodem a estágios de um projeto a saber:
-            "modificado", "staged" e "comitado".<br>
-            "Modificado" - significa que houve uma alteração em seu arquivo mas o mesmo não foi ainda "comitado".<br>
-            "Staged" - significa que voce marcou o arquivo modificado para que ele seja encaminhado ao próximo 'commit'.<br>
-            "Comitado" - significa que os dados pertinentes ao seu arquivo estão seguros em sua base de dados.
-            </p>
+                    <h5 id="base4">Terminal Git e porque não uma interface gráfica</h5>
+                    <p>A interface gráfica de fato provê uma forma intuitiva de interagir com o <strong>Git</strong>.<br>
+                    Entretanto o terminal oferece várias vantagens que o fazem ser o preferido entre os desenvolvedores.
+                    A linha de comando permite uma grande visibilidade e controle. Os desenvolvedores tem clareza pela representação textual
+                    das mudanças do projeto, os 'branches' e toda a história do desenvolvimento.<br>
+                    Esta transparência é de todo crucial para o entendimento das complexidades do controle de versão permitindo atuações de maneira imediata.<br>
+                    Deve-se salientar ainda que o terminal permite criar 'scripts' que auxiliam os desenvolvedores a automatizar tarefas repetitivas ou customizar
+                    fluxos de trabalho específicos de seus projetos.<br>
+                    <div>
+                    <picture class="cl">
+                        <img src="/app/static/images/cl_new-tr.png"
+                          srcset="/app/static/images/cl_new-tr-100.png?width=100 100w, /app/static/images/cl_new-tr-200.png?width=200 200w, /app/static/images/cl_new-tr-400.png?width=400 400w, /app/static/images/cl_new-tr-800.png?width=800 800w"
+                          sizes="(max-width: 800px) 100vw, 50vw"
+                          alt="Terminal Git bash">
+                    </picture>
+                    </div>
 
-
-
-             <h5 id="base2">Conceitos chave:'Repositories','Commits' e 'Branches'</h5>
-
-             <ul class="cltwo">
-                <li><strong>'Repositories'</strong>: Os repositórios <strong>Git</strong> são recipientes de projetos, armazenamento de arquivos e sua revisão hitórica</li>
-
-                <li><strong>'Commits'</strong>: Cada 'commit' representa um 'instantâneo'em um determinado tempo permitindo aos usuários voltar atras em estatus anteriores</li>
-
-                <li><strong>'Branches'</strong>: Eles permitem desenvolvimentos paralelos de tal sorte que os desenvolvedores possam trabalhar em diferentes características ou até mesmo corrigir falhas no software (bugs) independentemente.</li>
-
-             </ul>
-
-
-            <h5 id="base3"><strong>Git</strong> workflow (fluxo de trabalho)</h5>
-
-            <ul class="clthree">
-                <li>Inicializando um repositório: <code class="code-style">git init</code></li>
-                <li>Adicionando arquivos na área de 'staging': <code class="code-style">git add</code></li>
-                <li>Realizando um 'commit': <code class="code-style">git commit -m "Commit message"</code></li>
-                <li>Verificando o estatus: <code class="code-style">git status</code></li>
-                <li>Vendo o histórico dos commits: <code class="code-style">git log</code></li>
-
-            </ul>
-
-
-            <h5 id="base4">Terminal Git e porque não uma interface gráfica</h5>
-
-            <p>A interface gráfica de fato provê uma forma intuitiva de interagir com o <strong>Git</strong>.<br>
-            Entretanto o terminal oferece várias vantagens que o fazem ser o preferido entre os desenvolvedores.
-            A linha de comando permite uma grande visibilidade e controle. Os desenvolvedores tem clareza pela representação textual
-            das mudanças do projeto, os 'branches' e toda a história do desenvolvimento.<br>
-            Esta transparência é de todo crucial para o entendimento das complexidades do controle de versão permitindo atuações de maneira imediata.<br>
-            Deve-se salientar ainda que o terminal permite criar 'scripts' que auxiliam os desenvolvedores a automatizar tarefas repetitivas ou customizar
-            fluxos de trabalho específicos de seus projetos.<br>
-            <div>
-            <picture class="cl">
-                <img src="images/cl_new-tr.png"
-                  srcset="images/cl_new-tr-100.png?width=100 100w, images/cl_new-tr-200.png?width=200 200w, images/cl_new-tr-400.png?width=400 400w, images/cl_new-tr-800.png?width=800 800w"
-                  sizes="(max-width: 800px) 100vw, 50vw"
-                  alt="Terminal Git bash">
-            </picture>
-            </div>
-
-
-
-
-            <h5 id="base5">E como não falar de GitHub?</h5>
-            <p>O engenheiro de software, Tom Preston-Werner vendo a necessidade de se criar uma forma mais eficiente de compartilhar e gestionar os códigos fonte
-            entre os desenvolvedores deu início ao projeto do <strong>GitHub</strong> em março de 2008.Através de investidores a idéia cresceu e após um aporte de 100 milhoes de dólares a empresa
-            em dois anos já contava com um milhão de usuários. Crescendo desta forma ela foi adquirida por 7,5 bilhões de dolares pela Microsoft.
-            <strong>GitHub</strong> é um serviço de hospedagem via web para desenvolvimento de projetos de software que usa o sistema de revisão e controle do <strong>Git</strong>. Ele oferece
-            todas as funcionalidades de controle distribuido de versão do <strong>Git</strong> e adiciona sua próprias funcionalidades.
-            </p>
-            </article>
-
-
-
-
-
+                    <h5 id="base5">E como não falar de GitHub?</h5>
+                    <p>O engenheiro de software, Tom Preston-Werner vendo a necessidade de se criar uma forma mais eficiente de compartilhar e gestionar os códigos fonte
+                    entre os desenvolvedores deu início ao projeto do <strong>GitHub</strong> em março de 2008.Através de investidores a idéia cresceu e após um aporte de 100 milhoes de dólares a empresa
+                    em dois anos já contava com um milhão de usuários. Crescendo desta forma ela foi adquirida por 7,5 bilhões de dolares pela Microsoft.
+                    <strong>GitHub</strong> é um serviço de hospedagem via web para desenvolvimento de projetos de software que usa o sistema de revisão e controle do <strong>Git</strong>. Ele oferece
+                    todas as funcionalidades de controle distribuido de versão do <strong>Git</strong> e adiciona sua próprias funcionalidades.
+                    </p>
+                </article>
             </section>
             <footer class="footer">
                 Hosted on GitHub Pages
@@ -126,16 +102,14 @@
                     </a>
                 </p>
             </footer>
-
-            </div>
+        </div>
         <div class="column2 grid-item">
             <div class="column2 grid-item curse-title ">
-                <h4><strong>Programa do Curso</strong></h4></div>
+                <h4><strong>Programa do Curso</strong></h4>
+            </div>
 
             <input type="checkbox" id="topic1">
             <label for="topic1" class="main-topic">Instalação e Customização</label>
-
-
             <div class="content">
                 <ul>
                     <li>Instalação do terminal do Windows Powershell</li>
@@ -148,7 +122,6 @@
 
             <input type="checkbox" id="topic2">
             <label for="topic2" class="main-topic">Hospedando seu projeto no GitHub</label>
-
             <div class="content">
                 <ul>
                     <li>Projeto de website fonético</li>
@@ -163,7 +136,6 @@
 
             <input type="checkbox" id="topic3">
             <label for="topic3" class="main-topic">Trabalhando com 'branches'</label>
-
             <div class="content">
                 <ul>
                     <li>Movendo, deletando e renomeando arquivos</li>
@@ -175,7 +147,6 @@
 
             <input type="checkbox" id="topic4">
             <label for="topic4" class="main-topic">Repositório local</label>
-
             <div class="content">
                 <ul>
                     <li>Inicializando um repositório local</li>
@@ -183,22 +154,19 @@
                     <li>Alterando a história</li>
                     <li>Salvando as alterações</li>
                 </ul>
-
             </div>
 
             <input type="checkbox" id="topic5">
             <label for="topic5" class="main-topic">Banco de dados do repositório</label>
-
             <div class="content">
-            <ul>
-                <li>Uma visão histórica sofisticada</li>
-                <li>Ignorando arquivos</li>
-            </ul>
+                <ul>
+                    <li>Uma visão histórica sofisticada</li>
+                    <li>Ignorando arquivos</li>
+                </ul>
             </div>
 
             <input type="checkbox" id="topic6">
             <label for="topic6" class="main-topic">Requisitos</label>
-
             <div class="content">
                 <ul>
                     <li>Não há necessidade de conhecimento prévio do Git, GitHub ou desenvolvimento web.</li>
@@ -209,63 +177,48 @@
             </div>
 
             <section>
+                <h5>Navegação</h5>
+                <nav class="mynav">
+                    <ul>
+                      <li class="active hover"><a href="#about1">Sobre o Git</a></li>
+                      <li class="active hover"><a href="#about2">Por que se chama Git?</a></li>
+                      <li class="active hover"><a href="#about3">Por que Linus Torvalds criou o Git?</a></li>
+                      <li class="active hover"><a href="#about4">Um pouco mais sobre Git</a></li>
+                      <li class="active hover"><a href="#about5">Uma vantagem do Git</a></li>
+                      <li class="active hover"><a href="#about6">Alternativas ao Git</a></li>
+                    </ul>
+                </nav>
 
-            <h5>Navegação</h5>
-            <nav class="mynav">
-                <ul>
-                  <li class="active hover"><a href="#about1">Sobre o Git</a></li>
-                  <li class="active hover"><a href="#about2">Por que se chama Git?</a></li>
-                  <li class="active hover"><a href="#about3">Por que Linus Torvalds criou o Git?</a></li>
-                  <li class="active hover"><a href="#about4">Um pouco mais sobre Git</a></li>
-                  <li class="active hover"><a href="#about5">Uma vantagem do Git</a></li>
-                  <li class="active hover"><a href="#about6">Alternativas ao Git</a></li>
-                </ul>
-              </nav>
+                <article>
+                    <h5 id="about1">Sobre o Git</h5>
+                    <p style="font-size:16px" class="paragraph">Com mais de 57000 alterações 'comitadas' e mais de 1300 colaboradores o <strong>Git</strong> se tornou a ferramenta de controle de versões mais usada mundo afora.<br>
+                    Seu criador é ninguem menos do que 'Linus Torvalds', o criador do 'Linux'.<br>
+                    O <strong>Git</strong> nasceu em 2005 quando da criação do kernel do sistema operacional Linux.<br>
+                    Desde então o seu mantenedor principal, Junio Hamano, um japonês, cuida da evolução do <strong>Git</strong> junto aos inúmeros colaboradores deste sistema de código aberto (open source).</p>
 
+                    <h5 id="about2">Por que se chama Git?</h5>
+                    <p style="font-size:16px" class="paragraph">'Git' é uma gíria do inglês britânico que significa 'pessoa desagradável'. E este nome foi dado pelo próprio criador.</p>
 
+                    <h5 id="about3">Por que Linus Torvalds criou o Git?</h5>
+                    <p style="font-size:16px" class="paragraph">Linus em seu desenvolvimento do Kernel do Linux usava como controle de versão uma ferramenta denominada 'BitKeeper'. Em um dado momento o dono dos direitos autorais desta ferramenta retirou o uso gratuíto.
+                    O que restou a Linus foi criar algo para substituir e ele o fez tornando a ferramenta gratuíta e de código aberto.</p>
 
-            <article>
-                <h5 id="about1">Sobre o Git</h5>
-                <p style="font-size:16px" class="paragraph">Com mais de 57000 alterações 'comitadas' e mais de 1300 colaboradores o <strong>Git</strong> se tornou a ferramenta de controle de versões mais usada mundo afora.<br>
-                Seu criador é ninguem menos do que 'Linus Torvalds', o criador do 'Linux'.<br>
-                O <strong>Git</strong> nasceu em 2005 quando da criação do kernel do sistema operacional Linux.<br>
-                Desde então o seu mantenedor principal, Junio Hamano, um japonês, cuida da evolução do <strong>Git</strong> junto aos inúmeros colaboradores deste sistema de código aberto (open source).</p>
+                    <h5 id="about4">Um pouco mais sobre Git</h5>
+                    <p style="font-size:16px" class="paragraph">Já sabemos que o <strong>Git</strong> é um sistema de controle de versão distribuída que rastreia as alterações ocorridas nos arquivos dos computadores.
+                    Mas não se presta somente para atividades voltadas para códigos fonte de programas mas também serve como gestor de alterações em configurações complexas de bancos dados.
+                    Até escritores de artigos de toda natureza fazem uso do <strong>Git</strong> coomo forma de manter suas edições atualizadas.</p>
 
-                <h5 id="about2">Por que se chama Git?</h5>
-                <p style="font-size:16px" class="paragraph">'Git' é uma gíria do inglês britânico que significa 'pessoa desagradável'. E este nome foi dado pelo próprio criador.</p>
+                    <h5 id="about5">Uma vantagem do Git</h5>
+                    <p style="font-size:16px" class="paragraph">O <strong>Git</strong> roda localmente em seu computador ou seja não depende de nenhum serviço de hospedagem em nuvem. Ele é auto-suficiente.</p>
 
-                <h5 id="about3">Por que Linus Torvalds criou o Git?</h5>
-                <p style="font-size:16px" class="paragraph">Linus em seu desenvolvimento do Kernel do Linux usava como controle de versão uma ferramenta denominada 'BitKeeper'. Em um dado momento o dono dos direitos autorais desta ferramenta retirou o uso gratuíto.
-                O que restou a Linus foi criar algo para substituir e ele o fez tornando a ferramenta gratuíta e de código aberto.</p>
-
-                <h5 id="about4">Um pouco mais sobre Git</h5>
-                <p style="font-size:16px" class="paragraph">Já sabemos que o <strong>Git</strong> é um sistema de controle de versão distribuída que rastreia as alterações ocorridas nos arquivos dos computadores.
-                Mas não se presta somente para atividades voltadas para códigos fonte de programas mas também serve como gestor de alterações em configurações complexas de bancos dados.
-                Até escritores de artigos de toda natureza fazem uso do <strong>Git</strong> coomo forma de manter suas edições atualizadas.</p>
-
-                <h5 id="about5">Uma vantagem do Git</h5>
-                <p style="font-size:16px" class="paragraph">O <strong>Git</strong> roda localmente em seu computador ou seja não depende de nenhum serviço de hospedagem em nuvem. Ele é auto-suficiente.</p>
-
-                <h5 id="about6">Alternativas ao Git</h5>
-                <p style="font-size:16px" class="paragraph">Algumas alternativas ao uso do <strong>Git</strong>, o qual é de uso gratuíto, são:  - Azure DevOPS Server; Helix Core, AWS Code Commit, Subversion e Rational ClearCase.
-                   Estas ferramentas são pagas e em um processo de avaliação deste citado grupo destaca-se a lentidão no retorno do investimento bem como algumas muito caras.
-                   Dentre estas uma se destaca e se chama "Mercurial" por ser fácil de configurar e administrar.
-                </p>
-
-            </article>
+                    <h5 id="about6">Alternativas ao Git</h5>
+                    <p style="font-size:16px" class="paragraph">Algumas alternativas ao uso do <strong>Git</strong>, o qual é de uso gratuíto, são:  - Azure DevOPS Server; Helix Core, AWS Code Commit, Subversion e Rational ClearCase.
+                       Estas ferramentas são pagas e em um processo de avaliação deste citado grupo destaca-se a lentidão no retorno do investimento bem como algumas muito caras.
+                       Dentre estas uma se destaca e se chama "Mercurial" por ser fácil de configurar e administrar.
+                    </p>
+                </article>
             </section>
-
-
         </div>
-        </div>
-
-
-
-
-
-
-
-
+    </div>
 </body>
-
 </html>
