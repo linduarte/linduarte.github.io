@@ -10,8 +10,19 @@ else
     IMG_PATH="/app/static/images/"
 fi
 
-# Replace placeholders in HTML files
-sed -i "s|{CSS_PATH}|$CSS_PATH|g" git-init.html
-sed -i "s|{IMG_PATH}|$IMG_PATH|g" git-init.html
+# Debugging: Print the current directory and file paths
+# echo "Current directory: $(pwd)"
+# echo "CSS_PATH: $CSS_PATH"
+# echo "IMG_PATH: $IMG_PATH"
+# echo "HTML files in git-course directory:"
+# ls -l ../app/templates/git-course/*.html
+
+# Replace placeholders in all HTML files in the git-course directory
+for file in ../app/templates/git-course/*.html;
+do
+    echo "Updating $file"
+    sed -i "s|{CSS_PATH}|$CSS_PATH|g" "$file"
+    sed -i "s|{IMG_PATH}|$IMG_PATH|g" "$file"
+done
 
 echo "Links updated for $ENV environment."
