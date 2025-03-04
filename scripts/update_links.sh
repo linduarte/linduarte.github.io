@@ -11,16 +11,26 @@ else
 fi
 
 # Debugging: Print the current directory and file paths
-# echo "Current directory: $(pwd)"
-# echo "CSS_PATH: $CSS_PATH"
-# echo "IMG_PATH: $IMG_PATH"
-# echo "HTML files in git-course directory:"
-# ls -l ../app/templates/git-course/*.html
+echo "Current directory: $(pwd)"
+echo "CSS_PATH: $CSS_PATH"
+echo "IMG_PATH: $IMG_PATH"
+echo "HTML files in git-course directory:"
+ls -l ../app/templates/git-course/*.html
 
-# Replace placeholders in all HTML files in the git-course directory
+# Replace any existing paths with placeholders first
 for file in ../app/templates/git-course/*.html;
 do
-    echo "Updating $file"
+    echo "Resetting $file to placeholders"
+    sed -i "s|https://linduarte.github.io/app/static/css/git-course.css|{CSS_PATH}|g" "$file"
+    sed -i "s|https://linduarte.github.io/app/static/images/|{IMG_PATH}|g" "$file"
+    sed -i "s|/app/static/css/git-course.css|{CSS_PATH}|g" "$file"
+    sed -i "s|/app/static/images/|{IMG_PATH}|g" "$file"
+done
+
+# Replace placeholders with the appropriate paths
+for file in ../app/templates/git-course/*.html;
+do
+    echo "Updating $file for $ENV environment"
     sed -i "s|{CSS_PATH}|$CSS_PATH|g" "$file"
     sed -i "s|{IMG_PATH}|$IMG_PATH|g" "$file"
 done

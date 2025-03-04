@@ -67,6 +67,23 @@ pre[class*="language-"], code[class*="language-"] {
     overflow-x: auto;
     font-size: 0.9em;
 }
+/* Custom styles for Mermaid / gitGraph */
+.code-box {
+    background-color: #ead8e7;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(129, 101, 101, 0.1);
+    text-align: justify; /* Justify text */
+}
+.code-box code {
+    display: block;
+    white-space: pre-wrap;
+    text-align: justify; /* Justify text */
+
+}
+
 
 /* Custom styles for Prism.js tokens */
 span.token.function {
