@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>git config</title>
+    <link rel="stylesheet" href="/app/static/css/git-course.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Configuração Básica do Git: Importância e Ajustes Essenciais</h1>
+        <p>O Git é uma ferramenta poderosa de controle de versão, e uma configuração adequada é essencial para garantir um fluxo de trabalho eficiente
+             e padronizado. Abaixo, explicamos os principais ajustes que devem ser realizados logo após a instalação do Git, especialmente ao usá-lo no
+             Windows Terminal com Git Bash..</p>
+        <p><strong> Configuração de Identidade</strong></p>
+        <ul style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px; padding-left: 20px;">
+            <li>user.name</li>
+            <p>Define o nome que será associado a seus commits. Esse nome aparece no histórico do repositório e permite identificar quem realizou cada modificação.</p>
+            <li>Comando:</li>
+             <pre><code class="language-bash">git config --global user.name "Seu Nome"</code></pre>
+            <li>user.email</li>
+            <p>Define o e-mail vinculado aos commits. Em plataformas como GitHub e GitLab, este e-mail precisa estar associado à sua conta
+             para que os commits sejam reconhecidos corretamente.</p>
+            <li>Comando:</li>
+            <pre><code class="language-bash">git config --global user.email "seuemail@example.com"</code></pre>
+            <p>Importante: Para garantir privacidade no GitHub, pode-se usar um e-mail do tipo
+             @users.noreply.github.com (disponível nas configurações da conta).</p>
+        </ul>
+        <p><strong>Configuração de Fim de Linha</strong></p>
+        <ul style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px; padding-left: 20px;">
+            <li>core.autocrlf</li>
+            <p>Define a forma como o Git lida com a quebra de linha em arquivos de texto. No Windows, é recomendado configurar este ajuste para
+             evitar problemas de compatibilidade entre sistemas operacionais.</p>
+            <li>Comando:</li>
+            <pre><code class="language-bash">git config --global core.autocrlf true</code></pre>
+            <p>No Linux/Mac, o ideal é desativar a conversão:</p>
+            <pre><code class="language-bash">git config --global core.autocrlf input</code></pre>
+            <li>core.safecrlf</li>
+            <p>Define a verificação de quebra de linha. Este ajuste é útil para evitar problemas de corrupção de arquivos de texto.</p>
+            <li>Comando:</li>
+            <pre><code class="language-bash">git config --global core.safecrlf true</code></pre>
+        </ul>
+        <p><strong>Configuração do Editor Padrão</strong></p>
+        <ul style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px; padding-left: 20px;">
+            <li>core.editor</li>
+            <p>Define o editor de texto padrão para mensagens de commit e outras interações com o Git.</p>
+            <li>Comando:</li>
+            <pre><code class="language-bash">git config --global core.editor "code --wait"</code></pre>
+            <p>Exemplo:</p>
+            <pre><code class="language-bash">git config --global core.editor "vim"</code></pre>
+        </ul>
+        <p><strong>Configuração de Cores</strong></p>
+        <ul style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px; padding-left: 20px;">
+            <li>color.ui</li>
+            <p>Ativa a exibição de cores na saída do Git, facilitando a leitura e interpretação de informações.</p>
+            <li>Comando:</li>
+            <pre><code class="language-bash">git config --global color.ui auto</code></pre>
+        </ul>
+        <p>Essas configurações são essenciais para garantir um ambiente de trabalho eficiente e padronizado. Com elas, você estará pronto para
+             começar a trabalhar com o Git e aproveitar todos os benefícios que essa ferramenta oferece.</p>
+        <p><strong>Diferença entre Global, Local e System</strong></p>
+        <p>Os comandos <code class="language-bash">git config --global</code>, <code class="language-bash">git config --local</code> e <code class="language-bash">git config --system</code>
+            são usados para definir configurações em diferentes níveis. Veja a seguir a diferença entre eles:</p>
+        <ul style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px; padding-left: 20px;">
+            <li><strong>Global:</strong> Aplica as configurações a todos os repositórios do usuário. São armazenadas no arquivo <code class="language-bash">~/.gitconfig</code>.</li>
+            <li><strong>Local:</strong> Aplica as configurações apenas ao repositório atual. São armazenadas no arquivo <code class="language-bash">.git/config</code> do repositório.</li>
+            <li><strong>System:</strong> Aplica as configurações a todos os usuários do sistema. São armazenadas no arquivo <code class="language-bash">/etc/gitconfig</code>.</li>
+        </ul>
+        <p>Para verificar as configurações atuais, utilize o comando <code class="language-bash">git config --list</code>. Ele exibirá todas as configurações
+            definidas no nível atual (global, local ou system).</p>
+
+
+        <img src="/app/static/images/git-config.webp" alt="Screenshot do comando git-config">
+        <p class="image-description">A imagem acima mostra a utilização das configurações do git em uma imagem criada por IA.<code class="language-bash">git config</code></pre>
+           </p>
+        <footer style="text-align: center; margin-top: 20px; padding: 10px; background-color: #ead8e7; border-top: 1px solid #ddd;box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);">
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <span><strong>Hosted on GitHub Pages</strong></span>
+                <a href="http://jigsaw.w3.org/css-validator/check/referer" style="margin-left: 10px;">
+                    <img style="border:0;width:88px;height:31px" src="http://jigsaw.w3.org/css-validator/images/vcss" alt="CSS válido!">
+                </a>
+            </div>
+            <nav>
+                <a href="git-config.html" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Próximo: git add</a> |
+                <a href="index.html" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Voltar</a> |
+                <a href="/terms" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Terms of Service</a> |
+                <a href="/privacy" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Privacy Policy</a>
+            </nav>
+        </footer>
+    </div>
+    <script>Prism.highlightAll();</script>
+</body>
+</html>

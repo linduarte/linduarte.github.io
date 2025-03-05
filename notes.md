@@ -32,3 +32,5 @@ Now the bash script is ready to change the placeholders back and forth.
 For quick notes related to specific parts of your code, you can use comments directly in your HTML, CSS, or JavaScript files.
 
  <!-- Header section with logo and banner message -->
+
+Create the file to connect Git to Gihub (SSH)
