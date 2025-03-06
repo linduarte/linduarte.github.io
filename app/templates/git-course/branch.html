@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git branch</title>
+    <link rel="stylesheet" href="/app/static/css/git-course.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <style>
+    .spaced-pre {
+    padding-bottom: 20px; /* Adds spacing below */
+    }
+
+    .spaced-p {
+    padding-top: 20px; /* Adds spacing above */
+    }
+
+    .mermaid {
+        background-color: black; /* Adds black background to mermaid div */
+        color: white; /* Ensures text color is readable */
+        padding: 10px; /* Adds padding for better readability */
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>O que é um 'branch' (ramo)? </h1>
+        <p>Um 'branch' representa uma linha independente de desenvolvimento no projeto com sua própria história de comites.
+            Voce pode listar os 'branches' no repositório local bastando usar o comando:</p>
+        <pre class="spaced-pre"><code class="language-bash">git branch</code></pre>
+        Quando se associa o parâmetro '--remote' ao comando 'git branch' é possível listar os 'branches' remotos.
+        <pre class="spaced-pre"><code class="language-bash">git branch --remote</code></pre>
+
+        <img src="/app/static/images/git-branch-re.png" alt="Imagem do git branch e do git branch remoto" style="max-width: 48%; height: auto;">
+
+        <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">
+        Agora nosso repositório posui somente um único ramo, 'branch' chamado 'main'. O ramo 'main' é o ramo padrão do Git.
+        Este ramo é criado automaticamente quando se inicia um novo repositório. O ramo 'main' é o ramo principal do projeto. Ou seja é deafult.
+        Se compararmos o projeto Git como uma árvore o ramo 'main' seria o tronco da árvore. O ramo 'main' é o ramo que contém o código de produção.
+        A partir do tronco é possivel criarmos linhas separadas de desenvolvimento como ramos idependentes com seus próprios comites.
+        </p>"
+
+        <img src="/app/static/images/trunck.png" alt="Screenshot do pilots HTML" style="max-width: 48%; height: auto;">
+
+        <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">Na imagem anterior  a linha representa o ramo principal, 'main' com
+            cada comite mostrado como um círculo. A seta indica a direção do desenvolvimento, ou seja 'HEAD' e aponta para o último comite.
+            O último comite é o comite mais recente. O comite mais recente é o comite que está no topo da pilha de comites. De baixo para cima como pode-se ver na imagem abaixo do git log.
+        </p>
+
+        <img src="/app/static/images/git-log-oneline.png" alt="Tela mostrando o histórico de comites realizados" style="max-width: 100%; height: auto;">
+
+        <h3>Comparando versões</h3>
+        <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">É muito importante notar que existem várias versões de um
+            arquivo em um repositório Git. Cada versão de um arquivo é chamada de 'commit'. Um 'commit' é uma versão de um arquivo em um repositório Git.
+
+       <ul>
+        <li>Diretório de trabalho - constitui uma versão de seus arquivos em processo de edição</li>
+        <li>A versão 'staged' - ou seja quando voce adicionou utilizando o 'git add' colocando seus arquivos no chamado 'index' , esperando para serem comitados.</li>
+        <li>A versão comitada - uma versão para cada comite.</li>
+       </ul>
+       <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">Num mundo real quando trabalhamos sem uma ferramenta de controle
+        de versão como o Git, voce pode ter várias versões de um arquivo em seu diretório de trabalho. E voce simplesmente salva um mesmo arquivo várias vezes ou até mesmo
+        salva com outro nome. Com o Git voce pode salvar várias versões de um arquivo em um repositório Git. Cada versão de um arquivo é chamada de 'commit'.
+        Um 'commit' é uma versão de um arquivo em um repositório Git.
+        Pensando em um trabalho de desenvolvimento de software, cada 'commit' representa um conjunto de mudanças em um arquivo ou em um conjunto de arquivos.
+       </p>
+
+       <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">Agora vamos conhecer um comando que mostra as mudanças no diretório de trabalho, no 'index e nas versões de comites.</p>
+
+       <pre class="spaced-pre"><code class="language-bash">git diff</code></pre>
+
+
+       <p class="spaced-p" style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">Para darmos início ao processo de utilização do git diff
+        torna-se importante saber o status de nossa última intervenção no repositório quando realizadmos o comite da letra 'D'. A imagem abaixo registra o status e nos informa
+        que estamos 1(um) comite a frente do repositório remoto.</p>
+
+       <img src="/app/static/images/status_comit_let_D.png" alt="Tela mostrando o status do repositório" style="max-width: 100%; height: auto;">
+
+       <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">Vamos implementar uma nova 'feature request' adicionando a letra 'E'
+        aos arquivos pilots.html, cities.html e names.html da mesma forma anteriormente realizada com a letra 'D'.</p>
+
+        <img src="/app/static/images/add_letter.png" alt="Tela mostrando a adição da letra 'E' nos arquivos HTML." style="max-width: 100%; height: auto;">
+
+        <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;"></p>Feitas as adições nos arquivos HTML, vamos adicionar os
+        arquivos  ao index, usando o <code class="language-bash">git add</code>.</p>
+
+        <img src="/app/static/images/git_add_let_F.webp" alt="Tela mostrando o status e a aplicação do git add." style="max-width: 100%; height: auto;">
+
+        <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">Vamos implementar novamente uma 'feature request'
+            adicionando a letra 'F' aos arquivos pilots.html, cities.html e names.html na seguinte ordem repectivamente: 'Foxtrot', 'Fillmore' e 'Fred',da mesma forma anteriormente realizada com a letra 'E'.</p>
+
+       <img src="/app/static/images/git_add_let_E.webp" alt="Tela mostrando o status após a adição da letra F." style="max-width: 100%; height: auto;">
+
+       <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">A imagem anterior mostra o status depois da aplicação da letra F.
+        Aqui é muito importante perceber que as adições da letra 'F' não foram submetidas ao  <code class="language-bash">git add</code> por isto permanecem sem o controle do git ao passo
+       que as adições das letra 'E' permitem que os arquivos sejam comitados.</p>
+
+       <img src="/app/static/images/git-log-oneline.png" alt="Tela mostrando o log após a adição da letra D." style="max-width: 100%; height: auto;">
+
+       <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">Temos então três situações distintas ou seja,
+        a letra 'D' foi adicionada e comitada, a letra 'E' foi adicionada mas não comitada e a letra 'F' não foi adicionada e nem comitada.
+       </p>
+
+
+
+
+
+
+
+
+           <section>
+            <h3>Git Graph</h3>
+            <p>Diagrama Mermaid  para o Git graph</p>
+            <div class="mermaid">
+                %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchOrder': 0}} }%%
+                gitGraph
+                commit id: "0-109f780"
+                commit id: "1-d298f74"
+                commit id: "2-2dded79"
+            </div>
+            <h3>Mermaid Code</h3>
+            <p>Código Mermaid para o Git graph</p>
+            <div class="code-box">
+                <pre>
+                    <code>
+%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchOrder': 0}} }%%
+
+                        gitGraph
+                        commit id: "0-109f780"
+                        commit id: "1-d298f74"
+                        commit id: "2-2dded79"
+                    </code>
+                </pre>
+            </div>
+        </section>
+        <footer style="text-align: center; margin-top: 20px; padding: 10px; background-color: #ead8e7; border-top: 1px solid #ddd;box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);">
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <span><strong>Hosted on GitHub Pages</strong></span>
+                <a href="http://jigsaw.w3.org/css-validator/check/referer" style="margin-left: 10px;">
+                    <img style="border:0;width:88px;height:31px" src="http://jigsaw.w3.org/css-validator/images/vcss" alt="CSS válido!">
+                </a>
+            </div>
+            <nav>
+                <a href="feature_req.html" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Próximo: git add"</a> |
+                <a href="index.html" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Voltar</a> |
+                <a href="/terms" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Terms of Service</a> |
+                <a href="/privacy" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Privacy Policy</a>
+            </nav>
+        </footer>
+    </div>
+    <script>Prism.highlightAll();</script>
+</body>
+</html>

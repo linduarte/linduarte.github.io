@@ -15,6 +15,13 @@
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
         mermaid.initialize({ startOnLoad: true });
     </script>
+    <style>
+        .mermaid {
+         background-color: black; /* Adds black background to mermaid div */
+         color: white; /* Ensures text color is readable */
+         padding: 10px; /* Adds padding for better readability */
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -81,15 +88,44 @@
 
                 <img src="/app/static/images/html_git-add.webp" alt="Tela mostrando o resultado após usar o comando 'git add" style="max-width: 100%; height: auto;">
 
+                <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">A imagem abaixo mostra o comite realizado
+                    após a adição dos arquivos HTML  acrescidos da letra D ao repositório bem como o comando git status mostrando que o repositório local está a frente do repositório remoto.
+                </p>
+                    <img src="/app/static/images/git-commit_st.png" alt="Tela mostrando o resultado após usar o comando 'git add" style="max-width: 100%; height: auto;">
+
+                 <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">Pelas últimas ações o projeto do site fonético
+                    está evoluindo. Depois de criar o site no GitHub em um repositório local via clone, foram adicionados os arquivos HTML e o folder 'style' e agora por
+                    último implementado o "feature request" com a inclusão da letra 'D' nos arquivos HTML.</p>
+
+                <h3>Vendo a história do projeto</h3>
+
+                 <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">Voce pode verificar a história dos comites no projeto usando o comando:
+                 <pre><code class="language-bash">git log</code></pre>
+                 </p>
+                 <img src="/app/static/images/git_log.webp" alt="Tela mostrando o histórico de comites realizados" style="max-width: 100%; height: auto;">
+
+                 <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">A imagem acima mostra cada comite associado ao seu longo hash como identificador único do git
+                    bem como o autor e data de realização do comite. Nota-se tambem que as mensagens que compuseram cadas um dos comites são apresentadas pelo git log. O comite mais recente é mostrado no topo da lista. Pode-se usar tambem outros comandos do tipo <code class="language-bash">git log --oneline --decorate</code> para mostrar a lista de comites de
+                    forma mais resumida conforme a imagem abaixo.
+                 </p>
+                 <img src="/app/static/images/git-log-oneline.png" alt="Tela mostrando o histórico de comites realizados" style="max-width: 100%; height: auto;">
+
+                 <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">Observa-se na imagem anterior que o hash de cada comite
+                    é um conjunto de 7 caracteres alfanuméricos extraido do início do longo hash.
+                 </p>
+
+                 <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">O Git Graph abaixo está sendo construído a partir de cada comite efetivado,
+                    considerando o ramo (branch) 'main'  no qual estamos trabalhando.</p>
+
            <section>
             <h3>Git Graph</h3>
             <p>Diagrama Mermaid  para o Git graph</p>
             <div class="mermaid">
                 %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchOrder': 0}} }%%
                 gitGraph
-                commit id: "165c4b6"
-                commit id: "de194dc"
-                commit id: "596aa83"
+                commit id: "0-109f780"
+                commit id: "1-d298f74"
+                commit id: "2-2dded79"
             </div>
             <h3>Mermaid Code</h3>
             <p>Código Mermaid para o Git graph</p>
@@ -99,9 +135,9 @@
 %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchOrder': 0}} }%%
 
                         gitGraph
-                        commit id: "165c4b6"
-                        commit id: "de194dc"
-                        commit id: "596aa83"
+                        commit id: "0-109f780"
+                        commit id: "1-d298f74"
+                        commit id: "2-2dded79"
                     </code>
                 </pre>
             </div>
