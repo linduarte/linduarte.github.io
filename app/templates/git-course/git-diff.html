@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>git diff</title>
+    <link rel="stylesheet" href="/app/static/css/git-course.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <style>
+        .spaced-pre {
+            padding-bottom: 20px; /* Adds spacing below */
+        }
+
+        .spaced-p {
+            padding-top: 20px; /* Adds spacing above */
+        }
+
+        h4 {
+            font-weight: bold; /* Ensures h4 elements are bold */
+        }
+    </style>
+    </head>
+<body>
+    <div class="container">
+        <h1>Git diff - Como comparar mudanças no seus arquivos </h1>
+        <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">O motivo de detalhamento desta página reside no fato
+            de que o comando <code class="language-bash">git diff</code> requer um entendimento mais profundo de onde e como usá-lo em sua plenitude.
+            Desta forma as páginas <strong>branch.html</strong> e <strong>branch_1.html</strong> onde se descorre de forma superficial no uso do referido comando
+        lhe recomendam que visite esta página para compreensão do cenário em questão.</p>
+
+        <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">O comando <code class="language-bash">git diff</code> é uma ferramenta essencial para
+            desenvolvedores que trabalham com o Git, o sistema de controle de versão distribuído. Ele permite que os usuários visualizem as diferenças entre vários
+            estados da base de código. Esse comando ajuda a identificar alterações entre commits, branches, diretório de trabalho e área de preparo.
+            Entender como usar o git diff pode melhorar muito sua capacidade de gerenciar e solucionar problemas de alterações de código de forma eficaz.</p>
+
+       <h3>Comandos git diff voltados para verificação por arquivos específicos</h3>
+
+       <pre><code class="language-bash">git diff HEAD file_name</code></pre>
+
+        <pre><code class="language-bash">git diff file_name file_name</code></pre>
+
+        <pre><code class="language-bash">git diff --staged file_name or git diff --cached file_name file_name file_name</code></pre>
+
+        <pre><code class="language-bash">git diff branch_name1 branch_name2 file_name file_name file_name file_name</code></pre>
+
+        <pre class="spaced-pre"><code class="language-bash">git diff commit_hash commit_hash file_name file_name file_name</code></pre>
+
+        <p class="spaced-p" style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">Vamos de agora em diante mostrarmos o uso do git diff em todos os detalhes
+        mas para isto utilizaremos o arquivo 'pilots.html' para demonstração. Parao os arquivos cities.html e names.html o procedimento é o mesmo.</p>
+
+        <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">A imagem abaixo mostra o comando git status para o arquivo 'pilots.html'.
+            Podemos notar que a letra 'E' foi adicionada ao arquivo sem contudo ser comitada. A letra 'F' foi adicionada ao arquivo sem contudo ser colocada no index ou staged.</p>
+        </p>
+
+        <img src="/app/static/images/git_st_diff.webp" alt="Tela mostrando o comando git status aplicado ao arquivo pilitos.htmlt" style="max-width: 100%; height: auto;">
+
+        <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">Na imagem abaixo vamos interpretar a saída do comando
+            git diff pilots.html linha por linha.
+           </p>
+
+           <img src="/app/static/images/git-diff-pilot.webp" alt="Tela mostrando o comando git status aplicado ao arquivo pilitos.htmlt" style="max-width: 100%; height: auto;">
+
+       <ul>
+        <ol>
+            <h4>Comando executado</h4>
+            <li><code class="language-bash">git diff pilots.html</code></li>
+            <p>Esse comando compara as diferenças entre a versão atual do arquivo pilots.html e a última versão commitada no repositório.</p>
+            <h4>Primeiras linhas de saída</h4>
+            <li><code class="language-bash">diff --git a/pilots.html b/pilots.html</code></li>
+            <p>Isso indica que a comparação está sendo feita no arquivo pilots.html. O git diff compara a versão anterior (a/pilots.html) com a versão atual (b/pilots.html).</p>
+            <h4> Índice (hashes das versões do arquivo)</h4>
+            <li><code class="language-bash">index fb4318f..32706f8 100644</code></li>
+           <ul><li>fb4318f → Hash do commit anterior do arquivo.</li>
+            <li>32706f8 → Hash do estado atual do arquivo (com as mudanças).</li>
+            <li>100644 → Indica as permissões do arquivo (arquivo comum sem permissão de execução).</li>
+            </ul>
+            <h4>Identificação das versões do arquivo</h4>
+            <li>
+                <code class="language-bash">--- a/pilots.html</code>
+                <code class="language-bash">+++ b/pilots.html</code>
+            </li>
+            <p>--- a/pilots.html → Indica a versão antiga do arquivo.
+                +++ b/pilots.html → Indica a versão modificada.</p>
+            <h4>Bloco de contexto (linhas alteradas):</h4>
+            <li><code class="language-bash">@@ -22,6 +22,7 @@</code></li>
+            <p>Esse trecho indica que a modificação está na altura da linha 22 no arquivo original:
+
+                -22,6 → No arquivo antigo, o trecho começava na linha 22 e tinha 6 linhas.
+                +22,7 → No arquivo novo, o trecho começa na linha 22 e agora tem 7 linhas.
+                Isso sugere que foi adicionada uma linha ao código.</p>
+           <h4>Conteúdo antes e depois</h4>
+           <li>
+            <img src="/app/static/images/conteudo_diff.png" alt="Conteúdo antes e depois" style="max-width: 100%; height: auto;">
+           </li>
+           <h4>Estado do repositório</h4>
+           <ul><li>
+            A linha Delta já foi commitada anteriormente.
+           A linha &lt;li&gt;Foxtrot&lt;/li&gt;  foi adicionada, mas ainda está unstaged (não foi adicionada ao índice com git add).
+           O comando git add pilots.html foi executado anteriormente para incluir outras mudanças no stage, mas a linha &lt;li&gt;Foxtrot&lt;/li&gt; ainda não foi adicionada ao stage.
+           </li></ul>
+           <h4>Testando no repositório</h4>
+           <p>Se você quiser ver todas as diferenças, incluindo as que já estão no stage, use:</p>
+           <li><code class="language-bash">git diff --staged pilots.html</code></li>
+           <p>Isso mostrará as diferenças que já foram adicionadas ao stage, mas ainda não commitadas.</p>
+           <li>
+            <img src="/app/static/images/git-diff_staged.webp" alt="Conteúdo antes e depois" style="max-width: 100%; height: auto;">
+           </li>
+           <p>A imagem anterior confirma que a letra 'E' foi adicionada via git add mas não comitada.</p>
+           <h4>Vendo as alterações desde o último comite.</h4>
+           <li>
+            <code class="language-bash">git diff HEAD pilots.html</code>
+           </li>
+           <img src="/app/static/images/git-diff-head.webp" alt="Conteúdo antes e depois" style="max-width: 100%; height: auto;">
+            <p>Na imagem acima vemos uma linha contendo a palavra 'Echo' e 'Foxtrot' adicionadas como indicado pelo sinal '+'. O git diff interpreta o HEAD com um hash do último comite.
+                O resultado é esperado pois o comite (letra D) foi feito antes da adição das letras 'E' e 'F'.
+            </p>
+           <h4>Vendo mudanças entre dois comites</h4>
+           <li><code class="language-bash">git diff HEAD~1 HEAD pilots.html</code></li>
+           <p>Esse comando compara a versão do arquivo pilots.html entre: </p>
+           <ul>
+            <li>HEAD~1: O commit anterior ao atual (o "pai" do commit atual).</li>
+            <li>HEAD: O commit atual.</li>
+            <p>Isso significa que estamos verificando as mudanças feitas no último commit que afetaram pilots.html.</p>
+            </ul>
+            <code class="language-bash">index 9dd516f..ce31f88 100644</code>
+            <img src="/app/static/images/git-diff-head-head.webp" alt="Entre dois comites" style="max-width: 100%; height: auto;">
+            <ul>
+            <li>9dd516f: Hash da versão anterior do arquivo (HEAD~1).</li>
+            <li>ce31f88: Hash da versão atual do arquivo (HEAD).</li>
+            <li>100644: Permissões do arquivo (arquivo comum, sem execução).</li></ul>
+            <p>Esse git diff confirma que no último commit foi adicionada a linha &lt;li&gt;Delta&lt;/li&gt; ao pilots.html.</p>
+            <h4>Obtendo os hashes pelo git log para verificar a diferença entre comites.</h4>
+            <li><code class="language-bash">git log --online --decorate</code>
+                <code class="language-bash">git diff d298f74 2dded79 pilots.html</code></li>
+                <img src="/app/static/images/git-log-diff.webp" alt="Entre dois comites" style="max-width: 100%; height: auto;">
+            <p>Na imagem anterior podemos observar os seguintes pontos:</p>
+            <ul><li>git log --oneline --decorate mostrou que o commit 2dded79 adicionou algo novo ao projeto.</li>
+            <li>git diff d298f74 2dded79 pilots.html revelou exatamente qual foi essa mudança: a adição da linha &lt;li&gt;Delta&lt;/li&gt</li>
+            </ul>
+            <h4>Agora vamos comitar as pendências do 'feature request', ou seja a inserção da letra 'E' e da letra 'F'.</h4>
+            <img src="/app/static/images/commit_E.png" alt="Entre dois comites" style="max-width: 100%; height: auto;">
+            <img src="/app/static/images/commit_F.png" alt="Entre dois comites" style="max-width: 100%; height: auto;">
+            <p>Ressalvo que o comite da letra 'F' foi precedido de um 'git add' pois o mesmo estava 'unstaged'.</p>
+            <h4>Conclusão desta etapa</h4>
+            <img src="/app/static/images/git-st-final.webp" alt="Entre dois comites" style="max-width: 100%; height: auto;">
+
+
+
+
+
+
+           </ol>
+           </ol>
+           </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <footer style="text-align: center; margin-top: 20px; padding: 10px; background-color: #ead8e7; border-top: 1px solid #ddd;box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);">
+        <div style="display: flex; align-items: center; justify-content: center;">
+            <span><strong>Hosted on GitHub Pages</strong></span>
+            <a href="http://jigsaw.w3.org/css-validator/check/referer" style="margin-left: 10px;">
+                <img style="border:0;width:88px;height:31px" src="http://jigsaw.w3.org/css-validator/images/vcss" alt="CSS válido!">
+            </a>
+        </div>
+        <nav>
+            <a href="feature_req.html" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Próximo: Implementando "a feature request"</a> |
+            <a href="index.html" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Voltar</a> |
+            <a href="/terms" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Terms of Service</a> |
+            <a href="/privacy" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Privacy Policy</a>
+        </nav>
+    </footer>
+    <script>Prism.highlightAll();</script>
+    </div>
+</body>
+</html>

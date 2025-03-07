@@ -62,3 +62,8 @@ For quick notes related to specific parts of your code, you can use comments dir
    ```
 
 By following these steps, you can ensure that the spacing is applied correctly between the `<pre>` block and the following `<p>` element.
+
+
+Usando entidades HTML (para exibição em páginas web ou documentos HTML):
+
+&lt;li&gt;Delta&lt;/li&gt;
