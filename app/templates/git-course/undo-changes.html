@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desfazendo alterações</title>
+    <link rel="stylesheet" href="/app/static/css/git-course.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
+    <style>
+        h4 {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #333;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);  /* Sombra suave para dar profundidade */
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .image-container .hover-text {
+            visibility: hidden;
+            width: 500px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            text-align: justify;
+            border-radius: 5px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 100%; /* Position the tooltip above the image */
+            left: 50%;
+            transform: translateX(-50%); /* Center the tooltip */
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .image-container:hover .hover-text {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Desfazendo alterações </h1>
+        <p class="p-styled  spaced-p">O Git é um poderoso sistema de controle de versão, mas pode ser complicado navegar quando as coisas dão errado.
+            Três dos comandos mais comumente incompreendidos são <code class="language-bash">git reset</code>, <code class="language-bash">git revert</code> e <code class="language-bash">git restore</code>. Cada um serve a um propósito único para desfazer
+            alterações e saber quando usar, o que pode evitar muitas dores de cabeça. Nesta página, detalharemos as diferenças entre esses comandos,
+            explicaremos quando usar cada um e mostraremos como reverter alterações em plataformas populares como GitHub, GitLab e Bitbucket.
+        </p>
+
+        <h4>Comprendendo as três seções de um projeto Git</h4>
+
+        <p class="p-styled  spaced-p">Voce pode estar se perguntando porque repetir este tópico abordado no git status. Porque são lançados alguns conceitos que nos ajudam
+            a reforçar alguns pontos e entender o processo de desfazer alterações.
+        </p>
+
+        <p class="p-styled  spaced-p">Diretório Git Diretório de trabalho (ou árvore de trabalho) Área de staging O diretório Git (localizado em SEU-PROJETO-CAMINHO/.git/)
+             é onde o Git armazena tudo o que precisa para rastrear o projeto com precisão. Isso inclui metadados e um banco de dados de objetos que inclui
+             versões comprimidas dos arquivos do projeto..</p>
+
+        <p class="p-styled  spaced-p">O diretório de trabalho é onde um usuário faz alterações locais em um projeto. O diretório de trabalho puxa os arquivos do
+            projeto do banco de dados de objetos do diretório Git e os coloca na máquina local do usuário. </p>
+
+        <p class="p-styled  spaced-p">Diretório também é conhecido como Repositório ou a forma abreviada repo. O repo na máquina local do usuário é chamado
+           de "repo local", enquanto o repo no servidor Git é chamado de "repo remoto". </p>
+
+        <p class="p-styled  spaced-p">A área de staging é um arquivo (também chamado de "índice", "stage" ou "cache") que armazena informações sobre o que irá
+            entrar no seu próximo commit. Um commit é quando você diz ao Git para salvar essas alterações staged. O Git tira uma captura instantânea dos arquivos
+            como eles estão e armazena permanentemente essa captura no diretório Git. </p>
+
+       <p class="p-styled  spaced-p">Com três seções, há três estados principais que um arquivo pode estar em qualquer momento: modificado, committed ou staged.
+        Você modifica um arquivo a qualquer momento em que faz alterações nele no seu diretório de trabalho. Em seguida, ele é staged quando você o move para a área
+        de staging. Finalmente, ele é committed após um commit.
+       </p>
+
+       <pre class="spaced-pre code-block"><code class="language-bash">git reset</code></pre>
+
+       <p class="p-styled  spaced-p"><strong>git reset</strong> é como retroceder o histórico do projeto para um ponto específico. Tecnicamente, o comando move o <strong>HEAD</strong> e o ponteiro de ramificação para uma
+            confirmação (comite) específica. Um ponteiro de ramificação é uma referência que aponta para a confirmação mais recente no histórico de uma ramificação específica. Um commit é um instantâneo de todo o
+            repositório em um determinado momento. Entenda o conceito de <strong>"confirmação"</strong> como sendo um "commit".</p>
+
+        <p class="p-styled  spaced-p"><strong>HEAD</strong> é um ponteiro para a confirmação mais recente no branch atual. É sua posição atual no repositório. Se você fizer uma nova confirmação, HEAD se moverá para
+            apontar para a nova confirmação. Isso significa que <strong>HEAD</strong> sempre aponta para as alterações mais recentes que você fez em seu código.</p>
+
+       <h4>Git reset possui trê modos a saber:</h4>
+
+       <ul>
+        <li><p class="p-styled  spaced-p"><strong>Soft Reset (--soft)</strong>: soft reset no Git é uma maneira de desfazer alterações em seu diretório de trabalho e voltar a um
+            commit específico, mantendo as alterações que você preparou. Esse modo move o ponteiro de ramificação e o HEAD para a confirmação de destino,
+            mas deixa suas alterações na área de preparo. A área de preparo (também conhecida como índice) no Git é uma área de retenção temporária para alterações
+            que ainda não foram confirmadas. Quando você faz alterações em um arquivo, as alterações são colocadas primeiro no diretório de trabalho. Em seguida,
+            você pode usar o comando git add para preparar as alterações para o próximo commit. Uma soft reset geralmente é usada quando você deseja "desconfirmar"
+             suas alterações, mas mantê-las em sua área de teste para outra confirmação.</p></li>
+       <li><p class="p-styled spaced-p"><strong>Mixed Reset (padrão)</strong>: O modo padrão de redefinição do git é uma 'mixed reset'. Ele move o ponteiro de ramificação e o HEAD
+        para a confirmação de destino enquanto limpa a área de preparo. Isso é útil quando você deseja cancelar a confirmação e cancelar o estágio de suas alterações,
+        mas mantê-las em seu diretório de trabalho.</p></li>
+        <li><p class="p-styled spaced-p"><strong>Hard Reset (--hard)</strong>: Esse modo move o ponteiro de branch e o HEAD para a confirmação de destino, limpa a área de preparo
+          e descarta todas as alterações no diretório de trabalho. Tenha cuidado com esse modo, pois ele exclui permanentemente as alterações não confirmadas.</p></li>
+       </ul>
+
+       <p class="p-styled  spaced-p">Digamos que você tenha feito uma série de commits e perceba que o último commit deve incluir algo diferente de algumas das alterações que você preparou.
+        Você pode usar git reset para remover essas alterações, mantendo-as em seu diretório de trabalho.</p>
+
+        <p class="p-styled  spaced-p">Para testar o <strong>git reset</strong>, crie um novo diretório: Nota - passe o mouse por sobre a imagem para ver a sequencia de ações.</p>
+
+        <div class="image-container">
+            <img src="/app/static/images/commit_exemplo.webp" alt="Exemplo de git reset" style="max-width: 100%; height: auto;">
+            <div class="hover-text">
+           <ul>
+            <li>Inicialize um novo repositório Git e crie um arquivo de texto simples:</li>
+            <li>Com git add, você adicionou o file.txt à área de preparo (staged).</li>
+            <li>Agora, confirme as alterações.</li>
+            <li>O sinalizador -m é usado para especificar uma mensagem de confirmação. A mensagem de confirmação é uma nota breve e descritiva.
+            </li>
+           </ul>
+        </div>
+        <div class="image-container">
+            <img src="/app/static/images/reset.webp" alt="Exemplo de git reset" style="max-width: 100%; height: auto;">
+            <div class="hover-text">
+           <ul>
+            <li>Agora, faça algumas alterações no file.txt. Em seguida, prepare-os e confirme-os:</li>
+            <li>Execute o comando git log para rastrear o histórico de confirmação do branch e entender quais alterações foram feitas.</li>
+            <li>agora use git reset HEAD~1 para remover as alterações:</li>
+            <li>O HEAD é um ponteiro para a confirmação mais recente no branch atual. O ~1 no comando diz ao Git para redefinir para o commit que é um antes
+                do HEAD atual (aquele antes de "Add Line 2").</li>
+           <li>As alterações na última confirmação agora não são preparadas (M file.txt) e o ponteiro de branch foi movido de volta para a confirmação anterior.
+            "M" significa "modificado" aqui.</li>
+            <li>Você pode ver que Head -> master agora está apontando para o commit inicial.</li>
+           </ul>
+        </div>
+
+        <p class="p-styled  spaced-p">Neste exemplo, git reset HEAD~1 executa uma redefinição mista, movendo o ponteiro do branch e HEAD para o commit anterior, mantendo suas
+            alterações no diretório de trabalho.</p>
+
+        /*Continuar a explicação sobre git revert*/
+
+       <h4>Ainda falando de alterações a serem desfeitas</h4>
+
+       <p class="p-styled  spaced-p">Um dos motivos para rastrear o histórico de um projeto é ter a capacidade de desfazer alterações. É uma situação comum no desenvolvimento de software:
+        você muda alguma coisa, testa a mudança e não funciona da maneira que você esperava. Em seguida, você decide reverter o código de volta para a versão anterior.
+        Com o Git, você pode fazer isso facilmente. </p>
+
+        <p class="p-styled  spaced-p">Existem três cenários possíveis de desfazer no Git:</p>
+
+        <ul>
+           <li>Desfazer alterações no diretório de trabalho antes do 'staged'</li>
+           <li>Desfazer alterações após o staged e antes de comitar.</li>
+           <li>Desfazer alterações comitadas</li>
+        </ul>
+
+        <p class="p-styled  spaced-p">Os exercícios agora seguem o uso do arquivo pilots.html</p>
+
+        <p class="p-styled  spaced-p">Mudança não desejada - exercício</p>
+
+        <p class="p-styled  spaced-p">Para demonstrar cada um dos cenários acima, precisaremos de uma alteração indesejada para desfazer. Nós vamos novamente usar o projeto Phonetic sistema
+            para experimentar.  Abra pilots.html em um editor de texto e exclua todas as palavras, exceto "Alfa", para que o alfabeto fique assim: </p>
+
+       <img src="/app/static/images/alpha.png" alt="Exemplo de git reset" style="max-width: 100%; height: auto;">
+
+       <p class="p-styled  spaced-p">Salve a alteração e verifique abrindo no navegador o arquivo pilots.html.
+        Vamos aprender agora a recuperar as letras apagadas usando as características de desfazer do git. No caso do exemplo parece ser simples recuperar as demais palavras
+     do arquivo mas imagine que o seu código tenha 500 linhas a serem recuperdas.</p>
+
+
+
+
+        <footer style="text-align: center; margin-top: 20px; padding: 10px; background-color: #ead8e7; border-top: 1px solid #ddd;box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);">
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <span><strong>Hosted on GitHub Pages</strong></span>
+                <a href="http://jigsaw.w3.org/css-validator/check/referer" style="margin-left: 10px;">
+                    <img style="border:0;width:88px;height:31px" src="http://jigsaw.w3.org/css-validator/images/vcss" alt="CSS válido!">
+                </a>
+            </div>
+            <nav>
+                <a href="git-status.html" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Próximo: git add"</a> |
+                <a href="index.html" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Voltar</a> |
+                <a href="/terms" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Terms of Service</a> |
+                <a href="/privacy" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Privacy Policy</a>
+            </nav>
+        </footer>
+    </div>
+    <script>Prism.highlightAll();</script>
+</body>
+</html>
