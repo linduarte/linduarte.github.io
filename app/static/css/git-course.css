@@ -31,6 +31,28 @@ p {
     text-align: justify; /* Justify text */
 }
 
+.p-styled {
+    font-size: 1em;
+    color: #5c4033;
+    text-align: justify;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+.code-block {
+    display: block;
+    margin: 10px 0;
+}
+
+.spaced-pre {
+    padding-bottom: 20px; /* Adds spacing below */
+}
+
+.spaced-p {
+    padding-top: 20px; /* Adds spacing above */
+}
+
+
 img {
     max-width: 100%;
     height: auto;
