@@ -16,6 +16,13 @@
         mermaid.initialize({ startOnLoad: true });
     </script>
     <style>
+        .mermaid {
+         background-color: black; /* Adds black background to mermaid div */
+         color: white; /* Ensures text color is readable */
+         padding: 10px; /* Adds padding for better readability */
+        }
+    </style>
+    <style>
 
         h4 {
        font-weight: bold;
@@ -155,13 +162,40 @@
 
 
 
+
            </ol>
            </ol>
            </ul>
+           <section>
+            <h3>Git Graph</h3>
+            <p>Diagrama Mermaid  para o Git graph</p>
+            <p>Observe que agora usamos a mensagem do comite para mostrar no GitGraph ao invés do 'hash' de cada comite.</p>
+            <div class="mermaid">
+                %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchOrder': 0}} }%%
+                gitGraph
+                commit id: "0-Initial commit"
+                commit id: "1-Adicionado o código fonte"
+                commit id: "2-Letra D adicionada"
+                commit id: "3-Letra E adicionada"
+                commit id: "4-Letra F adicionada"
+            </div>
+            <h3>Mermaid Code</h3>
+            <p>Código Mermaid para o Git graph</p>
+            <div class="code-box">
+                <pre>
+                    <code>
+%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchOrder': 0}} }%%
 
-
-
-
+                        gitGraph
+                        commit id: "0-Initial commit"
+                        commit id: "1-Adicionado o código fonte"
+                        commit id: "2-Letra D adicionada"
+                        commit id: "3-Letra E adicionada"
+                        commit id: "4-Letra F adicionada"
+                    </code>
+                </pre>
+            </div>
+        </section>
 
 
 
