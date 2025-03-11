@@ -48,12 +48,34 @@
             opacity: 1;
         }
     </style>
+    <style>
+        .table-container {
+            width: 470px;
+            height: 180px;
+            overflow: hidden; /* Remove scrollbar */
+        }
+        table {
+            width: 470px; /* Set table width */
+            height: 180px; /* Set table height */
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f5f5f5;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Desfazendo alterações </h1>
         <p class="p-styled  spaced-p">O Git é um poderoso sistema de controle de versão, mas pode ser complicado navegar quando as coisas dão errado.
-            Três dos comandos mais comumente incompreendidos são <code class="language-bash">git reset</code>, <code class="language-bash">git revert</code> e <code class="language-bash">git restore</code>. Cada um serve a um propósito único para desfazer
+            Três dos comandos mais comumente incompreendidos são <code class="language-bash">git reset</code>, <code class="language-bash">git revert</code> e <code class="language-bash">git restore</code>(Não será tratado no curso). Cada um serve a um propósito único para desfazer
             alterações e saber quando usar, o que pode evitar muitas dores de cabeça. Nesta página, detalharemos as diferenças entre esses comandos,
             explicaremos quando usar cada um e mostraremos como reverter alterações em plataformas populares como GitHub, GitLab e Bitbucket.
         </p>
@@ -135,14 +157,80 @@
                 do HEAD atual (aquele antes de "Add Line 2").</li>
            <li>As alterações na última confirmação agora não são preparadas (M file.txt) e o ponteiro de branch foi movido de volta para a confirmação anterior.
             "M" significa "modificado" aqui.</li>
-            <li>Você pode ver que Head -> master agora está apontando para o commit inicial.</li>
+            <li>Você pode ver que Head -> main agora está apontando para o commit inicial.</li>
            </ul>
         </div>
 
         <p class="p-styled  spaced-p">Neste exemplo, git reset HEAD~1 executa uma redefinição mista, movendo o ponteiro do branch e HEAD para o commit anterior, mantendo suas
             alterações no diretório de trabalho.</p>
 
-        /*Continuar a explicação sobre git revert*/
+        <h4>git revert</h4>
+        <p class="p-styled  spaced-p">Git revert é um comando usado para criar uma nova confirmação que desfaz as alterações introduzidas por uma confirmação
+             específica. Ao contrário do git reset, que modifica o histórico do projeto, o git revert cria uma nova confirmação que efetivamente cancela as alterações
+             feitas na confirmação de destino. Esta é uma maneira segura de desfazer alterações sem alterar o histórico de confirmação.</p>
+
+        <p class="p-styled  spaced-p">Suponha que você tenha um repositório Git com um histórico de confirmação e queira desfazer uma confirmação específica que introduziu uma alteração que não
+            é mais necessária. Você pode usar o git revert para criar uma nova confirmação que desfaz as alterações da confirmação de destino.</p>
+
+        <p class="p-styled  spaced-p">Para testar o <strong>git revert</strong>, crie um novo diretório: </p>
+
+        <img src="/app/static/images/reset.webp" alt="Exemplo de git reset" style="max-width: 100%; height: auto;">
+
+         <p class="p-styled  spaced-p">Desta vez, usarei o comando git reflog. git reflog é um comando usado para exibir o log de referência, que registra as alterações nos ponteiros
+            de ramificação e HEAD. </p>
+
+            <img src="/app/static/images/git-reflog.webp" alt="Exemplo de git reset" style="max-width: 100%; height: auto;">
+
+       <p class="p-styled  spaced-p">Em seguida, executarei o git revert para criar uma nova confirmação que desfaz as alterações introduzidas pela confirmação
+        de destino.</p>
+
+        <img src="/app/static/images/git-revert-head.webp" alt="Exemplo de git reset" style="max-width: 100%; height: auto;">
+
+        <p class="p-styled  spaced-p">Você verá uma nova confirmação refletindo as alterações feitas pela confirmação de reversão.
+
+            Quando você executa o git reflog novamente, você pode ver que o local principal do Head -> é diferente.</p>
+
+       <h4>git reset x git revert</h4>
+
+       <p class="p-styled  spaced-p">Os comandos git reset e git revert são usados para desfazer alterações no Git. Saber quando cada comando deve ser utilizado,
+        bem como qual modo é adequado para sua situação, garantirá um histórico de controle de versão mais confiável. A tabela abaixo resume
+        as diferenças entre git reset e git revert.</p>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Recurso</th>
+                        <th><em>git reset</em></th>
+                        <th><em>git revert</em></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Muda o ponteiro HEAD </td>
+                        <td>Sim</td>
+                        <td>Não</td>
+                    </tr>
+                    <tr>
+                        <td>Cria um novo comite</td>
+                        <td>Não</td>
+                        <td>Sim</td>
+                    </tr>
+                    <tr>
+                        <td>Descarta mudanças</td>
+                        <td>Sim, por padrão</td>
+                        <td>Não</td>
+                    </tr>
+                    <tr>
+                        <td>Preserva a histório dos comites/td>
+                        <td>Não, por padrão</td>
+                        <td>Sim</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p>Use o git reset quando quiser descartar as alterações feitas na árvore de trabalho. Isso pode ser útil se você cometeu um erro ou se quiser começar de novo.</p>
 
        <h4>Ainda falando de alterações a serem desfeitas</h4>
 
@@ -170,6 +258,8 @@
        <p class="p-styled  spaced-p">Salve a alteração e verifique abrindo no navegador o arquivo pilots.html.
         Vamos aprender agora a recuperar as letras apagadas usando as características de desfazer do git. No caso do exemplo parece ser simples recuperar as demais palavras
      do arquivo mas imagine que o seu código tenha 500 linhas a serem recuperdas.</p>
+
+
 
 
 
