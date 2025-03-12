@@ -164,6 +164,32 @@
         projeto volte para uma versão anterior.
     </p>
 
+    <h4>Marcando versões</h4>
+
+    <p class="p-styled  spaced-p">Você pode usar o Git para anexar uma tag para identificar facilmente uma versão estável de um projeto com o comando git tag.
+        A tag pode ser qualquer string arbitrária, mas os esquemas de controle de versão tradicionais atribuem uma sequência numérica começando com zero.</p>
+
+    <p class="p-styled  spaced-p">
+         Por exemplo, suponha que você queira atribuir a tag v0.1 à versão (commit) em que adicionou a letra F ao projeto Site Fonético. Primeiro, você precisa
+         descobrir qual é o hash curto para o commit correspondente do log de histórico (no nosso caso, 333a382) e, em seguida, digitar o seguinte comando para marcá-lo:
+    </p>
+
+    <img src="/app/static/images/tag.webp" alt="Exemplo de git tag" style="max-width: 100%; height: auto;">
+
+    <p class="p-styled  spaced-p">Na mesma imagem podemos ver a comando <strong>git log</strong> mostrando a alteração no comite da letra F com a tag. </p>
+
+    <p class="p-styled  spaced-p">Agora você pode consultar esta versão do site usando a tag atribuída em vez do hash curto. Vamos verificar o status da árvore de trabalho: </p>
+
+    <img src="/app/static/images/git-st.webp" alt="Exemplo de git st" style="max-width: 100%; height: auto;">
+
+    <p>Na imagem anterior podemos verificar que as várias alterações feitas constituiram um total de 5 comites que estão defasados em relação ao repositório remoto.</p>
+
+    <img src="/app/static/images/git-push-st.webp" alt="Exemplo de git push e git st" style="max-width: 100%; height: auto;">
+
+    <p>Na imagem anterior foi realizado o comando <strong>git push</strong>, ou seja, igualarmos o repositório local com o remoto. Na mesma imagem temos o <strong>git status</strong> confirmando
+    que os repositórios estão iguais e nada para ser comitado.</p>
+
+
     <h1>Complemento ao processo de 'desfazer mudanças'</h1>
 
 

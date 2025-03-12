@@ -36,7 +36,61 @@
     </head>
 <body>
     <div class="container">
-        <h1>Git diff - Como comparar mudanças no seus arquivos </h1>
+
+        <h1>Comparando versões</h1>
+        <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">É muito importante notar que existem várias versões de um
+            arquivo em um repositório Git. Cada versão de um arquivo é chamada de 'commit'. Um 'commit' é uma versão de um arquivo em um repositório Git.
+
+       <ul>
+        <li>Diretório de trabalho - constitui uma versão de seus arquivos em processo de edição</li>
+        <li>A versão 'staged' - ou seja quando voce adicionou utilizando o 'git add' colocando seus arquivos no chamado 'index' , esperando para serem comitados.</li>
+        <li>A versão comitada - uma versão para cada comite.</li>
+       </ul>
+       <p class="p-styled  spaced-p">Num mundo real quando trabalhamos sem uma ferramenta de controle
+        de versão como o Git, voce pode ter várias versões de um arquivo em seu diretório de trabalho. E voce simplesmente salva um mesmo arquivo várias vezes ou até mesmo
+        salva com outro nome. Com o Git voce pode salvar várias versões de um arquivo em um repositório Git. Cada versão de um arquivo é chamada de 'commit'.
+        Um 'commit' é uma versão de um arquivo em um repositório Git.
+        Pensando em um trabalho de desenvolvimento de software, cada 'commit' representa um conjunto de mudanças em um arquivo ou em um conjunto de arquivos.
+       </p>
+
+       <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">Agora vamos conhecer um comando que mostra as mudanças no diretório de trabalho, no 'index e nas versões de comites.</p>
+
+       <pre class="spaced-pre"><code class="language-bash">git diff</code></pre>
+
+
+       <p class="p-styled  spaced-p">Para darmos início ao processo de utilização do git diff
+        torna-se importante saber o status de nossa última intervenção no repositório quando realizadmos o comite da letra 'D'. A imagem abaixo registra o status e nos informa
+        que estamos 1(um) comite a frente do repositório remoto.</p>
+
+       <img src="/app/static/images/status_comit_let_D.png" alt="Tela mostrando o status do repositório" style="max-width: 100%; height: auto;">
+
+       <p class="p-styled  spaced-p">Vamos implementar uma nova 'feature request' adicionando a letra 'E'
+        aos arquivos pilots.html, cities.html e names.html da mesma forma anteriormente realizada com a letra 'D'.</p>
+
+        <img src="/app/static/images/add_letter.png" alt="Tela mostrando a adição da letra 'E' nos arquivos HTML." style="max-width: 100%; height: auto;">
+
+        <p class="p-styled  spaced-p">Feitas as adições nos arquivos HTML, vamos adicionar os
+        arquivos  ao index, usando o <code class="language-bash">git add</code>.</p>
+
+        <img src="/app/static/images/git_add_let_F.webp" alt="Tela mostrando o status e a aplicação do git add." style="max-width: 100%; height: auto;">
+
+        <p class="p-styled  spaced-p">Vamos implementar novamente uma 'feature request'
+            adicionando a letra 'F' aos arquivos pilots.html, cities.html e names.html na seguinte ordem repectivamente: 'Foxtrot', 'Fillmore' e 'Fred',da mesma forma anteriormente realizada com a letra 'E'.</p>
+
+       <img src="/app/static/images/git_add_let_E.webp" alt="Tela mostrando o status após a adição da letra F." style="max-width: 100%; height: auto;">
+
+       <p class="p-styled  spaced-p">A imagem anterior mostra o status depois da aplicação da letra F.
+        Aqui é muito importante perceber que as adições da letra 'F' não foram submetidas ao  <code class="language-bash">git add</code> por isto permanecem sem o controle do git ao passo
+       que as adições das letra 'E' permitem que os arquivos sejam comitados.</p>
+
+       <img src="/app/static/images/git-log-oneline.png" alt="Tela mostrando o log após a adição da letra D." style="max-width: 100%; height: auto;">
+
+       <p class="p-styled  spaced-p">Temos então três situações distintas ou seja,
+        a letra 'D' foi adicionada e comitada, a letra 'E' foi adicionada mas não comitada e a letra 'F' não foi adicionada e nem comitada.
+       </p>
+
+        <h4>Git diff - Como comparar mudanças no seus arquivos  - uma visão detalhada</h4>
+
         <p class="p-styled  spaced-p">O motivo de detalhamento desta página reside no fato
             de que o comando <code class="language-bash">git diff</code> requer um entendimento mais profundo de onde e como usá-lo em sua plenitude.
             Desta forma as páginas <strong>branch.html</strong> e <strong>branch_1.html</strong> onde se descorre de forma superficial no uso do referido comando
