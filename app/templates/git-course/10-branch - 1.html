@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Branch</title>
+    <link rel="stylesheet" href="/app/static/css/git-course.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <style>
+        .spaced-pre {
+            padding-bottom: 20px; /* Adds spacing below */
+        }
+
+        .spaced-p {
+            padding-top: 20px; /* Adds spacing above */
+        }
+
+        .mermaid {
+            background-color: black; /* Adds black background to mermaid div */
+            color: white; /* Ensures text color is readable */
+            padding: 10px; /* Adds padding for better readability */
+            width: 100%; /* Adjust width to fit larger graph */
+            height: 180px; /* Adjust height to fit larger graph */
+        }
+
+
+        h4 {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #333;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);  /* Sombra suave para dar profundidade */
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        h6 {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #333;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);  /* Sombra suave para dar profundidade */
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>O que é um 'branch' (ramo)? - Parte 1</h1>
+        <nav>
+            <ul>
+                <li><a href="#section1">Introdução</a></li>
+                <li><a href="#section2">Trabalhando com ramos</a></li>
+                <li><a href="#section3">Movendo, apagando e renomeando arquivos</a></li>
+                <li><a href="#section4">Git Graph</a></li>
+            </ul>
+        </nav>
+
+        <section id="section1">
+            <h2>Introdução</h2>
+            <p>Um 'branch' representa uma linha independente de desenvolvimento no projeto com sua própria história de comites.
+                Voce pode listar os 'branches' no repositório local bastando usar o comando:</p>
+            <pre class="spaced-pre"><code class="language-bash">git branch</code></pre>
+            Quando se associa o parâmetro '--remote' ao comando 'git branch' é possível listar os 'branches' remotos.
+            <pre class="spaced-pre"><code class="language-bash">git branch --remote</code></pre>
+            <img src="/app/static/images/git-branch-re.png" alt="Imagem do git branch e do git branch remoto" style="max-width: 48%; height: auto;">
+            <p class="p-styled spaced-p">Agora nosso repositório posui somente um único ramo, 'branch' chamado 'main'. O ramo 'main' é o ramo padrão do Git.
+                Este ramo é criado automaticamente quando se inicia um novo repositório. O ramo 'main' é o ramo principal do projeto. Ou seja é deafult.
+                Se compararmos o projeto Git como uma árvore o ramo 'main' seria o tronco da árvore. O ramo 'main' é o ramo que contém o código de produção.
+                A partir do tronco é possivel criarmos linhas separadas de desenvolvimento como ramos idependentes com seus próprios comites.
+            </p>
+            <img src="/app/static/images/trunck.png" alt="Screenshot do pilots HTML" style="max-width: 48%; height: auto;">
+            <p class="p-styled spaced-p">Na imagem anterior a linha representa o ramo principal, 'main' com
+                cada comite mostrado como um círculo. A seta indica a direção do desenvolvimento, ou seja 'HEAD' e aponta para o último comite.
+                O último comite é o comite mais recente. O comite mais recente é o comite que está no topo da pilha de comites. De baixo para cima como pode-se ver na imagem abaixo do git log.
+            </p>
+            <img src="/app/static/images/git-log-oneline.png" alt="Tela mostrando o histórico de comites realizados" style="max-width: 100%; height: auto;">
+        </section>
+
+        <section id="section2">
+            <h2>Trabalhando com ramos (branches)</h2>
+            <p class="p-styled spaced-p">Uma ramificação no Git é uma linha de desenvolvimento independente com um histórico de confirmação separado. Em grandes projetos,
+                cada novo recurso ou correção de bug geralmente é desenvolvido em uma ramificação separada e, uma vez concluído, mesclado na base
+                de código principal. Neste tópico, examinaremos as operações de ramificação e mesclagem no Git.
+            </p>
+        </section>
+
+        <section id="section3">
+            <h2>Movendo, apagando e renomeando arquivos</h2>
+            <p class="p-styled spaced-p">As ramificações são úteis quando você deseja experimentar alterações em um projeto sem afetar a base de código principal no mestre.
+                Nesta seção, vamos criar um branch separado para experimentar excluir, mover e renomear arquivos em um projeto Git.</p>
+            <p class="p-styled spaced-p">Abra o Git Bash e mude
+                para o diretório de trabalho do projeto Site Fonético. Execute os seguintes comandos para criar um novo branch chamado "test" e alterne para ele:
+            </p>
+            <img src="/app/static/images/branch_test.webp" alt="Tela mostrando o novo ramo" style="max-width: 100%; height: auto;">
+            <p class="p-styled spaced-p">Na imagem acima temos o <strong>git branch test</strong> o comando usado para criar o novo ramo (branch).</p>
+            <p class="p-styled spaced-p">O <strong>git checkout test</strong> usado para mudarmos do ramo (main) para o ramo (test). Podemos usar outro comando equivalente para
+                realizar a mudança de ramo, o <strong>git switch test</strong>.</p>
+            <p class="p-styled spaced-p">Caso se use o <strong>git branch</strong> sem parâmetros teremos a lista de ramos de nosso repositório. A imagem abaixo mostra o referido comando usado
+                e destaca com um asterisco em qual ramo seu repertório está.</p>
+            <img src="/app/static/images/git-branch.webp" alt="Tela mostrando o git branch sem parâmetros" style="max-width: 100%; height: auto;">
+            <p class="p-styled spaced-p">O comando <strong>git log --oneline --decorate</strong> mostra que o novo ramo <strong>test</strong> compartilha todos o comites previamente realizados
+                com o ramo <strong>main</strong>. O HEAD agora aponta para o ramo <strong>test</strong> confirmando que o <strong>test</strong> é agora o ramo padrão. A imagem abaixo
+                mostra com clareza estes aspectos.</p>
+            <img src="/app/static/images/git-log-br.webp" alt="Tela mostrando o git log do ramo test" style="max-width: 100%; height: auto;">
+            <p class="p-styled spaced-p">Agora podemos realizar mudanças sem afetar o código principal no ramo <strong>main</strong>. Para demonstrar este recurso
+                nós iremos realizar mudanças estruturais e mover os arquivos de estilo (CSS) para um nível acima conforme a imagem abaixo.</p>
+            <img src="/app/static/images/git-mv-br.webp" alt="Tela mostrando o git mv" style="max-width: 100%; height: auto;">
+            <p class="p-styled spaced-p">Aqui vale a seguinte consideração - voce poderia utilizar o Windows explorer para realizar esta ação mas voce deverá depois utilizar o
+                <strong>git add</strong> para colocar os arquivos no índex ou <strong>'staged'</strong> ao posso que utilizando o comando <strong>git mv e git rm</strong>
+                seus arquivos serão lançados automaticamente para o 'index' ou <strong>'staged'</strong>.</p>
+            <p class="p-styled spaced-p">Teste o site em um navegador. Você vai perceber que o Site Fonético perdeu seu estilo e tanto o menu quanto as páginas do alfabeto estão exibidas como
+                listas simples sem formatação. Isso acontece porque a localização dos arquivos CSS mudou e os links da folha de estilo nos arquivos HTML estão quebrados.
+                Vamos consertar esse problema. Abra cada arquivo HTML em sequência e localize a seção <head> no topo do arquivo:</p>
+               <img src="/app/static/images/pilots-head.webp" alt="Tela mostrando o pilots.html" style="max-width: 100%; height: auto;">
+               <p class="p-styled spaced-p">A imagem anterior mostra a pasta <strong>'style/site.css'</strong> que precisa ser reparada conforme a imagem abaixo porque
+                a pasta foi movida de lugar: </p>
+               <img src="/app/static/images/pilots-head_fix.webp" alt="Tela mostrando o pilots.html reparado" style="max-width: 100%; height: auto;">
+                <p class="p-styled spaced-p">Faça a mudança acima nos arquivos pilots.html, cities.html e names.html. Salve e teste novamente o site em um navegador. Você verá que o estilo
+                do Phonetic Website voltou, pois os links CSS agora estão corretos. Vamos adicionar as mudanças ao index para o próximo commit.</p>
+                <p class="p-styled spaced-p">O diretório de estilo agora está vazio e pode ser removido digitando o seguinte comando Git Bash (ou, se preferir, você pode excluir a pasta
+                usando o Windows Explorer):
+                </p>
+                <img src="/app/static/images/git-add-html.webp" alt="Tela mostrando git add dos arquivos html" style="max-width: 100%; height: auto;">
+                <p>Verifique o status do repositório com o comando <strong>git status</strong>.</p>
+                <img src="/app/static/images/git-st-test.webp" alt="Tela mostrando git status" style="max-width: 100%; height: auto;">
+                <p>Agora podemos comitar as mudanças:</p>
+                <img src="/app/static/images/git-commit-test.webp" alt="Tela mostrando git commit" style="max-width: 100%; height: auto;">
+                <p class="p-styled spaced-p">A história to ramo (branch) test é mostrada abaixo na imagem:</p>
+                <img src="/app/static/images/git-log-test.webp" alt="Tela mostrando git log do ramo test" style="max-width: 100%; height: auto;">
+                <p class="p-styled spaced-p">Observe que HEAD está apontando para o último commit no branch de teste (HEAD -> test). O diretório de trabalho agora deve estar limpo:
+                </p>
+                <img src="/app/static/images/git-log-test.webp" alt="Tela mostrando git st git-st-final" style="max-width: 100%; height: auto;">
+
+
+
+
+
+
+
+
+
+
+        </section>
+
+        <section id="section4">
+            <h3>Git Graph</h3>
+            <p>Diagrama Mermaid para o Git graph</p>
+            <div class="mermaid">
+                %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchOrder': 0}} }%%
+                gitGraph
+                commit id: "0-109f780"
+                commit id: "1-d298f74"
+                commit id: "2-2dded79"
+                commit id: "3-389f0a3"
+                commit id: "4-333a382"
+                commit id: "5-0ede735"
+                commit id: "6-26bacec"
+                branch teste
+                checkout teste
+                commit id: "7-4e2d623"
+
+            </div>
+            <h3>Mermaid Code</h3>
+            <p>Código Mermaid para o Git graph</p>
+            <div class="code-box">
+                <pre>
+                    <code>
+%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchOrder': 0}} }%%
+
+                        gitGraph
+                        commit id: "0-109f780"
+                        commit id: "1-d298f74"
+                        commit id: "2-2dded79"
+                        commit id: "3-389f0a3"
+                        commit id: "4-333a382"
+                        commit id: "5-0ede735"
+                        commit id: "6-26bacec"
+                        branch teste
+                        checkout teste
+                        commit id: "7-4e2d623"
+                    </code>
+                </pre>
+            </div>
+        </section>
+
+        <footer style="text-align: center; margin-top: 20px; padding: 10px; background-color: #ead8e7; border-top: 1px solid #ddd;box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);">
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <span><strong>Hosted on GitHub Pages</strong></span>
+                <a href="http://jigsaw.w3.org/css-validator/check/referer" style="margin-left: 10px;">
+                    <img style="border:0;width:88px;height:31px" src="http://jigsaw.w3.org/css-validator/images/vcss" alt="CSS válido!">
+                </a>
+            </div>
+            <nav>
+                <a href="feature_req.html" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Próximo: git add"</a> |
+                <a href="index.html" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Voltar</a> |
+                <a href="/terms" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Terms of Service</a> |
+                <a href="/privacy" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Privacy Policy</a>
+            </nav>
+        </footer>
+    </div>
+    <script>Prism.highlightAll();</script>
+</body>
+</html>
