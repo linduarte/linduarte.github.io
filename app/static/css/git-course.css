@@ -119,3 +119,34 @@ span.token.function {
         margin: 10px;
     }
 }
+
+/* Styling for the navigation bar */
+.styled-nav ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0;
+    margin: 0;
+    display: flex; /* Make the list horizontal */
+    justify-content: center; /* Center the navigation items */
+    background-color: #333; /* Dark background for the nav bar */
+    border-radius: 5px; /* Rounded corners */
+    overflow: hidden;
+}
+
+.styled-nav li {
+    margin: 0;
+}
+
+.styled-nav a {
+    display: block;
+    padding: 10px 20px; /* Add spacing around links */
+    text-decoration: none; /* Remove underline */
+    color: white; /* White text color */
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover effect */
+}
+
+.styled-nav a:hover {
+    background-color: #575757; /* Change background on hover */
+    color: #ffd700; /* Optional: Change text color on hover */
+}
