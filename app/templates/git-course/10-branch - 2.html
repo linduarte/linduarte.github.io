@@ -181,9 +181,13 @@
                <p class="p-styled spaced-p">Você pode ver que os commits que você fez no g-h-i foram integrados. Se você navegar no site agora, pode confirmar que as
                 mudanças foram incorporadas, incluindo as palavras até a letra I.</p>
 
-                <p>O Git faz um bom trabalho ao mesclar mudanças em diferentes partes do mesmo arquivo automaticamente. Às vezes, pode surgir um conflito durante
+                <p class="p-styled spaced-p">O Git faz um bom trabalho ao mesclar mudanças em diferentes partes do mesmo arquivo automaticamente. Às vezes, pode surgir um conflito durante
                     a operação de mesclagem. Isso acontece quando as mudanças que você fez colidem com o código existente na branch em que você está mesclando.
                     Na próxima seção, vamos ver como resolver conflitos.</p>
+
+               <p class="p-styled spaced-p">A imagem abaixo usando o GitGraph mostra o processo até então concluído.</p>
+
+               <img src="/app/static/images/gitgraph_view.webp" alt="Tela mostrando a visão gitgraph após o merge" style="max-width: 100%; height: auto;">
 
         </section>
 
@@ -191,29 +195,64 @@
             <h2>Resolvendo conflitos</h2>
 
 
-               <img src="/app/static/images/pilots-head_fix.webp" alt="Tela mostrando o pilots.html reparado" style="max-width: 100%; height: auto;">
-                <p class="p-styled spaced-p">Faça a mudança acima nos arquivos pilots.html, cities.html e names.html. Salve e teste novamente o site em um navegador. Você verá que o estilo
-                do Phonetic Website voltou, pois os links CSS agora estão corretos. Vamos adicionar as mudanças ao index para o próximo commit.</p>
-                <p class="p-styled spaced-p">O diretório de estilo agora está vazio e pode ser removido digitando o seguinte comando Git Bash (ou, se preferir, você pode excluir a pasta
-                usando o Windows Explorer):
-                </p>
-                <img src="/app/static/images/git-add-html.webp" alt="Tela mostrando git add dos arquivos html" style="max-width: 100%; height: auto;">
-                <p>Verifique o status do repositório com o comando <strong>git status</strong>.</p>
-                <img src="/app/static/images/git-st-test.webp" alt="Tela mostrando git status" style="max-width: 100%; height: auto;">
-                <p>Agora podemos comitar as mudanças:</p>
-                <img src="/app/static/images/git-commit-test.webp" alt="Tela mostrando git commit" style="max-width: 100%; height: auto;">
-                <p class="p-styled spaced-p">A história to ramo (branch) test é mostrada abaixo na imagem:</p>
-                <img src="/app/static/images/git-log-test.webp" alt="Tela mostrando git log do ramo test" style="max-width: 100%; height: auto;">
-                <p class="p-styled spaced-p">Observe que HEAD está apontando para o último commit no branch de teste (HEAD -> test). O diretório de trabalho agora deve estar limpo:
-                </p>
-                <img src="/app/static/images/git-log-test.webp" alt="Tela mostrando git st git-st-final" style="max-width: 100%; height: auto;">
+                <p class="p-styled spaced-p">Agora vamos implementar o segundo pedido de recurso descrito na seção anterior: adicionar as
+                   letras J, K e L ao Site Fonético. Já criamos uma branch de recurso chamada j-k-l para fazer essa mudança, então vamos mudar para ela.</p>
 
+                <img src="/app/static/images/git-sw-jkl.webp" alt="Tela mostrando git switch  j-k-l" style="max-width: 100%; height: auto;">
 
+                <p class="p-styled spaced-p"> Vejamos a história do ramo jkl:</p>
 
+                <img src="/app/static/images/git-log-jkl.webp" alt="Tela mostrando git log de j-k-l" style="max-width: 100%; height: auto;">
 
+                <p class="p-styled spaced-p">Como você pode ver, o histórico da ramificação j-k-l espelha o histórico da ramificação main no ponto de divisão quando a
+                    ramificação foi criada. No entanto, ele não contém as alterações mais recentes no main derivadas da mesclagem com o branch g-h-i.</p>
 
+               <p class="p-styled spaced-p">Exercício</p>
 
+               <p>Adicione a letra J a pilots.html, cities.html e names.html (por exemplo, "Julieta", "Jackson" e "James") imediatamente após a letra F.
+                O código em pilots.html deve ser semelhante ao seguinte: </p>
 
+                <img src="/app/static/images/pilots-add_J.webp" alt="Tela mostrando git status" style="max-width: 100%; height: auto;">
+
+                <p class="p-styled spaced-p">Não se preocupe com a lacuna causada pela falta das letras G, H e I. Vamos resolver isso ao mesclar as alterações no branch main.</p>
+                <p class="p-styled spaced-p">Navegue no site para testar as mudanças, faça o stage e commit com o comentário "Adicionada a letra J".</p>
+                <p class="p-styled spaced-p">Navegue no site para testar as mudanças, faça o stage e commit com o comentário "Adicionada a letra K".</p>
+                <p class="p-styled spaced-p">Navegue no site para testar as mudanças, faça o stage e commit com o comentário "Adicionada a letra L".</p>
+                <p class="p-styled spaced-p">Ao terminar este exercício, o histórico da branch j-k-l deve ficar assim:</p>
+                <img src="/app/static/images/git-log-total.webp" alt="Tela mostrando git log total" style="max-width: 100%; height: auto;">
+                <p class="p-styled spaced-p">O diretório de trabalho deve estar limpo, sem alterações não confirmadas: </p>
+                <img src="/app/static/images/git-st-jkl.webp" alt="Tela mostrando git status do ramo j-k-l" style="max-width: 100%; height: auto;">
+                <p class="p-styled spaced-p">Estamos prontos agora para mesclar as mudanças na branch main. Primeiro, volte para o ramo main e verifique o histórico:</p>
+                <img src="/app/static/images/git-log-main.webp" alt="Tela mostrando git checkout main" style="max-width: 100%; height: auto;">
+                <p class="p-styled spaced-p">Se você navegar no site fonético agora, descobrirá que ainda está na letra I. Vamos mesclar o recurso que implementamos no branch j-k-l e ver o que acontece: </p>
+                <img src="/app/static/images/git-merge-br2.webp" alt="Tela mostrando git merge j-k-l" style="max-width: 100%; height: auto;">
+                <p class="p-styled spaced-p">A saída git merge está sinalizando conflitos nos três arquivos HTML. Isso era de se esperar, pois fizemos alterações nas mesmas linhas de código
+                 em ambas as ramificações. A execução do git status informará que os arquivos foram modificados:</p>
+                <img src="/app/static/images/git-st-conflit.webp" alt="Tela mostrando git status" style="max-width: 100%; height: auto;">
+                 <p class="p-styled spaced-p">Em caso de conflitos durante uma mesclagem, o Git destaca habilmente os conflitos no código-fonte em cada arquivo,
+                   mantendo ambas as alterações (a do branch de recursos e a do branch de destino), deixando para o desenvolvedor <strong>resolver os conflitos
+                    manualmente.</strong></p>
+                  <p class="p-styled spaced-p">Vamos consertar pilots.html primeiro. Abra-o em seu editor de texto favorito. As <strong>alterações conflitantes serão claramente marcadas pelo Git:</strong></p>
+                  <img src="/app/static/images/pilots_conflits.webp" alt="Tela mostrando git status" style="max-width: 100%; height: auto;">
+                  <p class="p-styled spaced-p">A seção de código entre <<<<<<< HEAD e ======= mostra o código no branch atual. A seção de código entre ======= e >>>>>>> j-k-l mostra
+                    as alterações conflitantes mescladas da ramificação j-k-l. Resolver o conflito neste caso é muito fácil. Como queremos manter as duas alterações,
+                    só precisamos excluir as marcações do Git e manter a sequência de palavras em ordem alfabética.</p>
+                    <p>Abra pilots.html em seu editor favorito e exclua as marcações do Git para que a lista do alfabeto fique assim:</p>
+                    <img src="/app/static/images/pilots-fixed.webp" alt="Tela mostrando git status" style="max-width: 100%; height: auto;">
+                    <p class="p-styled spaced-p">Salve o arquivo e faça o stage e commit das alterações. Repita o processo para cities.html e names.html.
+                      Ao terminar, o histórico da branch main deve ficar assim:</p>
+                    <img src="/app/static/images/git-comit-resolv.webp" alt="Tela mostrando git log de main" style="max-width: 100%; height: auto;">
+                    <p class="p-styled spaced-p">Vamos agora dar uma olhada na história do branch main: </p>
+                    <img src="/app/static/images/git-log-main-merg.webp" alt="Tela mostrando git log de main" style="max-width: 100%; height: auto;">
+                    <p class="p-styled spaced-p">Todos os commits da branch j-k-l foram integrados. O último commit é o que você acabou de executar depois de resolver o conflito de merge.
+                        O comando git merge é feito para preservar o histórico sempre que possível.</p>
+                    <p class="p-styled spaced-p">Para concluir, vamos marcar esta versão como v0.2 e atualizar o repositório remoto no GitHub. Pode ser necessário inserir seu nome de usuário e senha:</p>
+                    <img src="/app/static/images/git-tag-push.webp" alt="Tela mostrando git tag" style="max-width: 100%; height: auto;">
+                    <p class="p-styled spaced-p">Agora seu repositório local e remoto estão sincronizados e o diretório deve estar limpo de pendências:</p>
+                    <img src="/app/static/images/git-st-conclus.webp" alt="Tela mostrando git status" style="max-width: 100%; height: auto;">
+                    <p class="p-styled spaced-p">Certifique-se que o site fonético no GitHub esteja atualizado.</p>
+                    <p class="p-styled spaced-p">Observe que enviamos as alterações apenas para a ramificação main. Mas é possível tambem enviar alterações para
+                        outros ramos com o comando,<code class="language-bash">git push origin branch</code> </p>
 
 
 
