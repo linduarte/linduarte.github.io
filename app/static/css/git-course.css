@@ -150,3 +150,9 @@ span.token.function {
     background-color: #575757; /* Change background on hover */
     color: #ffd700; /* Optional: Change text color on hover */
 }
+
+/* Custom style for introduction page paragraphs */
+.intro-page .p-styled.spaced-p {
+    font-size: 1.2em; /* Increase font size */
+    line-height: 1.6; /* Improve readability */
+}

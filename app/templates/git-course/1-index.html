@@ -5,19 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curso de Git</title>
     <link rel="stylesheet" href="/app/static/css/git-course.css">
+    <style>
+        /* Additional styles for the index page */
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+            gap: 20px; /* Space between cards */
+            padding: 20px;
+        }
+
+        .nav-card {
+            background-color: #ead8e7; /* Light background for cards */
+            border: 1px solid #ddd; /* Subtle border */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            text-align: center;
+            padding: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+        }
+
+        .nav-card:hover {
+            transform: translateY(-5px); /* Lift the card on hover */
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+        }
+
+        .nav-card a {
+            text-decoration: none; /* Remove underline */
+            color: #333; /* Dark text color */
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .nav-card a:hover {
+            color: #007BFF; /* Highlight link on hover */
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Curso de "Git"</h1>
-        <nav>
-            <ul>
-                <li><a href="git-init.html">git init</a></li>
-                <li><a href="git-add.html">git add</a></li>
-                <li><a href="git-commit.html">git commit</a></li>
-                <li><a href="git-status.html">git status</a></li>
-                <!-- Add more links as needed -->
-            </ul>
+        <nav class="nav-grid">
+            <div class="nav-card"><a href="introduction.html">1 - Introdução</a></div>
+            <div class="nav-card"><a href="hosting.html">2 - Hospedagem</a></div>
+            <div class="nav-card"><a href="connect.html">3 - Conexão</a></div>
+            <div class="nav-card"><a href="git-clone.html">4 - git clone</a></div>
+            <div class="nav-card"><a href="git-status.html">5 - git status</a></div>
+            <div class="nav-card"><a href="git-add.html">6 - git add</a></div>
+            <div class="nav-card"><a href="feature_req.html">7 - 'feature request"</a></div>
+            <div class="nav-card"><a href="git-commit.html">8 - git commit</a></div>
+            <div class="nav-card"><a href="git-branch - 1.html"> 9 - git branch - Parte 1</a></div>
+            <div class="nav-card"><a href="git-branch - 2.html">10 - git branch - Parte 2</a></div>
+            <div class="nav-card"><a href="git-diff.html">11 - git diff</a></div>
+            <div class="nav-card"><a href="undo-changes.html">12 - git undo changes</a></div>
+            <div class="nav-card"><a href="git-init.html">13 - git init</a></div>
+            <div class="nav-card"><a href="git-install-config.html">14 - git install/config</a></div>
+            <div class="nav-card"><a href="conclusion.html">15 - Conclusão</a></div>
+
         </nav>
+        <footer style="text-align: center; margin-top: 20px; padding: 10px; background-color: #ead8e7; border-top: 1px solid #ddd;box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);">
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <span><strong>Hosted on GitHub Pages</strong></span>
+                <a href="http://jigsaw.w3.org/css-validator/check/referer" style="margin-left: 10px;">
+                    <img style="border:0;width:88px;height:31px" src="http://jigsaw.w3.org/css-validator/images/vcss" alt="CSS válido!">
+                </a>
+            </div>
+            <nav>
+                <a href="git-init.html" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Próximo: git clone"</a> |
+                <a href="index.html" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Voltar</a> |
+                <a href="/terms" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Terms of Service</a> |
+                <a href="/privacy" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Privacy Policy</a>
+            </nav>
+        </footer>
     </div>
 </body>
 </html>
