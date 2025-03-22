@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect Git - GitHub</title>
+    <link rel="stylesheet" href="/app/static/css/git-course.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
+    <style>
+     /* test w3c ok  */
+        blockquote {
+            background: #ead8e7;
+            border-left: 10px solid #ccc;
+            margin: 1.5em 10px;
+            padding: 0.5em 10px;
+            font-style: normal;
+            color: #555;
+        }
+        blockquote p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Conectando Git com o GitHub</h1>
+        <p>SSH significa Secure Shell. É um protocolo usado para se conectar e interagir com servidores com segurança. Quando se trata do GitHub,
+            o uso de chaves SSH pode simplificar o processo de interação com seus repositórios.
+            Em vez de inserir seu nome de usuário e senha toda vez que você executa uma operação do Git, o uso de chaves SSH envolve a criação
+            de um par de chaves - uma chave privada (mantida em segredo em sua máquina) e uma chave pública (adicionada à sua conta do GitHub).
+            Esse par forma uma conexão segura entre sua máquina e o GitHub sem precisar fornecer seu nome de usuário e senha todas as vezes.</p>
+
+        <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">
+        <strong>Passo a passo para realizar a conexão entre o Git e o GitHub</strong></p>
+
+        <h2>Passo 1: Verificando a existência de chaves SSH</h2>
+        <p>No Windows, abra o Git Bash no menu do terminal Windows e entre com o comando:</p>
+        <pre><code class="language-bash">ls -al ~/.ssh</code></pre>
+
+        <h2>Passo 2: Gerando uma nova chave SSH</h2>
+        <p>Se você não encontrar nenhuma chave SSH existente, você pode gerar uma nova chave SSH com o comando:</p>
+        <pre><code class="language-bash">ssh-keygen -t rsa -b 4096 -C "seu_email@example.com"</code></pre>
+        <p>Siga as instruções no terminal para salvar a chave e adicionar uma frase secreta (opcional).</p>
+
+        <h2>Passo 3: Adicionando a chave SSH ao ssh-agent</h2>
+        <p>Inicie o ssh-agent em segundo plano:</p>
+        <pre><code class="language-bash">eval "$(ssh-agent -s)"</code></pre>
+        <p>Adicione sua chave SSH ao ssh-agent:</p>
+        <pre><code class="language-bash">ssh-add ~/.ssh/id_rsa</code></pre>
+
+        <p>O processo pode ser assim resumido:</p>
+        <pre><code class="language-bash">ssh-keygen -t ed25519 -C "your_email@example.com"</code></pre>
+        <pre><code class="language-bash">Generating public/private ed25519 key pair.</code></pre>
+        <pre><code class="language-bash">Enter file in which to save the key (/Users/you/.ssh/id_ed25519): [Press enter]</code></pre>
+        <pre><code class="language-bash">Enter passphrase (empty for no passphrase): [Type a passphrase]</code></pre>
+        <pre><code class="language-bash">Enter same passphrase again: [Type passphrase again]</code></pre>
+
+        <h2>Passo 4: Adicionando a chave SSH à sua conta do GitHub</h2>
+        <p>Copie o conteúdo da sua chave SSH pública para a área de transferência:</p>
+        <pre><code class="language-bash">clip &lt; ~/.ssh/id_rsa.pub</code></pre>
+        <p>Vá para as configurações da sua conta do GitHub e adicione a nova chave SSH.</p>
+
+        <img src="/app/static/images/ssh_keys.png" alt="Screenshot do Github para adicionar chave SSH" style="width: 100%; margin-top: 20px;">
+        <p>Adicione um título descritivo para a chave e cole a chave SSH pública na caixa de texto.</p>
+
+        <h2>Passo 5: Testando a conexão</h2>
+        <p>Para testar se tudo está funcionando corretamente, use o comando:</p>
+        <pre><code class="language-bash">ssh -T git@github.com</code></pre>
+        <p>Se tudo estiver configurado corretamente, você verá uma mensagem de sucesso.</p>
+
+        <blockquote>
+            <p>The authenticity of host 'github.com (IP ADDRESS)' can't be established.<br>
+            RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.<br>
+            Are you sure you want to continue connecting (yes/no/[fingerprint])?</p>
+        </blockquote>
+
+        <p>Digite 'yes' e voce receberá a seguinte mensagem:</p>
+
+        <blockquote>Hi &lt;your_GitHub_username&gt;! You've successfully authenticated, but GitHub does not provide shell access.</blockquote>
+        <p>Se você vir a mensagem acima, você configurou com êxito a autenticação SSH no GitHub.
+            Agora, você pode usar o Git sem precisar digitar seu nome de usuário e senha todas as vezes
+            para cada operação.</p>
+
+        <p>Legal! Agora você entende como se conectar ao GitHub usando SSH no Windows.
+
+            No futuro, se você quiser clonar qualquer repositório do GitHub, use a URL SSH que começa com
+            "git@github.com" em vez de HTTPS.</p>
+
+        <pre><code class="language-bash">git clone git@github.com:username/repository.git</code></pre>
+
+        <p>Com o link SSH, sua máquina usará o par de chaves SSH para se autenticar no GitHub, para que você não precise inserir seu nome de usuário (ou e-mail) e senha sempre que executar
+            qualquer operação git, como push ou pull.</p>
+
+        <p>Lembre-se, se você tiver várias contas do GitHub ou se usar várias máquinas, precisará gerar um
+            par ssh-key exclusivo para cada combinação de conta e máquina do GitHub. Você pode gerenciar todas
+            as suas chaves SSH nas configurações da sua conta do GitHub.</p>
+
+        <p>Por meio de chaves SSH, você estabeleceu uma conexão segura entre sua máquina e o GitHub.
+            Isso simplificará significativamente seu fluxo de trabalho, especialmente ao trabalhar em projetos maiores.</p>
+
+        <footer style="text-align: center; margin-top: 20px; padding: 10px; background-color: #ead8e7; border-top: 1px solid #ddd;box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);">
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <span><strong>Hosted on GitHub Pages</strong></span>
+                <a href="http://jigsaw.w3.org/css-validator/check/referer" style="margin-left: 10px;">
+                    <img style="border:0;width:88px;height:31px" src="http://jigsaw.w3.org/css-validator/images/vcss" alt="CSS válido!">
+                </a>
+            </div>
+            <nav>
+                <a href="git-init.html" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Próximo: git clone</a> |
+                <a href="index.html" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Voltar</a> |
+                <a href="/terms" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Terms of Service</a> |
+                <a href="/privacy" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Privacy Policy</a>
+            </nav>
+        </footer>
+    </div>
+    <script>Prism.highlightAll();</script>
+</body>
+</html>

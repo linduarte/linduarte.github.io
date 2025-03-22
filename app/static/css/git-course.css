@@ -153,6 +153,6 @@ span.token.function {
 
 /* Custom style for introduction page paragraphs */
 .intro-page .p-styled.spaced-p {
-    font-size: 1.2em; /* Increase font size */
-    line-height: 1.6; /* Improve readability */
+    font-size: 1.1em; /* Increase font size */
+    line-height: 1.4; /* Improve readability */
 }

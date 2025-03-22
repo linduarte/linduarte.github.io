@@ -16,6 +16,7 @@
         mermaid.initialize({ startOnLoad: true });
     </script>
     <style>
+     /* test w3c ok  */
             .mermaid {
          background-color: black; /* Adds black background to mermaid div */
          color: white; /* Ensures text color is readable */
@@ -23,10 +24,10 @@
      }
     </style>
     </head>
-<body>
+    <body class="intro-page">
     <div class="container">
         <h1>Git commit </h1>
-        <pre><code class="language-bash">git commit --message "Arquivos iniciais do projeto adicionados"</code></pre>
+        <code class="language-bash">git commit --message "Arquivos iniciais do projeto adicionados"</code>
 
         <p class="p-styled  spaced-p">Essa forma do comando git commit é muito usada quando você tem arquivos preparados que estão prontos para serem adicionados permanentemente
              ao histórico do seu projeto e você quer documentar o que as mudanças envolvem. Ao incluir uma mensagem, você fornece contexto sobre esse ponto
@@ -38,7 +39,7 @@
         <p class="p-styled  spaced-p">Temos uma situação particular de comite
             em que não haja arquivos preparados mas quer se registrar um ponto na história do projeto. Para isso, você pode usar a opção <code class="language-bash">--allow-empty</code>
             com o comando <code class="language-bash">git commit</code>. Isso cria um commit vazio, que pode ser útil para marcar um ponto no histórico do projeto sem adicionar alterações.</p>
-        </p>
+
 
         <p class="p-styled  spaced-p">Outra forma de utilizar o commit é atualizando
             o último commit adicionando as alterações preparadas no momento, alterando o hash do commit.  O comando <code class="language-bash">git commit --amend</code>
