@@ -16,6 +16,7 @@
         mermaid.initialize({ startOnLoad: true });
     </script>
     <style>
+        /* test w3c ok  */
         .mermaid {
          background-color: black; /* Adds black background to mermaid div */
          color: white; /* Ensures text color is readable */
@@ -38,8 +39,8 @@
     <div class="container">
 
         <h1>Comparando versões</h1>
-        <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">É muito importante notar que existem várias versões de um
-            arquivo em um repositório Git. Cada versão de um arquivo é chamada de 'commit'. Um 'commit' é uma versão de um arquivo em um repositório Git.
+        <p class="p-styled  spaced-p">É muito importante notar que existem várias versões de um arquivo em um repositório Git. Cada versão de um arquivo
+         é chamada de 'commit'. Um 'commit' é uma versão de um arquivo em um repositório Git.
 
        <ul>
         <li>Diretório de trabalho - constitui uma versão de seus arquivos em processo de edição</li>
@@ -53,7 +54,7 @@
         Pensando em um trabalho de desenvolvimento de software, cada 'commit' representa um conjunto de mudanças em um arquivo ou em um conjunto de arquivos.
        </p>
 
-       <p style="font-size: 1em; color: #5c4033; text-align: justify; margin-top: -10px; margin-bottom: 20px;">Agora vamos conhecer um comando que mostra as mudanças no diretório de trabalho, no 'index e nas versões de comites.</p>
+       <p class="p-styled  spaced-p">Agora vamos conhecer um comando que mostra as mudanças no diretório de trabalho, no 'index e nas versões de comites.</p>
 
        <pre class="spaced-pre"><code class="language-bash">git diff</code></pre>
 
@@ -69,13 +70,11 @@
 
         <img src="/app/static/images/add_letter.png" alt="Tela mostrando a adição da letra 'E' nos arquivos HTML." style="max-width: 100%; height: auto;">
 
-        <p class="p-styled  spaced-p">Feitas as adições nos arquivos HTML, vamos adicionar os
-        arquivos  ao index, usando o <code class="language-bash">git add</code>.</p>
+        <p class="p-styled  spaced-p">Feitas as adições nos arquivos HTML, vamos adicionar os arquivos  ao index, usando o <code class="language-bash">git add</code>.</p>
 
         <img src="/app/static/images/git_add_let_F.webp" alt="Tela mostrando o status e a aplicação do git add." style="max-width: 100%; height: auto;">
 
-        <p class="p-styled  spaced-p">Vamos implementar novamente uma 'feature request'
-            adicionando a letra 'F' aos arquivos pilots.html, cities.html e names.html na seguinte ordem repectivamente: 'Foxtrot', 'Fillmore' e 'Fred',da mesma forma anteriormente realizada com a letra 'E'.</p>
+        <p class="p-styled  spaced-p">Vamos implementar novamente uma 'feature request' adicionando a letra 'F' aos arquivos pilots.html, cities.html e names.html na seguinte ordem repectivamente: 'Foxtrot', 'Fillmore' e 'Fred',da mesma forma anteriormente realizada com a letra 'E'.</p>
 
        <img src="/app/static/images/git_add_let_E.webp" alt="Tela mostrando o status após a adição da letra F." style="max-width: 100%; height: auto;">
 
@@ -94,7 +93,7 @@
         <p class="p-styled  spaced-p">O motivo de detalhamento desta página reside no fato
             de que o comando <code class="language-bash">git diff</code> requer um entendimento mais profundo de onde e como usá-lo em sua plenitude.
             Desta forma as páginas <strong>branch.html</strong> e <strong>branch_1.html</strong> onde se descorre de forma superficial no uso do referido comando
-        lhe recomendam que visite esta página para compreensão do cenário em questão.</p>
+            lhe recomendam que visite esta página para compreensão do cenário em questão.</p>
 
         <p class="p-styled  spaced-p">O comando <code class="language-bash">git diff</code> é uma ferramenta essencial para
             desenvolvedores que trabalham com o Git, o sistema de controle de versão distribuído. Ele permite que os usuários visualizem as diferenças entre vários
@@ -128,99 +127,131 @@
 
            <img src="/app/static/images/git-diff-pilot.webp" alt="Tela mostrando o comando git status aplicado ao arquivo pilitos.htmlt" style="max-width: 100%; height: auto;">
 
-       <ul>
-        <ol>
+
+
             <h4>Comando executado</h4>
-            <li><pre class="spaced-pre code-block"><code class="language-bash">git diff</code></pre></li>
-            <p class="p-styled  spaced-p">Esse comando compara as diferenças entre a versão atual do arquivo pilots.html e a última versão commitada no repositório.</p>
+            <ul>
+            <li><code class="language-bash">git diff</code></li>
+            <li>Esse comando compara as diferenças entre a versão atual do arquivo pilots.html e a última versão commitada no repositório.</li>
+            </ul>
+
             <h4>Primeiras linhas de saída</h4>
-            <li><pre class="spaced-pre code-block"><code class="language-bash">diff --git a/pilots.html b/pilots.html</code></pre></li>
-            <p class="p-styled  spaced-p">Isso indica que a comparação está sendo feita no arquivo pilots.html. O git diff compara a versão anterior (a/pilots.html) com a versão atual (b/pilots.html).</p>
+            <ul>
+            <li><code class="language-bash">diff --git a/pilots.html b/pilots.html</code></li>
+            <li>Isso indica que a comparação está sendo feita no arquivo pilots.html. O git diff compara a versão anterior (a/pilots.html) com a versão atual (b/pilots.html).</li>
+            </ul>
+
             <h4> Índice (hashes das versões do arquivo)</h4>
-            <li><pre class="spaced-pre code-block"><code class="language-bash">index fb4318f..32706f8 100644</code></pre></li>
-           <ul><li>fb4318f → Hash do commit anterior do arquivo.</li>
+
+            <ul>
+            <li><code class="language-bash">index fb4318f..32706f8 100644</code></li>
+            <li>fb4318f → Hash do commit anterior do arquivo.</li>
             <li>32706f8 → Hash do estado atual do arquivo (com as mudanças).</li>
             <li>100644 → Indica as permissões do arquivo (arquivo comum sem permissão de execução).</li>
-           </ol>
-            </ul>
+           </ul>
+
             <h4>Identificação das versões do arquivo</h4>
+            <ul>
             <li>
-                <pre class="spaced-pre code-block"><code class="language-bash">--- a/pilots.html</code></pre>
-                <pre class="spaced-pre code-block"><code class="language-bash">+++ b/pilots.html</code></pre>
+                <code class="language-bash">--- a/pilots.html</code>
+                <code class="language-bash">+++ b/pilots.html</code>
             </li>
-            <p class="p-styled  spaced-p"><ul>--- a/pilots.html → Indica a versão antiga do arquivo.</li>
-             <li>   +++ b/pilots.html → Indica a versão modificada.</li></ul></p>
+            </ul>
+
+            <ul>
+            <li>--- a/pilots.html → Indica a versão antiga do arquivo.</li>
+            <li>   +++ b/pilots.html → Indica a versão modificada.</li>
+            </ul>
+
             <h4>Bloco de contexto (linhas alteradas):</h4>
-            <li><pre class="spaced-pre code-block"><code class="language-bash">@@ -22,6 +22,7 @@</code></pre></li>
-            <p class="p-styled  spaced-p">Esse trecho indica que a modificação está na altura da linha 22 no arquivo original:
-            <ul><li>-22,6 → No arquivo antigo, o trecho começava na linha 22 e tinha 6 linhas.</li>
-            <li>+22,7 → No arquivo novo, o trecho começa na linha 22 e agora tem 7 linhas.</li></ul>
-                Isso sugere que foi adicionada uma linha ao código.</p>
+
+            <ul>
+            <li><code class="language-bash">@@ -22,6 +22,7 @@</code></li>
+            <li>Esse trecho indica que a modificação está na altura da linha 22 no arquivo original:</li>
+            <li>-22,6 → No arquivo antigo, o trecho começava na linha 22 e tinha 6 linhas.</li>
+            <li>+22,7 → No arquivo novo, o trecho começa na linha 22 e agora tem 7 linhas.</li>
+            <li>Isso sugere que foi adicionada uma linha ao código.</li>
+            </ul>
+
            <h4>Conteúdo antes e depois</h4>
-           <li>
-            <img src="/app/static/images/conteudo_diff.png" alt="Conteúdo antes e depois" style="max-width: 100%; height: auto;">
-           </li>
+
+           <img src="/app/static/images/conteudo_diff.png" alt="Conteúdo antes e depois" style="max-width: 100%; height: auto;">
+
+
            <h4>Estado do repositório</h4>
-           <ul><li>
-            A linha Delta já foi commitada anteriormente.
-           A linha &lt;li&gt;Foxtrot&lt;/li&gt;  foi adicionada, mas ainda está unstaged (não foi adicionada ao índice com git add).
-           O comando git add pilots.html foi executado anteriormente para incluir outras mudanças no stage, mas a linha &lt;li&gt;Foxtrot&lt;/li&gt; ainda não foi adicionada ao stage.
-           </li></ul>
+
+           <ul>
+            <li> A linha Delta já foi commitada anteriormente.</li>
+            <li> A linha &lt;li&gt;Foxtrot&lt;/li&gt;  foi adicionada, mas ainda está unstaged (não foi adicionada ao índice com git add).</li>
+           <li>O comando git add pilots.html foi executado anteriormente para incluir outras mudanças no stage, mas a linha &lt;li&gt;Foxtrot&lt;/li&gt; ainda não foi adicionada ao stage.</li>
+           </ul>
+
            <h4>Testando no repositório</h4>
-           <p>Se você quiser ver todas as diferenças, incluindo as que já estão no stage, use:</p>
+
+           <p class="p-styled  spaced-p">Se você quiser ver todas as diferenças, incluindo as que já estão no stage, use:</p>
+           <ul>
            <li><pre class="spaced-pre code-block"><code class="language-bash">git diff --staged pilots.html</code></pre></li>
-           <p class="p-styled  spaced-p">Isso mostrará as diferenças que já foram adicionadas ao stage, mas ainda não commitadas.</p>
-           <li>
-            <img src="/app/static/images/git-diff_staged.webp" alt="Conteúdo antes e depois" style="max-width: 100%; height: auto;">
-           </li>
-           <p class="p-styled  spaced-p">A imagem anterior confirma que a letra 'E' foi adicionada via git add mas não comitada.</p>
+           <li>Isso mostrará as diferenças que já foram adicionadas ao stage, mas ainda não commitadas.</li>
+           <li>A imagem anterior confirma que a letra 'E' foi adicionada via git add mas não comitada.</li>
+           </ul>
+           <img src="/app/static/images/git-diff_staged.webp" alt="Conteúdo antes e depois" style="max-width: 100%; height: auto;">
+
            <h4>Vendo as alterações desde o último comite.</h4>
-           <li>
-            <pre class="spaced-pre code-block"><code class="language-bash">git diff HEAD pilots.html</code></pre>
-           </li>
+
+           <ul>
+           <li><pre class="spaced-pre code-block"><code class="language-bash">git diff HEAD pilots.html</code></pre></li>
+            <li>Na imagem acima vemos uma linha contendo a palavra 'Echo' e 'Foxtrot' adicionadas como indicado pelo sinal '+'. O git diff interpreta o HEAD com um hash do último comite.</li>
+            <li>O resultado é esperado pois o comite (letra D) foi feito antes da adição das letras 'E' e 'F'. </li>
+           </ul>
            <img src="/app/static/images/git-diff-head.webp" alt="Conteúdo antes e depois" style="max-width: 100%; height: auto;">
-            <p>Na imagem acima vemos uma linha contendo a palavra 'Echo' e 'Foxtrot' adicionadas como indicado pelo sinal '+'. O git diff interpreta o HEAD com um hash do último comite.
-                O resultado é esperado pois o comite (letra D) foi feito antes da adição das letras 'E' e 'F'.
-            </p>
+
            <h4>Vendo mudanças entre dois comites</h4>
+
+           <ul>
            <li><pre class="spaced-pre code-block"><code class="language-bash">git diff HEAD~1 HEAD pilots.html</code></pre></li>
-           <p class="p-styled  spaced-p">Esse comando compara a versão do arquivo pilots.html entre: </p>
+           <li>Esse comando compara a versão do arquivo pilots.html entre: </li>
+           </ul>
+
            <ul>
             <li>HEAD~1: O commit anterior ao atual (o "pai" do commit atual).</li>
             <li>HEAD: O commit atual.</li>
-            <p class="p-styled  spaced-p">Isso significa que estamos verificando as mudanças feitas no último commit que afetaram pilots.html.</p>
+            <li>Isso significa que estamos verificando as mudanças feitas no último commit que afetaram pilots.html.</li>
             </ul>
+
             <pre class="spaced-pre code-block"><code class="language-bash">index 9dd516f..ce31f88 100644</code></pre>
             <img src="/app/static/images/git-diff-head-head.webp" alt="Entre dois comites" style="max-width: 100%; height: auto;">
+
             <ul>
             <li>9dd516f: Hash da versão anterior do arquivo (HEAD~1).</li>
             <li>ce31f88: Hash da versão atual do arquivo (HEAD).</li>
-            <li>100644: Permissões do arquivo (arquivo comum, sem execução).</li></ul>
-            <p class="p-styled  spaced-p">Esse git diff confirma que no último commit foi adicionada a linha &lt;li&gt;Delta&lt;/li&gt; ao pilots.html.</p>
-            <h4>Obtendo os hashes pelo git log para verificar a diferença entre comites.</h4>
-            <li><pre class="spaced-pre code-block"><code class="language-bash">git log --online --decorate</code></pre>
-                <pre class="spaced-pre code-block"><code class="language-bash">git diff d298f74 2dded79 pilots.html</code></pre></li>
-                <img src="/app/static/images/git-log-diff.webp" alt="Entre dois comites" style="max-width: 100%; height: auto;">
-            <p class="p-styled  spaced-p">Na imagem anterior podemos observar os seguintes pontos:</p>
-            <ul><li>git log --oneline --decorate mostrou que o commit 2dded79 adicionou algo novo ao projeto.</li>
-            <li>git diff d298f74 2dded79 pilots.html revelou exatamente qual foi essa mudança: a adição da linha &lt;li&gt;Delta&lt;/li&gt</li>
+            <li>100644: Permissões do arquivo (arquivo comum, sem execução).</li>
+             <li>Esse git diff confirma que no último commit foi adicionada a linha &lt;li&gt;Delta&lt;/li&gt; ao pilots.html.</li>
             </ul>
+
+            <h4>Obtendo os hashes pelo git log para verificar a diferença entre comites.</h4>
+
+            <ul>
+            <li><pre class="spaced-pre code-block"><code class="language-bash">git log --online --decorate</code></pre></li>
+            <li><pre class="spaced-pre code-block"><code class="language-bash">git diff d298f74 2dded79 pilots.html</code></pre></li>
+            <li>Na imagem anterior podemos observar os seguintes pontos:</li>
+            </ul>
+            <img src="/app/static/images/git-log-diff.webp" alt="Entre dois comites" style="max-width: 100%; height: auto;">
+
+            <ul>
+            <li>git log --oneline --decorate mostrou que o commit 2dded79 adicionou algo novo ao projeto.</li>
+            <li>git diff d298f74 2dded79 pilots.html revelou exatamente qual foi essa mudança: a adição da linha &lt;li&gt;Delta&lt;/li&gt;</li>
+            </ul>
+
             <h4>Agora vamos comitar as pendências do 'feature request', ou seja a inserção da letra 'E' e da letra 'F'.</h4>
+
             <img src="/app/static/images/commit_E.png" alt="Entre dois comites" style="max-width: 100%; height: auto;">
             <img src="/app/static/images/commit_F.png" alt="Entre dois comites" style="max-width: 100%; height: auto;">
             <p class="p-styled  spaced-p">Ressalvo que o comite da letra 'F' foi precedido de um 'git add' pois o mesmo estava 'unstaged'.</p>
+
             <h4>Conclusão desta etapa</h4>
+
             <img src="/app/static/images/git-st-final.webp" alt="Entre dois comites" style="max-width: 100%; height: auto;">
 
-
-
-
-
-
-
-           </ol>
-           </ol>
-           </ul>
            <section>
             <h3>Git Graph</h3>
             <p>Diagrama Mermaid  para o Git graph</p>

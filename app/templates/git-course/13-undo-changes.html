@@ -12,6 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
     <style>
+        /* test w3c ok  */
         h4 {
             font-weight: bold;
             font-size: 1.2em;
@@ -72,7 +73,7 @@
     </style>
 </head>
 <body class="intro-page">
-    <div class="container">
+    <div class="container"></div>
         <h1>Desfazendo alterações </h1>
 
         <p class="p-styled  spaced-p">Um dos motivos para rastrear o histórico de um projeto é ter a capacidade de desfazer alterações. É uma situação comum no desenvolvimento de software:
@@ -81,11 +82,11 @@
 
         <p class="p-styled  spaced-p">Existem três cenários possíveis de desfazer no Git:</p>
 
-        <ul><ol>
+        <ul>
            <li>Desfazer alterações no diretório de trabalho antes do 'staged'</li>
            <li>Desfazer alterações após o staged e antes de comitar.</li>
            <li>Desfazer alterações comitadas</li>
-        </ul></ol>
+        </ul>
 
         <p class="p-styled  spaced-p">Os exercícios agora seguem o uso do arquivo pilots.html</p>
 
@@ -100,7 +101,7 @@
         Vamos aprender agora a recuperar as letras apagadas usando as características de desfazer do git. No caso do exemplo parece ser simples recuperar as demais palavras
      do arquivo mas imagine que o seu código tenha 500 linhas a serem recuperdas.</p>
 
-       <p class="p-styled  spaced-p">1 - Desfazendo as mudanças antes de adicioná-las ao <strang>'staged'.</strang></p>
+       <p class="p-styled  spaced-p">1 - Desfazendo as mudanças antes de adicioná-las ao <strong>'staged'.</strong></p>
 
        <p class="p-styled  spaced-p">Para recuperar as palavras perdidas no pilots.html (seguindo o "Exercício de Alteração Indesejada" no início desta seção), tudo o que você precisa
         fazer é reverter o arquivo de volta para sua última versão confirmada usando o comando <strong>git checkout </strong>da seguinte forma:
@@ -254,7 +255,7 @@
 
         <p class="p-styled  spaced-p">Para testar o <strong>git reset</strong>, crie um novo diretório: Nota - passe o mouse por sobre a imagem para ver a sequencia de ações.</p>
 
-        <div class="image-container">
+        <div class="image-container"></div>
             <img src="/app/static/images/commit_exemplo.webp" alt="Exemplo de git reset" style="max-width: 100%; height: auto;">
             <div class="hover-text">
            <ul>
@@ -350,19 +351,6 @@
         </div>
 
         <p>Use o git reset quando quiser descartar as alterações feitas na árvore de trabalho. Isso pode ser útil se você cometeu um erro ou se quiser começar de novo.</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
         <footer style="text-align: center; margin-top: 20px; padding: 10px; background-color: #ead8e7; border-top: 1px solid #ddd;box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);">
             <div style="display: flex; align-items: center; justify-content: center;">
                 <span><strong>Hosted on GitHub Pages</strong></span>
@@ -376,8 +364,8 @@
                 <a href="/terms" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Terms of Service</a> |
                 <a href="/privacy" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Privacy Policy</a>
             </nav>
+            <script>Prism.highlightAll();</script>
         </footer>
     </div>
-    <script>Prism.highlightAll();</script>
 </body>
 </html>
