@@ -15,8 +15,8 @@
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
         mermaid.initialize({ startOnLoad: true });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-    <script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
         mermaid.initialize({ startOnLoad: true });
     </script>
     <style>
@@ -30,12 +30,14 @@
         }
 
         .mermaid {
-            background-color: black; /* Adds black background to mermaid div */
-            color: white; /* Ensures text color is readable */
-            padding: 10px; /* Adds padding for better readability */
-            width: 100%; /* Adjust width to fit larger graph */
-            height: 280px; /* Adjust height to fit larger graph */
-        }
+    background-color: black; /* Adds black background to mermaid div */
+    color: white; /* Ensures text color is readable */
+    padding: 10px; /* Adds padding for better readability */
+    width: 500px; /* Adjust width to fit larger graph */
+    height: 100%; /* Adjust height to fit larger graph */
+    margin: 0 auto; /* Centers the graph horizontally */
+    display: block; /* Ensures the element behaves like a block for centering */
+}
 
 
         h4 {
@@ -265,35 +267,57 @@
         <section id="section4">
             <h3>Git Graph</h3>
             <p>Diagrama Mermaid para o Git graph</p>
-            <img src="/app/static/images/gitgraph-final.webp" alt="Tela mostrando git tag" style="max-width: 100%; height: auto;">
-
+            <div class="mermaid">
+                %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchOrder': 0}} }%%
+                gitGraph TB:
+                commit id: "Initial commit"
+                commit id: "Adicionado o código fonte"
+                commit id: "Adicionada a letra D"
+                commit id: "Adicionada a letra E"
+                commit id: "Adicionada a letra F" tag: "v0.1"
+                commit id: "mudança não desejada"
+                commit id: "Revert mudança não desejada" type: REVERSE
+                commit id: "Letra G adicionada"
+                commit id: "Letra H adicionada"
+                branch g-h-i
+                commit id: "Letra I adicionada"
+                checkout main
+                branch j-k-l
+                commit id: "Letra J adicionada"
+                commit id: "Letra K adicionada"
+                commit id: "Letra L adicionada"
+                checkout main
+                merge g-h-i
+                merge j-k-l
+                commit id: "Conflito de mesclagem j-k-l resolvido" tag: "v0.2"
+            </div>
             <div class="code-box">
                 <pre>
                     <code>
 %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchOrder': 0}} }%%
 
 
-                        gitGraph
-                        commit id: "109f780" tag: "Initial commit"
-                        commit id: "d298f74" tag: "Adicionado o código fonte"
-                        commit id: "2dded79" tag: "Adicionada a letra D"
-                        commit id: "389f0a3" tag: "Adicionada a letra E"
-                        commit id: "333a382" tag: "Adicionada a letra F" tag: "v0.1"
-                        commit id: "0ede735" tag: "mudança não desejada"
-                        commit id: "26bacec" tag: "Revert mudança não desejada" type: REVERSE
-                        commit id: "d2f7407" tag: "Letra G adicionada"
-                        commit id: "9824747" tag: "Letra H adicionada"
+                        gitGraph TB:
+                        commit id: "Initial commit"
+                        commit id: "Adicionado o código fonte"
+                        commit id: "Adicionada a letra D"
+                        commit id: "Adicionada a letra E"
+                        commit id: "Adicionada a letra F" tag: "v0.1"
+                        commit id: "mudança não desejada"
+                        commit id: "Revert mudança não desejada" type: REVERSE
+                        commit id: "Letra G adicionada"
+                        commit id: "Letra H adicionada"
                         branch g-h-i
-                        commit id: "e2b171f" tag: "Letra I adicionada"
+                        commit id: "Letra I adicionada"
                         checkout main
                         branch j-k-l
-                        commit id: "4d04897" tag: "Letra J adicionada"
-                        commit id: "8b1bf46" tag: "Letra K adicionada"
-                        commit id: "7e90299" tag: "Letra L adicionada"
+                        commit id: "Letra J adicionada"
+                        commit id: "Letra K adicionada"
+                        commit id: "Letra L adicionada"
                         checkout main
                         merge g-h-i
                         merge j-k-l
-                        commit id: "2f4da9c" tag: "Conflito de mesclagem j-k-l resolvido"
+                        commit id: "Conflito de mesclagem j-k-l resolvido" tag: "v0.2"
                     </code>
                 </pre>
             </div>
