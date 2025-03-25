@@ -12,6 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
     <style>
+        /* test w3c ok  */
 
         h4 {
        font-weight: bold;
@@ -24,27 +25,27 @@
     </style>
 
 </head>
-<body>
+<body class="intro-page">
     <div class="container">
         <h1>Git Workflow para iniciantes</h1>
         <p class="p-styled spaced-p">O controle de versão com Git é uma habilidade essencial para qualquer desenvolvedor. Conforme os projetos aumentam em complexidade,
             não usar Git leva à desorganização, queda de produtividade e erros evitáveis.</p>
 
-       <p class="p-styled spaced-p">Tudo que voce viu até agora se constitui em fluxo de trabalho (workflow) que se traduz em uma metodologia de uso do git seja como desenvolvedor solo ou em equipes.</p>
+       <p class="p-styled spaced-p">O que veremos agora é como se fosse um reforço de tudo que acabamos de estudar mas agora com a visão de fluxo de trabalho, 'workflow', seja como desenvoldevor solo ou em equipe.</p>
 
        <h4>Como o Git habilita metodologias ágeis</h4>
 
        <p class="p-styled spaced-p">Desenvolver software é desafiador, especialmente com equipes grandes e distribuídas. Tarefas como acompanhar requisitos, organizar problemas,
-        revisar mudanças de código e lançar software exigem uma coordenação apertada.</p>
+        revisar mudanças de código e lançar software exigem uma coordenação segura.</p>
 
         <p class="p-styled spaced-p">O Git habilita diretamente metodologias ágeis de software que resolvem muitos desses desafios organizacionais. Por exemplo, o Git dá suporte a:
             </p>
 
        <ul>
-        <li><strong>Integração e entrega contínuas</strong> – Os desenvolvedores podem mesclar código várias vezes ao dia para detectar bugs de integração
+        <li><strong>Integração e entrega contínuas (CI/CD)</strong> - Os desenvolvedores podem mesclar código várias vezes ao dia para detectar bugs de integração
             antecipadamente e lançar com frequência.</li>
-       <li><strong>Sprints curtos e iterativos</strong> – Problemas e funcionalidades são acompanhados em pequenos lotes que podem ser desenvolvidos e entregues em sprints de 1-2 semanas.</li>
-       <li><strong>Prototipagem rápida </strong>– Com ramificação e mesclagem acessíveis, os desenvolvedores podem criar protótipos de recursos experimentais sem medo de quebrar o código de trabalho.</li>
+       <li><strong>Sprints curtos e iterativos</strong> - Problemas e funcionalidades são acompanhados em pequenos lotes que podem ser desenvolvidos e entregues em sprints de 1-2 semanas.</li>
+       <li><strong>Prototipagem rápida </strong>- Com ramificação e mesclagem acessíveis, os desenvolvedores podem criar protótipos de recursos experimentais sem medo de quebrar o código de trabalho.</li>
        </ul>
        <p class="p-styled spaced-p">De acordo com a pesquisa de 2022 do Stack Overflow, quase 90% dos desenvolvedores agora usam o Git, embora ele só tenha sido amplamente adotado na última década.</p>
 
@@ -67,21 +68,34 @@
 
        <li><strong>Configurando o Git</strong></li>
 
+       </ul>
+
        <img src="/app/static/images/set-a.webp" alt="git config" style="width: 100%; margin-top: 10px; margin-bottom: 10px;">
+
+         <ul>
 
        <li><strong>Comece a acompanhar um projeto</strong></li>
 
+         </ul>
+
        <img src="/app/static/images/set-b.webp" alt="git config" style="width: 100%; margin-top: 10px; margin-bottom: 10px;">
+
+       <ul>
 
        <li><strong>Acompanhando as mudanças</strong></li>
 
+       </ul>
+
        <img src="/app/static/images/set-c.webp" alt="git config" style="width: 100%; margin-top: 10px; margin-bottom: 10px;">
+
+       <ul>
 
        <li><strong>Sincronizando com um repositório remoto</strong></li>
 
+       </ul>
+
        <img src="/app/static/images/set-d.webp" alt="git config" style="width: 100%; margin-top: 10px; margin-bottom: 10px;">
 
-       </ul>
 
        <h4>Fluxos de trabalho do Git (Git workflows)</h4>
 
@@ -92,40 +106,73 @@
 
         <li><strong>Fluxo de trabalho básico (para desenvolvedores solo)</strong></li>
 
+        </ul>
+
         <p class="p-styled spaced-p">Este fluxo de trabalho é simples e perfeito se você estiver trabalhando sozinho.</p>
+
+        <ul>
 
         <li><strong>Inicializar um repositório Git:</strong>comece a acompanhar seu projeto com o Git. </li>
 
+        </ul>
+
         <pre><code class="language-bash">git init</code></pre>
+
+        <ul>
 
        <li><strong>Mudanças de "stage":</strong>Marque os arquivos que você quer incluir no seu próximo commit. Você pode usar . (git add .) para adicionar todos os arquivos. </li>
 
+        </ul>
+
        <pre><code class="language-bash">git add &lt;file name&lt;</code></pre>
+
+        <ul>
 
        <li><strong>"Comite" alterações:</strong>salve um instantâneo de suas alterações.Confirmar alterações: salve um instantâneo de suas alterações.</li>
 
+        </ul>
+
        <pre><code class="language-bash">git commit -m "Add a meaningful commit message"</code></pre>
+
+       <ul>
 
        <li><strong>Enviar para remoto:</strong>carregue seu trabalho em um repositório remoto como o GitHub.</li>
 
+         </ul>
+
        <pre><code class="language-bash">git push origin main</code></pre>
 
+
+        <ul>
+
        <li><strong>Fluxo de trabalho centralizado (para equipes ou desenvolvedores individuais)</strong></li>
+
+        </ul>
 
        <p class="p-styled spaced-p">Esse é o fluxo de trabalho mais simples e funciona melhor para equipes pequenas. Todo mundo trabalha na mesma
         branch (geralmente main ou master) e faz os commits das mudanças direto.</p>
 
+        <ul>
+
         <li><strong>Puxar as últimas alterações</strong></li>
+
+        </ul>
 
         <pre><code class="language-bash">git pull </code></pre>
 
+        <ul>
         <li><strong>Faça alterações:</strong>faça suas alterações, como adicionar novos recursos, corrigir bugs, etc., preparar e confirmar alterações.</li>
+        </ul>
 
         <pre><code class="language-bash">git add .</code></pre>
 
         <pre><code class="language-bash">git commit -m "commit message"</code></pre>
 
+        <ul>
+
         <li><strong>Envie as mudanças:</strong>faça suas alterações como adicionar novas funcionalidades, corrigir bugs, etc., prepare e registre as mudanças.</li>
+
+        </ul>
 
         <pre><code class="language-bash">git push </code></pre>
 
@@ -135,24 +182,45 @@
 
         <p class="p-styled spaced-p">Casos de uso: equipes pequenas ou projetos onde os desenvolvedores confiam uns nos outros para não sobrescrever código crítico.</p>
 
+
+
+        <ul>
+
         <li><strong>Fluxo de Trabalho com Branch de Funcionalidade (Para Times ou Desenvolvedores Solo)</strong></li>
+
+        </ul>
 
         <p class="p-styled spaced-p">Esse fluxo de trabalho permite que você isole novos recursos ou experimentos do código principal. Esse fluxo de trabalho é ótimo para equipes.
             Cada nova funcionalidade ou correção recebe seu próprio branch, mantendo o principal estável. Para começar, você precisa clonar o repositório
             de código.</p>
+
+       <ul>
          <li><strong>Clonar repositório:</strong>clone o repositório principal no qual você ramificará seu recurso</li>
+
+       </ul>
 
          <pre><code class="language-bash">git clone &lt;repo-url&gt;</code></pre>
 
+            <ul>
+
          <li><strong>Crie um novo branch:</strong>Crie um novo branch para sua funcionalidade e comece a trabalhar na funcionalidade sem afetar o branch principal.</li>
+
+            </ul>
 
          <pre><code class="language-bash">git checkout -b feature/my-new-feature </code></pre>
 
+            <ul>
+
          <li><strong>Faça alterações e commite:</strong>trabalhe na sua funcionalidade e salve seu progresso.</li>
 
+            </ul>
          <pre><code class="language-bash"> git commit -m "Implement feature X" </code></pre>
 
+         <ul>
+
          <li><strong>Envie para o remoto:</strong>compartilhe seu branch principal atualizado.</li>
+
+         </ul>
 
          <pre><code class="language-bash"> git push -u origin origin feature/my-new-feature</code></pre>
 
@@ -165,17 +233,30 @@
          <p class="p-styled spaced-p">Casos de uso: Equipes trabalhando em várias funcionalidades ao mesmo tempo. Isso promove o desenvolvimento isolado.</p>
 
 
-         <li><strong>Fluxo de Trabalho Forking (Para Projetos de Código Aberto)</strong></li>
-         <p class="p-styled spaced-p">Esse fluxo de trabalho é comum para contribuir com projetos de código aberto hospedados em plataformas como o GitHub.</p>
-         <li><strong>Bifurcar o repositório:</strong>faça sua própria cópia do projeto clicando no botão "Bifurcar" no GitHub.</li>
-         <li><strong>Clone o Fork:</strong>Baixe seu fork para o seu computador.</li>
-         <pre><code class="language-bash">  git clone &lt;fork-repo-url&gt;</code></pre>
-         <li><strong>Crie uma Branch de Funcionalidade:</strong>Trabalhe nas suas mudanças em uma branch separada.</li>
-         <pre><code class="language-bash"> git checkout -b feature/fix-bug</code></pre>
-         <li><strong>Envie para o seu Fork:</strong>Carregue seu branch no seu repositório forkado.</li>
-         <pre><code class="language-bash"> git push origin feature/fix-bug</code></pre>
-         <li><strong>Envie um Pull Request (PR):</strong>Proponha suas mudanças para o repositório original.</li>
 
+        <ul>
+
+         <li><strong>Fluxo de Trabalho Forking (Para Projetos de Código Aberto)</strong></li>
+
+        </ul>
+         <p class="p-styled spaced-p">Esse fluxo de trabalho é comum para contribuir com projetos de código aberto hospedados em plataformas como o GitHub.</p>
+         <ul>
+         <li><strong>Bifurcar o repositório:</strong>faça sua própria cópia do projeto clicando no botão "Bifurcar" no GitHub.</li>
+            </ul>
+         <ul>
+         <li><strong>Clone o Fork:</strong>Baixe seu fork para o seu computador.</li>
+         </ul>
+         <pre><code class="language-bash">  git clone &lt;fork-repo-url&gt;</code></pre>
+            <ul>
+         <li><strong>Crie uma Branch de Funcionalidade:</strong>Trabalhe nas suas mudanças em uma branch separada.</li>
+            </ul>
+         <pre><code class="language-bash"> git checkout -b feature/fix-bug</code></pre>
+            <ul>
+         <li><strong>Envie para o seu Fork:</strong>Carregue seu branch no seu repositório forkado.</li>
+            </ul>
+         <pre><code class="language-bash"> git push origin feature/fix-bug</code></pre>
+            <ul>
+         <li><strong>Envie um Pull Request (PR):</strong>Proponha suas mudanças para o repositório original.</li>
         </ul>
 
         <footer style="text-align: center; margin-top: 20px; padding: 10px; background-color: #ead8e7; border-top: 1px solid #ddd;box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);">
@@ -186,10 +267,8 @@
                 </a>
             </div>
             <nav>
-                <a href="git-init.html" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Próximo: git clone"</a> |
-                <a href="index.html" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Voltar</a> |
-                <a href="/terms" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Terms of Service</a> |
-                <a href="/privacy" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Privacy Policy</a>
+                <a href="1-index.html" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Próximo: index"</a> |
+                <a href="1-index.html" style="margin: 0 10px; color: #5c4033; text-decoration: none;">Voltar</a>
             </nav>
         </footer>
 
