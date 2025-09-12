@@ -3,88 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Git Course - Login</title>
+    <title>Novo site</title>
     <link rel="stylesheet" href="/app/static/css/style_io.css">
-    <link rel="stylesheet" href="/app/static/css/common-styles.css">
+    <link rel="stylesheet" href="/app/static/css/common-styles.css"> <!-- Link to the common styles -->
 </head>
 <body>
-    <header class="header logo">
+    <header class="header logo" >
         <img alt="Git Logo"
         width="150" height="63"
         src="/app/static/images/GitLogo_sp.png"
         srcset="/app/static/images/GitLogo_sp-2x.png 2x, /app/static/images/GitLogo_sp-3x.png 3x">
         <div class="call">
             <h1 class="banner-message">Aprenda Git de forma prática e eficiente!</h1>
-            <div class="auth-container">
-                <div class="auth-buttons">
-                    <button class="btn-primary" onclick="showLogin()">Login</button>
-                    <button class="btn-secondary" onclick="showRegister()">Registrar</button>
-                </div>
-                <div id="loginForm" class="auth-form" style="display: none;">
-                    <h3>Login</h3>
-                    <form>
-                        <input type="email" placeholder="Email" required>
-                        <input type="password" placeholder="Senha" required>
-                        <button type="submit" class="btn-submit">Entrar</button>
-                        <a href="#" onclick="showRegister()">Não tem conta? Registre-se</a>
-                    </form>
-                </div>
-                <div id="registerForm" class="auth-form" style="display: none;">
-                    <h3>Registrar</h3>
-                    <form>
-                        <input type="text" placeholder="Nome" required>
-                        <input type="email" placeholder="Email" required>
-                        <input type="password" placeholder="Senha" required>
-                        <input type="password" placeholder="Confirmar Senha" required>
-                        <button type="submit" class="btn-submit">Criar Conta</button>
-                        <a href="#" onclick="showLogin()">Já tem conta? Faça login</a>
-                    </form>
-                </div>
-            </div>
+            <p class="banner-submessage">Aguarde curso de Git neste site!</p>
         </div>
     </header>
-
     <div class="grid-container">
         <div class="column1 grid-item">
-            <div class="intro-section">
-                <h2>Por que aprender Git?</h2>
-                <p>Git é essencial para qualquer desenvolvedor. Nosso curso oferece:</p>
-                <ul>
-                    <li>Aprendizado prático e hands-on</li>
-                    <li>Exercícios interativos</li>
-                    <li>Suporte da comunidade</li>
-                    <li>Certificado de conclusão</li>
-                </ul>
-                <a href="landing.html" class="btn-explore">Explorar Conteúdo</a>
+            <div class="column1 grid-item subject-title">
+               <h4><strong>O que é <em>'Git'</em>? E porque ele é importante!</strong></h4>
             </div>
-        </div>
-        <div class="column2 grid-item">
-            <div class="preview-section">
-                <h3>Prévia do Curso</h3>
-                <p>Veja alguns tópicos que você aprenderá:</p>
-                <ul>
-                    <li>Configuração básica do Git</li>
-                    <li>Comandos essenciais</li>
-                    <li>Trabalho com branches</li>
-                    <li>Integração com GitHub</li>
-                </ul>
+            <div>
+                <p><strong><em>É um sistema de controle de versão distribuída</em></strong> permitindo que vários desenvolvedores possam colaborar em um projeto de maneira simultanea.<br>
+                O <strong>Git</strong> acompanha as alterações que ocorrem nos códigos fonte, permite o versionamento, e facilita a colaboração entre os membros de um grupo.<br>
+                O <strong>Git</strong> se tornou importante porque é muito 'robusto', flexível e eficiente no controle das alterações de versão no ambiente colaborativo de desenvolvimento.<br>
+                Sua ampla adoção, poderosas funcionalidades e suporte ao mais diversos fluxos de trabalho fazem dele uma ferramenta essencial nas práticas de desenvolvimento.<br>
+                Trabalhando em pequenos projetos ou em aplicações de larga escala em ambientes corporativos o <strong>Git</strong> com suas várias funcionalidades contribue para as atividades de desenvolvimento de software.
+                </p>
             </div>
-        </div>
-    </div>
 
-    <script>
-        function showLogin() {
-            document.getElementById('loginForm').style.display = 'block';
-            document.getElementById('registerForm').style.display = 'none';
-        }
+            <section>
+                <h5>Navegação</h5>
+                <nav class="nav">
+                    <ul>
+                        <li class="active hover"><a href="#base1">Principais estados dos arquivos no Git</a></li>
+                        <li class="active hover"><a href="#base2">Conceitos chave:'Repositories','Commits' e 'Branches'</a></li>
+                        <li class="active hover"><a href="#base3">Git workflow (fluxo de trabalho)</a></li>
+                        <li class="active hover"><a href="#base4">Terminal Git e porque não uma interface gráfica</a></li>
+                        <li class="active hover"><a href="#base5">E como não falar de GitHub?</a></li>
+                    </ul>
+                </nav>
+                <article>
+                    <h5 id="base1">Principais estados dos arquivos no <strong>Git</strong></h5>
+                    <p>O <strong>Git</strong> possui três estados nos quais seus arquivos podem ser armazenados.Estes estados correspodem a estágios de um projeto a saber:
+                    "modificado", "staged" e "comitado".<br>
+                    "Modificado" - significa que houve uma alteração em seu arquivo mas o mesmo não foi ainda "comitado".<br>
+                    "Staged" - significa que voce marcou o arquivo modificado para que ele seja encaminhado ao próximo 'commit'.<br>
+                    "Comitado" - significa que os dados pertinentes ao seu arquivo estão seguros em sua base de dados.
+                    </p>
 
-        function showRegister() {
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('registerForm').style.display = 'block';
-        }
-    </script>
-</body>
-</html>
+                    <h5 id="base2">Conceitos chave:'Repositories','Commits' e 'Branches'</h5>
+                    <ul class="cltwo">
+                        <li><strong>'Repositories'</strong>: Os repositórios <strong>Git</strong> são recipientes de projetos, armazenamento de arquivos e sua revisão hitórica</li>
+                        <li><strong>'Commits'</strong>: Cada 'commit' representa um 'instantâneo'em um determinado tempo permitindo aos usuários voltar atras em estatus anteriores</li>
+                        <li><strong>'Branches'</strong>: Eles permitem desenvolvimentos paralelos de tal sorte que os desenvolvedores possam trabalhar em diferentes características ou até mesmo corrigir falhas no software (bugs) independentemente.</li>
+                    </ul>
+
+                    <h5 id="base3"><strong>Git</strong> workflow (fluxo de trabalho)</h5>
+                    <ul class="clthree">
+                        <li>Inicializando um repositório: <code class="code-style">git init</code></li>
+                        <li>Adicionando arquivos na área de 'staging': <code class="code-style">git add</code></li>
+                        <li>Realizando um 'commit': <code class="code-style">git commit -m "Commit message"</code></li>
+                        <li>Verificando o estatus: <code class="code-style">git status</code></li>
+                        <li>Vendo o histórico dos commits: <code class="code-style">git log</code></li>
+                    </ul>
+
+                    <h5 id="base4">Terminal Git e porque não uma interface gráfica</h5>
+                    <p>A interface gráfica de fato provê uma forma intuitiva de interagir com o <strong>Git</strong>.<br>
+                    Entretanto o terminal oferece várias vantagens que o fazem ser o preferido entre os desenvolvedores.
+                    A linha de comando permite uma grande visibilidade e controle. Os desenvolvedores tem clareza pela representação textual
+                    das mudanças do projeto, os 'branches' e toda a história do desenvolvimento.<br>
+                    Esta transparência é de todo crucial para o entendimento das complexidades do controle de versão permitindo atuações de maneira imediata.<br>
+                    Deve-se salientar ainda que o terminal permite criar 'scripts' que auxiliam os desenvolvedores a automatizar tarefas repetitivas ou customizar
+                    fluxos de trabalho específicos de seus projetos.<br>
+                    <div>
+                    <picture class="cl">
+                        <img src="/app/static/images/cl_new-tr.webp"
+                          srcset="/app/static/images/cl_new-tr-100.webp?=100 100w, /app/static/images/cl_new-tr-200.webp?=200 200w, /app/static/images/cl_new-tr-400.webp?=400 400w, /app/static/images/cl_new-tr-800.webp?=800 800w"
+                          sizes="(max-width: 800px) 100vw, 50vw"
+                          alt="Terminal Git bash">
+                    </picture>
+                    </div>
+
                     <h5 id="base5">E como não falar de GitHub?</h5>
                     <p>O engenheiro de software, Tom Preston-Werner vendo a necessidade de se criar uma forma mais eficiente de compartilhar e gestionar os códigos fonte
                     entre os desenvolvedores deu início ao projeto do <strong>GitHub</strong> em março de 2008.Através de investidores a idéia cresceu e após um aporte de 100 milhoes de dólares a empresa

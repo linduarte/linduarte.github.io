@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Init</title>
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="stylesheet" href="../../static/css/common-styles.css">
+    <link rel="stylesheet" href="../../static/css/git-course.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js">
+         /* test w3c ok  */
+    </script>
+</head>
+<body class="intro-page">
+    <div class="container">
+        <h1>git init</h1>
+        <pre><code class="language-bash">git init</code></pre>
+        <p class="p-styled spaced-p">O comando <code class="language-bash">git init</code> desempenha um papel crucial no universo do Git, um sistema de controle de versão distribuído amplamente utilizado para gerenciar código-fonte.
+            Esse comando é utilizado para criar um novo repositório Git vazio ou para reinicializar um já existente. Basicamente, ele configura as estruturas necessárias em um diretório
+            especificado para acompanhar e gerenciar as mudanças nos arquivos. Seja iniciando um novo projeto, migrando um projeto existente para um fluxo de trabalho Git ou
+            configurando um repositório para colaboração, o <code class="language-bash">git init</code> é geralmente a primeira etapa do processo.</p>
+        <img src="/static/images/git_init_red.webp" alt="Screenshot do comando git init">
+        <p class="image-description">A imagem acima mostra a criação de dois diretórios para o 'projeto-a'.
+             Ao acionar o comando <code class="language-bash">git init</code> o referido projeto passa a ser controlado pelo git.
+             Observa-se ainda que aparece em destaque um símbolo de um 'ramo' e o nome dado a ele é 'main'.
+             O ramo é mais conhecido tecnicamente como 'branch'. Desta forma temos a certeza que foi inicializado o repositório do projeto-a.</p>
+
+       <p class="p-styled spaced-p">Inicializando um repositório com um nome específico para o ramo (branch) inicial</p>
+       <pre><code class="language-bash">git init --initial-branch=branch_name</code></pre>
+       <p class="p-styled spaced-p">Os desenvolvedores geralmente preferem usar nomes específicos como main ou trunk para o branch principal de um repositório em vez do
+        padrão master. Esse comando é útil quando você quer definir um nome personalizado para o branch inicial desde o começo, alinhando com as
+        convenções de nomenclatura de branches da sua equipe ou organização.</p>
+
+        <p class="p-styled spaced-p">--initial-branch=branch_name: Esse flag permite que você defina o nome do ramo inicial no seu repositório em vez do padrão master(pouco usado atualmente).
+            É especialmente útil para se alinhar com padrões da indústria ou preferência pessoal.</p>
+       <pre><code class="language-bash">Initialized empty Git repository in /path/to/your/directory/.git/</code></pre>
+
+
+
+        <footer class="footer">
+            <div class="footer-flex">
+                <nav class="footer-nav footer-left">
+                    <a href="13-undo-changes.html" class="footer-link">Voltar</a>
+                    <a href="15-git-workflows.html" class="footer-link">Próximo: git-workflows</a>
+                </nav>
+                <form action="/logout" method="post" class="logout-form">
+                    <button id="logoutButton" type="submit" class="form-btn btn-space">Logout</button>
+                </form>
+                <button id="markCompletedButton" data-topic-id="15" class="form-btn">Marcar como concluído</button>
+            </div>
+            <div class="footer-instruction">Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Marcar como concluído.</div>
+        </footer>
+        <script src="/static/js/git-course-functions.js"></script>
+    <script>
+    document.getElementById("markCompletedButton").addEventListener("click", async () => {
+        const token = localStorage.getItem("access_token");
+        const topicId = document.getElementById("markCompletedButton").dataset.topicId;
+    const response = await fetch("/progress", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                topic_id: topicId,
+                completed: true,
+                feedback: "Muito bom este tópico!",
+            }),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            alert("Progresso marcado com sucesso!");
+        } else {
+            alert("Erro ao marcar o progresso");
+        }
+    });
+    </script>
+    </div>
+    <script>Prism.highlightAll();</script>
+</body>
+</html>

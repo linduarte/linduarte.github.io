@@ -1,0 +1,649 @@
+/* Seção de etapas para listas de instruções */
+.etapas-section {
+    align-self: flex-start; /* Override horizontal centering from parent flex */
+    text-align: left;
+    width: 100%;
+}
+
+
+.etapas-list {
+    text-align: left;
+    padding-left: 32px;
+    list-style-position: outside;
+    width: 100%;
+}
+
+.etapas-list li {
+    text-align: left;
+}
+
+
+.image-description {
+    text-align: center;
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 8px;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #ead8e7;
+    border-top: 1px solid #ddd;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border-radius: 12px;
+}
+/* Lista alinhada à esquerda para qualquer ul ou ol com a classe left-list */
+.left-list {
+    text-align: left !important;
+    margin-left: 0 !important;
+    margin-right: auto !important;
+    padding-left: 32px !important;
+    list-style-position: outside !important;
+    width: 100% !important;
+    display: block !important;
+}
+.left-list li {
+    text-align: left !important;
+    display: list-item !important;
+}
+/* Sobrescreve alinhamento central do container apenas para listas */
+.container .left-list, .container .left-list li {
+    text-align: left !important;
+}
+/* --- Custom Classes for Buttons, Forms, and Footer (2025-08-07) --- */
+
+/* Logout Button */
+.logout-btn {
+    float: right;
+    margin-top: 10px;
+    padding: 8px 18px;
+    background: #ead8e7;
+    color: #333;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+.logout-btn:hover {
+    background: #e95d74;
+    color: #fff;
+}
+
+/* Form Buttons */
+.form-btn {
+    margin-top: 10px;
+    background: #ead8e7;
+    color: #333;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 22px; /* larger tappable area */
+    font-size: 1.05em; /* slightly larger text */
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+.form-btn:hover {
+    background: #e95d74;
+    color: #fff;
+}
+
+/* Form Selects */
+.form-select {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    background: #fff;
+    color: #333;
+    box-sizing: border-box;
+}
+
+/* Footer Styles */
+.footer-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+.css-validator-link {
+    margin-left: 10px;
+}
+.css-validator-img {
+    border: 0;
+    width: 88px;
+    height: 31px;
+}
+.footer-nav {
+    text-align: center;
+    margin-top: 8px;
+}
+.footer-link {
+    margin: 0 10px;
+    color: #5c4033;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+.footer-link:hover {
+    color: #e95d74;
+    text-decoration: underline;
+}
+
+
+html, body {
+    background-image: url("/static/images/waves.webp"); /* Relative path to the image */
+    background-size: cover; /* Ensure the image covers the entire background */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-attachment: fixed; /* Fix the background to cover the entire page */
+    width: 100%;
+    height: 100%; /* Ensure the background covers the full height */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    box-sizing: border-box; /* Ensure padding and borders are included in dimensions */
+
+}
+
+body {
+    flex: 1; /* Allow the body to grow and fill the remaining space */
+}
+
+body {
+    font-family: 'Victor Mono', monospace;
+    color: #5c4033;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    width: 100%;
+    font-size: 14px;
+    position: relative;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.intro-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Ensure content starts at the top */
+    width: 100%;
+    min-height: 100vh;
+    padding-bottom: 40px; /* Add padding to ensure space below the container */
+    box-sizing: border-box;
+}
+
+.container {
+    backdrop-filter: blur(5px) saturate(110%);
+    -webkit-backdrop-filter: blur(5px) saturate(110%);
+    background-color: rgba(229, 237, 236, 0.6);
+    border-radius: 12px;
+    border: 1px solid rgba(219, 226, 233, 0.5);
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 800px;
+    /* text-align: center; removido para permitir alinhamento à esquerda em listas */
+    position: relative;
+    z-index: 10;
+}
+
+.container ul, .container ol {
+    text-align: left;
+    padding-left: 20px;
+    margin: 0;
+}
+/* Centralizar apenas títulos e seções específicas dentro do container */
+.container h1, .container h2, .container h3, .container .centered, .container .footer-nav {
+    text-align: center;
+}
+
+
+
+/* Custom style for introduction page paragraphs */
+.intro-page .p-styled.spaced-p {
+    font-size: 1.2em; /* Increase font size */
+    line-height: 1.4; /* Improve readability */
+}
+
+
+blockquote {
+    background: #ead8e7;
+    border-left: 10px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+    font-style: normal;
+    color: #555;
+}
+blockquote p {
+    margin: 0;
+}
+
+
+
+h1, h2, h3 {
+    color: #a0522d; /* Cor do título marrom avermelhado */
+    font-size: 1.5em; /* Tamanho da fonte dos títulos */
+}
+
+h4 {
+    font-weight: bold;
+   font-size: 1.2em;
+   color: #333;
+   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);  /* Sombra suave para dar profundidade*/
+   margin-top: 20px;
+   margin-bottom: 10px;}
+
+   h6 {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #333;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);  /* Sombra suave para dar profundidade */
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1em; /* Tamanho da fonte dos parágrafos */
+    text-align: justify; /* Justify text */
+}
+
+.p-styled {
+    font-size: 1em;
+    color: #5c4033;
+    text-align: justify;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+.code-block {
+    display: block;
+    margin: 10px 0;
+}
+
+.spaced-pre {
+    padding-bottom: 20px; /* Adds spacing below */
+}
+
+.spaced-p {
+    padding-top: 20px; /* Adds spacing above */
+}
+
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.image-description {
+    font-size: 1em; /* Ensure consistency */
+    color: #5c4033;
+    text-align: justify; /* Justify text */
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.image-container .hover-text {
+    visibility: hidden;
+    width: 500px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    text-align: justify;
+    border-radius: 5px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%; /* Position the tooltip above the image */
+    left: 50%;
+    transform: translateX(-50%); /* Center the tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.image-container:hover .hover-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
+pre[class*="language-"] {
+    background-color: #2d2d2d !important;
+    color: #f8f8f2 !important;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    box-sizing: border-box; /* ensure padding is included in width calculations */
+    max-width: 100%;
+    /* Preserve pre formatting but allow wrapping at word boundaries to avoid page overflow */
+    white-space: pre-wrap; /* wrap long lines */
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+/* Fallback: allow horizontal scroll when wrapping fails and ensure box sizing */
+pre, pre[class*="language-"] {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
+}
+
+/* Inline code blocks and small code snippets should wrap and not force page width */
+code[class*="language-"] {
+    background-color: #2d2d2d !important;
+    color: #f8f8f2 !important;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    box-sizing: border-box;
+    display: inline-block;
+    max-width: 100%;
+    white-space: normal; /* allow wrapping for inline code */
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+/* Ensure code/pre inside left-list do not force the page to overflow */
+.left-list, .left-list li {
+    overflow-x: hidden; /* prevent child elements from creating horizontal scroll on the page */
+}
+.left-list pre {
+    max-width: 90%;
+    box-sizing: border-box;
+    white-space: pre-wrap; /* allow wrapping for long code inside lists */
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+/* Ensure Prism token spans also can break if they contain long content */
+pre[class*="language-"] span, .left-list pre span {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+/* Custom styles for Mermaid / gitGraph */
+.code-box {
+    background-color: #ead8e7;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 10px;
+    margin-top: 20px;
+    /*box-shadow: 0 4px 8px rgba(129, 101, 101, 0.1);*/
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    text-align: justify; /* Justify text */
+}
+.code-box code {
+    display: block;
+    white-space: pre-wrap;
+    text-align: justify; /* Justify text */
+
+}
+
+
+/* Custom styles for Prism.js tokens */
+span.token.function {
+    color: #00ff00 !important; /* Change function color to green */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+    }
+
+    /* Prevent pre blocks from forcing page width on small screens */
+    pre, pre[class*="language-"] {
+        max-width: 90%;
+        white-space: pre-wrap; /* prefer wrapping on small screens */
+        word-break: break-word;
+    }
+}
+
+/* Styling for the navigation bar */
+.styled-nav ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0;
+    margin: 0;
+    display: flex; /* Make the list horizontal */
+    justify-content: center; /* Center the navigation items */
+    background-color: #333; /* Dark background for the nav bar */
+    border-radius: 5px; /* Rounded corners */
+    overflow: hidden;
+}
+
+.styled-nav li {
+    margin: 0;
+}
+
+.styled-nav a {
+    display: block;
+    padding: 10px 20px; /* Add spacing around links */
+    text-decoration: none; /* Remove underline */
+    color: white; /* White text color */
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover effect */
+}
+
+.styled-nav a:hover {
+    background-color: #575757; /* Change background on hover */
+    color: #ffd700; /* Optional: Change text color on hover */
+}
+
+
+
+.mermaid {
+    background-color: black; /* Adds black background to mermaid div */
+    color: white; /* Ensures text color is readable */
+    border-radius: 12px;
+    padding: 10px; /* Adds padding for better readability */
+}
+
+.nav-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    gap: 20px; /* Space between cards */
+    padding: 20px;
+}
+
+
+.nav-card {
+    background-color: #ead8e7; /* Light background for cards */
+    border: 1px solid #ddd; /* Subtle border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    text-align: center; /* Center text */
+    padding: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+}
+
+.nav-card:hover {
+    transform: translateY(-5px); /* Lift the card on hover */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+.nav-card a {
+    text-decoration: none; /* Remove underline */
+    color: #333; /* Dark text color */
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.nav-card a:hover {
+    color: #007BFF; /* Highlight link on hover */
+}
+
+/* Image utility classes to replace inline attributes */
+.img-full {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+}
+
+.img-half {
+    max-width: 48%;
+    height: auto;
+    display: block;
+}
+
+.flex-between-gap {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.mt-20 { margin-top: 20px; }
+.mt-32 { margin-top: 32px; }
+
+
+.table-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto; /* allow horizontal scroll on narrow viewports */
+    -webkit-overflow-scrolling: touch;
+    margin: 0 auto;
+}
+table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    table-layout: auto; /* let cells size naturally and wrap if needed */
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    word-break: break-word; /* allow long tokens in table cells to wrap */
+    overflow-wrap: anywhere;
+}
+th {
+    background-color: #f2f2f2;
+}
+tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+/* Custom styles for the program.html */
+
+/* Course Program Section */
+.program-container {
+    background-color: rgba(238, 237, 229, 0.6);
+    border-radius: 13px; /* Rounded corners for a modern look */
+    padding: 20px; /* Add padding for spacing */
+    margin: 20px auto; /* Center the container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    max-width: 800px; /* Limit the width for better readability */
+}
+
+.program-title {
+    font-family: 'Victor Mono', monospace; /* Fonte nerd moderna */
+    font-size: 24px;
+    color: #150839; /* Dark purple for the title */
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase; /* Make the title uppercase */
+    letter-spacing: 1px; /* Add spacing between letters */
+}
+
+.program-list {
+    list-style-type: none; /* Remove default bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+}
+
+.program-list li {
+    background-color: lavender; /* Light background for each item */
+    border-radius: 8px; /* Rounded corners for each item */
+    margin-bottom: 10px; /* Space between items */
+    padding: 15px; /* Add padding inside each item */
+    font-family: 'Victor Mono', monospace; /* Fonte nerd moderna */
+    font-size: 18px;
+    color: #333; /* Dark text color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.program-list li:hover {
+    background-color: #e95d74; /* Highlight on hover */
+    color: white; /* Change text color on hover */
+    cursor: pointer; /* Show pointer cursor on hover */
+}
+
+.program-list li strong {
+    color: #150839; /* Highlight important text */
+}
+
+.program-list li code {
+    background-color: peachpuff; /* Highlight code snippets */
+    color: #180202;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: monospace; /* Use monospace font for code */
+}
+
+/* Utility / Layout helpers used to replace inline styles in templates */
+.container-narrow {
+    max-width: 520px;
+    margin: 48px auto;
+}
+
+.auth-buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
+
+.centered-text {
+    margin-top: 18px;
+    text-align: center;
+}
+
+.full-width-btn {
+    width: 100%;
+}
+
+/* Page-specific utility: increase base font-size and line-height for better readability */
+.page-large-font {
+    font-size: 1.15em; /* ~15% larger */
+    line-height: 1.65;
+}
+
+.page-large-font .p-styled,
+.page-large-font p,
+.page-large-font li,
+.page-large-font h4 {
+    font-size: 1.05em; /* slight bump for paragraph and list text */
+}
+
+.footer-left {
+    flex: 1;
+    text-align: left;
+}
+
+.logout-form {
+    margin: 0;
+}
+
+.btn-space {
+    margin-right: 10px;
+}
+
+.footer-instruction {
+    margin-top: 8px;
+}

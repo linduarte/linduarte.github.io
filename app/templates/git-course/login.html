@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login</title>
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="stylesheet" href="../../static/css/common-styles.css">
+    <link rel="stylesheet" href="../../static/css/git-course.css">
+  </head>
+  <body>
+    <div class="auth-card container">
+      <h2 class="centered">Login</h2>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="username">Usuário</label>
+          <input type="text" id="username" name="username" required class="form-select" />
+        </div>
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input type="password" id="password" name="password" required class="form-select" />
+        </div>
+        <button type="submit" class="form-btn">Entrar</button>
+      </form>
+
+      <div id="result" class="form-result"></div>
+
+      <div class="text-center mt-18">
+        <a href="register.html" class="footer-link">Não tem uma conta? Registre-se</a>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("login-form");
+        const resultEl = document.getElementById("result");
+        if (!form) return;
+
+        form.addEventListener("submit", async function (e) {
+          e.preventDefault();
+          resultEl.textContent = "";
+            const data = { username: document.getElementById('username').value, password: document.getElementById('password').value };
+            try {
+              const response = await fetch("/auth/login-html", {
+                method: "POST",
+                body: new URLSearchParams(data),
+                credentials: "include",
+              });
+
+              const payload = await response.json();
+              if (response.ok && payload && payload.detail === 'ok') {
+                // Server sets HttpOnly cookie; also store a non-HttpOnly copy for tests only (not used for auth)
+                try { localStorage.setItem('access_token', payload.access_token || ''); } catch (e) {}
+                resultEl.textContent = "Login bem-sucedido! Redirecionando...";
+                setTimeout(() => (window.location.href = "1a-prefacio.html"), 600);
+              } else {
+                resultEl.textContent = "Erro: " + (payload.detail || response.statusText);
+              }
+            } catch (err) {
+              resultEl.textContent = "Erro de rede: " + (err.message || err);
+            }
+        });
+      });
+    </script>
+  </body>
+</html>

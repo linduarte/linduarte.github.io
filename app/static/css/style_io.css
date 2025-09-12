@@ -227,15 +227,15 @@ h5 {
 }
 
 .cl{
-    aspect-ratio: 2.0522388059701493;
-    width: 100%;
+    aspect-ratio: 2.0522388059701493"
+    style="width: 100%";
 
 }
 
 /* Main topics in Column 2 */
 .column2 .main-topic {
     font-family:'Times New Roman', Times, serif;
-    font-size: 19px; /* Adjust the font size for main topics */
+    font-size: 16px; /* Adjust the font size for main topics */
 }
 
 /* Items in Column 2 */
@@ -415,10 +415,8 @@ input:checked + label + .content {
 	display: block;
 }
 
-/* Only hide form inputs used as toggles (checkboxes/radios) for accordion-style content.
-   Avoid hiding all inputs so login/register fields remain interactive. */
-input[type="radio"], input[type="checkbox"] {
-    display: none;
+input {
+	display: none;
 }
 
 /*Responsive header */
@@ -510,60 +508,99 @@ input[type="radio"], input[type="checkbox"] {
     display: block;
 }
 
-/* Auth card used by login/register to standardize width and appearance */
-.auth-card {
-    width: 40%;
-    min-width: 320px;
-    max-width: 480px;
-    margin: 48px auto;
-    background: rgba(255,255,255,0.98);
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-    padding: 28px 24px;
-    box-sizing: border-box;
-}
-.auth-card h2 { color: #f14e32; margin-bottom: 14px; text-align:center }
-.auth-card label { display:block; margin-top:10px; color: #333; font-weight:600 }
-.auth-card input[type="text"], .auth-card input[type="email"], .auth-card input[type="password"] {
-    width: 100%; padding: 10px; margin-top:8px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box;
+/* Authentication Styles */
+.auth-container {
+    margin-top: 20px;
 }
 
-/* Typography standardization for auth pages */
-.auth-card {
-    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    color: #222;
-}
-.auth-card h2 { font-size: 1.5rem; font-weight: 700; }
-.auth-card label { font-size: 0.95rem; }
-.auth-card input, .auth-card button { font-family: inherit; font-size: 1rem; }
-
-@media (max-width: 900px) {
-    .auth-card { width: 80%; }
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
-/* Buttons used across pages (ensure index.html gets same look) */
-.form-btn,
-.form-btn {
-    margin-top: 10px;
-    padding: 14px 28px;
-    font-size: 1.2em;
-    background: #f14e32; /* orange unified */
-    color: #fff;
+.btn-primary, .btn-secondary, .btn-submit, .btn-explore {
+    padding: 12px 24px;
     border: none;
-    border-radius: 6px;
-    font-weight: 700;
-    box-shadow: 0 6px 14px rgba(241,78,50,0.18);
+    border-radius: 5px;
     cursor: pointer;
-    transition: background 0.15s ease, transform 0.08s ease;
-}
-.form-btn:hover {
-    background: #e95d74; /* lighter orange on hover */
-    color: #fff;
-    transform: translateY(-1px);
+    font-size: 16px;
+    transition: all 0.3s ease;
 }
 
-/* reinforce button sizing inside the header/auth area used on index.html */
-.auth-buttons .form-btn {
-    font-size: 1.2em;
-    padding: 14px 28px;
+.btn-primary {
+    background-color: #007BFF;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: #007BFF;
+    border: 2px solid #007BFF;
+}
+
+.btn-submit {
+    background-color: #28a745;
+    color: white;
+    width: 100%;
+}
+
+.btn-explore {
+    background-color: #17a2b8;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 15px;
+}
+
+.auth-form {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.auth-form h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.auth-form a {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.intro-section, .preview-section {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .auth-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
 }

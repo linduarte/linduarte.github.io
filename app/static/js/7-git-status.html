@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>git status</title>
+    <link rel="stylesheet" href="/static/css/git-course-c.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
+</head>
+<body class="intro-page">
+    <div class="container">
+        <h1>git status</h1>
+
+        <p class="p-styled  spaced-p">O comando <code class="language-bash">git status</code> é uma ferramenta fundamental no sistema de controle de versão do Git. Ele ajuda você a acompanhar
+            o estado do seu diretório de trabalho e da área de teste. O comando informa sobre as alterações que foram feitas nos arquivos,
+            ajudando você a entender o que está preparado para o próximo commit, o que ainda não está preparado e quais arquivos não
+             estão sendo rastreados pelo Git. É uma parte essencial do fluxo de trabalho que ajuda os desenvolvedores a garantir que suas
+             alterações de código sejam gerenciadas com precisão e confirmadas adequadamente.</p>
+
+
+        <h4>Estados dos Arquivos no Git</h4>
+        <p>Os arquivos em um repositório Git podem estar em um dos seguintes estados:</p>
+        <ul>
+            <li><strong>Não rastreado (untracked)</strong>: O arquivo não faz parte do repositório. É o caso de novos arquivos criados para adicionar novas funcionalidades ou arquivos de configurações que não precisam fazer parte do repositório. O Git sabe que este arquivo está na pasta, mas não se interessa. O arquivo simplesmente existe na pasta do repositório.</li>
+            <li><strong>Não modificado (unmodified)</strong>: Um arquivo não modificado está no seu estado neutro. Já faz parte do repositório e está consolidado, ou seja, já está salvo e faz parte do histório do repositório e no momento não tem modificação nenhuma.</li>
+            <li><strong>Modificado (modified)</strong>: Uma vez no repositório, qualquer alteração de conteúdo ou exclusão do próprio arquivo faz com que o Git sinilize o arquivo como modificado. Significa que o arquivo sofreu alterações, mas ainda não foi dito o que deser ser feito com essas alterações e se farão parte do próximo commit, ou seja, da próxima versão que será consolidada. Significa também que esses arquivos estão diferentes quando comparados com a última versão disponível no histórico.</li>
+            <li><strong>Preparado (staged)</strong>: A partir do momento que o comando git add é executado em algum arquivo, este assume o estado de preparado. Neste momento, o Git sabe que o arquivo foi modificado e agora está na área de preparação para ser consolidado.</li>
+        </ul>
+
+        <p class="p-styled  spaced-p">É muito importante que os conceitos acima definidos estejam bem claros para que de agora em diante ao seguir pelos vários
+            comandos do Git, você possa entender o que está acontecendo com os arquivos do seu repositório. O comando git status é uma ferramenta
+            fundamental para que você possa acompanhar o estado dos arquivos do seu repositório e saber o que está acontecendo com eles.</p>
+
+
+        <img src="/static/images/git-status.webp" alt="Screenshot do comando git-status">
+        <p class="image-description">Este comando simples, quando executado sem argumentos adicionais,
+            exibe uma visão abrangente do status do seu repositório. Ele lista todos os arquivos que foram alterados em seu diretório de trabalho,
+            mostrando se eles estão preparados ou não para confirmação. Além disso, ele lista todos os arquivos
+            não rastreados sobre os quais o Git ainda não tem informações.</p>
+
+        <footer class="footer">
+            <div class="footer-flex">
+                <nav class="footer-nav footer-left">
+                    <a href="6-git-clone.html" class="footer-link">Voltar</a>
+                    <a href="8-git-add.html" class="footer-link">Próximo: git add</a>
+                </nav>
+                <form action="/logout" method="post" class="logout-form">
+                    <button id="logoutButton" type="submit" class="form-btn btn-space">Logout</button>
+                </form>
+                <button id="markCompletedButton" data-topic-id="7" class="form-btn">Marcar como concluído</button>
+            </div>
+            <div class="footer-instruction">Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Marcar como concluído.</div>
+        </footer>
+    <script src="/static/js/git-course-functions.js"></script>
+    </div>
+    <script>Prism.highlightAll();</script>
+</body>
+</html>

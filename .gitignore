@@ -5,3 +5,10 @@ app/__pycache__/
 app/__init__.py
 uv.lock
 .ruff_cache/
+
+# Large image files (over 500KB)
+# Add specific large files here instead of blanket *.webp
+# app/static/images/large-file.webp
+
+# Remove the *.webp line if it exists and replace with specific files
+# app/static/images/waves.webp (commented out since it's now optimized)

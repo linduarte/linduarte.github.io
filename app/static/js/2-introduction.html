@@ -1,0 +1,12 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Introduction</title></head><body>
+  <h1>Introduction</h1>
+  <button id="markCompletedButton">Marcar concluído</button>
+  <div id="result"></div>
+  <script>
+    document.getElementById('markCompletedButton').addEventListener('click', function(){
+      document.getElementById('result').innerText = 'Concluído';
+      // non-blocking: update DOM only so automated tests aren't blocked by alerts
+    });
+  </script>
+</body></html>

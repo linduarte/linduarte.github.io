@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Menu de Progresso</title>
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="stylesheet" href="../../static/css/common-styles.css">
+    <link rel="stylesheet" href="../../static/css/git-course.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Menu de Progresso do Curso Git</h1>
+        </header>
+
+        <nav class="progress-nav">
+            <button onclick="showSection('summary')" class="nav-btn">Resumo</button>
+            <button onclick="showSection('list')" class="nav-btn">Listar Progresso</button>
+            <button onclick="showSection('create')" class="nav-btn">Criar Progresso</button>
+            <button onclick="showSection('update')" class="nav-btn">Atualizar Progresso</button>
+            <button onclick="showSection('delete')" class="nav-btn">Deletar Progresso</button>
+        </nav>
+
+        <div id="section-summary" class="content-section">
+            <h2>Resumo do Progresso</h2>
+            <div class="progress-summary">Carregando...</div>
+        </div>
+
+        <div id="section-list" class="content-section" style="display: none;">
+            <h2>Lista de Progresso</h2>
+            <div class="progress-list">Carregando...</div>
+        </div>
+
+        <div id="section-create" class="content-section" style="display: none;">
+            <h2>Registrar Novo Progresso</h2>
+            <form id="formCreate" class="progress-form">
+                <label>Tópico ID: <input type="number" name="topic_id" required></label>
+                <label>Concluído:
+                    <select name="completed">
+                        <option value="true">Sim</option>
+                        <option value="false">Não</option>
+                    </select>
+                </label>
+                <label>Feedback: <textarea name="feedback"></textarea></label>
+                <button type="submit" class="submit-btn">Registrar</button>
+            </form>
+            <div id="resultCreate" class="result-message"></div>
+        </div>
+
+        <div id="section-update" class="content-section" style="display: none;">
+            <h2>Atualizar Progresso</h2>
+            <form id="formUpdate" class="progress-form">
+                <label>ID do Progresso: <input type="number" name="progress_id" required></label>
+                <label>Concluído:
+                    <select name="completed">
+                        <option value="true">Sim</option>
+                        <option value="false">Não</option>
+                    </select>
+                </label>
+                <label>Feedback: <textarea name="feedback"></textarea></label>
+                <button type="submit" class="submit-btn">Atualizar</button>
+            </form>
+            <div id="resultUpdate" class="result-message"></div>
+        </div>
+
+        <div id="section-delete" class="content-section" style="display: none;">
+            <h2>Deletar Progresso</h2>
+            <form id="formDelete" class="progress-form">
+                <label>ID do Progresso: <input type="number" name="progress_id" required></label>
+                <button type="submit" class="submit-btn delete-btn">Deletar</button>
+            </form>
+            <div id="resultDelete" class="result-message"></div>
+        </div>
+
+        <footer class="footer">
+            <a href="1-index.html" class="back-link">Voltar ao Curso</a>
+        </footer>
+    </div>
+
+    <script>
+        function showSection(section) {
+            ["summary","list","create","update","delete"].forEach(s => {
+                document.getElementById(`section-${s}`).style.display = s === section ? "block" : "none";
+            });
+            if(section === "summary") fetchSummary();
+            if(section === "list") fetchList();
+        }
+        async function fetchSummary() {
+            const token = localStorage.getItem("access_token");
+            const box = document.getElementById("section-summary");
+            box.innerHTML = "Carregando...";
+            const response = await fetch("/progress/summary", {
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+            const data = await response.json();
+            box.innerHTML = `<b>Total:</b> ${data.total}<br><b>Concluídos:</b> ${data.concluidos}<br><b>Pendentes:</b> ${data.pendentes}<br><b>Tópicos concluídos:</b> ${data.completados?.join(", ") || "Nenhum"}`;
+        }
+        async function fetchList() {
+            const token = localStorage.getItem("access_token");
+            const box = document.getElementById("section-list");
+            box.innerHTML = "Carregando...";
+            const response = await fetch("/progress", {
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+            const data = await response.json();
+            if(data.length === 0) { box.innerHTML = "Nenhum progresso registrado."; return; }
+            box.innerHTML = `<ul>${data.map(p => `<li>ID: ${p.id}, Tópico: ${p.topic_id}, Concluído: ${p.completed}, Feedback: ${p.feedback || "-"}</li>`).join("")}</ul>`;
+        }
+        document.getElementById("formCreate").onsubmit = async function(e) {
+            e.preventDefault();
+            const token = localStorage.getItem("access_token");
+            const form = e.target;
+            const body = {
+                topic_id: parseInt(form.topic_id.value),
+                completed: form.completed.value === "true",
+                feedback: form.feedback.value
+            };
+            const response = await fetch("/progress", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+                body: JSON.stringify(body)
+            });
+            const result = await response.json();
+            document.getElementById("resultCreate").innerText = response.ok ? "Progresso registrado!" : `Erro: ${result.detail}`;
+        };
+        document.getElementById("formUpdate").onsubmit = async function(e) {
+            e.preventDefault();
+            const token = localStorage.getItem("access_token");
+            const form = e.target;
+            const body = {
+                completed: form.completed.value === "true",
+                feedback: form.feedback.value
+            };
+            const progressId = form.progress_id.value;
+            const response = await fetch(`/progress/${progressId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+                body: JSON.stringify(body)
+            });
+            const result = await response.json();
+            document.getElementById("resultUpdate").innerText = response.ok ? "Progresso atualizado!" : `Erro: ${result.detail}`;
+        };
+        document.getElementById("formDelete").onsubmit = async function(e) {
+            e.preventDefault();
+            const token = localStorage.getItem("access_token");
+            const form = e.target;
+            const progressId = form.progress_id.value;
+            const response = await fetch(`/progress/${progressId}`, {
+                method: "DELETE",
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+            const result = await response.json();
+            document.getElementById("resultDelete").innerText = response.ok ? "Progresso deletado!" : `Erro: ${result.detail}`;
+        };
+    </script>
+</body>
+</html>

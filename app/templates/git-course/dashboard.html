@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="stylesheet" href="../../static/css/common-styles.css">
+    <link rel="stylesheet" href="../../static/css/git-course.css">
+</head>
+<body>
+    <div class="container">
+        <h3>Resumo de Progresso</h3>
+        <p id="totalProgress">Total de Tópicos: ...</p>
+        <p id="completedProgress">Concluídos: ...</p>
+        <p id="pendingProgress">Pendentes: ...</p>
+        <div id="completedTopicsContainer" class="completed-topics-container">
+            <h4 class="completed-topics-title">Tópicos concluídos:</h4>
+            <ul id="completedTopics" class="completed-topics-list"></ul>
+        </div>
+        <a href="1a-prefacio.html" class="dashboard-back-btn">Voltar ao início do curso</a>
+    </div>
+    <script>
+    async function fetchProgressSummary() {
+        const token = localStorage.getItem("access_token");
+        if (!token) {
+            alert("Para visualizar seu progresso, faça login primeiro. Você será redirecionado para a tela de login.");
+            window.location.href = "login.html";
+            return;
+        }
+    const response = await fetch("/progress/summary", {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            }
+        });
+        if (response.status === 401) {
+            alert("Sua sessão expirou ou você não está autenticado. Por favor, faça login novamente para acompanhar seu progresso.");
+            window.location.href = "login.html";
+            return;
+        }
+        const data = await response.json();
+        document.getElementById("totalProgress").innerText = `Total de Tópicos: ${data.total}`;
+        document.getElementById("completedProgress").innerText = `Concluídos: ${data.concluidos}`;
+        document.getElementById("pendingProgress").innerText = `Pendentes: ${data.pendentes}`;
+        const completedList = document.getElementById("completedTopics");
+        if (data.completados && data.completados.length > 0) {
+            completedList.innerHTML = data.completados.map(t => `<li>${t}</li>`).join('');
+        } else {
+            completedList.innerHTML = '<li>Nenhum tópico concluído ainda.</li>';
+        }
+    }
+    fetchProgressSummary();
+    </script>
+</body>
+</html>
+    </script>
+</body>
+</html>

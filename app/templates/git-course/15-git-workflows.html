@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Git Workflows</title>
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="stylesheet" href="../../static/css/common-styles.css">
+    <link rel="stylesheet" href="../../static/css/git-course.css">
+</head>
+<body>
+    <div class="container">
+        <h1>O que são Git Workflows?</h1>
+        <p class="p-styled spaced-p">Os Git workflows são um conjunto de práticas e padrões utilizados para gerenciar o desenvolvimento de software usando o sistema de controle
+             de versão Git. Eles ditam como os desenvolvedores devem interagir com o repositório de código, gerenciar branches (ramificações), e colaborar de forma eficiente em
+             projetos de software. A escolha do workflow adequado pode melhorar significativamente a produtividade da equipe de desenvolvimento e garantir a integridade e
+             qualidade do código.</p>
+
+        <h4>Principais Tipos de Git Workflows</h4>
+        <p class="p-styled spaced-p">Existem vários tipos de Git workflows, cada um com suas próprias vantagens e desvantagens. A seguir, destacamos alguns dos mais populares:</p>
+
+        <p class="p-styled spaced-p"><strong>Git Flow</strong></p>
+
+        <p class="p-styled spaced-p">O Git Flow é um dos workflows mais conhecidos e amplamente utilizados. Ele foi introduzido por Vincent Driessen e é especialmente útil para projetos com ciclos de lançamento regulares.
+        O Git Flow utiliza duas branches principais:</p>
+         <ul>
+        <li>Main: representa a versão de produção do projeto. O código nessa branch deve estar sempre em um estado estável e implantável.</li>
+        <li>Develop: é a branch de integração onde todas as funcionalidades são fundidas antes de serem lançadas. É a base para o desenvolvimento diário.</li>
+        </ul>
+
+        <p class="p-styled spaced-p">Além dessas, o Git Flow faz uso de branches auxiliares como:</p>
+        <ul>
+        <li>Feature branches: usadas para desenvolver novas funcionalidades. São criadas a partir da branch develop e fundidas de volta quando a funcionalidade está completa.</li>
+        <li>Release branches: usadas para preparar uma nova versão de produção. Permitem que a equipe faça correções de bugs e ajustes finais antes do lançamento.</li>
+        <li>Hotfix branches: usadas para corrigir problemas críticos encontrados na produção. São criadas a partir da branch main e fundidas de volta tanto na main quanto na develop.</li>
+        </ul>
+
+        <p class="p-styled spaced-p"><strong>GitHub Flow</strong></p>
+
+        <p class="p-styled spaced-p">O GitHub Flow é um workflow simples e leve, ideal para projetos que exigem deploys frequentes. Ele é baseado em seis princípios básicos:</p>
+
+        <ul>
+        <li>Main: a única branch principal, representando o estado de produção.</li>
+        <li>Branches Curtas: os desenvolvedores criam branches curtas a partir da main para desenvolver novas funcionalidades ou corrigir bugs.</li>
+        <li>Pull Requests: quando uma branch está pronta para revisão, o desenvolvedor abre um pull request. Isso facilita a revisão de código e discussões antes da fusão.</li>
+        <li>Testes Automatizados: antes de fundir um pull request na main, é fundamental garantir que todos os testes automatizados estejam passando.</li>
+        <li>Deploys Frequentes: a fusão de uma branch na main deve ocorrer frequentemente, permitindo deploys rápidos e contínuos.</li>
+        <li>Rollback: caso um problema seja detectado na produção após um deploy, é possível reverter facilmente para a versão anterior.</li>
+        </ul>
+
+        <p class="p-styled spaced-p"><strong>GitLab Flow</strong></p>
+
+        <p class="p-styled spaced-p">O GitLab Flow é uma extensão do GitHub Flow, introduzindo algumas melhorias para facilitar a gestão de deploys em ambientes diferentes (desenvolvimento, staging,
+             produção). Ele sugere a utilização de múltiplas branches principais para representar os diferentes ambientes:</p>
+
+       <ul>
+        <li>Main: representa o estado de produção.</li>
+        <li>Pre-production: representa o estado do ambiente de staging.</li>
+        <li>Production: representa o estado do ambiente de produção</li>
+       </ul>
+
+       <p class="p-styled spaced-p">Além disso, o GitLab Flow recomenda a criação de branches curtas para desenvolvimento de funcionalidades e a utilização de pull requests para revisão de código.</p>
+
+       <p class="p-styled spaced-p"><strong>Vantagens dos Git Workflows</strong></p>
+
+       <p class="p-styled spaced-p">Implementar um Git workflow adequado traz várias vantagens para a equipe de desenvolvimento:</p>
+
+       <ul>
+        <li>Organização: ajuda a manter o repositório de código organizado e fácil de navegar.</li>
+        <li>Colaboração: facilita a colaboração entre desenvolvedores, permitindo que trabalhem em paralelo sem conflitos.</li>
+        <li>Qualidade do Código: promove a revisão de código e testes automatizados, garantindo a qualidade do código antes de ser fundido na branch principal.</li>
+        <li>Flexibilidade: adapta-se a diferentes necessidades de projetos, sejam eles de pequeno, médio ou grande porte.</li>
+       </ul>
+
+       <p class="p-styled spaced-p"><strong>Escolhendo o Workflow Adequado</strong></p>
+
+       <p class="p-styled spaced-p">A escolha do Git workflow ideal depende de vários fatores, incluindo o tamanho da equipe, a frequência de deploys, e a complexidade do projeto.
+        É importante considerar as necessidades específicas do projeto e testar diferentes workflows para identificar qual se adapta melhor ao fluxo de trabalho da equipe.</p>
+
+       <h4>Como o Git habilita metodologias ágeis</h4>
+
+       <p class="p-styled spaced-p">Desenvolver software é desafiador, especialmente com equipes grandes e distribuídas. Tarefas como acompanhar requisitos, organizar problemas,
+        revisar mudanças de código e lançar software exigem uma coordenação segura.</p>
+
+        <p class="p-styled spaced-p">O Git habilita diretamente metodologias ágeis de software que resolvem muitos desses desafios organizacionais. Por exemplo, o Git dá suporte a:
+            </p>
+
+       <ul>
+        <li><strong>Integração e entrega contínuas (CI/CD)</strong> - Os desenvolvedores podem mesclar código várias vezes ao dia para detectar bugs de integração
+            antecipadamente e lançar com frequência.</li>
+       <li><strong>Sprints curtos e iterativos</strong> - Problemas e funcionalidades são acompanhados em pequenos lotes que podem ser desenvolvidos e entregues em sprints de 1-2 semanas.</li>
+       <li><strong>Prototipagem rápida </strong>- Com ramificação e mesclagem acessíveis, os desenvolvedores podem criar protótipos de recursos experimentais sem medo de quebrar o código de trabalho.</li>
+       </ul>
+       <p class="p-styled spaced-p">De acordo com a pesquisa de 2022 do Stack Overflow, quase 90% dos desenvolvedores agora usam o Git, embora ele só tenha sido amplamente adotado na última década.</p>
+
+       <h4>Conceitos básicos no Git</h4>
+
+       <p class="p-styled spaced-p">Antes de mergulhar nos fluxos de trabalho, vamos cobrir alguns conceitos-chave do Git:</p>
+
+       <ul>
+        <li><strong>Repository (Repo):</strong>Uma pasta que o Git rastreia. Ele contém os arquivos do seu projeto e uma pasta .git oculta com todo o histórico de versões.</li>
+        <li><strong>Commit:</strong>Um instantâneo do seu projeto em um determinado momento. Cada commit tem um ID exclusivo e uma mensagem descrevendo as alterações.</li>
+        <li><strong>Branch:</strong>Uma linha separada de desenvolvimento. Pense nisso como um universo paralelo para o seu projeto.</li>
+        <li><strong>Merge:</strong>Combinando mudanças de um ramo para outro.</li>
+        <li><strong>Remote:</strong>Uma versão do seu repositório hospedada online (por exemplo, no GitHub ou GitLab).</li>
+       </ul>
+
+       <h4>Comandos git que voce usa no dia-a-dia</h4>
+       <p class="p-styled spaced-p">Aqui estão os comandos chave e o que eles fazem:</p>
+
+       <ul>
+
+       <li><strong>Configurando o Git</strong></li>
+
+       </ul>
+
+       <img src="/static/images/set-a.webp" alt="git config" class="img-full">
+
+         <ul>
+
+       <li><strong>Comece a acompanhar um projeto</strong></li>
+
+         </ul>
+
+       <img src="/static/images/set-b.webp" alt="git config" class="img-full">
+
+       <ul>
+
+       <li><strong>Acompanhando as mudanças</strong></li>
+
+       </ul>
+
+       <img src="/static/images/set-c.webp" alt="git config" class="img-full">
+
+       <ul>
+
+       <li><strong>Sincronizando com um repositório remoto</strong></li>
+
+       </ul>
+
+       <img src="/static/images/set-d.webp" alt="git config" class="img-full">
+
+
+       <h4>Fluxos de trabalho do Git (Git workflows)</h4>
+
+       <p class="p-styled spaced-p">Um fluxo de trabalho do Git define como você usa o Git para gerenciar seu projeto. Aqui estão alguns fluxos de trabalho populares, explicados
+        de forma simples:</p>
+
+        <ul>
+
+        <li><strong>Fluxo de trabalho básico (para desenvolvedores solo)</strong></li>
+
+        </ul>
+
+        <p class="p-styled spaced-p">Este fluxo de trabalho é simples e perfeito se você estiver trabalhando sozinho.</p>
+
+        <ul>
+
+        <li><strong>Inicializar um repositório Git:</strong>comece a acompanhar seu projeto com o Git. </li>
+
+        </ul>
+
+        <pre><code class="language-bash">git init</code></pre>
+
+        <ul>
+
+       <li><strong>Mudanças de "stage":</strong>Marque os arquivos que você quer incluir no seu próximo commit. Você pode usar . (git add .) para adicionar todos os arquivos. </li>
+
+        </ul>
+
+       <pre><code class="language-bash">git add &lt;file name&lt;</code></pre>
+
+        <ul>
+
+       <li><strong>"Comite" alterações:</strong>salve um instantâneo de suas alterações.Confirmar alterações: salve um instantâneo de suas alterações.</li>
+
+        </ul>
+
+       <pre><code class="language-bash">git commit -m "Add a meaningful commit message"</code></pre>
+
+       <ul>
+
+       <li><strong>Enviar para remoto:</strong>carregue seu trabalho em um repositório remoto como o GitHub.</li>
+
+         </ul>
+
+       <pre><code class="language-bash">git push origin main</code></pre>
+
+
+        <ul>
+
+       <li><strong>Fluxo de trabalho centralizado (para equipes ou desenvolvedores individuais)</strong></li>
+
+        </ul>
+
+       <p class="p-styled spaced-p">Esse é o fluxo de trabalho mais simples e funciona melhor para equipes pequenas. Todo mundo trabalha na mesma
+        branch (geralmente main ou master) e faz os commits das mudanças direto.</p>
+
+        <ul>
+
+        <li><strong>Puxar as últimas alterações</strong></li>
+
+        </ul>
+
+        <pre><code class="language-bash">git pull </code></pre>
+
+        <ul>
+        <li><strong>Faça alterações:</strong>faça suas alterações, como adicionar novos recursos, corrigir bugs, etc., preparar e confirmar alterações.</li>
+        </ul>
+
+        <pre><code class="language-bash">git add .</code></pre>
+
+        <pre><code class="language-bash">git commit -m "commit message"</code></pre>
+
+        <ul>
+
+        <li><strong>Envie as mudanças:</strong>faça suas alterações como adicionar novas funcionalidades, corrigir bugs, etc., prepare e registre as mudanças.</li>
+
+        </ul>
+
+        <pre><code class="language-bash">git push </code></pre>
+
+        <p class="p-styled spaced-p">Prós: Fácil de entender. Sem necessidade de várias ramificações.</p>
+
+        <p class="p-styled spaced-p">Contras: Pode levar a conflitos se várias pessoas trabalharem nos mesmos arquivos.</p>
+
+        <p class="p-styled spaced-p">Casos de uso: equipes pequenas ou projetos onde os desenvolvedores confiam uns nos outros para não sobrescrever código crítico.</p>
+
+
+
+        <ul>
+
+        <li><strong>Fluxo de Trabalho com Branch de Funcionalidade (Para Times ou Desenvolvedores Solo)</strong></li>
+
+        </ul>
+
+        <p class="p-styled spaced-p">Esse fluxo de trabalho permite que você isole novos recursos ou experimentos do código principal. Esse fluxo de trabalho é ótimo para equipes.
+            Cada nova funcionalidade ou correção recebe seu próprio branch, mantendo o principal estável. Para começar, você precisa clonar o repositório
+            de código.</p>
+
+       <ul>
+         <li><strong>Clonar repositório:</strong>clone o repositório principal no qual você ramificará seu recurso</li>
+
+       </ul>
+
+         <pre><code class="language-bash">git clone &lt;repo-url&gt;</code></pre>
+
+            <ul>
+
+         <li><strong>Crie um novo branch:</strong>Crie um novo branch para sua funcionalidade e comece a trabalhar na funcionalidade sem afetar o branch principal.</li>
+
+            </ul>
+
+         <pre><code class="language-bash">git checkout -b feature/my-new-feature </code></pre>
+
+            <ul>
+
+         <li><strong>Faça alterações e commite:</strong>trabalhe na sua funcionalidade e salve seu progresso.</li>
+
+            </ul>
+         <pre><code class="language-bash"> git commit -m "Implement feature X" </code></pre>
+
+         <ul>
+
+         <li><strong>Envie para o remoto:</strong>compartilhe seu branch principal atualizado.</li>
+
+         </ul>
+
+         <pre><code class="language-bash"> git push -u origin origin feature/my-new-feature</code></pre>
+
+         <p class="p-styled spaced-p">Crie uma PR (solicitação de pull) para mesclar seu branch no main.</p>
+
+         <p class="p-styled spaced-p">Observação: Uma vez que a funcionalidade esteja completa, o branch pode ser mesclado ao branch principal
+             (ou de desenvolvimento), muitas vezes através de um pull request ou merge request.</p>
+         <p class="p-styled spaced-p">Prós: Mantém o ramo principal limpo. Fácil revisar as mudanças antes de fazer a mesclagem.</p>
+         <p class="p-styled spaced-p">Contras: Um pouco mais complexo.</p>
+         <p class="p-styled spaced-p">Casos de uso: Equipes trabalhando em várias funcionalidades ao mesmo tempo. Isso promove o desenvolvimento isolado.</p>
+
+
+
+        <ul>
+
+         <li><strong>Fluxo de Trabalho Forking (Para Projetos de Código Aberto)</strong></li>
+
+        </ul>
+         <p class="p-styled spaced-p">Esse fluxo de trabalho é comum para contribuir com projetos de código aberto hospedados em plataformas como o GitHub.</p>
+         <ul>
+         <li><strong>Bifurcar o repositório:</strong>faça sua própria cópia do projeto clicando no botão "Bifurcar" no GitHub.</li>
+            </ul>
+         <ul>
+         <li><strong>Clone o Fork:</strong>Baixe seu fork para o seu computador.</li>
+         </ul>
+         <pre><code class="language-bash">  git clone &lt;fork-repo-url&gt;</code></pre>
+            <ul>
+         <li><strong>Crie uma Branch de Funcionalidade:</strong>Trabalhe nas suas mudanças em uma branch separada.</li>
+            </ul>
+         <pre><code class="language-bash"> git checkout -b feature/fix-bug</code></pre>
+            <ul>
+         <li><strong>Envie para o seu Fork:</strong>Carregue seu branch no seu repositório forkado.</li>
+            </ul>
+         <pre><code class="language-bash"> git push origin feature/fix-bug</code></pre>
+            <ul>
+         <li><strong>Envie um Pull Request (PR):</strong>Proponha suas mudanças para o repositório original.</li>
+        </ul>
+
+        <p class="p-styled spaced-p">Devo acrescentar que o cenário comum de uso de todas as funcionalidades do "git" estão aplicadas principalmente no mundo do software. Mas porque não
+            termos controle de versões de desenhos mecânicos, elétricos, descritivos operacionais de grandes instalações podem ser utilizados caso se busque uma entrega ao cliente com todo o rigor documental que um grande projeto deve exigir.
+        </p>
+
+        <!-- filepath:https://dev.to/dinakajoy/git-and-its-workflows-a-beginners-guide-to-version-control-success-49n6 -->
+
+
+        <footer class="footer">
+            <div class="footer-flex">
+                <nav class="footer-nav footer-left">
+                <form action="/logout" method="post" class="logout-form">
+                    <button id="logoutButton" type="submit" class="form-btn btn-space">Logout</button>
+                </form>
+                <a href="1a-prefacio.html" class="footer-link">Voltar</a>
+                <button id="markCompletedButton" data-topic-id="15" class="form-btn">Marcar como concluído</button>
+            </div>
+            <div class="footer-instruction">Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Marcar como concluído.</div>
+        </footer>
+    <script>
+    document.getElementById("markCompletedButton").addEventListener("click", async () => {
+        const token = localStorage.getItem("access_token");
+        const topicId = document.getElementById("markCompletedButton").dataset.topicId;
+    const response = await fetch("/progress", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                topic_id: topicId,
+                completed: true,
+                feedback: "Muito bom este tópico!",
+            }),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            alert("Progresso marcado com sucesso!");
+        } else {
+            alert("Erro ao marcar o progresso");
+        }
+    });
+    </script>
+
+    </div>
+    <script>Prism.highlightAll();</script>
+</body>
+</html>
+    </script>
+
+    </div>
+    <script>Prism.highlightAll();</script>
+</body>
+</html>

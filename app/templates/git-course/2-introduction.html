@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Introdução</title>
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="stylesheet" href="../../static/css/common-styles.css">
+    <link rel="stylesheet" href="../../static/css/git-course.css">
+</head>
+<body>
+    <div class="container page-large-font">
+        <h4>Introdução ao Git</h4>
+
+        <p class="p-styled  spaced-p">O Git Bash é um aplicativo para ambientes Microsoft Windows que fornece uma camada de emulação para uma experiência de linha de comando
+            do Git. Bash é um acrônimo para 'Bourne Again Shell'. Um shell é um aplicativo de terminal usado para fazer interface com um sistema operacional
+            por meio de comandos escritos. Bash é um shell padrão popular no Linux e macOS. O Git Bash é um pacote que instala o Bash, alguns utilitários
+            bash comuns e o Git em um sistema operacional Windows.</p>
+
+        <img src="/static/images/pict_contr_versao.webp" alt="O git e suas funções" class="logo">
+
+
+        <h4>Como adicionar o Git Bash ao terminal do Windows:</h4>
+        <ol class="left-list">
+            <li>Instale o Terminal do Windows - Primeiro, você precisa ter o aplicativo Windows Terminal da Microsoft Store.
+                <ul>
+                    <li>No Windows 11, ele vem pré-instalado. Basta procurar por "Terminal" no menu Iniciar para iniciá-lo.</li>
+                    <li>No Windows 10, baixe-o da Microsoft Store aqui.</li>
+                    <li>Se esta for a primeira vez que você usa o Terminal do Windows, você verá apenas a sessão do PowerShell por padrão ao iniciá-lo.</li>
+                </ul>
+            </li>
+            <li>Instale o Git para Windows
+                <ul>
+                    <li>Faça o download do Git usando este <a href="https://git-scm.com/downloads/win">link</a> e siga as imagens abaixo para concluir a instalação.</li>
+                </ul>
+            </li>
+        </ol>
+        <img src="/static/images/git-install.webp" alt="Screenshot da instalação do Git">
+        <img src="/static/images/git-install-a.webp" alt="Screenshot da instalação do Git">
+        <img src="/static/images/git-install-b.webp" alt="Screenshot da instalação do Git">
+        <img src="/static/images/git-install-c.webp" alt="Screenshot da instalação do Git">
+        <p class="p-styled spaced-p">As imagens acima estabelecem o que deve ser usado na configuração do Git. A opção por um editor de texto na imagem foi o 'Notepad', mas podem ser usados outros editores para a mesma função a critério do usuário.</p>
+        <p class="p-styled spaced-p">Após a instalação do Git no terminal Windows temos o que se denomina 'bash' como mostra a imagem abaixo:</p>
+        <img src="/static/images/bash_terminal.webp" alt="Screenshot da instalação do Git">
+        <p class="p-styled spaced-p">A imagem abaixo mostra o mesmo 'bash' customizado, neste caso a personalização foi feita utilizando-se do 'Oh-my-posh'. Eu recomendo que se faça esta personalização para uma melhor experiência de uso do terminal e visualização clara dos comandos do Git.</p>
+        <img src="/static/images/bash-oh-my-posh.webp" alt="Screenshot da instalação do Git">
+
+        <p class="p-styled  spaced-p">Na página inicial do site todas definições de Git foram apresentadas. Esta introdução está voltada para o curso de fundamentos de Git.</p>
+
+        <p class="p-styled  spaced-p">Seguiremos um roteiro quase que totalmente baseado em um livro denominado "Practical Guide to Git and GitHub For Windows Users", escrito por Roberto Vormittag.</p>
+        <p class="p-styled  spaced-p">Procuramos usar neste curso introdutório de Git a mesma filosofia adotada pelo livro do autor supra citado onde os princípios de uso do 'Git' são apresentados através de exemplos práticos.</p>
+        <p class="p-styled  spaced-p">Faremos uso também de uma representação pictórica dos comandos do Git em sintonia ao apresentado nas imagens dos terminais.
+            Esta representação usa uma tecnologia denominada GitGraph criada pela 'Mermaid'.</p>
+            <footer class="footer">
+                <div class="footer-flex">
+                        <nav class="footer-nav footer-left">
+                            <a href="1a-prefacio.html" class="footer-link">Voltar</a>
+                            <a href="3-git-config.html" class="footer-link">Próximo: git-config</a>
+                        </nav>
+                        <form action="/logout" method="post" class="logout-form">
+                            <button id="logoutButton" type="submit" class="form-btn btn-space">Logout</button>
+                        </form>
+                        <button id="markCompletedButton" data-topic-id="2" class="form-btn">Marcar como concluído</button>
+                    </div>
+                    <div class="footer-instruction">Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Marcar como concluído.</div>
+            </footer>
+    </div>
+
+    <script src="/static/js/git-course-functions.js"></script>
+    </body>
+</html>

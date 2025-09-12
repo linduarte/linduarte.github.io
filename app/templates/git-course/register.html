@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Registrar</title>
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="stylesheet" href="../../static/css/common-styles.css">
+    <link rel="stylesheet" href="../../static/css/git-course.css">
+</head>
+<body>
+    <div class="container">
+      <div class="auth-card register-container">
+        <h2>Crie sua Conta</h2>
+        <form id="registerForm">
+          <label for="email">Email:</label>
+          <input id="email" type="email" name="email" required>
+          <label for="password">Senha:</label>
+          <input id="password" type="password" name="password" required>
+          <label><input type="checkbox" name="is_admin"> É Admin?</label>
+      <button type="submit" class="form-btn">Registrar</button>
+        </form>
+        <div id="result"></div>
+        <script>
+          document.getElementById('registerForm').addEventListener('submit', async function(e){
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const body = { email, password };
+            try {
+              const r = await fetch('/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+              });
+              const payload = await r.json();
+              if (r.ok) {
+                try { localStorage.setItem('access_token', payload.access_token || ''); } catch(e){}
+                window.location.href = '1a-prefacio.html';
+              } else {
+                document.getElementById('result').textContent = payload.detail || 'Erro no registro';
+              }
+            } catch (err) {
+              document.getElementById('result').textContent = err.message || err;
+            }
+          });
+        </script>
+      </div>
+    </div>
+</body>
+</html>
