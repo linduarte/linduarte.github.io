@@ -58,7 +58,7 @@ async function apiCall(endpoint, options = {}) {
     }
 }
 
-// Safe JSON parse (evita "Unexpected token <" quando volta HTML)
+// Função para parse seguro de JSON
 async function safeParseJSON(response) {
     const ct = response.headers.get('content-type') || '';
     const text = await response.text();

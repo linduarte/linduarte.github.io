@@ -7,6 +7,10 @@
   <meta name="description" content="Portal de ingresso no curso de Git. Faça login ou registre-se para começar.">
   <link rel="stylesheet" href="/app/static/css/index.css">
   <link rel="stylesheet" href="/app/static/css/common-styles.css">
+  <script>
+    // Redirecionar para landing.html ao acessar a raiz
+    window.location.href = 'landing.html';
+  </script>
 </head>
 <body>
   <main class="card" role="main">
@@ -23,8 +27,7 @@
       <button class="btn secondary" onclick="navigate('register.html')">Criar Conta</button>
     </div>
     <div class="extra-links">
-      <a href="landing.html">Conheça o conteúdo</a> •
-      <a href="app/templates/git-course/1-index.html">Ver página interna</a>
+      <a href="landing.html">Conheça o conteúdo</a>
     </div>
     <footer>
       &copy; <span id="year"></span> Git Course • Deploy GitHub Pages
