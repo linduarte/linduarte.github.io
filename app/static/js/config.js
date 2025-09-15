@@ -4,7 +4,7 @@ const API_CONFIG = {
         frontendURL: 'http://localhost:3000'
     },
     production: {
-        baseURL: 'https://your-backend-url.herokuapp.com',  // Update with actual backend URL
+        baseURL: 'https://git-learn.com.br', // <-- SUBSTITUIR pelo backend FastAPI em produção
         frontendURL: 'https://linduarte.github.io'
     }
 };
@@ -70,3 +70,24 @@ function debugApiConfig() {
 if (isDevelopment) {
     debugApiConfig();
 }
+
+// Export (optional pattern for future modularization)
+window.API_BASE_URL = API_BASE_URL;
+window.apiCall = apiCall;
+
+// Dev notes (Windows PowerShell):
+// 1) Create venv (if not exists):  python -m venv .venv
+// 2) Activate:  .\.venv\Scripts\Activate.ps1
+//    If blocked: Set-ExecutionPolicy -Scope Process RemoteSigned
+// 3) Install deps (choose one):
+//    pip install fastapi uvicorn[standard]
+//    OR (if using uv): uv add fastapi uvicorn[standard]
+// 4) Run app (adjust path if main.py is inside app/):
+//    python -m uvicorn main:app --reload --port 8000
+//    (or) python -m uvicorn app.main:app --reload --port 8000
+// 5) Test: http://localhost:8000/docs
+// 6) Frontend (static test): python -m http.server 9000  (open http://localhost:9000/index.html)
+// 7) If 'uvicorn' not recognized, always use: python -m uvicorn ...
+// 8) To confirm import path issues: python - <<EOF
+//    import sys, pathlib; print(list(pathlib.Path('.').glob('**/main.py')))
+//    EOF

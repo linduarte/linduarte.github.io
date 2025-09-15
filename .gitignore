@@ -5,6 +5,7 @@ app/__pycache__/
 app/__init__.py
 uv.lock
 .ruff_cache/
+__pycache__/
 
 # Large image files (over 500KB)
 # Add specific large files here instead of blanket *.webp

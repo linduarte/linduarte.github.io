@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../../static/css/style.css">
     <link rel="stylesheet" href="../../static/css/common-styles.css">
     <link rel="stylesheet" href="../../static/css/git-course.css">
+    <script src="../../static/js/config.js"></script>
 </head>
 <body>
     <div class="container">
@@ -79,80 +80,111 @@
     </div>
 
     <script>
+        function requireToken() {
+            const token = localStorage.getItem("access_token");
+            if(!token) {
+                alert("Sessão não encontrada. Faça login.");
+                window.location.href = "login.html";
+                return null;
+            }
+            return token;
+        }
+
         function showSection(section) {
             ["summary","list","create","update","delete"].forEach(s => {
-                document.getElementById(`section-${s}`).style.display = s === section ? "block" : "none";
+                const el = document.getElementById(`section-${s}`);
+                if (el) el.style.display = s === section ? "block" : "none";
             });
             if(section === "summary") fetchSummary();
             if(section === "list") fetchList();
         }
+
         async function fetchSummary() {
-            const token = localStorage.getItem("access_token");
+            const token = requireToken(); if(!token) return;
             const box = document.getElementById("section-summary");
             box.innerHTML = "Carregando...";
-            const response = await fetch("/progress/summary", {
-                headers: { "Authorization": `Bearer ${token}` }
-            });
-            const data = await response.json();
-            box.innerHTML = `<b>Total:</b> ${data.total}<br><b>Concluídos:</b> ${data.concluidos}<br><b>Pendentes:</b> ${data.pendentes}<br><b>Tópicos concluídos:</b> ${data.completados?.join(", ") || "Nenhum"}`;
+            try {
+                const resp = await apiCall("/progress/summary");
+                const data = await resp.json();
+                box.innerHTML =
+                  `<b>Total:</b> ${data.total}<br>
+                   <b>Concluídos:</b> ${data.concluidos}<br>
+                   <b>Pendentes:</b> ${data.pendentes}<br>
+                   <b>Tópicos concluídos:</b> ${data.completados?.length ? data.completados.join(", ") : "Nenhum"}`;
+            } catch(e) { box.innerHTML = "Erro ao carregar resumo."; console.error(e); }
         }
+
         async function fetchList() {
-            const token = localStorage.getItem("access_token");
+            const token = requireToken(); if(!token) return;
             const box = document.getElementById("section-list");
             box.innerHTML = "Carregando...";
-            const response = await fetch("/progress", {
-                headers: { "Authorization": `Bearer ${token}` }
-            });
-            const data = await response.json();
-            if(data.length === 0) { box.innerHTML = "Nenhum progresso registrado."; return; }
-            box.innerHTML = `<ul>${data.map(p => `<li>ID: ${p.id}, Tópico: ${p.topic_id}, Concluído: ${p.completed}, Feedback: ${p.feedback || "-"}</li>`).join("")}</ul>`;
+            try {
+                const resp = await apiCall("/progress");
+                const data = await resp.json();
+                if(!data.length) { box.innerHTML = "Nenhum progresso registrado."; return; }
+                box.innerHTML = `<ul>${data.map(p =>
+                    `<li>ID: ${p.id}, Tópico: ${p.topic_id}, Concluído: ${p.completed}, Feedback: ${p.feedback || "-"}</li>`
+                ).join("")}</ul>`;
+            } catch(e) { box.innerHTML = "Erro ao carregar lista."; console.error(e); }
         }
-        document.getElementById("formCreate").onsubmit = async function(e) {
+
+        document.getElementById("formCreate")?.addEventListener("submit", async e => {
             e.preventDefault();
-            const token = localStorage.getItem("access_token");
-            const form = e.target;
+            const token = requireToken(); if(!token) return;
+            const f = e.target;
             const body = {
-                topic_id: parseInt(form.topic_id.value),
-                completed: form.completed.value === "true",
-                feedback: form.feedback.value
+                topic_id: parseInt(f.topic_id.value),
+                completed: f.completed.value === "true",
+                feedback: f.feedback.value
             };
-            const response = await fetch("/progress", {
-                method: "POST",
-                headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
-                body: JSON.stringify(body)
-            });
-            const result = await response.json();
-            document.getElementById("resultCreate").innerText = response.ok ? "Progresso registrado!" : `Erro: ${result.detail}`;
-        };
-        document.getElementById("formUpdate").onsubmit = async function(e) {
+            const out = document.getElementById("resultCreate");
+            out.textContent = "Enviando...";
+            try {
+                const resp = await apiCall("/progress", {
+                    method: "POST",
+                    body: JSON.stringify(body)
+                });
+                const data = await resp.json();
+                out.textContent = resp.ok ? "Progresso registrado!" : (data.detail || "Erro");
+            } catch(e){ out.textContent = "Erro de rede."; console.error(e); }
+        });
+
+        document.getElementById("formUpdate")?.addEventListener("submit", async e => {
             e.preventDefault();
-            const token = localStorage.getItem("access_token");
-            const form = e.target;
+            const token = requireToken(); if(!token) return;
+            const f = e.target;
             const body = {
-                completed: form.completed.value === "true",
-                feedback: form.feedback.value
+                completed: f.completed.value === "true",
+                feedback: f.feedback.value
             };
-            const progressId = form.progress_id.value;
-            const response = await fetch(`/progress/${progressId}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
-                body: JSON.stringify(body)
-            });
-            const result = await response.json();
-            document.getElementById("resultUpdate").innerText = response.ok ? "Progresso atualizado!" : `Erro: ${result.detail}`;
-        };
-        document.getElementById("formDelete").onsubmit = async function(e) {
+            const id = f.progress_id.value;
+            const out = document.getElementById("resultUpdate");
+            out.textContent = "Atualizando...";
+            try {
+                const resp = await apiCall(`/progress/${id}`, {
+                    method: "PUT",
+                    body: JSON.stringify(body)
+                });
+                const data = await resp.json();
+                out.textContent = resp.ok ? "Progresso atualizado!" : (data.detail || "Erro");
+            } catch(e){ out.textContent = "Erro de rede."; console.error(e); }
+        });
+
+        document.getElementById("formDelete")?.addEventListener("submit", async e => {
             e.preventDefault();
-            const token = localStorage.getItem("access_token");
-            const form = e.target;
-            const progressId = form.progress_id.value;
-            const response = await fetch(`/progress/${progressId}`, {
-                method: "DELETE",
-                headers: { "Authorization": `Bearer ${token}` }
-            });
-            const result = await response.json();
-            document.getElementById("resultDelete").innerText = response.ok ? "Progresso deletado!" : `Erro: ${result.detail}`;
-        };
+            const token = requireToken(); if(!token) return;
+            const f = e.target;
+            const id = f.progress_id.value;
+            const out = document.getElementById("resultDelete");
+            out.textContent = "Removendo...";
+            try {
+                const resp = await apiCall(`/progress/${id}`, { method: "DELETE" });
+                out.textContent = resp.ok ? "Progresso deletado!" : "Erro ao deletar";
+            } catch(e){ out.textContent = "Erro de rede."; console.error(e); }
+        });
+
+        // Default view
+        showSection("summary");
     </script>
 </body>
 </html>
