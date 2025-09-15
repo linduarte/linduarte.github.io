@@ -2,332 +2,144 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Git Course - Ingresso</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Git Course - Entrar</title>
+    <meta name="description" content="Portal de ingresso no curso de Git. Faça login ou registre-se para começar.">
     <link rel="stylesheet" href="/app/static/css/style_io.css">
     <link rel="stylesheet" href="/app/static/css/common-styles.css">
     <style>
-        body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #f7f7fa; }
-        .auth-box {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.15);
-            padding: 32px 24px;
-            max-width: 350px;
-            width: 100%;
-            text-align: center;
+        :root {
+            --primary:#0d6efd;
+            --primary-hover:#0a58ca;
+            --neutral:#6c757d;
+            --neutral-hover:#565e64;
+            --bg:#f5f7fb;
         }
-        .auth-box img { margin-bottom: 16px; }
-        .auth-box h1 { font-size: 1.5rem; margin-bottom: 18px; }
-        .auth-btns { display: flex; flex-direction: column; gap: 12px; margin-top: 18px; }
-        .auth-btns button {
-            padding: 12px 0;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            cursor: pointer;
-            background: #007bff;
-            color: #fff;
-            transition: background 0.2s;
+        body {
+            margin:0;
+            font-family: system-ui,Segoe UI,Roboto,Arial,sans-serif;
+            background: linear-gradient(135deg,#eef2f7,#dfe7f1);
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:24px;
         }
-        .auth-btns button:last-child { background: #6c757d; }
-        .auth-btns button:hover { background: #0056b3; }
-        @media (max-width: 480px) {
-            .auth-box { padding: 18px 8px; }
+        .card {
+            background:#fff;
+            width:100%;
+            max-width:400px;
+            padding:40px 32px 36px;
+            border-radius:18px;
+            box-shadow:0 8px 28px -6px rgba(31,38,135,.25),0 0 1px rgba(0,0,0,.15);
+            position:relative;
+            overflow:hidden;
+        }
+        .card:before {
+            content:"";
+            position:absolute;
+            inset:0;
+            background:
+              radial-gradient(circle at 85% 15%,rgba(13,110,253,0.15),transparent 55%),
+              radial-gradient(circle at 15% 85%,rgba(111,66,193,0.18),transparent 60%);
+            pointer-events:none;
+        }
+        .logo {
+            display:block;
+            margin:0 auto 12px;
+            width:130px;
+            height:auto;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,.15));
+        }
+        h1 {
+            font-size:1.55rem;
+            text-align:center;
+            margin:0 0 10px;
+            letter-spacing:.5px;
+        }
+        .subtitle {
+            text-align:center;
+            font-size:.95rem;
+            color:#555;
+            margin:0 0 26px;
+            line-height:1.4;
+        }
+        .actions {
+            display:flex;
+            flex-direction:column;
+            gap:14px;
+            margin-bottom:18px;
+        }
+        .btn {
+            cursor:pointer;
+            border:none;
+            border-radius:10px;
+            padding:14px 18px;
+            font-size:.95rem;
+            font-weight:600;
+            letter-spacing:.4px;
+            background:var(--primary);
+            color:#fff;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:6px;
+            transition:.2s;
+            box-shadow:0 3px 10px -2px rgba(13,110,253,.35);
+        }
+        .btn:hover { background:var(--primary-hover); }
+        .btn.secondary {
+            background:var(--neutral);
+            box-shadow:0 3px 10px -2px rgba(108,117,125,.35);
+        }
+        .btn.secondary:hover { background:var(--neutral-hover); }
+        .extra-links {
+            text-align:center;
+            margin-top:8px;
+            font-size:.8rem;
+            color:#666;
+        }
+        .extra-links a {
+            color:var(--primary);
+            text-decoration:none;
+        }
+        .extra-links a:hover { text-decoration:underline; }
+        footer {
+            text-align:center;
+            font-size:.7rem;
+            margin-top:28px;
+            color:#888;
+        }
+        @media (max-width:480px) {
+            .card { padding:34px 22px 30px; border-radius:16px; }
+            h1 { font-size:1.35rem; }
         }
     </style>
 </head>
 <body>
-    <div class="auth-box">
-        <img src="/app/static/images/GitLogo_sp.png"
+    <main class="card" role="main">
+        <img class="logo" src="/app/static/images/GitLogo_sp.png"
              srcset="/app/static/images/GitLogo_sp-2x.png 2x, /app/static/images/GitLogo_sp-3x.png 3x"
-             alt="Git Logo" width="120" height="50">
-        <h1>Bem-vindo ao Curso de Git!</h1>
-        <p>Faça login ou registre-se para começar.</p>
-        <div class="auth-btns">
-            <button onclick="window.location.href='login.html'">Login</button>
-            <button onclick="window.location.href='register.html'">Registrar</button>
-        </div>
-        <p style="margin-top:24px;font-size:0.95em;color:#888;">
-            <a href="landing.html" style="color:#007bff;text-decoration:underline;">Sobre o curso</a>
+             alt="Logomarca Git Course">
+        <h1>Bem-vindo</h1>
+        <p class="subtitle">
+            Domine Git de forma prática. Acesse sua conta ou crie uma nova
+            para acompanhar seu progresso no curso.
         </p>
-    </div>
-</body>
-</html>
+        <div class="actions">
+            <button class="btn" onclick="location.href='login.html'">Fazer Login</button>
+            <button class="btn secondary" onclick="location.href='register.html'">Criar Conta</button>
         </div>
-    </header>
-
-    <!-- Developer Navigation (remove when no longer needed) -->
-    <nav id="dev-nav" style="background:#222;color:#fff;padding:12px 16px;margin:10px 0;border-radius:8px;font:14px/1.4 Arial;">
-        <strong> Navegação rápida (dev) </strong>
-        <button id="toggleNav" style="margin-left:10px;padding:4px 10px;cursor:pointer;">Ocultar</button>
-        <ul id="devNavList" style="list-style:none;padding-left:0;margin-top:10px;display:grid;gap:4px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));"></ul>
-        <small style="opacity:.7;display:block;margin-top:8px;">Somente para testes locais. Caminhos apontam para templates.</small>
-    </nav>
-
+        <div class="extra-links">
+            <a href="program.html">Conheça o conteúdo</a> •
+            <a href="app/templates/git-course/1-index.html">Ver página interna</a>
+        </div>
+        <footer>
+            &copy; <span id="year"></span> Git Course • Deploy GitHub Pages
+        </footer>
+    </main>
     <script>
-        function showLogin() {
-            document.getElementById('loginForm').style.display = 'block';
-            document.getElementById('registerForm').style.display = 'none';
-        }
-
-        function showRegister() {
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('registerForm').style.display = 'block';
-        }
-    // Developer navigation script
-    (function buildDevNav(){
-        const pages = [
-            {f:'app/templates/git-course/1-index.html', t:'1 - Index Curso'},
-            {f:'app/templates/git-course/1a-prefacio.html', t:'1a - Prefácio'},
-            {f:'app/templates/git-course/2-introduction.html', t:'2 - Introdução'},
-            {f:'app/templates/git-course/3-git-config.html', t:'3 - Git Config'},
-            {f:'app/templates/git-course/4-hosting.html', t:'4 - Hosting'},
-            {f:'app/templates/git-course/5-connect.html', t:'5 - Conectar'},
-            {f:'app/templates/git-course/6-git-clone.html', t:'6 - Git Clone'},
-            {f:'app/templates/git-course/7-git-status.html', t:'7 - Git Status'},
-            {f:'app/templates/git-course/7-merge.html', t:'7b - Merge'},
-            {f:'app/templates/git-course/8-git-add.html', t:'8 - Git Add'},
-            {f:'app/templates/git-course/9-git-commit.html', t:'9 - Git Commit'},
-            {f:'app/templates/git-course/10-feature_req.html', t:'10 - Feature Request'},
-            {f:'app/templates/git-course/11-branch-1.html', t:'11 - Branch 1'},
-            {f:'app/templates/git-course/11-branch-2.html', t:'11 - Branch 2'},
-            {f:'app/templates/git-course/12-git-diff.html', t:'12 - Git Diff'},
-            {f:'app/templates/git-course/13-undo-changes.html', t:'13 - Undo'},
-            {f:'app/templates/git-course/14-git-init.html', t:'14 - Git Init'},
-            {f:'app/templates/git-course/15-git-workflows.html', t:'15 - Workflows'},
-            {f:'app/templates/git-course/program.html', t:'Programa'},
-            {f:'app/templates/git-course/progress-menu.html', t:'Progresso'},
-            {f:'app/templates/git-course/login.html', t:'Login (Template)'},
-            {f:'app/templates/git-course/register.html', t:'Register (Template)'},
-            {f:'landing.html', t:'Landing (antigo conteúdo)'}
-        ];
-        const ul = document.getElementById('devNavList');
-        if(!ul) return;
-        ul.innerHTML = pages.map(p => `<li style="background:#444;padding:6px 8px;border-radius:4px;">
-            <a href="${p.f}" style="color:#9bd;text-decoration:none;">${p.t}</a>
-        </li>`).join('');
-        document.getElementById('toggleNav').onclick = function(){
-            const list = ul;
-            const hidden = list.style.display === 'none';
-            list.style.display = hidden ? 'grid' : 'none';
-            this.textContent = hidden ? 'Ocultar' : 'Mostrar';
-        };
-    })();
+        document.getElementById('year').textContent = new Date().getFullYear();
     </script>
-
-    <div class="grid-container">
-        <div class="column1 grid-item">
-            <div class="intro-section">
-                <h2>Por que aprender Git?</h2>
-                <p>Git é essencial para qualquer desenvolvedor. Nosso curso oferece:</p>
-                <ul>
-                    <li>Aprendizado prático e hands-on</li>
-                    <li>Exercícios interativos</li>
-                    <li>Suporte da comunidade</li>
-                    <li>Certificado de conclusão</li>
-                </ul>
-                <a href="landing.html" class="btn-explore">Explorar Conteúdo</a>
-            </div>
-        </div>
-        <div class="column2 grid-item">
-            <div class="preview-section">
-                <h3>Prévia do Curso</h3>
-                <p>Veja alguns tópicos que você aprenderá:</p>
-                <ul>
-                    <li>Configuração básica do Git</li>
-                    <li>Comandos essenciais</li>
-                    <li>Trabalho com branches</li>
-                    <li>Integração com GitHub</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!-- Removed stray duplicated course HTML that was appended after closing tags -->
-</body>
-</html>
-                    <li>Criação de conta no GitHub</li>
-                    <li>Criação do repositório no GitHub</li>
-
-                </ul>
-            </div>
-
-            <input type="checkbox" id="topic4">
-            <label for="topic4" class="main-topic">Conectando Git ao GitHub</label>
-            <div class="content">
-                <ul>
-                    <li>Verificando a existência de chave SSH</li>
-                    <li>Gerando a nova chave SSH</li>
-                    <li>Adicionando a chave SSH ao SSH-agent</li>
-                    <li>Adicionando a chave SSH à sua conta no GitHub</li>
-                    <li>Testando a conexão</li>
-
-                </ul>
-            </div>
-
-            <input type="checkbox" id="topic5">
-            <label for="topic5" class="main-topic">"git clone"</label>
-            <div class="content">
-                <ul>
-                    <li>Criação do repositório local</li>
-                    <li>Ponto de partida</li>
-                    <li>Configuração remota</li>
-                </ul>
-            </div>
-
-            <input type="checkbox" id="topic6">
-            <label for="topic6" class="main-topic">"git status"</label>
-            <div class="content">
-                <ul>
-                    <li>Estados dos arquivos no git.</li>
-                </ul>
-            </div>
-
-            <input type="checkbox" id="topic7">
-            <label for="topic7" class="main-topic">"git add"</label>
-            <div class="content">
-                <ul>
-                    <li>Adicionando arquivos ao projeto</li>
-                </ul>
-            </div>
-
-            <input type="checkbox" id="topic8">
-            <label for="topic8" class="main-topic">"git commit"</label>
-            <div class="content">
-                <ul>
-                    <li>Definição de 'Hash"</li>
-                    <li>Execução do comite</li>
-                    <li>Uso do git log identificando comite</li>
-                </ul>
-            </div>
-
-            <input type="checkbox" id="topic9">
-            <label for="topic9" class="main-topic">"Feature request"</label>
-            <div class="content">
-                <ul>
-                    <li>Alteração dos arquivos no site</li>
-                    <li>Vendo a história do projeto</li>
-                </ul>
-            </div>
-
-            <input type="checkbox" id="topic10">
-            <label for="topic10" class="main-topic">Branch - 1 (ramo)</label>
-            <div class="content">
-                <ul>
-                    <li>Conhecendo o 'HEAD'</li>
-                    <li>Trabalhando com 'ramos'</li>
-                    <li>Movendo, apagando e renomeando arquivos</li>
-                </ul>
-            </div>
-
-            <input type="checkbox" id="topic11">
-            <label for="topic11" class="main-topic">Branch - 2 (ramo)</label>
-            <div class="content">
-                <ul>
-                    <li>Alternando ramificações sem mesclar'</li>
-                    <li>Mesclando (merging)</li>
-                    <li>Resolvendo conflitos</li>
-                </ul>
-            </div>
-
-            <input type="checkbox" id="topic12">
-            <label for="topic12" class="main-topic">"git diff"</label>
-            <div class="content">
-                <ul>
-                    <li>Comparando versões</li>
-                    <li>Como comparar mudanças nos seus arquivos</li>
-                    <li>git diff verificando arquivos específicos</li>
-                    <li>índice (Hashes das versões do arquivo )</li>
-                    <li>Bloco de contexto</li>
-                    <li>Estado do repositório</li>
-                    <li>Vendo alterações desde o último comite</li>
-                    <li>Vendo mudanças entre dois comites</li>
-                    <li>Obtendo os hashes usando o 'git log'</li>
-                    <li>Comitar as pendências do "Feature request"</li>
-                </ul>
-            </div>
-
-            <input type="checkbox" id="topic13">
-            <label for="topic13" class="main-topic">Desfazendo alterações</label>
-            <div class="content">
-                <ul>
-                    <li>Desfazendo as mudanças antes de adicioná-las ao "staged"</li>
-                    <li>Desfazendo mudanças depois de adicioná-las ao "staged"</li>
-                    <li>Desfazendo mudanças comitadas</li>
-                    <li>Marcando versões</li>
-                    <li>Visão detalhada do "Desfazer mudanças"</li>
-                </ul>
-            </div>
-
-            <input type="checkbox" id="topic14">
-            <label for="topic14" class="main-topic">"git init"</label>
-            <div class="content">
-                <ul>
-                    <li>Definição</li>
-                    <li>Iniciando um repositório com um nome específico para o ramo inicial</li>
-                </ul>
-            </div>
-
-            <input type="checkbox" id="topic15">
-            <label for="topic15" class="main-topic">"Git workflows" para iniciantes</label>
-            <div class="content">
-                <ul>
-                    <li>Como o Git habilita metodologias ágeis</li>
-                    <li>Comandos básicos no git</li>
-                    <li>Comandos git que voce usa no dia-a-dia</li>
-                    <li>Fluxos de trabalho do git (git workflows)  </li>
-                </ul>
-            </div>
-
-
-
-
-
-
-            <section>
-                <h5>Navegação</h5>
-                <nav class="mynav">
-                    <ul>
-                      <li class="active hover"><a href="#about1">Sobre o Git</a></li>
-                      <li class="active hover"><a href="#about2">Por que se chama Git?</a></li>
-                      <li class="active hover"><a href="#about3">Por que Linus Torvalds criou o Git?</a></li>
-                      <li class="active hover"><a href="#about4">Um pouco mais sobre Git</a></li>
-                      <li class="active hover"><a href="#about5">Uma vantagem do Git</a></li>
-                      <li class="active hover"><a href="#about6">Alternativas ao Git</a></li>
-                    </ul>
-                </nav>
-
-                <article>
-                    <h5 id="about1">Sobre o Git</h5>
-                    <p style="font-size:16px" class="paragraph">Com mais de 57000 alterações 'comitadas' e mais de 1300 colaboradores o <strong>Git</strong> se tornou a ferramenta de controle de versões mais usada mundo afora.<br>
-                    Seu criador é ninguem menos do que 'Linus Torvalds', o criador do 'Linux'.<br>
-                    O <strong>Git</strong> nasceu em 2005 quando da criação do kernel do sistema operacional Linux.<br>
-                    Desde então o seu mantenedor principal, Junio Hamano, um japonês, cuida da evolução do <strong>Git</strong> junto aos inúmeros colaboradores deste sistema de código aberto (open source).</p>
-
-                    <h5 id="about2">Por que se chama Git?</h5>
-                    <p style="font-size:16px" class="paragraph">'Git' é uma gíria do inglês britânico que significa 'pessoa desagradável'. E este nome foi dado pelo próprio criador.</p>
-
-                    <h5 id="about3">Por que Linus Torvalds criou o Git?</h5>
-                    <p style="font-size:16px" class="paragraph">Linus em seu desenvolvimento do Kernel do Linux usava como controle de versão uma ferramenta denominada 'BitKeeper'. Em um dado momento o dono dos direitos autorais desta ferramenta retirou o uso gratuíto.
-                    O que restou a Linus foi criar algo para substituir e ele o fez tornando a ferramenta gratuíta e de código aberto.</p>
-
-                    <h5 id="about4">Um pouco mais sobre Git</h5>
-                    <p style="font-size:16px" class="paragraph">Já sabemos que o <strong>Git</strong> é um sistema de controle de versão distribuída que rastreia as alterações ocorridas nos arquivos dos computadores.
-                    Mas não se presta somente para atividades voltadas para códigos fonte de programas mas também serve como gestor de alterações em configurações complexas de bancos dados.
-                    Até escritores de artigos de toda natureza fazem uso do <strong>Git</strong> coomo forma de manter suas edições atualizadas.</p>
-
-                    <h5 id="about5">Uma vantagem do Git</h5>
-                    <p style="font-size:16px" class="paragraph">O <strong>Git</strong> roda localmente em seu computador ou seja não depende de nenhum serviço de hospedagem em nuvem. Ele é auto-suficiente.</p>
-
-                    <h5 id="about6">Alternativas ao Git</h5>
-                    <p style="font-size:16px" class="paragraph">Algumas alternativas ao uso do <strong>Git</strong>, o qual é de uso gratuíto, são:  - Azure DevOPS Server; Helix Core, AWS Code Commit, Subversion e Rational ClearCase.
-                       Estas ferramentas são pagas e em um processo de avaliação deste citado grupo destaca-se a lentidão no retorno do investimento bem como algumas muito caras.
-                       Dentre estas uma se destaca e se chama "Mercurial" por ser fácil de configurar e administrar.
-                    </p>
-                </article>
-            </section>
-        </div>
-    </div>
 </body>
 </html>
