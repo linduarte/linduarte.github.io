@@ -35,7 +35,18 @@
   </main>
   <script>
     function navigate(path) {
-      window.location.href = path;
+      // Verificar se a página existe antes de redirecionar
+      fetch(path)
+        .then(response => {
+          if (response.ok) {
+            window.location.href = path;
+          } else {
+            alert('Página não encontrada: ' + path);
+          }
+        })
+        .catch(() => {
+          alert('Erro ao acessar a página: ' + path);
+        });
     }
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
