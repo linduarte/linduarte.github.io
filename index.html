@@ -1,59 +1,59 @@
 <!DOCTYPE html>
-<!-- Local test instructions:
-1) Open a terminal in the repository root.
-2) Run:  python -m http.server 8000   (or: py -m http.server 8000 on Windows)
-3) Visit: http://localhost:8000/index.html
-   (The absolute paths /app/static/... will resolve because you started the server at repo root.)
-Optional (VS Code): Use the "Live Server" extension and open this file.
-FastAPI integration example (backend repo):
-from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
-app = FastAPI()
-app.mount("/app/static", StaticFiles(directory="app/static"), name="static")
-# Then place this index.html where you serve it (root or a /app/templates route if using Jinja).
--->
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Git Course - Login</title>
+    <title>Git Course - Ingresso</title>
     <link rel="stylesheet" href="/app/static/css/style_io.css">
     <link rel="stylesheet" href="/app/static/css/common-styles.css">
+    <style>
+        body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #f7f7fa; }
+        .auth-box {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.15);
+            padding: 32px 24px;
+            max-width: 350px;
+            width: 100%;
+            text-align: center;
+        }
+        .auth-box img { margin-bottom: 16px; }
+        .auth-box h1 { font-size: 1.5rem; margin-bottom: 18px; }
+        .auth-btns { display: flex; flex-direction: column; gap: 12px; margin-top: 18px; }
+        .auth-btns button {
+            padding: 12px 0;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            background: #007bff;
+            color: #fff;
+            transition: background 0.2s;
+        }
+        .auth-btns button:last-child { background: #6c757d; }
+        .auth-btns button:hover { background: #0056b3; }
+        @media (max-width: 480px) {
+            .auth-box { padding: 18px 8px; }
+        }
+    </style>
 </head>
 <body>
-    <header class="header logo">
-        <img alt="Git Logo"
-        width="150" height="63"
-        src="/app/static/images/GitLogo_sp.png"
-        srcset="/app/static/images/GitLogo_sp-2x.png 2x, /app/static/images/GitLogo_sp-3x.png 3x">
-        <div class="call">
-            <h1 class="banner-message">Aprenda Git de forma prática e eficiente!</h1>
-            <div class="auth-container">
-                <div class="auth-buttons">
-                    <button class="btn-primary" onclick="showLogin()">Login</button>
-                    <button class="btn-secondary" onclick="showRegister()">Registrar</button>
-                </div>
-                <div id="loginForm" class="auth-form" style="display: none;">
-                    <h3>Login</h3>
-                    <form>
-                        <input type="email" placeholder="Email" required>
-                        <input type="password" placeholder="Senha" required>
-                        <button type="submit" class="btn-submit">Entrar</button>
-                        <a href="#" onclick="showRegister()">Não tem conta? Registre-se</a>
-                    </form>
-                </div>
-                <div id="registerForm" class="auth-form" style="display: none;">
-                    <h3>Registrar</h3>
-                    <form>
-                        <input type="text" placeholder="Nome" required>
-                        <input type="email" placeholder="Email" required>
-                        <input type="password" placeholder="Senha" required>
-                        <input type="password" placeholder="Confirmar Senha" required>
-                        <button type="submit" class="btn-submit">Criar Conta</button>
-                        <a href="#" onclick="showLogin()">Já tem conta? Faça login</a>
-                    </form>
-                </div>
-            </div>
+    <div class="auth-box">
+        <img src="/app/static/images/GitLogo_sp.png"
+             srcset="/app/static/images/GitLogo_sp-2x.png 2x, /app/static/images/GitLogo_sp-3x.png 3x"
+             alt="Git Logo" width="120" height="50">
+        <h1>Bem-vindo ao Curso de Git!</h1>
+        <p>Faça login ou registre-se para começar.</p>
+        <div class="auth-btns">
+            <button onclick="window.location.href='login.html'">Login</button>
+            <button onclick="window.location.href='register.html'">Registrar</button>
+        </div>
+        <p style="margin-top:24px;font-size:0.95em;color:#888;">
+            <a href="landing.html" style="color:#007bff;text-decoration:underline;">Sobre o curso</a>
+        </p>
+    </div>
+</body>
+</html>
         </div>
     </header>
 
