@@ -7,59 +7,59 @@
     <meta name="description" content="Portal de ingresso no curso de Git. Faça login ou registre-se para começar.">
     <link rel="stylesheet" href="/app/static/css/style_io.css">
     <link rel="stylesheet" href="/app/static/css/common-styles.css">
-    <style>
-        :root {
-            --primary:#0d6efd;
-            --primary-hover:#0a58ca;
-            --neutral:#6c757d;
-            --neutral-hover:#565e64;
-            --bg:#f5f7fb;
+    <link rel="stylesheet" href="/app/static/css/index.css">
+</head>
+<body>
+    <main class="card" role="main">
+        <img class="logo" src="/app/static/images/GitLogo_sp.png"
+             srcset="/app/static/images/GitLogo_sp-2x.png 2x, /app/static/images/GitLogo_sp-3x.png 3x"
+             alt="Logomarca Git Course">
+        <h1>Bem-vindo</h1>
+        <p class="subtitle">
+            Domine Git de forma prática. Acesse sua conta ou crie uma nova
+            para acompanhar seu progresso no curso.
+        </p>
+        <div class="actions">
+            <button class="btn" onclick="goTo('login.html')">Fazer Login</button>
+            <button class="btn secondary" onclick="goTo('register.html')">Criar Conta</button>
+        </div>
+        <div class="extra-links">
+            <a href="landing.html">Conheça o conteúdo</a> •
+            <a href="app/templates/git-course/1-index.html">Ver página interna</a>
+        </div>
+        <footer>
+            &copy; <span id="year"></span> Git Course • Deploy GitHub Pages
+        </footer>
+    </main>
+    <script>
+        // Caminhos candidatos (ordem de tentativa). Ajuste se mover arquivos.
+        window.CANDIDATE_BASES = window.CANDIDATE_BASES || [
+            "", // raiz
+            "app/templates/git-course/",
+            "/app/templates/git-course/",
+        ];
+        async function resolvePath(file) {
+            for (const base of CANDIDATE_BASES) {
+                const full = base + file;
+                try {
+                    const r = await fetch(full, { method: 'HEAD' });
+                    if (r.ok) return full;
+                } catch (_) {}
+            }
+            return null;
         }
-        body {
-            margin:0;
-            font-family: system-ui,Segoe UI,Roboto,Arial,sans-serif;
-            background: linear-gradient(135deg,#eef2f7,#dfe7f1);
-            min-height:100vh;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            padding:24px;
+        async function goTo(file) {
+            const target = await resolvePath(file);
+            if (target) {
+                location.href = target;
+            } else {
+                alert("Página não encontrada: " + file);
+            }
         }
-        .card {
-            background:#fff;
-            width:100%;
-            max-width:400px;
-            padding:40px 32px 36px;
-            border-radius:18px;
-            box-shadow:0 8px 28px -6px rgba(31,38,135,.25),0 0 1px rgba(0,0,0,.15);
-            position:relative;
-            overflow:hidden;
-        }
-        .card:before {
-            content:"";
-            position:absolute;
-            inset:0;
-            background:
-              radial-gradient(circle at 85% 15%,rgba(13,110,253,0.15),transparent 55%),
-              radial-gradient(circle at 15% 85%,rgba(111,66,193,0.18),transparent 60%);
-            pointer-events:none;
-        }
-        .logo {
-            display:block;
-            margin:0 auto 12px;
-            width:130px;
-            height:auto;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,.15));
-        }
-        h1 {
-            font-size:1.55rem;
-            text-align:center;
-            margin:0 0 10px;
-            letter-spacing:.5px;
-        }
-        .subtitle {
-            text-align:center;
-            font-size:.95rem;
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
             color:#555;
             margin:0 0 26px;
             line-height:1.4;
@@ -127,11 +127,11 @@
             para acompanhar seu progresso no curso.
         </p>
         <div class="actions">
-            <button class="btn" onclick="location.href='login.html'">Fazer Login</button>
-            <button class="btn secondary" onclick="location.href='register.html'">Criar Conta</button>
+            <button class="btn" onclick="goTo('login.html')">Fazer Login</button>
+            <button class="btn secondary" onclick="goTo('register.html')">Criar Conta</button>
         </div>
         <div class="extra-links">
-            <a href="program.html">Conheça o conteúdo</a> •
+            <a href="landing.html">Conheça o conteúdo</a> •
             <a href="app/templates/git-course/1-index.html">Ver página interna</a>
         </div>
         <footer>
@@ -139,6 +139,30 @@
         </footer>
     </main>
     <script>
+        // Caminhos candidatos (ordem de tentativa). Ajuste se mover arquivos.
+        const CANDIDATE_BASES = [
+            "", // raiz
+            "app/templates/git-course/",
+            "/app/templates/git-course/",
+        ];
+        async function resolvePath(file) {
+            for (const base of CANDIDATE_BASES) {
+                const full = base + file;
+                try {
+                    const r = await fetch(full, { method: 'HEAD' });
+                    if (r.ok) return full;
+                } catch (_) {}
+            }
+            return null;
+        }
+        async function goTo(file) {
+            const target = await resolvePath(file);
+            if (target) {
+                location.href = target;
+            } else {
+                alert("Página não encontrada: " + file);
+            }
+        }
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 </body>
