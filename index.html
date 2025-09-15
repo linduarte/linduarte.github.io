@@ -7,97 +7,6 @@
   <meta name="description" content="Portal de ingresso no curso de Git. Faça login ou registre-se para começar.">
   <link rel="stylesheet" href="/app/static/css/index.css">
   <link rel="stylesheet" href="/app/static/css/common-styles.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
-    .card {
-      max-width: 400px;
-      margin: 60px auto;
-      background: #fff;
-      padding: 40px 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .logo {
-      max-width: 120px;
-      margin-bottom: 20px;
-    }
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 12px;
-      color: #333;
-    }
-    .subtitle {
-      color: #555;
-      margin-bottom: 26px;
-      line-height: 1.4;
-    }
-    .actions {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-    .btn {
-      cursor: pointer;
-      border: none;
-      border-radius: 10px;
-      padding: 14px 18px;
-      font-size: .95rem;
-      font-weight: 600;
-      letter-spacing: .4px;
-      background: #0d6efd;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: .2s;
-      box-shadow: 0 3px 10px -2px rgba(13,110,253,.35);
-    }
-    .btn:hover {
-      background: #0b5ed7;
-    }
-    .btn.secondary {
-      background: #6c757d;
-      box-shadow: 0 3px 10px -2px rgba(108,117,125,.35);
-    }
-    .btn.secondary:hover {
-      background: #5c636a;
-    }
-    .extra-links {
-      text-align: center;
-      margin-top: 8px;
-      font-size: .8rem;
-      color: #666;
-    }
-    .extra-links a {
-      color: #0d6efd;
-      text-decoration: none;
-    }
-    .extra-links a:hover {
-      text-decoration: underline;
-    }
-    footer {
-      text-align: center;
-      font-size: .7rem;
-      margin-top: 28px;
-      color: #888;
-    }
-    @media (max-width: 480px) {
-      .card {
-        padding: 34px 22px 30px;
-        border-radius: 16px;
-      }
-      h1 {
-        font-size: 1.35rem;
-      }
-    }
-  </style>
 </head>
 <body>
   <main class="card" role="main">
@@ -110,8 +19,8 @@
       para acompanhar seu progresso no curso.
     </p>
     <div class="actions">
-      <button class="btn" onclick="goTo('login.html')">Fazer Login</button>
-      <button class="btn secondary" onclick="goTo('register.html')">Criar Conta</button>
+      <button class="btn" onclick="navigate('login.html')">Fazer Login</button>
+      <button class="btn secondary" onclick="navigate('register.html')">Criar Conta</button>
     </div>
     <div class="extra-links">
       <a href="landing.html">Conheça o conteúdo</a> •
@@ -121,34 +30,10 @@
       &copy; <span id="year"></span> Git Course • Deploy GitHub Pages
     </footer>
   </main>
-
   <script>
-    const CANDIDATE_BASES = [
-      "",
-      "app/templates/git-course/",
-      "/app/templates/git-course/"
-    ];
-
-    async function resolvePath(file) {
-      for (const base of CANDIDATE_BASES) {
-        const full = base + file;
-        try {
-          const r = await fetch(full, { method: 'HEAD' });
-          if (r.ok) return full;
-        } catch (_) {}
-      }
-      return null;
+    function navigate(path) {
+      window.location.href = path;
     }
-
-    async function goTo(file) {
-      const target = await resolvePath(file);
-      if (target) {
-        location.href = target;
-      } else {
-        alert("Página não encontrada: " + file);
-      }
-    }
-
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>

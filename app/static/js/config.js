@@ -58,6 +58,32 @@ async function apiCall(endpoint, options = {}) {
     }
 }
 
+// Safe JSON parse (evita "Unexpected token <" quando volta HTML)
+async function safeParseJSON(response) {
+    const ct = response.headers.get('content-type') || '';
+    const text = await response.text();
+    if (!ct.includes('application/json')) {
+        return { __raw: text, __nonJson: true };
+    }
+    try {
+        return JSON.parse(text);
+    } catch (e) {
+        return { __raw: text, __parseError: true };
+    }
+}
+
+// Form POST helper (application/x-www-form-urlencoded)
+async function apiForm(endpoint, formObj = {}) {
+    const body = new URLSearchParams(formObj);
+    const token = localStorage.getItem('access_token');
+    const headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        ...(token && { 'Authorization': `Bearer ${token}` })
+    };
+    const resp = await fetch(`${API_BASE_URL}${endpoint}`, { method: 'POST', headers, body });
+    return resp;
+}
+
 // Debug helper for PowerShell development
 function debugApiConfig() {
     console.log('Environment:', isDevelopment ? 'Development' : 'Production');
@@ -74,6 +100,9 @@ if (isDevelopment) {
 // Export (optional pattern for future modularization)
 window.API_BASE_URL = API_BASE_URL;
 window.apiCall = apiCall;
+// Export helpers
+window.safeParseJSON = safeParseJSON;
+window.apiForm = apiForm;
 
 // Dev notes (Windows PowerShell):
 // 1) Create venv (if not exists):  python -m venv .venv
