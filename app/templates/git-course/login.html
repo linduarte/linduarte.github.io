@@ -7,11 +7,19 @@
     <link rel="stylesheet" href="../../static/css/style.css">
     <link rel="stylesheet" href="../../static/css/common-styles.css">
     <link rel="stylesheet" href="../../static/css/git-course.css">
+    <script src="../../static/js/config.js"></script>
+    <script>
+      function loginUser() {
+        // Lógica para fazer login do usuário
+        // Após o login, redirecionar para index.html
+        window.location.href = '../../index.html'; // Redireciona para index.html após login
+      }
+    </script>
   </head>
   <body>
     <div class="auth-card container">
       <h2 class="centered">Login</h2>
-      <form id="login-form">
+      <form id="login-form" onsubmit="event.preventDefault(); loginUser();">
         <div class="form-group">
           <label for="username">Usuário</label>
           <input type="text" id="username" name="username" required class="form-select" />
