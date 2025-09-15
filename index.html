@@ -1,4 +1,17 @@
 <!DOCTYPE html>
+<!-- Local test instructions:
+1) Open a terminal in the repository root.
+2) Run:  python -m http.server 8000   (or: py -m http.server 8000 on Windows)
+3) Visit: http://localhost:8000/index.html
+   (The absolute paths /app/static/... will resolve because you started the server at repo root.)
+Optional (VS Code): Use the "Live Server" extension and open this file.
+FastAPI integration example (backend repo):
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+app = FastAPI()
+app.mount("/app/static", StaticFiles(directory="app/static"), name="static")
+# Then place this index.html where you serve it (root or a /app/templates route if using Jinja).
+-->
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -44,6 +57,65 @@
         </div>
     </header>
 
+    <!-- Developer Navigation (remove when no longer needed) -->
+    <nav id="dev-nav" style="background:#222;color:#fff;padding:12px 16px;margin:10px 0;border-radius:8px;font:14px/1.4 Arial;">
+        <strong> Navegação rápida (dev) </strong>
+        <button id="toggleNav" style="margin-left:10px;padding:4px 10px;cursor:pointer;">Ocultar</button>
+        <ul id="devNavList" style="list-style:none;padding-left:0;margin-top:10px;display:grid;gap:4px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));"></ul>
+        <small style="opacity:.7;display:block;margin-top:8px;">Somente para testes locais. Caminhos apontam para templates.</small>
+    </nav>
+
+    <script>
+        function showLogin() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+        }
+
+        function showRegister() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+        }
+    // Developer navigation script
+    (function buildDevNav(){
+        const pages = [
+            {f:'app/templates/git-course/1-index.html', t:'1 - Index Curso'},
+            {f:'app/templates/git-course/1a-prefacio.html', t:'1a - Prefácio'},
+            {f:'app/templates/git-course/2-introduction.html', t:'2 - Introdução'},
+            {f:'app/templates/git-course/3-git-config.html', t:'3 - Git Config'},
+            {f:'app/templates/git-course/4-hosting.html', t:'4 - Hosting'},
+            {f:'app/templates/git-course/5-connect.html', t:'5 - Conectar'},
+            {f:'app/templates/git-course/6-git-clone.html', t:'6 - Git Clone'},
+            {f:'app/templates/git-course/7-git-status.html', t:'7 - Git Status'},
+            {f:'app/templates/git-course/7-merge.html', t:'7b - Merge'},
+            {f:'app/templates/git-course/8-git-add.html', t:'8 - Git Add'},
+            {f:'app/templates/git-course/9-git-commit.html', t:'9 - Git Commit'},
+            {f:'app/templates/git-course/10-feature_req.html', t:'10 - Feature Request'},
+            {f:'app/templates/git-course/11-branch-1.html', t:'11 - Branch 1'},
+            {f:'app/templates/git-course/11-branch-2.html', t:'11 - Branch 2'},
+            {f:'app/templates/git-course/12-git-diff.html', t:'12 - Git Diff'},
+            {f:'app/templates/git-course/13-undo-changes.html', t:'13 - Undo'},
+            {f:'app/templates/git-course/14-git-init.html', t:'14 - Git Init'},
+            {f:'app/templates/git-course/15-git-workflows.html', t:'15 - Workflows'},
+            {f:'app/templates/git-course/program.html', t:'Programa'},
+            {f:'app/templates/git-course/progress-menu.html', t:'Progresso'},
+            {f:'app/templates/git-course/login.html', t:'Login (Template)'},
+            {f:'app/templates/git-course/register.html', t:'Register (Template)'},
+            {f:'landing.html', t:'Landing (antigo conteúdo)'}
+        ];
+        const ul = document.getElementById('devNavList');
+        if(!ul) return;
+        ul.innerHTML = pages.map(p => `<li style="background:#444;padding:6px 8px;border-radius:4px;">
+            <a href="${p.f}" style="color:#9bd;text-decoration:none;">${p.t}</a>
+        </li>`).join('');
+        document.getElementById('toggleNav').onclick = function(){
+            const list = ul;
+            const hidden = list.style.display === 'none';
+            list.style.display = hidden ? 'grid' : 'none';
+            this.textContent = hidden ? 'Ocultar' : 'Mostrar';
+        };
+    })();
+    </script>
+
     <div class="grid-container">
         <div class="column1 grid-item">
             <div class="intro-section">
@@ -72,68 +144,9 @@
         </div>
     </div>
 
-    <script>
-        function showLogin() {
-            document.getElementById('loginForm').style.display = 'block';
-            document.getElementById('registerForm').style.display = 'none';
-        }
-
-        function showRegister() {
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('registerForm').style.display = 'block';
-        }
-    </script>
+    <!-- Removed stray duplicated course HTML that was appended after closing tags -->
 </body>
 </html>
-                    <h5 id="base5">E como não falar de GitHub?</h5>
-                    <p>O engenheiro de software, Tom Preston-Werner vendo a necessidade de se criar uma forma mais eficiente de compartilhar e gestionar os códigos fonte
-                    entre os desenvolvedores deu início ao projeto do <strong>GitHub</strong> em março de 2008.Através de investidores a idéia cresceu e após um aporte de 100 milhoes de dólares a empresa
-                    em dois anos já contava com um milhão de usuários. Crescendo desta forma ela foi adquirida por 7,5 bilhões de dolares pela Microsoft.
-                    <strong>GitHub</strong> é um serviço de hospedagem via web para desenvolvimento de projetos de software que usa o sistema de revisão e controle do <strong>Git</strong>. Ele oferece
-                    todas as funcionalidades de controle distribuido de versão do <strong>Git</strong> e adiciona sua próprias funcionalidades.
-                    </p>
-                </article>
-            </section>
-            <footer class="footer">
-                Hosted on GitHub Pages
-                <p>
-                    <a href="http://jigsaw.w3.org/css-validator/check/referer">
-                        <img style="border:0;width:88px;height:31px" src="http://jigsaw.w3.org/css-validator/images/vcss" alt="CSS válido!">
-                    </a>
-                </p>
-            </footer>
-        </div>
-        <div class="column2 grid-item">
-            <div class="column2 grid-item curse-title ">
-                <h4><strong>Programa do Curso</strong></h4>
-            </div>
-
-            <input type="checkbox" id="topic1">
-            <label for="topic1" class="main-topic">Introdução ao Git</label>
-            <div class="content">
-                <ul>
-                    <li> Instale o terminal do Windows</li>
-                    <li>Instale o Git para Windows</li>
-                    <li>Adicione o Git bash ao terminal do Windows</li>
-                </ul>
-            </div>
-
-            <input type="checkbox" id="topic2">
-            <label for="topic2" class="main-topic">Configuração básica do Git</label>
-            <div class="content">
-                <ul>
-                    <li>Configuração de identidade</li>
-                    <li>Configuração de fim de linha</li>
-                    <li>Configuração de editor padrão</li>
-                    <li>Configuração de cores</li>
-                    <li>Diferença entre 'Global", "Local" e "System"</li>
-                </ul>
-            </div>
-
-            <input type="checkbox" id="topic3">
-            <label for="topic3" class="main-topic">Hospedagem  - Projeto "Phonetic Website"</label>
-            <div class="content">
-                <ul>
                     <li>Criação de conta no GitHub</li>
                     <li>Criação do repositório no GitHub</li>
 
