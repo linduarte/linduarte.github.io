@@ -3,39 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Git Course - Entrar</title>
-  <meta name="description" content="Portal de ingresso no curso de Git. Faça login ou registre-se para começar.">
-  <link rel="stylesheet" href="/app/static/css/index.css">
-  <link rel="stylesheet" href="/app/static/css/common-styles.css">
-  <!-- <script>
-  window.location.href = 'landing.html';
-  </script> -->
-
+  <title>Redirecionando...</title>
+  <script>
+    (function () {
+      try {
+        const token = localStorage.getItem('access_token');
+        if (token) {
+          window.location.replace('app/templates/git-course/1-index.html');
+        } else {
+          window.location.replace('landing.html');
+        }
+      } catch {
+        window.location.replace('landing.html');
+      }
+    })();
+  </script>
 </head>
-<body>
-  <main class="card" role="main">
-    <img class="logo" src="/app/static/images/GitLogo_sp.png"
-         srcset="/app/static/images/GitLogo_sp-2x.png 2x, /app/static/images/GitLogo_sp-3x.png 3x"
-         alt="Logomarca Git Course">
-    <h1>Bem-vindo</h1>
-    <p class="subtitle">
-      Domine Git de forma prática. Acesse sua conta ou crie uma nova
-      para acompanhar seu progresso no curso.
-    </p>
-    <div class="actions">
-      <button class="btn" onclick="navigate('login.html')">Fazer Login</button>
-      <button class="btn secondary" onclick="navigate('register.html')">Criar Conta</button>
-    </div>
-    <div class="extra-links">
-      <a href="landing.html">Conheça o conteúdo</a>
-    </div>
-    <footer>
-      &copy; <span id="year"></span> Git Course • Deploy GitHub Pages
-    </footer>
-  </main>
+<body style="font-family: Arial, sans-serif; text-align: center; margin-top: 20vh;">
+  <p>Redirecionando...</p>
+  <p>
+    Se não redirecionar automaticamente:
+    <a href="landing.html">Landing</a> |
+    <a href="app/templates/git-course/register.html">Registrar</a> |
+    <a href="app/templates/git-course/login.html">Login</a>
+  </p>
+
   <script>
     function navigate(path) {
-      // Verificar se a página existe antes de redirecionar
       fetch(path)
         .then(response => {
           if (response.ok) {
@@ -48,7 +42,6 @@
           alert('Erro ao acessar a página: ' + path);
         });
     }
-    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>

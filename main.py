@@ -56,6 +56,7 @@ except ImportError:
 BASE_DIR = Path(__file__).parent
 FRONT_INDEX = BASE_DIR / "index.html"
 STATIC_DIR = BASE_DIR / "app" / "static"
+TEMPLATES_DIR = BASE_DIR / "app" / "templates"  # added
 
 app = FastAPI(title="Git Course Mock API")
 
@@ -89,6 +90,10 @@ app.add_middleware(
 # Monta arquivos estáticos para servir assets locais
 if STATIC_DIR.exists():
     app.mount("/app/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+# Mount templates to serve raw HTML under /app/templates/...
+if TEMPLATES_DIR.exists():  # added
+    app.mount("/app/templates", StaticFiles(directory=TEMPLATES_DIR), name="templates")
 
 
 # --- Models (mock) ---
@@ -301,11 +306,25 @@ def health_html():
     """
 
 
+@app.get("/landing.html")  # added
+def landing():
+    file = BASE_DIR / "landing.html"
+    if file.exists():
+        return FileResponse(file)
+    raise HTTPException(status_code=404, detail="landing.html não encontrado")
+
+
+# @app.get("/")
+# def root():
+#    if FRONT_INDEX.exists():
+#        return FileResponse(FRONT_INDEX)
+#     return {"message": "index.html não encontrado"}
 @app.get("/")
 def root():
-    if FRONT_INDEX.exists():
-        return FileResponse(FRONT_INDEX)
-    return {"message": "index.html não encontrado"}
+    file = BASE_DIR / "landing.html"
+    if file.exists():
+        return FileResponse(file)
+    raise HTTPException(status_code=404, detail="landing.html não encontrado")
 
 
 @app.get("/progress/summary")
@@ -371,3 +390,32 @@ def reset_progress(current_user: User = Depends(get_current_user)):
     _progress_store.clear()
     _next_id = 1
     return {"reset": True, "items_in_memory": len(_progress_store)}
+
+
+@app.get("/app/templates/git-course/login.html")
+def login_page():
+    file = Path("app/templates/git-course/login.html")
+    if file.exists():
+        return FileResponse(file)
+    raise HTTPException(status_code=404, detail="login.html não encontrado")
+
+
+@app.get("/app/templates/git-course/register.html")
+def register_page():
+    file = Path("app/templates/git-course/register.html")
+    if file.exists():
+        return FileResponse(file)
+    raise HTTPException(status_code=404, detail="register.html não encontrado")
+
+
+@app.get("/curso")
+def curso_index():
+    file = Path("app/templates/git-course/1-index.html")
+    if file.exists():
+        return FileResponse(file)
+    raise HTTPException(status_code=404, detail="1-index.html não encontrado")
+
+
+app.mount(
+    "/curso", StaticFiles(directory="app/templates/git-course", html=True), name="curso"
+)

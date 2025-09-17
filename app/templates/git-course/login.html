@@ -8,18 +8,12 @@
     <link rel="stylesheet" href="../../static/css/common-styles.css">
     <link rel="stylesheet" href="../../static/css/git-course.css">
     <script src="../../static/js/config.js"></script>
-    <script>
-      function loginUser() {
-        // Lógica para fazer login do usuário
-        // Após o login, redirecionar para index.html
-        window.location.href = '../../index.html'; // Redireciona para index.html após login
-      }
-    </script>
+
   </head>
   <body>
     <div class="auth-card container">
       <h2 class="centered">Login</h2>
-      <form id="login-form" onsubmit="event.preventDefault(); loginUser();">
+      <form id="login-form">
         <div class="form-group">
           <label for="username">Usuário</label>
           <input type="text" id="username" name="username" required class="form-select" />
@@ -60,7 +54,7 @@
                 // Server sets HttpOnly cookie; also store a non-HttpOnly copy for tests only (not used for auth)
                 try { localStorage.setItem('access_token', payload.access_token || ''); } catch (e) {}
                 resultEl.textContent = "Login bem-sucedido! Redirecionando...";
-                setTimeout(() => (window.location.href = "1a-prefacio.html"), 600);
+                setTimeout(() => (window.location.href = '/app/templates/git-course/1a-prefacio.html'), 600);
               } else {
                 resultEl.textContent = "Erro: " + (payload.detail || response.statusText);
               }
@@ -70,5 +64,7 @@
         });
       });
     </script>
+    <script src="../../static/js/login.js" defer></script>
+
   </body>
 </html>
