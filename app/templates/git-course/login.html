@@ -120,6 +120,26 @@
         e.preventDefault();
         resultEl.textContent = "";
         const data = { username: form.username.value, password: form.password.value };
+
+        // SIMULAÇÃO: Em produção (GitHub Pages) não há backend
+        const isProduction = !window.location.hostname.includes('127.0.0.1') &&
+                           !window.location.hostname.includes('localhost');
+
+        if (isProduction) {
+          // Modo simulação para GitHub Pages
+          if (data.username && data.password) {
+            localStorage.setItem('access_token', 'github_pages_demo_token_' + Date.now());
+            resultEl.style.color = "#388e3c";
+            resultEl.textContent = "Login simulado OK! Redirecionando...";
+            setTimeout(() => (window.location.href = '1-index.html'), 800);
+          } else {
+            resultEl.style.color = "#d32f2f";
+            resultEl.textContent = "Preencha usuário e senha.";
+          }
+          return;
+        }
+
+        // Modo desenvolvimento (com backend)
         try {
           const response = await fetch("/auth/login-html", {
             method: "POST",
@@ -132,7 +152,7 @@
             try { localStorage.setItem('access_token', payload.access_token || ''); } catch (e) {}
             resultEl.style.color = "#388e3c";
             resultEl.textContent = "Login bem-sucedido! Redirecionando...";
-            setTimeout(() => (window.location.href = '/app/templates/git-course/1a-prefacio.html'), 600);
+            setTimeout(() => (window.location.href = '1-index.html'), 600);
           } else {
             resultEl.style.color = "#d32f2f";
             resultEl.textContent = "Erro: " + (payload.detail || response.statusText);
