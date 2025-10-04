@@ -1,70 +1,148 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Login</title>
-    <link rel="stylesheet" href="../../static/css/style.css">
-    <link rel="stylesheet" href="../../static/css/common-styles.css">
-    <link rel="stylesheet" href="../../static/css/git-course.css">
-    <script src="../../static/js/config.js"></script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Login</title>
+  <link rel="stylesheet" href="../../static/css/style.css">
+  <link rel="stylesheet" href="../../static/css/common-styles.css">
+  <link rel="stylesheet" href="../../static/css/git-course.css">
+  <style>
+    body {
+      background: #f7f7fa;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: system-ui, Arial, sans-serif;
+    }
+    .login-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px 0 rgba(31,38,135,0.10);
+      padding: 36px 28px 28px;
+      max-width: 340px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .login-card h2 {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 18px;
+      font-weight: 600;
+      color: #222;
+    }
+    .login-card label {
+      font-size: .99rem;
+      color: #1a1a1a; /* contraste mais forte */
+      margin-bottom: 6px;
+      font-weight: 600; /* mais negrito */
+      letter-spacing: .01em;
+      text-shadow: 0 1px 0 #fff, 0 0 1px #eee;
+    }
+    .login-card input[type="text"],
+    .login-card input[type="password"] {
+      padding: 10px 12px;
+      border: 1px solid #d0d4db;
+      border-radius: 7px;
+      font-size: 1rem;
+      margin-bottom: 18px;
+      background: #f9fafd;
+      transition: border .2s;
+    }
+    .login-card input:focus {
+      border-color: #0d6efd;
+      outline: none;
+      background: #fff;
+    }
+    .login-card button[type="submit"] {
+      background: #0d6efd;
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      padding: 12px 0;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 4px;
+      transition: background .2s;
+      box-shadow: 0 2px 8px -2px rgba(13,110,253,.10);
+    }
+    .login-card button[type="submit"]:hover {
+      background: #0b5ed7;
+    }
+    .login-card .form-result {
+      min-height: 22px;
+      text-align: center;
+      color: #d32f2f;
+      font-size: .98rem;
+      margin: 10px 0 0 0;
+    }
+    .login-card .footer-link {
+      display: block;
+      text-align: center;
+      margin-top: 18px;
+      color: #0d6efd;
+      font-size: .97rem;
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .login-card .footer-link:hover {
+      color: #0a58ca;
+      text-decoration: underline;
+    }
+    @media (max-width: 480px) {
+      .login-card { padding: 22px 6px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <form class="login-card" id="login-form" autocomplete="on">
+    <h2>Login</h2>
+    <label for="username">Usuário</label>
+    <input type="text" id="username" name="username" required autocomplete="username" autofocus>
+    <label for="password">Senha</label>
+    <input type="password" id="password" name="password" required autocomplete="current-password">
+    <button type="submit">Entrar</button>
+    <div id="result" class="form-result"></div>
+    <a href="register.html" class="footer-link">Não tem uma conta? Registre-se</a>
+  </form>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("login-form");
+      const resultEl = document.getElementById("result");
+      if (!form) return;
 
-  </head>
-  <body>
-    <div class="auth-card container">
-      <h2 class="centered">Login</h2>
-      <form id="login-form">
-        <div class="form-group">
-          <label for="username">Usuário</label>
-          <input type="text" id="username" name="username" required class="form-select" />
-        </div>
-        <div class="form-group">
-          <label for="password">Senha</label>
-          <input type="password" id="password" name="password" required class="form-select" />
-        </div>
-        <button type="submit" class="form-btn">Entrar</button>
-      </form>
-
-      <div id="result" class="form-result"></div>
-
-      <div class="text-center mt-18">
-        <a href="register.html" class="footer-link">Não tem uma conta? Registre-se</a>
-      </div>
-    </div>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const form = document.getElementById("login-form");
-        const resultEl = document.getElementById("result");
-        if (!form) return;
-
-        form.addEventListener("submit", async function (e) {
-          e.preventDefault();
-          resultEl.textContent = "";
-            const data = { username: document.getElementById('username').value, password: document.getElementById('password').value };
-            try {
-              const response = await fetch("/auth/login-html", {
-                method: "POST",
-                body: new URLSearchParams(data),
-                credentials: "include",
-              });
-
-              const payload = await response.json();
-              if (response.ok && payload && payload.detail === 'ok') {
-                // Server sets HttpOnly cookie; also store a non-HttpOnly copy for tests only (not used for auth)
-                try { localStorage.setItem('access_token', payload.access_token || ''); } catch (e) {}
-                resultEl.textContent = "Login bem-sucedido! Redirecionando...";
-                setTimeout(() => (window.location.href = '/app/templates/git-course/1a-prefacio.html'), 600);
-              } else {
-                resultEl.textContent = "Erro: " + (payload.detail || response.statusText);
-              }
-            } catch (err) {
-              resultEl.textContent = "Erro de rede: " + (err.message || err);
-            }
-        });
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        resultEl.textContent = "";
+        const data = { username: form.username.value, password: form.password.value };
+        try {
+          const response = await fetch("/auth/login-html", {
+            method: "POST",
+            body: new URLSearchParams(data),
+            credentials: "include",
+          });
+          let payload = {};
+          try { payload = await response.json(); } catch {}
+          if (response.ok && payload && payload.detail === 'ok') {
+            try { localStorage.setItem('access_token', payload.access_token || ''); } catch (e) {}
+            resultEl.style.color = "#388e3c";
+            resultEl.textContent = "Login bem-sucedido! Redirecionando...";
+            setTimeout(() => (window.location.href = '/app/templates/git-course/1a-prefacio.html'), 600);
+          } else {
+            resultEl.style.color = "#d32f2f";
+            resultEl.textContent = "Erro: " + (payload.detail || response.statusText);
+          }
+        } catch (err) {
+          resultEl.style.color = "#d32f2f";
+          resultEl.textContent = "Erro de rede: " + (err.message || err);
+        }
       });
-    </script>
-    <script src="../../static/js/login.js" defer></script>
-
-  </body>
+    });
+  </script>
+</body>
 </html>
