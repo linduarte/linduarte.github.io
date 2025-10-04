@@ -1,52 +1,25 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('loginForm');
-  const out = document.getElementById('loginResult');
-  if (!form) return;
+const API_URL = "https://api.git-learn.com.br";  // backend
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    out.textContent = 'Autenticando...';
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
 
-    const username = form.username.value.trim();
-    const password = form.password.value.trim();
+  try {
+    const response = await fetch(`${API_URL}/auth/login-html`, {
+      method: "POST",
+      body: formData,
+    });
 
-    if (!username || !password) {
-      out.textContent = 'Informe usuário e senha.';
-      return;
+    const data = await response.json();
+
+    if (response.ok) {
+      localStorage.setItem("access_token", data.access_token);
+      localStorage.setItem("refresh_token", data.refresh_token);
+      window.location.href = "topics.html";
+    } else {
+      document.getElementById("result").innerText = "Erro: " + data.detail;
     }
-
-    try {
-      const body = new URLSearchParams();
-      body.append('username', username);
-      body.append('password', password);
-
-      const resp = await fetch('/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body
-      });
-
-      const data = await resp.json();
-
-      if (!resp.ok) {
-        out.textContent = data.detail || data.message || 'Falha no login.';
-        return;
-      }
-
-      if (!data.access_token) {
-        out.textContent = 'Token ausente na resposta.';
-        return;
-      }
-
-      localStorage.setItem('access_token', data.access_token);
-      out.textContent = 'Login OK. Redirecionando...';
-
-      setTimeout(() => {
-        window.location.href = '/curso/1a-prefacio.html';
-      }, 600);
-    } catch (err) {
-      out.textContent = 'Erro de rede.';
-      console.error(err);
-    }
-  });
+  } catch (err) {
+    document.getElementById("result").innerText = "Falha na conexão com o servidor.";
+  }
 });

@@ -48,7 +48,7 @@
             src="../../static/images/GitLogo_sp.png"
             srcset="../../static/images/GitLogo_sp-2x.png 2x, ../../static/images/GitLogo_sp-3x.png 3x">
             <div class="call">
-                <h1 class="banner-message">Aprenda Git de forma prática e eficiente!</h1>
+                <h1 class="banner-message" id="course-heading" data-test="course-heading">Aprenda Git de forma prática e eficiente!</h1>
                 <div class="auth-buttons">
                     <button onclick="window.location.href='register.html'" class="form-btn">Registrar</button>
                     <button onclick="window.location.href='login.html'" class="form-btn">Login</button>
@@ -128,7 +128,7 @@
                 </section>
                 <footer class="footer">
                     <form class="logout-form">
-                        <button id="logoutButton" type="button" class="logout-button">Logout</button>
+                        <button id="logoutButton" type="button" class="logout-button" aria-label="Logout">Logout</button>
                     </form>
                     <div class="footer-instruction">Para sair do curso, clique em Logout.</div>
                 </footer>
