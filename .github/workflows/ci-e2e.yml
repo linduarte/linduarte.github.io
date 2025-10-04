@@ -24,6 +24,11 @@ jobs:
         run: |
           pip install uv
 
+      - name: Setup virtualenv (uv)
+        run: |
+          uv venv
+          echo "VIRTUAL_ENV=$(uv venv --path)" >> $GITHUB_ENV
+
       - name: Install dependencies
         run: |
           uv pip install .[e2e]
