@@ -44,7 +44,8 @@
               const payload = await r.json();
               if (r.ok) {
                 try { localStorage.setItem('access_token', payload.access_token || ''); } catch(e){}
-                window.location.href = '1a-prefacio.html';
+                // Corrigido: redireciona para a página correta após registro
+                window.location.href = 'login.html';
               } else {
                 document.getElementById('result').textContent = payload.detail || 'Erro no registro';
               }
