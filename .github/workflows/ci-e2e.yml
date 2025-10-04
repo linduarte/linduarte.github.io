@@ -1,0 +1,39 @@
+name: E2E Frontend Playwright
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install uv
+        run: |
+          pip install uv
+
+      - name: Install dependencies
+        run: |
+          uv pip install .[e2e]
+
+      - name: Install Playwright browsers
+        run: |
+          uv run playwright install --with-deps
+
+      - name: Run Playwright E2E tests
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          uv run pytest -k e2e --maxfail=2 --disable-warnings -v
