@@ -1,3 +1,9 @@
+
+// app/static/js/config.js
+// Configuração global do backend
+const API_URL = "https://api.git-learn.com.br"; // Backend na Localweb
+
+
 const API_CONFIG = {
     development: {
         baseURL: 'http://localhost:8000',

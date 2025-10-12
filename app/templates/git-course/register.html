@@ -1,78 +1,124 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Registrar</title>
-    <link rel="stylesheet" href="../../static/css/style.css">
-    <link rel="stylesheet" href="../../static/css/common-styles.css">
-    <link rel="stylesheet" href="../../static/css/git-course.css">
-    <script src="../../static/js/config.js"></script>
-    <script>
-        function registerUser() {
-            // Lógica para registrar o usuário
-            // Após o registro, redirecionar para index.html
-            window.location.href = '../../index.html'; // Redireciona para index.html após registro
-        }
-    </script>
+  <meta charset="UTF-8">
+  <title>Registro - Git Course</title>
+  <link rel="stylesheet" href="../../static/css/git-course-c.css">
+  <style>
+    body {
+      background: url('../../static/images/waves.webp') center/cover no-repeat fixed;
+      font-family: 'Victor Mono', monospace;
+      margin: 0;
+      padding: 0;
+    }
+    .register-container {
+      max-width: 350px;
+      margin: 60px auto;
+      background: rgba(255,255,255,0.95);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+      padding: 32px 24px;
+      text-align: center;
+    }
+    h2 {
+      color: #f14e32;
+      margin-bottom: 18px;
+    }
+    label {
+      color: #5c4033;
+      font-weight: 600;
+      margin-top: 12px;
+      display: block;
+      text-align: left;
+    }
+    input[type='text'], input[type='password'] {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0 16px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+    button {
+      background: #f14e32;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 24px;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #5c4033;
+    }
+    #result {
+      margin-top: 18px;
+      color: #5c4033;
+      font-weight: 600;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-      <div class="auth-card register-container">
-        <h2>Crie sua Conta</h2>
-        <form id="registerForm" onsubmit="event.preventDefault(); registerUser();">
-          <label for="email">Email:</label>
-          <input id="email" type="email" name="email" required>
-          <label for="password">Senha:</label>
-          <input id="password" type="password" name="password" required>
-          <label><input type="checkbox" name="is_admin"> É Admin?</label>
-      <button type="submit" class="form-btn">Registrar</button>
-        </form>
-        <div id="result"></div>
-        <script>
-          document.getElementById('registerForm').addEventListener('submit', async function(e){
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const body = { email, password };
+  <div class="register-container">
+    <h2>Crie sua conta</h2>
+    <form id="registerForm">
+      <label>Email:</label>
+      <input type="text" id="email" name="email" required>
+      <label>Senha:</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit">Registrar</button>
+    </form>
+    <div id="result"></div>
+    <p style="margin-top:16px;">Já tem conta? <a href="login.html">Faça login</a></p>
+  </div>
 
-            // Detectar ambiente de produção
-            const isProduction = !window.location.hostname.includes('127.0.0.1') &&
-                               !window.location.hostname.includes('localhost');
+  <!-- Configuração global de API -->
+  <script src="../../static/js/config.js"></script>
 
-            if (isProduction) {
-              // Simulação para GitHub Pages
-              if (email && password) {
-                localStorage.setItem('access_token', 'github_pages_demo_token_' + Date.now());
-                document.getElementById('result').style.color = '#388e3c';
-                document.getElementById('result').textContent = 'Registro simulado OK! Redirecionando...';
-                setTimeout(() => window.location.href = '1-index.html', 800);
-              } else {
-                document.getElementById('result').textContent = 'Preencha email e senha.';
-              }
-              return;
-            }
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
 
-            // Modo desenvolvimento (com backend)
-            try {
-              const r = await fetch('/auth/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(body)
-              });
-              const payload = await r.json();
-              if (r.ok) {
-                try { localStorage.setItem('access_token', payload.access_token || ''); } catch(e){}
-                window.location.href = '1-index.html';
-              } else {
-                document.getElementById('result').textContent = payload.detail || 'Erro no registro';
-              }
-            } catch (err) {
-              document.getElementById('result').textContent = err.message || err;
-            }
-          });
-        </script>
-      </div>
-    </div>
+      if (!email || !password) {
+        document.getElementById('result').style.color = '#f44336';
+        document.getElementById('result').textContent = 'Por favor, preencha todos os campos.';
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_URL}/auth/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          document.getElementById('result').style.color = '#388e3c';
+          document.getElementById('result').textContent = 'Registro bem-sucedido! Redirecionando...';
+
+          // Armazena tokens se existirem
+          if (result.access_token) {
+            localStorage.setItem('access_token', result.access_token);
+            localStorage.setItem('refresh_token', result.refresh_token || '');
+          }
+
+          // Redireciona para a página de login
+          setTimeout(() => window.location.href = 'login.html', 1200);
+        } else {
+          document.getElementById('result').style.color = '#f44336';
+          document.getElementById('result').textContent = result.detail || 'Erro no registro.';
+        }
+      } catch (err) {
+        document.getElementById('result').style.color = '#f44336';
+        document.getElementById('result').textContent = 'Falha na conexão com o servidor.';
+      }
+    });
+  </script>
 </body>
 </html>
