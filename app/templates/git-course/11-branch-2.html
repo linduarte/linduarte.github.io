@@ -18,14 +18,39 @@
         body {
             background: url('../../static/images/waves.webp') center/cover no-repeat fixed;
             font-family: 'Victor Mono', monospace;
+            margin: 0;
+            padding: 0;
         }
         .container {
-            background: rgba(255,255,255,0.95);
+            background: rgba(255,255,255,0.75);
             border-radius: 16px;
-            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
             margin: 40px auto;
             padding: 40px;
             max-width: 900px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .github-pages-logo {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 120px;
+            height: auto;
+            z-index: 1000;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        .github-pages-logo:hover {
+            opacity: 1;
+        }
+        @media (max-width: 768px) {
+            .github-pages-logo {
+                width: 80px;
+                top: 10px;
+                right: 10px;
+            }
         }
     </style>
     <script src="../../static/js/config.js"></script>
@@ -48,6 +73,10 @@
     </script>
 </head>
 <body>
+    <img src="../../static/images/github-pages-logo.png"
+         alt="Powered by GitHub Pages"
+         class="github-pages-logo">
+
     <div class="container">
         <h1>O que é um 'branch' (ramo)? - Parte 2</h1>
         <nav class="styled-nav">
@@ -217,7 +246,7 @@
                 <p class="p-styled spaced-p">Ao terminar este exercício, o histórico da branch j-k-l deve ficar assim:</p>
                 <img src="../../static/images/git-log-total.webp" alt="Tela mostrando git log total" class="img-fullwidth">
                 <p class="p-styled spaced-p">O diretório de trabalho deve estar limpo, sem alterações não confirmadas: </p>
-                <img src="../../static/images/git-st-jkl.webp" alt="Tela mostrando git status do ramo j-k-l" class="img-fullwidth">
+                <img src="../../static/images/git-st-jkl.webp" alt="Tela mostrando o git status do ramo j-k-l" class="img-fullwidth">
                 <p class="p-styled spaced-p">Estamos prontos agora para mesclar as mudanças na branch main. Primeiro, volte para o ramo main e verifique o histórico:</p>
                 <img src="../../static/images/git-log-main.webp" alt="Tela mostrando git checkout main" class="img-full">
                 <p class="p-styled spaced-p">Se você navegar no site fonético agora, descobrirá que ainda está na letra I. Vamos mesclar o recurso que implementamos no branch j-k-l e ver o que acontece: </p>

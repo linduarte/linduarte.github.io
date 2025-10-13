@@ -17,14 +17,39 @@
         body {
             background: url('../../static/images/waves.webp') center/cover no-repeat fixed;
             font-family: 'Victor Mono', monospace;
+            margin: 0;
+            padding: 0;
         }
         .container {
-            background: rgba(255,255,255,0.95);
+            background: rgba(255,255,255,0.75);  /* Reduzido de 0.95 para 0.75 - mais transparente */
             border-radius: 16px;
-            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);  /* Sombra mais visível */
             margin: 40px auto;
             padding: 40px;
             max-width: 900px;
+            backdrop-filter: blur(8px);  /* Blur mais sutil */
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.2);  /* Borda sutil para definir melhor */
+        }
+        .github-pages-logo {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 120px;
+            height: auto;
+            z-index: 1000;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        .github-pages-logo:hover {
+            opacity: 1;
+        }
+        @media (max-width: 768px) {
+            .github-pages-logo {
+                width: 80px;
+                top: 10px;
+                right: 10px;
+            }
         }
     </style>
     <script src="../../static/js/config.js"></script>
@@ -47,6 +72,10 @@
     </script>
 </head>
 <body class="intro-page">
+    <img src="../../static/images/github-pages-logo.png"
+         alt="Powered by GitHub Pages"
+         class="github-pages-logo">
+
     <div class="container">
         <h1>git init</h1>
         <pre><code class="language-bash">git init</code></pre>
@@ -58,29 +87,57 @@
         <p class="image-description">A imagem acima mostra a criação de dois diretórios para o 'projeto-a'.
              Ao acionar o comando <code class="language-bash">git init</code> o referido projeto passa a ser controlado pelo git.
              Observa-se ainda que aparece em destaque um símbolo de um 'ramo' e o nome dado a ele é 'main'.
-             O ramo é mais conhecido tecnicamente como 'branch'. Desta forma temos a certeza que foi inicial
-        const topicId = document.getElementById("markCompletedButton").dataset.topicId;
-    const response = await fetch("/progress", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-                topic_id: topicId,
-                completed: true,
-                feedback: "Muito bom este tópico!",
-            }),
-        });
+             O ramo é mais conhecido tecnicamente como 'branch'. Desta forma temos a certeza que foi inicializado um repositório Git.</p>
 
-        const data = await response.json();
-        if (response.ok) {
-            alert("Progresso marcado com sucesso!");
-        } else {
-            alert("Erro ao marcar o progresso");
-        }
-    });
-    </script>
+        <h4>Definição</h4>
+        <p class="p-styled spaced-p">O <code class="language-bash">git init</code> cria um novo repositório Git vazio ou reinicializa um existente.
+           É o primeiro comando usado quando você quer começar a versionar um projeto.</p>
+
+        <h4>Iniciando um repositório com um nome específico para o ramo inicial</h4>
+        <p class="p-styled spaced-p">Por padrão, o Git cria um branch chamado 'main' (ou 'master' em versões antigas).
+           Você pode especificar um nome diferente:</p>
+        <pre><code class="language-bash">git init --initial-branch=desenvolvimento</code></pre>
+        <pre><code class="language-bash">git init -b meu-branch-principal</code></pre>
+
+        <footer class="footer">
+            <div class="footer-flex">
+                <nav class="footer-nav footer-left">
+                    <a href="13-undo-changes.html" class="footer-link">Voltar</a>
+                    <a href="15-git-workflows.html" class="footer-link">Próximo: Git Workflows</a>
+                </nav>
+                <form class="logout-form">
+                    <button id="logoutButton" type="button" class="logout-button">Logout</button>
+                </form>
+                <button id="markCompletedButton" data-topic-id="14" class="form-btn">Marcar como concluído</button>
+            </div>
+            <div class="footer-instruction">Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Marcar como concluído.</div>
+        </footer>
+        <script src="../../static/js/git-course-functions.js"></script>
+        <script>
+        document.getElementById("markCompletedButton").addEventListener("click", async () => {
+            const token = localStorage.getItem("access_token");
+            const topicId = document.getElementById("markCompletedButton").dataset.topicId;
+            const response = await fetch("/progress", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    topic_id: topicId,
+                    completed: true,
+                    feedback: "Muito bom este tópico!",
+                }),
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                alert("Progresso marcado com sucesso!");
+            } else {
+                alert("Erro ao marcar o progresso");
+            }
+        });
+        </script>
     </div>
     <script>Prism.highlightAll();</script>
 </body>

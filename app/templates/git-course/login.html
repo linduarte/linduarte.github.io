@@ -13,13 +13,25 @@
       padding: 0;
     }
     .login-container {
-      max-width: 350px;
-      margin: 60px auto;
-      background: rgba(255,255,255,0.95);
+      background: rgba(255,255,255,0.75);
       border-radius: 16px;
-      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
+      margin: 60px auto;
       padding: 32px 24px;
+      max-width: 350px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
       text-align: center;
+    }
+    .github-pages-logo {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 120px;
+      height: auto;
+      z-index: 1000;
+      opacity: 0.8;
     }
     h2 {
       color: #f14e32;
@@ -62,6 +74,10 @@
   </style>
 </head>
 <body>
+  <img src="../../static/images/github-pages-logo.png"
+       alt="Powered by GitHub Pages"
+       class="github-pages-logo">
+
   <div class="login-container">
     <h2>Entrar no Git Course</h2>
     <form id="loginForm">

@@ -14,14 +14,39 @@
         body {
             background: url('../../static/images/waves.webp') center/cover no-repeat fixed;
             font-family: 'Victor Mono', monospace;
+            margin: 0;
+            padding: 0;
         }
         .container {
-            background: rgba(255,255,255,0.95);
+            background: rgba(255,255,255,0.75);
             border-radius: 16px;
-            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
             margin: 40px auto;
             padding: 40px;
             max-width: 900px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .github-pages-logo {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 120px;
+            height: auto;
+            z-index: 1000;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        .github-pages-logo:hover {
+            opacity: 1;
+        }
+        @media (max-width: 768px) {
+            .github-pages-logo {
+                width: 80px;
+                top: 10px;
+                right: 10px;
+            }
         }
     </style>
     <script src="../../static/js/config.js"></script>
@@ -44,6 +69,10 @@
     </script>
 </head>
 <body>
+    <img src="../../static/images/github-pages-logo.png"
+         alt="Powered by GitHub Pages"
+         class="github-pages-logo">
+
     <div class="container">
         <h1>Desfazendo alterações </h1>
 

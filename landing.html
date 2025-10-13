@@ -14,25 +14,60 @@
             padding: 0;
         }
         .main-container {
-            background: rgba(255,255,255,0.95);
+            background: rgba(255,255,255,0.75);
             border-radius: 16px;
-            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
             margin: 40px auto;
             padding: 40px;
             max-width: 1200px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .construction-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            padding: 20px;
+            background: rgba(248,249,250,0.6);
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        .github-pages-logo {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 120px;
+            height: auto;
+            z-index: 1000;
+            opacity: 0.8;
+        }
+        @media (max-width: 768px) {
+            .construction-section { flex-direction: column; text-align: center; }
+            .github-pages-logo { width: 80px; }
         }
     </style>
 </head>
 <body>
-    <!-- Adicionando imagem de construção no topo -->
+    <!-- Logo GitHub Pages -->
+    <img src="app/static/images/github-pages-logo.png"
+         alt="Powered by GitHub Pages"
+         class="github-pages-logo">
+
     <div class="main-container">
-        <div style="text-align: center; padding: 20px; background: rgba(248,249,250,0.8); border-bottom: 2px solid #e9ecef; border-radius: 12px; margin-bottom: 30px;">
-            <img src="app/static/images/under-construction.webp"
-                 alt="Site em construção"
-                 style="max-width: 200px; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <p style="margin: 10px 0 0 0; color: #6c757d; font-size: 14px; font-weight: 500;">Site em construção - Curso Git em desenvolvimento</p>
+        <!-- Seção de construção com imagem na lateral esquerda -->
+        <div class="construction-section">
+            <div style="flex-shrink: 0;">
+                <img src="app/static/images/under-construction.webp"
+                     alt="Site em construção"
+                     style="max-width: 150px; height: auto; border-radius: 8px;">
+            </div>
+            <div style="flex-grow: 1;">
+                <h3 style="margin: 0 0 10px 0; color: #f14e32;">Site em Construção</h3>
+                <p style="margin: 0; color: #6c757d; line-height: 1.5;">
+                    Curso Git em desenvolvimento ativo. Novas funcionalidades sendo adicionadas.
+                </p>
+            </div>
         </div>
 
         <header class="header logo" >
