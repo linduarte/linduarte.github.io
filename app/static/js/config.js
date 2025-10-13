@@ -3,11 +3,10 @@
 // Configuração global do backend
 const API_URL = "https://api.git-learn.com.br"; // Backend na Localweb
 
-
 const API_CONFIG = {
     development: {
         baseURL: 'http://localhost:8000',
-        frontendURL: 'http://localhost:3000'
+        frontendURL: 'http://localhost:9000'
     },
     production: {
         baseURL: 'https://git-learn.com.br', // <-- SUBSTITUIR pelo backend FastAPI em produção

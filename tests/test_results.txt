@@ -1,0 +1,191 @@
+  .venv  🐍  v3.13.0 Administrator in linduarte.github.io ( main) ➜
+uv run pytest tests/test_04_auth_flow_e2e.py -v -s
+=================================================================== test session starts ===================================================================
+platform win32 -- Python 3.13.0, pytest-8.4.2, pluggy-1.6.0
+rootdir: D:\reposground\work\linduarte.github.io
+configfile: pyproject.toml
+plugins: anyio-4.8.0, base-url-2.1.0, html-4.1.1, metadata-3.1.1, playwright-0.7.1
+collected 3 items
+
+tests\test_04_auth_flow_e2e.py FFF
+
+======================================================================== FAILURES =========================================================================
+________________________________________________________ test_complete_registration_flow[chromium] ________________________________________________________
+tests\test_04_auth_flow_e2e.py:30: in test_complete_registration_flow
+    expect(page.get_by_text(re.compile(r"sucesso|ok", re.I))).to_be_visible(timeout=5000)
+E   AssertionError: Locator expected to be visible
+E   Actual value: <element(s) not found>
+E   Call log:
+E     - Expect "to_be_visible" with timeout 5000ms
+E     - waiting for get_by_text(re.compile(r"sucesso|ok", re.IGNORECASE))
+___________________________________________________________ test_complete_login_flow[chromium] ____________________________________________________________
+tests\test_04_auth_flow_e2e.py:44: in test_complete_login_flow
+    expect(username_field).to_be_visible()
+E   AssertionError: Locator expected to be visible
+E   Actual value: <element(s) not found>
+E   Call log:
+E     - Expect "to_be_visible" with timeout 5000ms
+E     - waiting for locator("#username")
+___________________________________________________________ test_logout_functionality[chromium] ___________________________________________________________
+tests\test_04_auth_flow_e2e.py:67: in test_logout_functionality
+    expect(page).to_have_url(f"{base_url}/app/templates/git-course/1-index.html")
+E   AssertionError: Page URL expected to be 'http://127.0.0.1:57660/app/templates/git-course/1-index.html'
+E   Actual value: http://127.0.0.1:57660/landing.html
+E   Call log:
+E     - Expect "to_have_url" with timeout 5000ms
+E       9 × unexpected value "http://127.0.0.1:57660/landing.html"
+================================================================= short test summary info =================================================================
+FAILED tests/test_04_auth_flow_e2e.py::test_complete_registration_flow[chromium] - AssertionError: Locator expected to be visible
+FAILED tests/test_04_auth_flow_e2e.py::test_complete_login_flow[chromium] - AssertionError: Locator expected to be visible
+FAILED tests/test_04_auth_flow_e2e.py::test_logout_functionality[chromium] - AssertionError: Page URL expected to be 'http://127.0.0.1:57660/app/templates/git-course/1-index.html'
+=================================================================== 3 failed in 17.44s ====================================================================
+
+  .venv  🐍  v3.13.0 Administrator in linduarte.github.io ( main) ✗
+uv run pytest tests/test_05_accessibility_e2e.py -v -s
+=================================================================== test session starts ===================================================================
+platform win32 -- Python 3.13.0, pytest-8.4.2, pluggy-1.6.0
+rootdir: D:\reposground\work\linduarte.github.io
+configfile: pyproject.toml
+plugins: anyio-4.8.0, base-url-2.1.0, html-4.1.1, metadata-3.1.1, playwright-0.7.1
+collected 2 items
+
+tests\test_05_accessibility_e2e.py .F
+
+======================================================================== FAILURES =========================================================================
+________________________________________________________ test_course_page_accessibility[chromium] _________________________________________________________
+tests\test_05_accessibility_e2e.py:38: in test_course_page_accessibility
+    expect(page).to_have_url(f"{base_url}/app/templates/git-course/1-index.html")
+E   AssertionError: Page URL expected to be 'http://127.0.0.1:57778/app/templates/git-course/1-index.html'
+E   Actual value: http://127.0.0.1:57778/landing.html
+E   Call log:
+E     - Expect "to_have_url" with timeout 5000ms
+E       9 × unexpected value "http://127.0.0.1:57778/landing.html"
+
+During handling of the above exception, another exception occurred:
+tests\test_05_accessibility_e2e.py:58: in test_course_page_accessibility
+    raise AssertionError(f"Erro no teste de acessibilidade do curso: {e}")
+E   AssertionError: Erro no teste de acessibilidade do curso: Page URL expected to be 'http://127.0.0.1:57778/app/templates/git-course/1-index.html'
+E   Actual value: http://127.0.0.1:57778/landing.html
+E   Call log:
+E     - Expect "to_have_url" with timeout 5000ms
+E       9 × unexpected value "http://127.0.0.1:57778/landing.html"
+================================================================= short test summary info =================================================================
+FAILED tests/test_05_accessibility_e2e.py::test_course_page_accessibility[chromium] - AssertionError: Erro no teste de acessibilidade do curso: Page URL expected to be 'http://127.0.0.1:57778/app/templates/git-course/1-index.html'
+=============================================================== 1 failed, 1 passed in 6.90s ===============================================================
+
+  .venv  🐍  v3.13.0 Administrator in linduarte.github.io ( main) ✗
+uv run pytest tests/test_06_visual_regression_e2e.py -v -s
+=================================================================== test session starts ===================================================================
+platform win32 -- Python 3.13.0, pytest-8.4.2, pluggy-1.6.0
+rootdir: D:\reposground\work\linduarte.github.io
+configfile: pyproject.toml
+plugins: anyio-4.8.0, base-url-2.1.0, html-4.1.1, metadata-3.1.1, playwright-0.7.1
+collected 3 items
+
+tests\test_06_visual_regression_e2e.py ..F
+
+======================================================================== FAILURES =========================================================================
+____________________________________________________________ test_course_page_visual[chromium] ____________________________________________________________
+tests\test_06_visual_regression_e2e.py:51: in test_course_page_visual
+    expect(page).to_have_url(f"{base_url}/app/templates/git-course/1-index.html")
+E   AssertionError: Page URL expected to be 'http://127.0.0.1:53589/app/templates/git-course/1-index.html'
+E   Actual value: http://127.0.0.1:53589/landing.html
+E   Call log:
+E     - Expect "to_have_url" with timeout 5000ms
+E       9 × unexpected value "http://127.0.0.1:53589/landing.html"
+
+During handling of the above exception, another exception occurred:
+tests\test_06_visual_regression_e2e.py:57: in test_course_page_visual
+    raise AssertionError(f"Erro no teste visual do curso: {e}")
+E   AssertionError: Erro no teste visual do curso: Page URL expected to be 'http://127.0.0.1:53589/app/templates/git-course/1-index.html'
+E   Actual value: http://127.0.0.1:53589/landing.html
+E   Call log:
+E     - Expect "to_have_url" with timeout 5000ms
+E       9 × unexpected value "http://127.0.0.1:53589/landing.html"
+================================================================= short test summary info =================================================================
+FAILED tests/test_06_visual_regression_e2e.py::test_course_page_visual[chromium] - AssertionError: Erro no teste visual do curso: Page URL expected to be 'http://127.0.0.1:53589/app/templates/git-course/1-index.html'
+=============================================================== 1 failed, 2 passed in 7.60s ===============================================================
+
+  .venv  🐍  v3.13.0 Administrator in linduarte.github.io ( main) ✗
+uv run pytest -k e2e -v
+=================================================================== test session starts ===================================================================
+platform win32 -- Python 3.13.0, pytest-8.4.2, pluggy-1.6.0
+rootdir: D:\reposground\work\linduarte.github.io
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.8.0, base-url-2.1.0, html-4.1.1, metadata-3.1.1, playwright-0.7.1
+collected 15 items
+
+tests\test_01_redirect_e2e.py ..                                                                                                                     [ 13%]
+tests\test_02_landing_auth_links_e2e.py ..                                                                                                           [ 26%]
+tests\test_03_protected_course_e2e.py ...                                                                                                            [ 46%]
+tests\test_04_auth_flow_e2e.py FFF                                                                                                                   [ 66%]
+tests\test_05_accessibility_e2e.py .F                                                                                                                [ 80%]
+tests\test_06_visual_regression_e2e.py ..F                                                                                                           [100%]
+
+======================================================================== FAILURES =========================================================================
+________________________________________________________ test_complete_registration_flow[chromium] ________________________________________________________
+tests\test_04_auth_flow_e2e.py:30: in test_complete_registration_flow
+    expect(page.get_by_text(re.compile(r"sucesso|ok", re.I))).to_be_visible(timeout=5000)
+E   AssertionError: Locator expected to be visible
+E   Actual value: <element(s) not found>
+E   Call log:
+E     - Expect "to_be_visible" with timeout 5000ms
+E     - waiting for get_by_text(re.compile(r"sucesso|ok", re.IGNORECASE))
+___________________________________________________________ test_complete_login_flow[chromium] ____________________________________________________________
+tests\test_04_auth_flow_e2e.py:44: in test_complete_login_flow
+    expect(username_field).to_be_visible()
+E   AssertionError: Locator expected to be visible
+E   Actual value: <element(s) not found>
+E   Call log:
+E     - Expect "to_be_visible" with timeout 5000ms
+E     - waiting for locator("#username")
+___________________________________________________________ test_logout_functionality[chromium] ___________________________________________________________
+tests\test_04_auth_flow_e2e.py:67: in test_logout_functionality
+    expect(page).to_have_url(f"{base_url}/app/templates/git-course/1-index.html")
+E   AssertionError: Page URL expected to be 'http://127.0.0.1:53710/app/templates/git-course/1-index.html'
+E   Actual value: http://127.0.0.1:53710/landing.html
+E   Call log:
+E     - Expect "to_have_url" with timeout 5000ms
+E       9 × unexpected value "http://127.0.0.1:53710/landing.html"
+________________________________________________________ test_course_page_accessibility[chromium] _________________________________________________________
+tests\test_05_accessibility_e2e.py:38: in test_course_page_accessibility
+    expect(page).to_have_url(f"{base_url}/app/templates/git-course/1-index.html")
+E   AssertionError: Page URL expected to be 'http://127.0.0.1:53710/app/templates/git-course/1-index.html'
+E   Actual value: http://127.0.0.1:53710/landing.html
+E   Call log:
+E     - Expect "to_have_url" with timeout 5000ms
+E       9 × unexpected value "http://127.0.0.1:53710/landing.html"
+
+During handling of the above exception, another exception occurred:
+tests\test_05_accessibility_e2e.py:58: in test_course_page_accessibility
+    raise AssertionError(f"Erro no teste de acessibilidade do curso: {e}")
+E   AssertionError: Erro no teste de acessibilidade do curso: Page URL expected to be 'http://127.0.0.1:53710/app/templates/git-course/1-index.html'
+E   Actual value: http://127.0.0.1:53710/landing.html
+E   Call log:
+E     - Expect "to_have_url" with timeout 5000ms
+E       9 × unexpected value "http://127.0.0.1:53710/landing.html"
+____________________________________________________________ test_course_page_visual[chromium] ____________________________________________________________
+tests\test_06_visual_regression_e2e.py:51: in test_course_page_visual
+    expect(page).to_have_url(f"{base_url}/app/templates/git-course/1-index.html")
+E   AssertionError: Page URL expected to be 'http://127.0.0.1:53710/app/templates/git-course/1-index.html'
+E   Actual value: http://127.0.0.1:53710/landing.html
+E   Call log:
+E     - Expect "to_have_url" with timeout 5000ms
+E       9 × unexpected value "http://127.0.0.1:53710/landing.html"
+
+During handling of the above exception, another exception occurred:
+tests\test_06_visual_regression_e2e.py:57: in test_course_page_visual
+    raise AssertionError(f"Erro no teste visual do curso: {e}")
+E   AssertionError: Erro no teste visual do curso: Page URL expected to be 'http://127.0.0.1:53710/app/templates/git-course/1-index.html'
+E   Actual value: http://127.0.0.1:53710/landing.html
+E   Call log:
+E     - Expect "to_have_url" with timeout 5000ms
+E       9 × unexpected value "http://127.0.0.1:53710/landing.html"
+================================================================= short test summary info =================================================================
+FAILED tests/test_04_auth_flow_e2e.py::test_complete_registration_flow[chromium] - AssertionError: Locator expected to be visible
+FAILED tests/test_04_auth_flow_e2e.py::test_complete_login_flow[chromium] - AssertionError: Locator expected to be visible
+FAILED tests/test_04_auth_flow_e2e.py::test_logout_functionality[chromium] - AssertionError: Page URL expected to be 'http://127.0.0.1:53710/app/templates/git-course/1-index.html'
+FAILED tests/test_05_accessibility_e2e.py::test_course_page_accessibility[chromium] - AssertionError: Erro no teste de acessibilidade do curso: Page URL expected to be 'http://127.0.0.1:53710/app/templates/git-course/1-index.html'
+FAILED tests/test_06_visual_regression_e2e.py::test_course_page_visual[chromium] - AssertionError: Erro no teste visual do curso: Page URL expected to be 'http://127.0.0.1:53710/app/templates/git-course/1-index.html'
+============================================================== 5 failed, 10 passed in 32.34s ==============================================================
