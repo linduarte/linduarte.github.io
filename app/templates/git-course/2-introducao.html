@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Introdução ao Git - Git Course</title>
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="stylesheet" href="../../static/css/common-styles.css">
+    <link rel="stylesheet" href="../../static/css/git-course.css">
+    <script src="../../static/js/config.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('access_token');
+                window.location.href = '../../landing.html';
+            });
+        }
+    });
+    </script>
+</head>
+<body class="intro-page">
+    <div class="container">
+        <header class="header logo">
+            <img alt="Git Logo" width="150" height="63"
+                src="../../static/images/GitLogo_sp.png"
+                srcset="../../static/images/GitLogo_sp-2x.png 2x, ../../static/images/GitLogo_sp-3x.png 3x">
+            <div class="call">
+                <h1 class="banner-message">📚 Introdução ao Git</h1>
+            </div>
+        </header>
+
+        <div class="grid-container">
+            <div class="column1 grid-item">
+                <div class="column1 grid-item subject-title">
+                   <h4><strong>🚀 Capítulo 1: O que é Git?</strong></h4>
+                </div>
+                <div>
+                    <p>Git é um <strong>sistema de controle de versão distribuído</strong>, criado por Linus Torvalds em 2005 para o desenvolvimento do kernel Linux.</p>
+
+                    <h5>🎯 Por que usar Git?</h5>
+                    <ul>
+                        <li>✅ <strong>Rastreamento de mudanças</strong>: Acompanha todas as alterações no código</li>
+                        <li>✅ <strong>Trabalho em equipe</strong>: Múltiplas pessoas podem trabalhar no mesmo projeto</li>
+                        <li>✅ <strong>Backup automático</strong>: Histórico completo de todas as versões</li>
+                        <li>✅ <strong>Branches</strong>: Desenvolvimento paralelo de funcionalidades</li>
+                        <li>✅ <strong>Merge inteligente</strong>: Combina mudanças automaticamente</li>
+                    </ul>
+
+                    <h5>💡 Conceitos Fundamentais</h5>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                        <p><strong>📁 Repositório</strong>: Pasta que contém seu projeto + histórico Git</p>
+                        <p><strong>📸 Commit</strong>: "Foto" do estado do projeto em um momento</p>
+                        <p><strong>🌿 Branch</strong>: Linha de desenvolvimento independente</p>
+                        <p><strong>🔄 Merge</strong>: Combinar mudanças de diferentes branches</p>
+                    </div>
+
+                    <div style="text-align: center; margin: 30px 0;">
+                        <button onclick="window.location.href='3-instalacao.html'"
+                                style="background: #28a745; color: white; padding: 12px 24px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+                            Próximo: Instalação →
+                        </button>
+                    </div>
+                </div>
+
+                <footer class="footer">
+                    <form class="logout-form">
+                        <button id="logoutButton" type="button" class="logout-button">Logout</button>
+                    </form>
+                    <div class="footer-instruction">Para sair do curso, clique em Logout.</div>
+                </footer>
+            </div>
+
+            <div class="column2 grid-item">
+                <div class="column2 grid-item curse-title">
+                    <h4><strong>📍 Progresso</strong></h4>
+                </div>
+                <div style="padding: 20px;">
+                    <p>✅ Prefácio</p>
+                    <p style="color: #28a745; font-weight: bold;">🔥 → Introdução ao Git</p>
+                    <p>⏳ Instalação</p>
+                    <p>⏳ Configuração</p>
+                    <p>⏳ Primeiros comandos</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
