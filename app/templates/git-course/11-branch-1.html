@@ -7,6 +7,45 @@
     <link rel="stylesheet" href="../../static/css/style.css">
     <link rel="stylesheet" href="../../static/css/common-styles.css">
     <link rel="stylesheet" href="../../static/css/git-course.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <style>
+        body {
+            background: url('../../static/images/waves.webp') center/cover no-repeat fixed;
+            font-family: 'Victor Mono', monospace;
+        }
+        .container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+            margin: 40px auto;
+            padding: 40px;
+            max-width: 900px;
+        }
+    </style>
+    <script src="../../static/js/config.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('access_token');
+                window.location.href = '../../landing.html';
+            });
+        }
+    });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -27,18 +66,18 @@
             <pre class="spaced-pre"><code class="language-bash">git branch</code></pre>
             Quando se associa o parâmetro '--remote' ao comando 'git branch' é possível listar os 'branches' remotos.
             <pre class="spaced-pre"><code class="language-bash">git branch --remote</code></pre>
-            <img src="/static/images/git-branch-re.webp" alt="Imagem do git branch e do git branch remoto" class="img-half">
+            <img src="../../static/images/git-branch-re.webp" alt="Imagem do git branch e do git branch remoto" class="img-half">
             <p class="p-styled spaced-p">Agora nosso repositório posui somente um único ramo, 'branch' chamado 'main'. O ramo 'main' é o ramo padrão do Git.
                 Este ramo é criado automaticamente quando se inicia um novo repositório. O ramo 'main' é o ramo principal do projeto. Ou seja é default.
                 Se compararmos o projeto Git como uma árvore o ramo 'main' seria o tronco da árvore. O ramo 'main' é o ramo que contém o código de produção.
                 A partir do tronco é possivel criarmos linhas separadas de desenvolvimento como ramos independentes com seus próprios comites.
             </p>
-            <img src="/static/images/trunck.webp" alt="Screenshot do pilots HTML" class="img-half">
+            <img src="../../static/images/trunck.webp" alt="Screenshot do pilots HTML" class="img-half">
             <p class="p-styled spaced-p">Na imagem anterior a linha representa o ramo principal, 'main' com
                 cada comite mostrado como um círculo. A seta indica a direção do desenvolvimento, ou seja 'HEAD' e aponta para o último comite.
                 O último comite é o comite mais recente. O comite mais recente é o comite que está no topo da pilha de comites. De baixo para cima como pode-se ver na imagem abaixo do git log.
             </p>
-            <img src="/static/images/git-log-oneline.webp" alt="Tela mostrando o histórico de comites realizados" class="img-full">
+            <img src="../../static/images/git-log-oneline.webp" alt="Tela mostrando o histórico de comites realizados" class="img-full">
         </section>
 
         <section id="section2">
@@ -55,45 +94,45 @@
                 Nesta seção, vamos criar um branch separado para experimentar excluir, mover e renomear arquivos em um projeto Git.</p>
             <p class="p-styled spaced-p">Abra o Git Bash e mude para o diretório de trabalho do projeto Site Fonético. Execute os seguintes comandos para criar um novo branch chamado "test" e alterne para ele:
             </p>
-            <img src="/static/images/branch_test.webp" alt="Tela mostrando o novo ramo" class="img-full">
+            <img src="../../static/images/branch_test.webp" alt="Tela mostrando o novo ramo" class="img-full">
             <p class="p-styled spaced-p">Na imagem acima temos o <strong>git branch test</strong> o comando usado para criar o novo ramo (branch).</p>
             <p class="p-styled spaced-p">O <strong>git checkout test</strong> usado para mudarmos do ramo (main) para o ramo (test). Podemos usar outro comando equivalente para
                 realizar a mudança de ramo, o <strong>git switch test</strong>.</p>
             <p class="p-styled spaced-p">Caso se use o <strong>git branch</strong> sem parâmetros teremos a lista de ramos de nosso repositório. A imagem abaixo mostra o referido comando usado
                 e destaca com um asterisco em qual ramo seu repertório está.</p>
-            <img src="/static/images/git-branch.webp" alt="Tela mostrando o git branch sem parâmetros" class="img-full">
+            <img src="../../static/images/git-branch.webp" alt="Tela mostrando o git branch sem parâmetros" class="img-full">
             <p class="p-styled spaced-p">O comando <strong>git log --oneline --decorate</strong> mostra que o novo ramo <strong>test</strong> compartilha todos o comites previamente realizados
                 com o ramo <strong>main</strong>. O HEAD agora aponta para o ramo <strong>test</strong> confirmando que o <strong>test</strong> é agora o ramo padrão. A imagem abaixo
                 mostra com clareza estes aspectos.</p>
-            <img src="/static/images/git-log-br.webp" alt="Tela mostrando o git log do ramo test" class="img-full">
+            <img src="../../static/images/git-log-br.webp" alt="Tela mostrando o git log do ramo test" class="img-full">
             <p class="p-styled spaced-p">Agora podemos realizar mudanças sem afetar o código principal no ramo <strong>main</strong>. Para demonstrar este recurso
                 nós iremos realizar mudanças estruturais e mover os arquivos de estilo (CSS) para um nível acima conforme a imagem abaixo.</p>
-            <img src="/static/images/git-mv-br.webp" alt="Tela mostrando o git mv" class="img-full">
+            <img src="../../static/images/git-mv-br.webp" alt="Tela mostrando o git mv" class="img-full">
             <p class="p-styled spaced-p">Aqui vale a seguinte consideração - voce poderia utilizar o Windows explorer para realizar esta ação mas voce deverá depois utilizar o
                 <strong>git add</strong> para colocar os arquivos no índex ou <strong>'staged'</strong> ao posso que utilizando o comando <strong>git mv e git rm</strong>
                 seus arquivos serão lançados automaticamente para o 'index' ou <strong>'staged'</strong>.</p>
             <p class="p-styled spaced-p">Teste o site em um navegador. Você vai perceber que o Site Fonético perdeu seu estilo e tanto o menu quanto as páginas do alfabeto estão exibidas como
                 listas simples sem formatação. Isso acontece porque a localização dos arquivos CSS mudou e os links da folha de estilo nos arquivos HTML estão quebrados.
                 Vamos consertar esse problema. Abra cada arquivo HTML em sequência e localize a seção <code>&lt;head&gt;</code> no topo do arquivo:</p>
-               <img src="/static/images/pilots-head.webp" alt="Tela mostrando o pilots.html" class="img-full">
+               <img src="../../static/images/pilots-head.webp" alt="Tela mostrando o pilots.html" class="img-full">
                <p class="p-styled spaced-p">A imagem anterior mostra a pasta <strong>'style/site.css'</strong> que precisa ser reparada conforme a imagem abaixo porque
                 a pasta foi movida de lugar: </p>
-               <img src="/static/images/pilots-head_fix.webp" alt="Tela mostrando o pilots.html reparado" class="img-full">
+               <img src="../../static/images/pilots-head_fix.webp" alt="Tela mostrando o pilots.html reparado" class="img-full">
                 <p class="p-styled spaced-p">Faça a mudança acima nos arquivos pilots.html, cities.html e names.html. Salve e teste novamente o site em um navegador. Você verá que o estilo
                 do Phonetic Website voltou, pois os links CSS agora estão corretos. Vamos adicionar as mudanças ao index para o próximo commit.</p>
                 <p class="p-styled spaced-p">O diretório de estilo agora está vazio e pode ser removido digitando o seguinte comando Git Bash (ou, se preferir, você pode excluir a pasta
                 usando o Windows Explorer):
                 </p>
-                <img src="/static/images/git-add-html.webp" alt="Tela mostrando git add dos arquivos html" class="img-full">
+                <img src="../../static/images/git-add-html.webp" alt="Tela mostrando git add dos arquivos html" class="img-full">
                 <p>Verifique o status do repositório com o comando <strong>git status</strong>.</p>
-                <img src="/static/images/git-st-test.webp" alt="Tela mostrando git status" class="img-full">
+                <img src="../../static/images/git-st-test.webp" alt="Tela mostrando git status" class="img-full">
                 <p class="p-styled spaced-p">Agora podemos comitar as mudanças:</p>
-                <img src="/static/images/git-commit-test.webp" alt="Tela mostrando git commit" class="img-full">
+                <img src="../../static/images/git-commit-test.webp" alt="Tela mostrando git commit" class="img-full">
                 <p class="p-styled spaced-p">A história to ramo (branch) test é mostrada abaixo na imagem:</p>
-                <img src="/static/images/git-log-test.webp" alt="Tela mostrando git log do ramo test" class="img-full">
+                <img src="../../static/images/git-log-test.webp" alt="Tela mostrando git log do ramo test" class="img-full">
                 <p class="p-styled spaced-p">Observe que HEAD está apontando para o último commit no branch de teste (HEAD -> test). O diretório de trabalho agora deve estar limpo:
                 </p>
-                <img src="/static/images/git-log-test.webp" alt="Tela mostrando git st git-st-final" class="img-full">
+                <img src="../../static/images/git-log-test.webp" alt="Tela mostrando git st git-st-final" class="img-full">
 
 
         </section>
@@ -142,12 +181,12 @@
         <footer class="footer">
             <div class="footer-flex">
                 <nav class="footer-nav footer-left">
-                <form action="/logout" method="post" class="logout-form">
-                    <button id="logoutButton" type="submit" class="form-btn btn-space">Logout</button>
-                </form>
-                <a href="10-feature_req.html" class="footer-link">Voltar</a>
-                <a href="11-branch-2.html" class="footer-link">Próximo: branch-2</a>
+                    <a href="10-feature_req.html" class="footer-link">Voltar</a>
+                    <a href="11-branch-2.html" class="footer-link">Próximo: branch-2</a>
                 </nav>
+                <form class="logout-form">
+                    <button id="logoutButton" type="button" class="logout-button">Logout</button>
+                </form>
                 <button id="markCompletedButton" data-topic-id="11" class="form-btn">Marcar como concluído</button>
             </div>
             <div class="footer-instruction">Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Marcar como concluído.</div>
@@ -167,20 +206,6 @@
                 completed: true,
                 feedback: "Muito bom este tópico!",
             }),
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-            alert("Progresso marcado com sucesso!");
-        } else {
-            alert("Erro ao marcar o progresso");
-        }
-    });
-    </script>
-    </div>
-    <script>Prism.highlightAll();</script>
-</body>
-</html>
         });
 
         const data = await response.json();

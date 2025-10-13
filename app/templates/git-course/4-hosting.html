@@ -4,13 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Hospedagem</title>
-     <link rel="stylesheet" href="/static/css/git-course-c.css">
+    <link rel="stylesheet" href="../../static/css/git-course-c.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: url('../../static/images/waves.webp') center/cover no-repeat fixed;
+            font-family: 'Victor Mono', monospace;
+        }
+        .container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+            margin: 40px auto;
+            padding: 40px;
+            max-width: 900px;
+        }
+    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
+    <script src="../../static/js/config.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('access_token');
+                window.location.href = '../../landing.html';
+            });
+        }
+    });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -26,8 +58,8 @@
           Basta que voce faça o download do zip deste site.
           Depois de feito o download do arquivo zip, extraia seu conteúdo.
           Voce irá encontrar três páginas em HTML e uma pasta 'style' na qual existem quatro folhas de estilo, CSS. O arquivo README.md pode ser apagado. </p>
-          <img src="/static/images/alphabetic.webp" alt="Screenshot da pasta extraida do site" class="image-centered">
-          <img src="/static/images/pilots_web.webp" alt="Screenshot do navegafor mostrando o site `Pilots`" class="image-centered">
+          <img src="../../static/images/alphabetic.webp" alt="Screenshot da pasta extraida do site" class="image-centered">
+          <img src="../../static/images/pilots_web.webp" alt="Screenshot do navegafor mostrando o site `Pilots`" class="image-centered">
         <p class="p-styled spaced-p">A imagem acima mostra três abas de navegação nas quais voce pode encontrar as primeiras letras de cada alfabeto.
           Com o passar dos exercícios voce irá completar o alfabeto de A até Z.</p>
         <p class="p-styled spaced-p">Neste momento é hora de voce criar um repositório para hospedar seu projeto.</p>
@@ -47,7 +79,7 @@
       </ol>
 
           <figure>
-            <img src="/static/images/create_repo_github.webp" alt="Screenshot do processo de criação de repositório no GitHub">
+            <img src="../../static/images/create_repo_github.webp" alt="Screenshot do processo de criação de repositório no GitHub">
             <figcaption class="image-description">A imagem acima mostra o processo de criação de um novo repositório no GitHub.</figcaption>
           </figure>
         </section>
@@ -58,16 +90,14 @@
             <a href="3-git-config.html" class="footer-link">Voltar</a>
             <a href="5-connect.html" class="footer-link">Próximo: connect</a>
           </nav>
-            <form action="/logout" method="post" class="logout-form">
-              <button id="logoutButton" type="submit" class="form-btn btn-space">Logout</button>
+            <form class="logout-form">
+              <button id="logoutButton" type="button" class="logout-button">Logout</button>
           </form>
       <button id="markCompletedButton" data-topic-id="4" class="form-btn">Marcar como concluído</button>
         </div>
           <div class="footer-instruction">Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Marcar como concluído.</div>
       </footer>
-      <script src="/static/js/git-course-functions.js"></script>
+      <script src="../../static/js/git-course-functions.js"></script>
       </div>
-</body>
-</html>
 </body>
 </html>

@@ -7,6 +7,38 @@
     <link rel="stylesheet" href="../../static/css/style.css">
     <link rel="stylesheet" href="../../static/css/common-styles.css">
     <link rel="stylesheet" href="../../static/css/git-course.css">
+    <style>
+        body {
+            background: url('../../static/images/waves.webp') center/cover no-repeat fixed;
+            font-family: 'Victor Mono', monospace;
+        }
+        .container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+            margin: 40px auto;
+            padding: 40px;
+            max-width: 900px;
+        }
+    </style>
+    <script src="../../static/js/config.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('access_token');
+                window.location.href = '../../landing.html';
+            });
+        }
+    });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -51,7 +83,7 @@
         <pre><code class="language-bash">clip &lt; ~/.ssh/id_rsa.pub</code></pre>
         <p class="p-styled spaced-p">Vá para as configurações da sua conta do GitHub e adicione a nova chave SSH.</p>
 
-        <img src="/static/images/ssh_keys.webp" alt="Screenshot do Github para adicionar chave SSH" class="img-full">
+        <img src="../../static/images/ssh_keys.webp" alt="Screenshot do Github para adicionar chave SSH" class="img-full">
         <p class="p-styled spaced-p">Adicione um título descritivo para a chave e cole a chave SSH pública na caixa de texto.</p>
 
         <h2>Passo 5: Testando a conexão</h2>
@@ -98,21 +130,14 @@
                     <a href="4-hosting.html" class="footer-link">Voltar</a>
                     <a href="6-git-clone.html" class="footer-link">Próximo: git clone</a>
                 </nav>
-                <form action="/logout" method="post" class="logout-form">
-                    <button id="logoutButton" type="submit" class="form-btn btn-space">Logout</button>
+                <form class="logout-form">
+                    <button id="logoutButton" type="button" class="logout-button">Logout</button>
                 </form>
                 <button id="markCompletedButton" data-topic-id="5" class="form-btn">Marcar como concluído</button>
             </div>
             <div class="footer-instruction">Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Marcar como concluído.</div>
         </footer>
-    <script src="/static/js/git-course-functions.js"></script>
-    </div>
-    <script>Prism.highlightAll();</script>
-</body>
-</html>
-            <div class="footer-instruction">Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Marcar como concluído.</div>
-        </footer>
-    <script src="/static/js/git-course-functions.js"></script>
+    <script src="../../static/js/git-course-functions.js"></script>
     </div>
     <script>Prism.highlightAll();</script>
 </body>

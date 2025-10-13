@@ -18,11 +18,39 @@
         mermaid.initialize({ startOnLoad: true });
     </script>
     <style>
-     /* test w3c ok  */
-
+        body {
+            background: url('../../static/images/waves.webp') center/cover no-repeat fixed;
+            font-family: 'Victor Mono', monospace;
+        }
+        .container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+            margin: 40px auto;
+            padding: 40px;
+            max-width: 900px;
+        }
     </style>
-    </head>
-    <body class="intro-page">
+    <script src="../../static/js/config.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('access_token');
+                window.location.href = '../../landing.html';
+            });
+        }
+    });
+    </script>
+</head>
+<body class="intro-page">
     <div class="container">
         <h1>Git commit </h1>
 
@@ -54,7 +82,7 @@
        </p>
 
 
-        <img src="/static/images/git_commit_new.webp" alt="Tela mostrando o resultado após usar o comando 'git commit" class="img-full">
+        <img src="../../static/images/git_commit_new.webp" alt="Tela mostrando o resultado após usar o comando 'git commit" class="img-full">
 
         <p class="p-styled  spaced-p">A imagem anterior mostra a ação de implementação
              do comando  git commit com a mensagem utilizada para caracterizar a confirmação do commit. Pode-se notar ao lado da palavra 'main' o hash deste comite.
@@ -62,13 +90,13 @@
 
         <p class="p-styled  spaced-p">A imagem anterior confirma o comite dos arquivos que foram adicionados ao repositório</p>
 
-        <img src="/static/images/log_hash.webp" alt="Tela mostrando o resultado após usar o comando 'git commit" class="img-full">
+        <img src="../../static/images/log_hash.webp" alt="Tela mostrando o resultado após usar o comando 'git commit" class="img-full">
        <p class="p-styled  spaced-p">A título ilustrativo usando um comando denominado "git log --oneline --graph" obtemos
              a relação de comits até então realizados no projeto. Nota-se os hashs associados a cada comit. Observe que as representações gráficas feitas pelo GitGraph mostram a aplicação destes commits e os hash associados.
             Vale salientar que o <strong><em>hash id=109f780</em></strong> foi realizado ao se criar o repositório no GitHub. Nota-se tambem que ao lado do <strong><em>hash id=d298f74</em></strong> se apresenta a mensagem
             usada no comit.</p>
 
-        <img src="/static/images/git_st_comit_files.webp" alt="Tela mostrando o status após o comite realizado" class="img-full">
+        <img src="../../static/images/git_st_comit_files.webp" alt="Tela mostrando o status após o comite realizado" class="img-full">
 
         <p class="p-styled  spaced-p">Podemos observar que na imagem existe uma mensagem dizendo que nosso ramo (branch) está a frente do seu repositório
             (origin?main) , ou seja no GitHub. Sugere que se use o comando 'git push' para enviar esta 'diferença' para o repositório remoto objetivando que os dois repositórios
@@ -80,28 +108,28 @@
 
         <p class="p-styled  spaced-p">Antes porem de procedermos com este comando devemos entender como o Git identifica o repositório remoto. Vamos usar então o <code class="language-bash">git remote</code></p>
 
-        <img src="/static/images/git-remote.webp" alt="Tela mostrando o 'git remote'" class="img-full">
+        <img src="../../static/images/git-remote.webp" alt="Tela mostrando o 'git remote'" class="img-full">
 
         <p class="p-styled  spaced-p">A imagem acima mostra como o Git identifica o repositório remoto chamando-o de 'origin'.</p>
 
         <p>Podemos buscar mais informações sobre este repositório remoto conforme mostra a imagem abaixo.</p>
 
-        <img src="/static/images/git-remote-show-origin.webp" alt="Tela mostrando o 'git remote show origin'" class="img-full">
+        <img src="../../static/images/git-remote-show-origin.webp" alt="Tela mostrando o 'git remote show origin'" class="img-full">
 
         <p class="p-styled  spaced-p">Na imagem acima podemos observar que o repositório remoto 'origin' é um repositório do tipo 'fetch' e 'push'. O 'fetch' é um comando que baixa os arquivos do repositório remoto para o repositório local.
             O 'push' é um comando que envia os arquivos do repositório local para o repositório remoto. </p>
 
         <p class="p-styled  spaced-p">Para procedermos com a atualização do repertório remoto com a nova versão do projeto devemos usar o <code class="language-bash">git push origin main</code></p>.
 
-        <img src="/static/images/git-push.webp" alt="Tela mostrando o 'git push origin main'" class="img-full">
+        <img src="../../static/images/git-push.webp" alt="Tela mostrando o 'git push origin main'" class="img-full">
 
         <p class="p-styled  spaced-p">Caso voce faça o login on seu GitHub terá a visão mostrada na imagem abaixo.</p>
 
-        <img src="/static/images/github_view.webp" alt="Tela mostrando o repositório no GitHub após o comando 'git push' ser acionado." class="img-full">
+        <img src="../../static/images/github_view.webp" alt="Tela mostrando o repositório no GitHub após o comando 'git push' ser acionado." class="img-full">
 
         <p class="p-styled  spaced-p">Finalizando esta etapa podemos ver o status do repositório local em relação ao remoto indicando que os dois estão equalizados.</p>
 
-        <img src="/static/images/git-status-featreq.webp" alt="Tela mostrando o repositório no GitHub após o comando 'git push' ser acionado." class="img-full">
+        <img src="../../static/images/git-status-featreq.webp" alt="Tela mostrando o repositório no GitHub após o comando 'git push' ser acionado." class="img-full">
 
         <!-- filepath:https://commandmasters.com/commands/git-init-common/-->
 
@@ -139,14 +167,14 @@
                     <a href="8-git-add.html" class="footer-link">Voltar</a>
                     <a href="10-feature_req.html" class="footer-link">Próximo: feature request</a>
                 </nav>
-                <form action="/logout" method="post" class="logout-form">
-                    <button id="logoutButton" type="submit" class="form-btn btn-space">Logout</button>
+                <form class="logout-form">
+                    <button id="logoutButton" type="button" class="logout-button">Logout</button>
                 </form>
                 <button id="markCompletedButton" data-topic-id="9" class="form-btn">Marcar como concluído</button>
             </div>
             <div class="footer-instruction">Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Marcar como concluído.</div>
         </footer>
-    <script src="/static/js/git-course-functions.js"></script>
+    <script src="../../static/js/git-course-functions.js"></script>
     <script>Prism.highlightAll();</script>
     </div>
 </body>

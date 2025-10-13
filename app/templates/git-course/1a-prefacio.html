@@ -7,6 +7,109 @@
     <link rel="stylesheet" href="../../static/css/style.css">
     <link rel="stylesheet" href="../../static/css/common-styles.css">
     <link rel="stylesheet" href="../../static/css/git-course.css">
+    <style>
+        body {
+            background: url('../../static/images/waves.webp') center/cover no-repeat fixed;
+            font-family: 'Victor Mono', monospace;
+        }
+        .course-container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+            padding: 40px;
+        }
+        .welcome-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .welcome-header h1 {
+            color: #f14e32;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        .welcome-header p {
+            color: #5c4033;
+            font-size: 1.1rem;
+            margin-bottom: 0;
+        }
+        .course-overview {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .overview-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid #f14e32;
+        }
+        .overview-section h3 {
+            color: #f14e32;
+            margin-bottom: 15px;
+        }
+        .overview-section ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .overview-section li {
+            margin-bottom: 8px;
+            color: #5c4033;
+        }
+        .start-button {
+            text-align: center;
+            margin: 40px 0;
+        }
+        .start-button button {
+            background: #f14e32;
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(241, 78, 50, 0.3);
+        }
+        .start-button button:hover {
+            background: #d63a24;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(241, 78, 50, 0.4);
+        }
+        .footer-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .logout-btn {
+            background: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .logout-btn:hover {
+            background: #5a6268;
+        }
+        @media (max-width: 768px) {
+            .course-overview {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .course-container {
+                margin: 20px;
+                padding: 25px;
+            }
+        }
+    </style>
     <script src="../../static/js/config.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -26,73 +129,55 @@
     });
     </script>
 </head>
-<body class="intro-page">
-    <div class="container">
-        <header class="header logo">
-            <img alt="Git Logo" width="150" height="63"
-                src="../../static/images/GitLogo_sp.png"
-                srcset="../../static/images/GitLogo_sp-2x.png 2x, ../../static/images/GitLogo_sp-3x.png 3x">
-            <div class="call">
-                <h1 class="banner-message">🎉 Bem-vindo ao Curso de Git!</h1>
-            </div>
-        </header>
+<body>
+    <div class="course-container">
+        <div class="welcome-header">
+            <h1>🎉 Bem-vindo ao Curso de Git!</h1>
+            <p>Sua jornada para dominar o controle de versão começa aqui</p>
+        </div>
 
-        <div class="grid-container">
-            <div class="column1 grid-item">
-                <div class="column1 grid-item subject-title">
-                   <h4><strong>Prefácio - Iniciando sua jornada com Git</strong></h4>
-                </div>
-                <div>
-                    <p>🎊 <strong>Parabéns por dar o primeiro passo!</strong> Você está prestes a dominar uma das ferramentas mais importantes do desenvolvimento moderno.</p>
-
-                    <p>Este curso foi cuidadosamente estruturado para levar você do básico ao avançado no Git, de forma prática e progressiva.</p>
-
-                    <h5>🎯 O que você vai aprender:</h5>
-                    <ul>
-                        <li>📚 Fundamentos do controle de versão</li>
-                        <li>⚙️ Instalação e configuração do Git</li>
-                        <li>🔧 Comandos essenciais do dia a dia</li>
-                        <li>👥 Trabalho em equipe e colaboração</li>
-                        <li>✨ Boas práticas e fluxos de trabalho</li>
-                        <li>🚀 Integração com GitHub</li>
-                    </ul>
-
-                    <div style="text-align: center; margin: 30px 0; padding: 20px; background: #f8f9fa; border-radius: 8px;">
-                        <button onclick="window.location.href='1-index.html'"
-                                style="background: #0d6efd; color: white; padding: 15px 30px; border: none; border-radius: 8px; font-size: 18px; cursor: pointer; font-weight: bold;">
-                            🚀 Ver Conteúdo do Curso (temporário)
-                        </button>
-                        <br><br>
-                        <small style="color: #666;">Próximas páginas em desenvolvimento...</small>
-                    </div>
-                </div>
-
-                <footer class="footer">
-                    <form class="logout-form">
-                        <button id="logoutButton" type="button" class="logout-button">Logout</button>
-                    </form>
-                    <div class="footer-instruction">Para sair do curso, clique em Logout.</div>
-                </footer>
+        <div class="course-overview">
+            <div class="overview-section">
+                <h3>🎯 O que você vai aprender</h3>
+                <ul>
+                    <li>Fundamentos do controle de versão</li>
+                    <li>Instalação e configuração do Git</li>
+                    <li>Comandos essenciais para o dia a dia</li>
+                    <li>Trabalho colaborativo com Git</li>
+                    <li>Integração com GitHub</li>
+                    <li>Boas práticas e fluxos de trabalho</li>
+                </ul>
             </div>
 
-            <div class="column2 grid-item">
-                <div class="column2 grid-item curse-title">
-                    <h4><strong>📍 Sua Jornada</strong></h4>
-                </div>
-                <div style="padding: 20px;">
-                    <p><strong>🔥 Você está aqui:</strong></p>
-                    <p style="color: #0d6efd; font-weight: bold;">📖 Prefácio</p>
-                    <hr>
-                    <p><strong>🗺️ Próximas etapas:</strong></p>
-                    <ul style="list-style: none; padding: 0;">
-                        <li>📝 1. Introdução ao Git</li>
-                        <li>⚙️ 2. Configuração básica</li>
-                        <li>🚀 3. Primeiros comandos</li>
-                        <li>🌿 4. Branches e merging</li>
-                        <li>🔄 5. Fluxos de trabalho</li>
-                    </ul>
-                </div>
+            <div class="overview-section">
+                <h3>📚 Estrutura do curso</h3>
+                <ul>
+                    <li>15 módulos práticos</li>
+                    <li>Exemplos reais de uso</li>
+                    <li>Exercícios hands-on</li>
+                    <li>Projeto prático: "Phonetic Website"</li>
+                    <li>Certificado de conclusão</li>
+                    <li>Suporte da comunidade</li>
+                </ul>
             </div>
+        </div>
+
+        <div style="background: #e8f4fd; padding: 20px; border-radius: 10px; margin: 30px 0; border-left: 4px solid #0d6efd;">
+            <h4 style="color: #0d6efd; margin-bottom: 10px;">💡 Dica importante</h4>
+            <p style="margin: 0; color: #5c4033;">Este curso segue uma abordagem prática baseada no livro "Practical Guide to Git and GitHub For Windows Users" de Roberto Vormittag. Você aprenderá fazendo!</p>
+        </div>
+
+        <div class="start-button">
+            <button onclick="window.location.href='2-introduction.html'">
+                🚀 Iniciar Jornada Git
+            </button>
+        </div>
+
+        <div class="footer-actions">
+            <div style="color: #666; font-size: 14px;">
+                Tempo estimado: 4-6 horas • Nível: Iniciante
+            </div>
+            <button id="logoutButton" class="logout-btn">Logout</button>
         </div>
     </div>
 </body>

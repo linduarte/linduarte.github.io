@@ -14,8 +14,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
     <style>
-    /* Styles moved to external CSS for maintainability. */
+        body {
+            background: url('../../static/images/waves.webp') center/cover no-repeat fixed;
+            font-family: 'Victor Mono', monospace;
+        }
+        .container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+            margin: 40px auto;
+            padding: 40px;
+            max-width: 900px;
+        }
     </style>
+    <script src="../../static/js/config.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('access_token');
+                window.location.href = '../../landing.html';
+            });
+        }
+    });
+    </script>
 </head>
 <body class="intro-page">
     <div class="container">
@@ -41,7 +70,7 @@
             fundamental para que você possa acompanhar o estado dos arquivos do seu repositório e saber o que está acontecendo com eles.</p>
 
 
-        <img src="/static/images/git-status.webp" alt="Screenshot do comando git-status">
+        <img src="../../static/images/git-status.webp" alt="Screenshot do comando git-status">
         <p class="image-description">Este comando simples, quando executado sem argumentos adicionais,
             exibe uma visão abrangente do status do seu repositório. Ele lista todos os arquivos que foram alterados em seu diretório de trabalho,
             mostrando se eles estão preparados ou não para confirmação. Além disso, ele lista todos os arquivos
@@ -61,14 +90,14 @@
                     <a href="6-git-clone.html" class="footer-link">Voltar</a>
                     <a href="8-git-add.html" class="footer-link">Próximo: git add</a>
                 </nav>
-                <form action="/logout" method="post" class="logout-form">
-                    <button id="logoutButton" type="submit" class="form-btn btn-space">Logout</button>
+                <form class="logout-form">
+                    <button id="logoutButton" type="button" class="logout-button">Logout</button>
                 </form>
                 <button id="markCompletedButton" data-topic-id="7" class="form-btn">Marcar como concluído</button>
             </div>
             <div class="footer-instruction">Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Marcar como concluído.</div>
         </footer>
-    <script src="/static/js/git-course-functions.js"></script>
+    <script src="../../static/js/git-course-functions.js"></script>
     </div>
     <script>Prism.highlightAll();</script>
 </body>

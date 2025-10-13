@@ -18,12 +18,39 @@
         mermaid.initialize({ startOnLoad: true });
     </script>
     <style>
-        /* test w3c ok  */
-
+        body {
+            background: url('../../static/images/waves.webp') center/cover no-repeat fixed;
+            font-family: 'Victor Mono', monospace;
+        }
+        .container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+            margin: 40px auto;
+            padding: 40px;
+            max-width: 900px;
+        }
     </style>
-
-    </head>
-    <body class="intro-page">
+    <script src="../../static/js/config.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('access_token');
+                window.location.href = '../../landing.html';
+            });
+        }
+    });
+    </script>
+</head>
+<body class="intro-page">
     <div class="container">
 
         <h1>Comparando versões</h1>
@@ -51,26 +78,26 @@
         torna-se importante saber o status de nossa última intervenção no repositório quando realizadmos o comite da letra 'D'. A imagem abaixo registra o status e nos informa
         que estamos 1(um) comite a frente do repositório remoto.</p>
 
-       <img src="/static/images/status_comit_let_D.webp" alt="Tela mostrando o status do repositório" class="img-full">
+       <img src="../../static/images/status_comit_let_D.webp" alt="Tela mostrando o status do repositório" class="img-full">
 
        <p class="p-styled  spaced-p">Vamos implementar uma nova 'feature request' adicionando a letra 'E'
         aos arquivos pilots.html, cities.html e names.html da mesma forma anteriormente realizada com a letra 'D'.</p>
 
-        <img src="/static/images/add_letter.webp" alt="Tela mostrando a adição da letra 'E' nos arquivos HTML." class="img-full">
+        <img src="../../static/images/add_letter.webp" alt="Tela mostrando a adição da letra 'E' nos arquivos HTML." class="img-full">
 
         <p class="p-styled  spaced-p">Feitas as adições nos arquivos HTML, vamos adicionar os arquivos  ao index, usando o <code class="language-bash">git add</code>.</p>
 
-        <img src="/static/images/git_add_let_F.webp" alt="Tela mostrando o status e a aplicação do git add." class="img-full">
+        <img src="../../static/images/git_add_let_F.webp" alt="Tela mostrando o status e a aplicação do git add." class="img-full">
 
         <p class="p-styled  spaced-p">Vamos implementar novamente uma 'feature request' adicionando a letra 'F' aos arquivos pilots.html, cities.html e names.html na seguinte ordem repectivamente: 'Foxtrot', 'Fillmore' e 'Fred',da mesma forma anteriormente realizada com a letra 'E'.</p>
 
-       <img src="/static/images/git_add_let_E.webp" alt="Tela mostrando o status após a adição da letra F." class="img-full">
+       <img src="../../static/images/git_add_let_E.webp" alt="Tela mostrando o status após a adição da letra F." class="img-full">
 
        <p class="p-styled  spaced-p">A imagem anterior mostra o status depois da aplicação da letra F.
         Aqui é muito importante perceber que as adições da letra 'F' não foram submetidas ao  <code class="language-bash">git add</code> por isto permanecem sem o controle do git ao passo
        que as adições das letra 'E' permitem que os arquivos sejam comitados.</p>
 
-       <img src="/static/images/git-log-oneline.webp" alt="Tela mostrando o log após a adição da letra D." class="img-full">
+       <img src="../../static/images/git-log-oneline.webp" alt="Tela mostrando o log após a adição da letra D." class="img-full">
 
        <p class="p-styled  spaced-p">Temos então três situações distintas ou seja,
         a letra 'D' foi adicionada e comitada, a letra 'E' foi adicionada mas não comitada e a letra 'F' não foi adicionada e nem comitada.
@@ -107,13 +134,13 @@
             Podemos notar que a letra 'E' foi adicionada ao arquivo sem contudo ser comitada. A letra 'F' foi adicionada ao arquivo sem contudo ser colocada no index ou staged.
         </p>
 
-        <img src="/static/images/git_st_diff.webp" alt="Tela mostrando o comando git status aplicado ao arquivo pilitos.htmlt" class="img-full">
+        <img src="../../static/images/git_st_diff.webp" alt="Tela mostrando o comando git status aplicado ao arquivo pilitos.htmlt" class="img-full">
 
         <p class="p-styled  spaced-p">Na imagem abaixo vamos interpretar a saída do comando
             git diff pilots.html linha por linha.
            </p>
 
-           <img src="/static/images/git-diff-pilot.webp" alt="Tela mostrando o comando git status aplicado ao arquivo pilitos.htmlt" class="img-full">
+           <img src="../../static/images/git-diff-pilot.webp" alt="Tela mostrando o comando git status aplicado ao arquivo pilitos.htmlt" class="img-full">
 
 
 
@@ -163,7 +190,7 @@
 
            <h4>Conteúdo antes e depois</h4>
 
-           <img src="/static/images/conteudo_diff.webp" alt="Conteúdo antes e depois" class="img-full">
+           <img src="../../static/images/conteudo_diff.webp" alt="Conteúdo antes e depois" class="img-full">
 
 
            <h4>Estado do repositório</h4>
@@ -182,7 +209,7 @@
            <li>Isso mostrará as diferenças que já foram adicionadas ao stage, mas ainda não commitadas.</li>
            <li>A imagem anterior confirma que a letra 'E' foi adicionada via <code class="language-bash">git add</code>  mas não comitada.</li>
            </ul>
-           <img src="/static/images/git-diff_staged.webp" alt="Conteúdo antes e depois" class="img-full">
+           <img src="../../static/images/git-diff_staged.webp" alt="Conteúdo antes e depois" class="img-full">
 
            <h4>Vendo as alterações desde o último comite.</h4>
 
@@ -191,7 +218,7 @@
             <li>Na imagem abaixo vemos uma linha contendo a palavra 'Echo' e 'Foxtrot' adicionadas como indicado pelo sinal '+'. O git diff interpreta o HEAD com um hash do último comite.</li>
             <li>O resultado é esperado pois o comite (letra D) foi feito antes da adição das letras 'E' e 'F'. </li>
            </ul>
-           <img src="/static/images/git-diff-head.webp" alt="Conteúdo antes e depois" class="img-full">
+           <img src="../../static/images/git-diff-head.webp" alt="Conteúdo antes e depois" class="img-full">
 
            <h4>Vendo mudanças entre dois comites</h4>
 
@@ -207,7 +234,7 @@
             </ul>
 
             <pre class="spaced-pre code-block"><code class="language-bash">index 9dd516f..ce31f88 100644</code></pre>
-            <img src="/static/images/git-diff-head-head.webp" alt="Entre dois comites" class="img-full">
+            <img src="../../static/images/git-diff-head-head.webp" alt="Entre dois comites" class="img-full">
 
             <ul>
             <li>9dd516f: Hash da versão anterior do arquivo (HEAD~1).</li>
@@ -223,7 +250,7 @@
             <li><pre class="spaced-pre code-block"><code class="language-bash">git diff d298f74 2dded79 pilots.html</code></pre></li>
             <li>Na imagem anterior podemos observar os seguintes pontos:</li>
             </ul>
-            <img src="/static/images/git-log-diff.webp" alt="Entre dois comites" class="img-full">
+            <img src="../../static/images/git-log-diff.webp" alt="Entre dois comites" class="img-full">
 
             <ul>
             <li>O comando <code class="language-bash">git log --oneline --decorate</code> mostrou que o commit 2dded79 adicionou algo novo ao projeto.</li>
@@ -232,13 +259,13 @@
 
             <h4>Agora vamos comitar as pendências do 'feature request', ou seja a inserção da letra 'E' e da letra 'F'.</h4>
 
-            <img src="/static/images/commit_E.webp" alt="Entre dois comites" class="img-full">
-            <img src="/static/images/commit_F.webp" alt="Entre dois comites" class="img-full">
+            <img src="../../static/images/commit_E.webp" alt="Entre dois comites" class="img-full">
+            <img src="../../static/images/commit_F.webp" alt="Entre dois comites" class="img-full">
             <p class="p-styled  spaced-p">Ressalvo que o comite da letra 'F' foi precedido de um comando <code class="language-bash">git add</code> pois o mesmo estava 'unstaged'.</p>
 
             <h4>Conclusão desta etapa</h4>
 
-            <img src="/static/images/git-st-final.webp" alt="Entre dois comites" class="img-full">
+            <img src="../../static/images/git-st-final.webp" alt="Entre dois comites" class="img-full">
 
            <section>
             <h3>Git Graph</h3>
@@ -276,8 +303,8 @@
                     <a href="11-branch-2.html" class="footer-link">Voltar</a>
                     <a href="13-undo-changes.html" class="footer-link">Próximo: Implementando "undo-changes"</a>
                 </nav>
-                <form action="/logout" method="post" class="logout-form">
-                    <button id="logoutButton" type="submit" class="form-btn btn-space">Logout</button>
+                <form class="logout-form">
+                    <button id="logoutButton" type="button" class="logout-button">Logout</button>
                 </form>
                 <button id="markCompletedButton" data-topic-id="12" class="form-btn">Marcar como concluído</button>
             </div>

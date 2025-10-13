@@ -7,6 +7,41 @@
     <link rel="stylesheet" href="../../static/css/style.css">
     <link rel="stylesheet" href="../../static/css/common-styles.css">
     <link rel="stylesheet" href="../../static/css/git-course.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
+    <style>
+        body {
+            background: url('../../static/images/waves.webp') center/cover no-repeat fixed;
+            font-family: 'Victor Mono', monospace;
+        }
+        .container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+            margin: 40px auto;
+            padding: 40px;
+            max-width: 900px;
+        }
+    </style>
+    <script src="../../static/js/config.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('access_token');
+                window.location.href = '../../landing.html';
+            });
+        }
+    });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -114,7 +149,7 @@
 
        </ul>
 
-       <img src="/static/images/set-a.webp" alt="git config" class="img-full">
+       <img src="../../static/images/set-a.webp" alt="git config" class="img-full">
 
          <ul>
 
@@ -122,7 +157,7 @@
 
          </ul>
 
-       <img src="/static/images/set-b.webp" alt="git config" class="img-full">
+       <img src="../../static/images/set-b.webp" alt="git config" class="img-full">
 
        <ul>
 
@@ -130,7 +165,7 @@
 
        </ul>
 
-       <img src="/static/images/set-c.webp" alt="git config" class="img-full">
+       <img src="../../static/images/set-c.webp" alt="git config" class="img-full">
 
        <ul>
 
@@ -138,7 +173,7 @@
 
        </ul>
 
-       <img src="/static/images/set-d.webp" alt="git config" class="img-full">
+       <img src="../../static/images/set-d.webp" alt="git config" class="img-full">
 
 
        <h4>Fluxos de trabalho do Git (Git workflows)</h4>
@@ -313,10 +348,11 @@
         <footer class="footer">
             <div class="footer-flex">
                 <nav class="footer-nav footer-left">
-                <form action="/logout" method="post" class="logout-form">
-                    <button id="logoutButton" type="submit" class="form-btn btn-space">Logout</button>
+                    <a href="1a-prefacio.html" class="footer-link">Voltar</a>
+                </nav>
+                <form class="logout-form">
+                    <button id="logoutButton" type="button" class="logout-button">Logout</button>
                 </form>
-                <a href="1a-prefacio.html" class="footer-link">Voltar</a>
                 <button id="markCompletedButton" data-topic-id="15" class="form-btn">Marcar como concluído</button>
             </div>
             <div class="footer-instruction">Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Marcar como concluído.</div>
@@ -346,13 +382,7 @@
         }
     });
     </script>
-
-    </div>
-    <script>Prism.highlightAll();</script>
-</body>
-</html>
-    </script>
-
+    <script src="../../static/js/git-course-functions.js"></script>
     </div>
     <script>Prism.highlightAll();</script>
 </body>

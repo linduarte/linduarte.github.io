@@ -7,6 +7,45 @@
     <link rel="stylesheet" href="../../static/css/style.css">
     <link rel="stylesheet" href="../../static/css/common-styles.css">
     <link rel="stylesheet" href="../../static/css/git-course.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <style>
+        body {
+            background: url('../../static/images/waves.webp') center/cover no-repeat fixed;
+            font-family: 'Victor Mono', monospace;
+        }
+        .container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+            margin: 40px auto;
+            padding: 40px;
+            max-width: 900px;
+        }
+    </style>
+    <script src="../../static/js/config.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('access_token');
+                window.location.href = '../../landing.html';
+            });
+        }
+    });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -24,7 +63,7 @@
             <h2>Alternando ramificações sem mesclar</h2>
             <p class="p-styled spaced-p">Você pode ver a extensão das mudanças que fez na branch de teste do projeto Phonetic Website na seção anterior listando o conteúdo do
                diretório de trabalho:</p>
-           <img src="/static/images/ls-a.webp" alt="arquivos do ramo test" class="img-halfwidth">
+           <img src="../../static/images/ls-a.webp" alt="arquivos do ramo test" class="img-halfwidth">
 
            <p class="p-styled spaced-p">Todos os arquivos CSS foram movidos um nível para cima e o diretório de estilo não existe mais.</p>
 
@@ -33,7 +72,7 @@
            <p class="p-styled spaced-p">Vamos voltar para a branch main usando o comando <code class="language-bash">git checkout</code> e listar o conteúdo do diretório de
              trabalho novamente:</p>
 
-             <img src="/static/images/checkout-main.webp" alt="git checkout no ramo main" class="img-halfwidth">
+             <img src="../../static/images/checkout-main.webp" alt="git checkout no ramo main" class="img-halfwidth">
 
            <p class="p-styled spaced-p">Como você pode ver na lista, o conteúdo do diretório de trabalho foi restaurado. O diretório de estilo está de volta, contendo todos os arquivos CSS.
             As referências de estilo no código HTML não mudaram. Teste o site em um navegador para verificar se está funcionando corretamente.</p>
@@ -51,18 +90,18 @@
               último commit da especial2:</p>
 
 
-            <img src="/static/images/git_diagram_a.webp" alt="Diagrama mostrando a posição do HEAD pelo último comite" class="img-halfwidth">
+            <img src="../../static/images/git_diagram_a.webp" alt="Diagrama mostrando a posição do HEAD pelo último comite" class="img-halfwidth">
 
             <p class="p-styled spaced-p">Na imagem anterior a linha representa o ramo principal, 'main' com
                 cada comite mostrado como um círculo. A seta indica a direção do desenvolvimento, ou seja 'HEAD' e aponta para o último comite.
                 O último comite é o comite mais recente. O comite mais recente é o comite que está no topo da pilha de comites. De baixo para cima como pode-se ver na imagem abaixo do git log.
             </p>
-            <img src="/static/images/git_diagram_b.webp" alt="Tela mostrando o histórico de comites realizados" class="img-fullwidth">
+            <img src="../../static/images/git_diagram_b.webp" alt="Tela mostrando o histórico de comites realizados" class="img-fullwidth">
 
             <p class="p-styled spaced-p">Após o comando <code class="language-bash">git checkout main</code>, o ponteiro HEAD se move para o último commit na branch main e o conteúdo do diretório
                 de trabalho muda de acordo.</p>
 
-            <img src="/static/images/git-branch_2.webp" alt="Tela mostrando o histórico de comites realizados" class="img-fullwidth">
+            <img src="../../static/images/git-branch_2.webp" alt="Tela mostrando o histórico de comites realizados" class="img-fullwidth">
 
             <p class="p-styled spaced-p">Você sempre pode verificar qual branch está atualizado com <code class="language-bash">git branch</code> ou <code class="language-bash">git log</code> .</p>
 
@@ -86,7 +125,7 @@
             <p class="p-styled spaced-p">Vamos supor que temos duas novas solicitações de recursos para implementar. A primeira é adicionar as letras G, H, I e a segunda é adicionar
                 as letras J, K, L para o site fonético. Implementaremos cada uma dessas solicitações de recursos em branches separados.</p>
 
-            <img src="/static/images/branch_ghi_jkl.webp" alt="Tela mostrando dois novos branches (ghi - jkl)" class="img-fullwidth">
+            <img src="../../static/images/branch_ghi_jkl.webp" alt="Tela mostrando dois novos branches (ghi - jkl)" class="img-fullwidth">
 
             <p class="p-styled spaced-p">Vamos implementar o primeiro requisito através de um exercício.</p>
 
@@ -94,13 +133,13 @@
 
             <p class="p-styled spaced-p">Para adicionar as letras G-H-I faça o comando <code class="language-bash">git checkout g-h-i</code>:</p>
 
-            <img src="/static/images/checkout-ghi.webp" alt="Tela mostrando git checkout g-h-i" class="img-fullwidth">
+            <img src="../../static/images/checkout-ghi.webp" alt="Tela mostrando git checkout g-h-i" class="img-fullwidth">
 
             <p class="p-styled spaced-p">Adicione a letra G a pilots.html, cities.html e names.html (por exemplo, "Golf", "Greenville" e "Gloria").
                 Navegue no site para testar as alterações, adicionar (git add) e comitar (git commit) com o comentário "Adicionada letra G".
             </p>
 
-            <img src="/static/images/added_G.webp" alt="Tela mostrando letra G adicionada e comitada" class="img-fullwidth">
+            <img src="../../static/images/added_G.webp" alt="Tela mostrando letra G adicionada e comitada" class="img-fullwidth">
 
 
             <p class="p-styled spaced-p">Repita o mesmo processo para adicionar a letra H (por exemplo, "Hotel", "Houston" e "Henry") e depois faça o stage e commit.</p>
@@ -109,30 +148,30 @@
 
             <p class="p-styled spaced-p">Ao terminar este exercício, o histórico da branch g-h-i deve ficar assim:</p>
 
-            <img src="/static/images/git-log-ghi.webp" alt="Tela mostrando git log das letras G, H e I" class="img-fullwidth">
+            <img src="../../static/images/git-log-ghi.webp" alt="Tela mostrando git log das letras G, H e I" class="img-fullwidth">
 
             <p class="p-styled spaced-p">O diretório de trabalho deve estar limpo, sem mudanças não confirmadas.</p>
 
-            <img src="/static/images/git-st-ghi.webp" alt="Tela mostrando o git status do ramo g-h-i" class="img-fullwidth">
+            <img src="../../static/images/git-st-ghi.webp" alt="Tela mostrando o git status do ramo g-h-i" class="img-fullwidth">
 
 
             <p class="p-styled spaced-p">Estamos prontos agora para mesclar as mudanças na branch main. Primeiro, volte para a main e verifique o histórico:</p>
 
 
-            <img src="/static/images/git_checkout_main.webp" alt="Tela mostrando o git checkout main" class="img-full">
+            <img src="../../static/images/git_checkout_main.webp" alt="Tela mostrando o git checkout main" class="img-full">
 
 
             <p class="p-styled spaced-p">Agora navegue no site fonético e você vai ver que ainda está na letra F. Isso vai mudar assim que tivermos mesclado as alterações
                 do branch g-h-i. O comando <code class="language-bash">git merge</code> permite que você integre linhas do tempo de desenvolvimento separadas em um único branch.
                 Para incorporar o recurso que você implementou no branch g-h-i ao  ramo (branch) main, só precisamos executar o seguinte comando:</p>
 
-            <img src="/static/images/git-merge-ghi.webp" alt="Tela mostrando o git merge" class="img-full">
+            <img src="../../static/images/git-merge-ghi.webp" alt="Tela mostrando o git merge" class="img-full">
 
 
             <p class="p-styled spaced-p">Vamos dar uma olhada na história da branch main depois do merge:</p>
 
 
-            <img src="/static/images/git-log-main.webp" alt="Tela mostrando git log após o merge" class="img-full">
+            <img src="../../static/images/git-log-main.webp" alt="Tela mostrando git log após o merge" class="img-full">
 
 
                <p class="p-styled spaced-p">Você pode ver que os commits que você fez no g-h-i foram integrados. Se você navegar no site agora, pode confirmar que as
@@ -144,7 +183,7 @@
 
                <p class="p-styled spaced-p">A imagem abaixo usando o GitGraph mostra o processo até então concluído.</p>
 
-               <img src="/static/images/gitgraph_view.webp" alt="Tela mostrando a visão gitgraph após o merge" class="img-fullwidth">
+               <img src="../../static/images/gitgraph_view.webp" alt="Tela mostrando a visão gitgraph após o merge" class="img-fullwidth">
 
         </section>
 
@@ -155,11 +194,11 @@
                 <p class="p-styled spaced-p">Agora vamos implementar o segundo pedido de recurso descrito na seção anterior: adicionar as
                    letras J, K e L ao Site Fonético. Já criamos uma branch de recurso chamada j-k-l para fazer essa mudança, então vamos mudar para ele.</p>
 
-                <img src="/static/images/git-sw-jkl.webp" alt="Tela mostrando git switch  j-k-l" class="img-fullwidth">
+                <img src="../../static/images/git-sw-jkl.webp" alt="Tela mostrando git switch  j-k-l" class="img-fullwidth">
 
                 <p class="p-styled spaced-p"> Vejamos a história do ramo jkl:</p>
 
-                <img src="/static/images/git-log-jkl.webp" alt="Tela mostrando git log de j-k-l" class="img-fullwidth">
+                <img src="../../static/images/git-log-jkl.webp" alt="Tela mostrando git log de j-k-l" class="img-fullwidth">
 
                 <p class="p-styled spaced-p">Como você pode ver, o histórico da ramificação j-k-l espelha o histórico da ramificação main no ponto de divisão quando a
                     ramificação foi criada. No entanto, ele não contém as alterações mais recentes no main derivadas da mesclagem com o branch g-h-i.</p>
@@ -169,44 +208,44 @@
                <p class="p-styled spaced-p">Adicione a letra J a pilots.html, cities.html e names.html (por exemplo, "Julieta", "Jackson" e "James") imediatamente após a letra F.
                 O código em pilots.html deve ser semelhante ao seguinte: </p>
 
-                <img src="/static/images/pilots-add_J.webp" alt="Tela mostrando git status" class="img-fullwidth">
+                <img src="../../static/images/pilots-add_J.webp" alt="Tela mostrando git status" class="img-fullwidth">
 
                 <p class="p-styled spaced-p">Não se preocupe com a lacuna causada pela falta das letras G, H e I. Vamos resolver isso ao mesclar as alterações no branch main.</p>
                 <p class="p-styled spaced-p">Navegue no site para testar as mudanças, faça o stage e commit com o comentário "Adicionada a letra J".</p>
                 <p class="p-styled spaced-p">Navegue no site para testar as mudanças, faça o stage e commit com o comentário "Adicionada a letra K".</p>
                 <p class="p-styled spaced-p">Navegue no site para testar as mudanças, faça o stage e commit com o comentário "Adicionada a letra L".</p>
                 <p class="p-styled spaced-p">Ao terminar este exercício, o histórico da branch j-k-l deve ficar assim:</p>
-                <img src="/static/images/git-log-total.webp" alt="Tela mostrando git log total" class="img-fullwidth">
+                <img src="../../static/images/git-log-total.webp" alt="Tela mostrando git log total" class="img-fullwidth">
                 <p class="p-styled spaced-p">O diretório de trabalho deve estar limpo, sem alterações não confirmadas: </p>
-                <img src="/static/images/git-st-jkl.webp" alt="Tela mostrando git status do ramo j-k-l" class="img-fullwidth">
+                <img src="../../static/images/git-st-jkl.webp" alt="Tela mostrando git status do ramo j-k-l" class="img-fullwidth">
                 <p class="p-styled spaced-p">Estamos prontos agora para mesclar as mudanças na branch main. Primeiro, volte para o ramo main e verifique o histórico:</p>
-                <img src="/static/images/git-log-main.webp" alt="Tela mostrando git checkout main" class="img-full">
+                <img src="../../static/images/git-log-main.webp" alt="Tela mostrando git checkout main" class="img-full">
                 <p class="p-styled spaced-p">Se você navegar no site fonético agora, descobrirá que ainda está na letra I. Vamos mesclar o recurso que implementamos no branch j-k-l e ver o que acontece: </p>
-                <img src="/static/images/git-merge-br2.webp" alt="Tela mostrando git merge j-k-l" class="img-full">
+                <img src="../../static/images/git-merge-br2.webp" alt="Tela mostrando git merge j-k-l" class="img-full">
                 <p class="p-styled spaced-p">A saída <code class="language-bash">git merge</code> está sinalizando conflitos nos três arquivos HTML. Isso era de se esperar, pois fizemos alterações nas mesmas linhas de código
                  em ambas as ramificações. A execução do <code class="language-bash">git status</code> informará que os arquivos foram modificados:</p>
-                <img src="/static/images/git-st-conflit.webp" alt="Tela mostrando git status" class="img-fullwidth">
+                <img src="../../static/images/git-st-conflit.webp" alt="Tela mostrando git status" class="img-fullwidth">
                  <p class="p-styled spaced-p">Em caso de conflitos durante uma mesclagem, o Git destaca habilmente os conflitos no código-fonte em cada arquivo,
                    mantendo ambas as alterações (a do branch de recursos e a do branch de destino), deixando para o desenvolvedor <strong>resolver os conflitos
                     manualmente.</strong></p>
                   <p class="p-styled spaced-p">Vamos consertar pilots.html primeiro. Abra-o em seu editor de texto favorito. As <strong>alterações conflitantes serão claramente marcadas pelo Git:</strong></p>
-                  <img src="/static/images/pilots_conflits.webp" alt="Tela mostrando git status" class="img-fullwidth">
+                  <img src="../../static/images/pilots_conflits.webp" alt="Tela mostrando git status" class="img-fullwidth">
                   <p class="p-styled spaced-p">A seção de código entre <code>&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code> e <code>=======</code> mostra o código no branch atual. A seção de código entre <code>=======</code> e <code>&gt;&gt;&gt;&gt;&gt;&gt; j-k-l</code> mostra as alterações conflitantes mescladas da ramificação j-k-l.
                    as alterações conflitantes mescladas da ramificação j-k-l. Resolver o conflito neste caso é muito fácil. Como queremos manter as duas alterações,
                     só precisamos excluir as marcações do Git e manter a sequência de palavras em ordem alfabética.</p>
                     <p>Abra pilots.html em seu editor favorito e exclua as marcações do Git para que a lista do alfabeto fique assim:</p>
-                    <img src="/static/images/pilots-fixed.webp" alt="Tela mostrando git status" class="img-fullwidth">
+                    <img src="../../static/images/pilots-fixed.webp" alt="Tela mostrando git status" class="img-fullwidth">
                     <p class="p-styled spaced-p">Salve o arquivo e faça o stage e commit das alterações. Repita o processo para cities.html e names.html.
                       Ao terminar, o histórico da branch main deve ficar assim:</p>
-                    <img src="/static/images/git-comit-resolv.webp" alt="Tela mostrando git log de main" class="img-fullwidth">
+                    <img src="../../static/images/git-comit-resolv.webp" alt="Tela mostrando git log de main" class="img-fullwidth">
                     <p class="p-styled spaced-p">Vamos agora dar uma olhada na história do branch main: </p>
-                    <img src="/static/images/git-log-main-merg.webp" alt="Tela mostrando git log de main" class="img-fullwidth">
+                    <img src="../../static/images/git-log-main-merg.webp" alt="Tela mostrando git log de main" class="img-fullwidth">
                     <p class="p-styled spaced-p">Todos os commits da branch j-k-l foram integrados. O último commit é o que você acabou de executar depois de resolver o conflito de merge.
                         O comando <code class="language-bash">git merge</code> é feito para preservar o histórico sempre que possível.</p>
                     <p class="p-styled spaced-p">Para concluir, vamos marcar esta versão como v0.2 e atualizar o repositório remoto no GitHub. Pode ser necessário inserir seu nome de usuário e senha:</p>
-                    <img src="/static/images/git-tag-push.webp" alt="Tela mostrando git tag" class="img-fullwidth">
+                    <img src="../../static/images/git-tag-push.webp" alt="Tela mostrando git tag" class="img-fullwidth">
                     <p class="p-styled spaced-p">Agora seu repositório local e remoto estão sincronizados e o diretório deve estar limpo de pendências:</p>
-                    <img src="/static/images/git-st-conclus.webp" alt="Tela mostrando git status" class="img-fullwidth">
+                    <img src="../../static/images/git-st-conclus.webp" alt="Tela mostrando git status" class="img-fullwidth">
                     <p class="p-styled spaced-p">Certifique-se que o site fonético no GitHub esteja atualizado.</p>
                     <p class="p-styled spaced-p">Observe que enviamos as alterações apenas para a ramificação main. Mas é possível tambem enviar alterações para
                         outros ramos com o comando,<code class="language-bash">git push origin branch</code> </p>
@@ -275,16 +314,17 @@
         <footer class="footer">
             <div class="footer-flex">
                 <nav class="footer-nav footer-left">
-                <form action="/logout" method="post" class="logout-form">
-                    <button id="logoutButton" type="submit" class="form-btn btn-space">Logout</button>
+                    <a href="11-branch-1.html" class="footer-link">Voltar</a>
+                    <a href="12-git-diff.html" class="footer-link">Próximo: git-diff</a>
+                </nav>
+                <form class="logout-form">
+                    <button id="logoutButton" type="button" class="logout-button">Logout</button>
                 </form>
-                <a href="11-branch-1.html" class="footer-link">Voltar</a>
-                <a href="12-git-diff.html" class="footer-link">Próximo: git-diff</a>
                 <button id="markCompletedButton" data-topic-id="11" class="form-btn">Marcar como concluído</button>
             </div>
             <div class="footer-instruction">Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Marcar como concluído.</div>
         </footer>
-        <script src="/static/js/git-course-functions.js"></script>
+        <script src="../../static/js/git-course-functions.js"></script>
     <script>
     document.getElementById("markCompletedButton").addEventListener("click", async () => {
         const token = localStorage.getItem("access_token");
@@ -306,14 +346,6 @@
         if (response.ok) {
             alert("Progresso marcado com sucesso!");
         } else {
-            alert("Erro ao marcar o progresso");
-        }
-    });
-    </script>
-    </div>
-    <script>Prism.highlightAll();</script>
-</body>
-</html>
             alert("Erro ao marcar o progresso");
         }
     });

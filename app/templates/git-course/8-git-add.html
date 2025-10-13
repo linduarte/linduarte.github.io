@@ -14,8 +14,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
     <style>
-    /* Styles moved to external CSS for maintainability. */
+        body {
+            background: url('../../static/images/waves.webp') center/cover no-repeat fixed;
+            font-family: 'Victor Mono', monospace;
+        }
+        .container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+            margin: 40px auto;
+            padding: 40px;
+            max-width: 900px;
+        }
     </style>
+    <script src="../../static/js/config.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('access_token');
+                window.location.href = '../../landing.html';
+            });
+        }
+    });
+    </script>
 </head>
 <body class="intro-page">
     <div class="container">
@@ -30,7 +59,7 @@
                 <li>Descompacte os arquivos e copie cole no site "simple-website".</li>
                 <li>Verifique pelo Windows Explorer a estrutura agora completa do repositório.</li>
             </ol></ul>
-            <img src="/static/images/git-status-after-copy.webp" alt="Imagem ...">
+            <img src="../../static/images/git-status-after-copy.webp" alt="Imagem ...">
             <p class="image-description">Esta imagem mostra usando o comando <code class="language-bash">git status</code> que representa como os arquivos do repositório estão em relação ao Git, ou seja em vermelho,
             que os arquivos não estão sendo rastreados pelo git, "untracked", indica que se use o comando <code class="language-bash">git add</code>
             para mudar o status dos arquivos. Sinaliza mais embaixo dizendo que nada foi adicionado para a realização do "commit".
@@ -47,7 +76,7 @@
         </ul>
         <div class="note">
             <strong>Nota:</strong> O comando <code class="language-bash">git add .</code> adiciona todos os arquivos. Use <code class="language-bash">git add &lt;arquivo&gt;</code> para adicionar arquivos específicos.
-            <img src="/static/images/git%20add_all.webp" alt="Imagem GitGraph">
+            <img src="../../static/images/git%20add_all.webp" alt="Imagem GitGraph">
             <p class="image-description">Na imagem anterior podemos notar a aplicação do comando 'git add' em duas situações - na primeira aplicado na
                 pasta 'style' contendo 4 arquivos e no segundo comando 'git add' aplicado usando o curinga '*' para aplicar em todos os arquivos com extensão 'html'.
                 Ao se aplicar o comando <strong>git status</strong> observa-se que todos os arquivos foram 'staged', ou seja prontos para receberem a confirmação via o comando <strong>git commit</strong>.
@@ -63,14 +92,14 @@
                     <a href="7-git-status.html" class="footer-link">Voltar</a>
                     <a href="9-git-commit.html" class="footer-link">Próximo: git-commit</a>
                 </nav>
-                <form action="/logout" method="post" class="logout-form">
-                    <button id="logoutButton" type="submit" class="form-btn btn-space">Logout</button>
+                <form class="logout-form">
+                    <button id="logoutButton" type="button" class="logout-button">Logout</button>
                 </form>
                 <button id="markCompletedButton" data-topic-id="8" class="form-btn">Marcar como concluído</button>
             </div>
             <div class="footer-instruction">Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Marcar como concluído.</div>
         </footer>
-    <script src="/static/js/git-course-functions.js"></script>
+    <script src="../../static/js/git-course-functions.js"></script>
     <script>Prism.highlightAll();</script>
     </div>
 </body>

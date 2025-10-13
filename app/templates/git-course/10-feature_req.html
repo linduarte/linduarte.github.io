@@ -18,9 +18,37 @@
         mermaid.initialize({ startOnLoad: true });
     </script>
     <style>
-    /* test w3c ok  */
-
+        body {
+            background: url('../../static/images/waves.webp') center/cover no-repeat fixed;
+            font-family: 'Victor Mono', monospace;
+        }
+        .container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+            margin: 40px auto;
+            padding: 40px;
+            max-width: 900px;
+        }
     </style>
+    <script src="../../static/js/config.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('access_token');
+                window.location.href = '../../landing.html';
+            });
+        }
+    });
+    </script>
 </head>
 <body class="intro-page">
     <div class="container">
@@ -39,24 +67,24 @@
         Que assim podem ser mostrados antes e depois das alterações realizadas: </p>
 
         <div class="flex-between-gap">
-            <img src="/static/images/pilots_html.webp" alt="Screenshot do pilots HTML" class="img-half">
-            <img src="/static/images/pilots_html_D.webp" alt="Screenshot do phonetic HTML com a letra D (Delta) adicionada" class="img-half">
+            <img src="../../static/images/pilots_html.webp" alt="Screenshot do pilots HTML" class="img-half">
+            <img src="../../static/images/pilots_html_D.webp" alt="Screenshot do phonetic HTML com a letra D (Delta) adicionada" class="img-half">
         </div>
 
          <p class="p-styled  spaced-p">
          As imagens acima refletem as alterações realizadas no arquivo pilots.html do projeto.</p>
 
         <div class="flex-between-gap">
-            <img src="/static/images/cities_html.webp" alt="Screenshot do pilots HTML" class="img-half">
-            <img src="/static/images/cities_html_D.webp" alt="Screenshot do phonetic HTML com a letra D (Delta) adicionada" class="img-half">
+            <img src="../../static/images/cities_html.webp" alt="Screenshot do pilots HTML" class="img-half">
+            <img src="../../static/images/cities_html_D.webp" alt="Screenshot do phonetic HTML com a letra D (Delta) adicionada" class="img-half">
         </div>
 
         <p class="p-styled  spaced-p">
             As imagens acima refletem as alterações realizadas no arquivo ciites.html do projeto.</p>
 
             <div class="flex-between-gap">
-                <img src="/static/images/names_html.webp" alt="Screenshot do pilots HTML" class="img-half">
-                <img src="/static/images/names_html_D.webp" alt="Screenshot do phonetic HTML com a letra D (Delta) adicionada" class="img-half">
+                <img src="../../static/images/names_html.webp" alt="Screenshot do pilots HTML" class="img-half">
+                <img src="../../static/images/names_html_D.webp" alt="Screenshot do phonetic HTML com a letra D (Delta) adicionada" class="img-half">
             </div>
 
             <p class="p-styled  spaced-p">
@@ -73,7 +101,7 @@
             <p class="p-styled  spaced-p">Agora temos uma imagem de como o git percebeu as alterações realizadas nos arquivos HTML do projeto.
             </p>
 
-            <img src="/static/images/html_changes.webp" alt="Tela mostrando o resultado após usar o comando 'git status" class="img-full">
+            <img src="../../static/images/html_changes.webp" alt="Tela mostrando o resultado após usar o comando 'git status" class="img-full">
 
             <p class="p-styled  spaced-p"> A imagem mostra claramente que os três arquivos
                 HTML foram modificados. O Git percebeu as alterações e está pronto para adicionar as mudanças ao repositório. Evidencia claramente que nenhuma mudança
@@ -84,12 +112,12 @@
                 usamos o comando 'git add' seguido do nome do arquivo. Para adicionar todos os arquivos modificados ao repositório usamos o comando 'git add .'
                 O comando 'git add .' adiciona todos os arquivos modificados ao repositório.</p>
 
-                <img src="/static/images/html_git-add.webp" alt="Tela mostrando o resultado após usar o comando 'git add" class="img-full">
+                <img src="../../static/images/html_git-add.webp" alt="Tela mostrando o resultado após usar o comando 'git add" class="img-full">
 
                 <p class="p-styled  spaced-p">A imagem abaixo mostra o comite realizado
                     após a adição dos arquivos HTML  acrescidos da letra D ao repositório bem como o comando git status mostrando que o repositório local está a frente do repositório remoto.
                 </p>
-                    <img src="/static/images/git-commit_st.webp" alt="Tela mostrando o resultado após usar o comando 'git add" class="img-full">
+                    <img src="../../static/images/git-commit_st.webp" alt="Tela mostrando o resultado após usar o comando 'git add" class="img-full">
 
                  <p class="p-styled  spaced-p">Pelas últimas ações o projeto do site fonético
                     está evoluindo. Depois de criar o site no GitHub em um repositório local via clone, foram adicionados os arquivos HTML e o folder 'style' e agora por
@@ -99,13 +127,13 @@
 
                  <p class="p-styled  spaced-p">Voce pode verificar a história dos comites no projeto usando o comando:
                  <code class="language-bash">git log</code></p>
-                 <img src="/static/images/git_log.webp" alt="Tela mostrando o histórico de comites realizados" class="img-full">
+                 <img src="../../static/images/git_log.webp" alt="Tela mostrando o histórico de comites realizados" class="img-full">
 
                  <p class="p-styled  spaced-p">A imagem acima mostra cada comite associado ao seu longo hash como identificador único do git
                     bem como o autor e data de realização do comite. Nota-se tambem que as mensagens que compuseram cadas um dos comites são apresentadas pelo git log. O comite mais recente é mostrado no topo da lista. Pode-se usar tambem outros comandos do tipo <code class="language-bash">git log --oneline --decorate</code> para mostrar a lista de comites de
                     forma mais resumida conforme a imagem abaixo.
                  </p>
-                 <img src="/static/images/git-log-oneline.webp" alt="Tela mostrando o histórico de comites realizados" class="img-full">
+                 <img src="../../static/images/git-log-oneline.webp" alt="Tela mostrando o histórico de comites realizados" class="img-full">
 
                  <p class="p-styled  spaced-p">Observa-se na imagem anterior que o hash de cada comite
                     é um conjunto de 7 caracteres alfanuméricos extraido do início do longo hash.
@@ -144,8 +172,8 @@
                     <a href="9-git-commit.html" class="footer-link">Voltar</a>
                     <a href="11-branch-1.html" class="footer-link">Próximo: branch-1</a>
                 </nav>
-                <form action="/logout" method="post" class="logout-form">
-                    <button id="logoutButton" type="submit" class="form-btn btn-space">Logout</button>
+                <form class="logout-form">
+                    <button id="logoutButton" type="button" class="logout-button">Logout</button>
                 </form>
                 <button id="markCompletedButton" data-topic-id="10" class="form-btn">Marcar como concluído</button>
             </div>
