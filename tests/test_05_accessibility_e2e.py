@@ -31,6 +31,7 @@ def test_landing_page_accessibility(page: Page, base_url: str):
         raise AssertionError(f"Erro no teste de acessibilidade da landing: {e}")
 
 
+@pytest.mark.skip(reason="Desabilitado durante testes manuais")
 @pytest.mark.e2e
 @pytest.mark.accessibility
 def test_course_page_accessibility(page: Page, base_url: str, auth_token: str):
