@@ -3,71 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Prefácio</title>
+    <title>Prefácio - Git Course</title>
     <link rel="stylesheet" href="../../static/css/style.css">
     <link rel="stylesheet" href="../../static/css/common-styles.css">
     <link rel="stylesheet" href="../../static/css/git-course.css">
+    <script src="../../static/js/config.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('access_token');
+                window.location.href = '../../landing.html';
+            });
+        }
+    });
+    </script>
 </head>
-<body>
-    <div class="container page-large-font">
-        <header>
-            <h1>Bem-vindo ao Curso de Git</h1>
+<body class="intro-page">
+    <div class="container">
+        <header class="header logo">
+            <img alt="Git Logo" width="150" height="63"
+                src="../../static/images/GitLogo_sp.png"
+                srcset="../../static/images/GitLogo_sp-2x.png 2x, ../../static/images/GitLogo_sp-3x.png 3x">
+            <div class="call">
+                <h1 class="banner-message">Bem-vindo ao Curso de Git!</h1>
+            </div>
         </header>
 
-        <section class="course-description">
-            <p class="p-styled spaced-p">
-                Este curso foi desenvolvido para te guiar do básico ao avançado no uso do Git, a ferramenta de controle de versão mais utilizada no mundo do desenvolvimento de software.
-            </p>
-            <blockquote>
-                <p>"O Git é como uma máquina do tempo para o seu código. Aprenda a usá-lo e nunca mais perca o histórico do seu trabalho!"</p>
-            </blockquote>
-        </section>
+        <div class="grid-container">
+            <div class="column1 grid-item">
+                <div class="column1 grid-item subject-title">
+                   <h4><strong>Prefácio - Iniciando sua jornada com Git</strong></h4>
+                </div>
+                <div>
+                    <p>Parabéns por dar o primeiro passo para dominar uma das ferramentas mais importantes do desenvolvimento moderno!</p>
 
-        <section class="course-outline">
-            <h2>O que você vai aprender:</h2>
-            <ul class="left-list">
-                <li>O que é Git e para que serve</li>
-                <li>Como instalar e configurar o Git</li>
-                <li>Comandos essenciais: <code>init</code>, <code>add</code>, <code>commit</code>, <code>status</code>, <code>log</code>, <code>diff</code>, <code>branch</code>, <code>merge</code>, <code>clone</code>, <code>pull</code>, <code>push</code></li>
-                <li>Como trabalhar com repositórios locais e remotos</li>
-                <li>Fluxos de trabalho (workflows) e boas práticas</li>
-                <li>Como desfazer alterações e resolver conflitos</li>
-                <li>Integração com o GitHub</li>
-            </ul>
-        </section>
+                    <p>Este curso foi pensado para levar você do básico ao avançado no Git, de forma prática e progressiva. Você aprenderá não apenas os comandos, mas também a filosofia por trás do controle de versão.</p>
 
-        <section class="course-navigation">
-            <h2>Como navegar pelo curso:</h2>
-            <ol>
-                <li>Use o menu de navegação para acessar os tópicos.</li>
-                <li>Marque seu progresso conforme avança.</li>
-                <li>Leia, pratique e experimente os comandos no seu terminal.</li>
-            </ol>
-        </section>
+                    <h5>O que você vai aprender:</h5>
+                    <ul>
+                        <li>Fundamentos do controle de versão</li>
+                        <li>Instalação e configuração do Git</li>
+                        <li>Comandos essenciais do dia a dia</li>
+                        <li>Trabalho em equipe e colaboração</li>
+                        <li>Boas práticas e fluxos de trabalho</li>
+                        <li>Integração com GitHub</li>
+                    </ul>
 
-        <section class="quick-tip">
-            <h3>Dica Rápida</h3>
-            <p>
-                Se você já tem experiência com Git, pode navegar livremente entre os tópicos. Se está começando, siga a ordem sugerida para melhor aproveitamento.
-            </p>
-        </section>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <button onclick="window.location.href='2-introducao.html'"
+                                style="background: #0d6efd; color: white; padding: 12px 24px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+                            Começar o Curso →
+                        </button>
+                    </div>
+                </div>
 
-        <footer class="footer">
-            <div class="footer-flex">
-                <nav class="footer-nav footer-left">
-                    <a href="program.html" class="footer-link">Ver Programa</a>
-                    <a href="2-introduction.html" class="footer-link">Próximo: Introdução</a>
-                </nav>
-                <form action="/logout" method="post" class="logout-form">
-                    <button id="logoutButton" type="submit" class="form-btn btn-space">Logout</button>
-                </form>
+                <footer class="footer">
+                    <form class="logout-form">
+                        <button id="logoutButton" type="button" class="logout-button">Logout</button>
+                    </form>
+                    <div class="footer-instruction">Para sair do curso, clique em Logout.</div>
+                </footer>
             </div>
-            <div class="footer-instruction">
-                Para sair da sua conta, clique em Logout.
+
+            <div class="column2 grid-item">
+                <div class="column2 grid-item curse-title">
+                    <h4><strong>Navegação do Curso</strong></h4>
+                </div>
+                <div style="padding: 20px;">
+                    <p><strong>Você está aqui:</strong></p>
+                    <p style="color: #0d6efd;">📖 Prefácio</p>
+                    <hr>
+                    <p><strong>Próximas etapas:</strong></p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>📝 1. Introdução ao Git</li>
+                        <li>⚙️ 2. Configuração básica</li>
+                        <li>🚀 3. Primeiros comandos</li>
+                        <li>🌿 4. Branches e merging</li>
+                        <li>🔄 5. Fluxos de trabalho</li>
+                    </ul>
+                </div>
             </div>
-        </footer>
+        </div>
     </div>
-    <script src="/static/js/git-course-functions.js"></script>
-
 </body>
 </html>

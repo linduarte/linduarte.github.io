@@ -133,7 +133,7 @@
             localStorage.setItem('access_token', payload.access_token);
             resultEl.style.color = '#388e3c';
             resultEl.textContent = 'Login bem-sucedido! Redirecionando...';
-            setTimeout(() => window.location.href = '1-index.html', 800);
+            setTimeout(() => window.location.href = '1a-prefacio.html', 800);
             return;
           } else {
             throw new Error(`${response.status}: ${payload.detail || payload.message || 'Credenciais inválidas'}`);
@@ -157,7 +157,7 @@
         localStorage.setItem('access_token', 'demo_login_token_' + Date.now());
         resultEl.style.color = '#388e3c';
         resultEl.textContent = 'Login simulado OK! (Backend indisponível) Redirecionando...';
-        setTimeout(() => window.location.href = '1-index.html', 1200);
+        setTimeout(() => window.location.href = '1a-prefacio.html', 1200);
       } else {
         resultEl.style.color = '#d32f2f';
         resultEl.textContent = 'Servidor indisponível. Tente: email válido e senha.';
