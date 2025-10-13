@@ -133,8 +133,8 @@
           if (r.ok && payload.access_token) {
             localStorage.setItem('access_token', payload.access_token);
             resultEl.style.color = '#388e3c';
-            resultEl.textContent = 'Registro bem-sucedido! Redirecionando...';
-            setTimeout(() => window.location.href = '1-index.html', 800);
+            resultEl.textContent = 'Registro bem-sucedido! Redirecionando para login...';
+            setTimeout(() => window.location.href = 'login.html', 800);
             return;
           } else {
             throw new Error(`${r.status}: ${payload.detail || payload.message || 'Erro no registro'}`);
@@ -157,8 +157,8 @@
       if (email && password && email.includes('@')) {
         localStorage.setItem('access_token', 'demo_token_' + Date.now());
         resultEl.style.color = '#388e3c';
-        resultEl.textContent = 'Registro simulado OK! (Backend indisponível) Redirecionando...';
-        setTimeout(() => window.location.href = '1-index.html', 1200);
+        resultEl.textContent = 'Registro simulado OK! Agora faça login...';
+        setTimeout(() => window.location.href = 'login.html', 1200);
       } else {
         resultEl.style.color = '#d32f2f';
         resultEl.textContent = 'Servidor indisponível. Tente: email válido e senha não vazia.';
