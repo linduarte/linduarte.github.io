@@ -35,17 +35,113 @@
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255,255,255,0.2);
         }
-        .github-pages-logo {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 120px;
-            height: auto;
-            z-index: 1000;
+        /* Footer */
+        .footer {
+            background-color: rgba(234, 216, 231, 0.8);
+            height: 200px;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .footer-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-link {
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.7);
+            transition: all 0.3s;
+        }
+
+        .footer-link:hover {
+            color: #f14e32;
+            background: rgba(255,255,255,0.9);
+        }
+
+        /* Botões alinhados à direita com mesmo estilo */
+        .footer-buttons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .logout-button, .form-btn {
+            font-size: 12px !important;
+            padding: 8px 16px !important;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f14e32;
+            color: white;
+        }
+
+        .logout-button:hover, .form-btn:hover {
+            background: #d63916;
+            transform: translateY(-1px);
+        }
+
+        .footer-instruction {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 12px !important; /* Fonte menor */
+            color: #6c757d;
+            line-height: 1.4;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        /* Footer badges */
+        .footer-badges {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .github-link, .w3c-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .github-link:hover, .w3c-link:hover {
+            color: #f14e32;
+        }
+
+        .footer-logo {
+            height: 20px;
+            width: auto;
             opacity: 0.8;
             transition: opacity 0.3s;
         }
-        .github-pages-logo:hover {
+
+        .footer-logo:hover {
             opacity: 1;
         }
         @media (max-width: 768px) {
@@ -191,18 +287,40 @@
         </section>
 
         <footer class="footer">
-            <div class="footer-flex">
-                <nav class="footer-nav footer-left">
-                    <a href="8-git-add.html" class="footer-link">Voltar</a>
-                    <a href="10-feature_req.html" class="footer-link">Próximo: feature request</a>
-                </nav>
-                <form class="logout-form">
-                    <button id="logoutButton" type="button" class="logout-button">Logout</button>
-                </form>
-                <button id="markCompletedButton" data-topic-id="9" class="form-btn">Marcar como concluído</button>
+            <div class="footer-copyright">
+                © 2025 Curso de Git. Todos os direitos reservados.
             </div>
-            <div class="footer-instruction">Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Marcar como concluído.</div>
-        </footer>
+
+            <div class="footer-flex">
+                <nav class="footer-nav">
+                    <a href="8-git-add.html" class="footer-link">← Voltar</a>
+                    <a href="10-feature_req.html" class="footer-link">Próximo:feature_req →</a>
+                </nav>
+
+                <div class="footer-buttons">
+                    <button id="logoutButton" type="button" class="logout-button">Logout</button>
+                    <button id="markCompletedButton" data-topic-id="4" class="form-btn">Concluído ✓</button>
+                </div>
+            </div>
+
+            <div class="footer-instruction">
+                Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Concluído.
+            </div>
+
+            <div class="footer-badges">
+                <a href="https://pages.github.com/" class="github-link">
+                    <span>🐙 GitHub Pages</span>
+                    <img src="../../static/images/github-mark-white.png"
+                         alt="GitHub Logo"
+                         class="footer-logo">
+                </a>
+                <a href="http://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
+                    <img src="http://jigsaw.w3.org/css-validator/images/vcss"
+                         alt="CSS válido!"
+                         class="footer-logo">
+                </a>
+            </div>
+      </footer>
     <script src="../../static/js/git-course-functions.js"></script>
     <script>Prism.highlightAll();</script>
     </div>

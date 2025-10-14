@@ -25,18 +25,50 @@
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255,255,255,0.2);
         }
-        .github-pages-logo {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 120px;
-            height: auto;
-            z-index: 1000;
-            opacity: 0.8;
-            transition: opacity 0.3s;
+        /* Site footer (landing page) */
+        .site-footer {
+            text-align: center !important;
+            padding: 20px !important;
+            margin-top: 40px !important;
+            background-color: rgba(234, 216, 231, 0.8);
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
+            border-radius: 12px !important;
+            border-top: 1px solid rgba(233,236,239,0.5) !important;
+            color: #6c757d !important;
+            font-size: 14px !important;
         }
-        .github-pages-logo:hover {
-            opacity: 1;
+
+        .footer-badges {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 20px !important;
+            margin-top: 15px !important;
+            flex-wrap: wrap !important;
+        }
+
+        .github-link, .w3c-link {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            color: #6c757d !important;
+            text-decoration: none !important;
+            font-size: 14px !important;
+        }
+
+        .github-link:hover, .w3c-link:hover {
+            color: #f14e32 !important;
+        }
+
+        .footer-logo {
+            height: 20px !important;
+            width: auto !important;
+            opacity: 0.8 !important;
+            transition: opacity 0.3s !important;
+        }
+
+        .footer-logo:hover {
+            opacity: 1 !important;
         }
         @media (max-width: 768px) {
             .github-pages-logo {
@@ -66,10 +98,6 @@
     </script>
 </head>
 <body>
-    <img src="../../static/images/github-pages-logo.png"
-         alt="Powered by GitHub Pages"
-         class="github-pages-logo">
-
     <div class="container">
         <h1 class="program-title">Programa do Curso</h1>
         <ul class="program-list">
@@ -88,20 +116,21 @@
            <li><strong>"git init"</strong>Definição , iniciando um repositório (repo) com um nome específico para o ramo inicial</li>
            <li><strong>"Git workflows" para iniciantes: </strong>Como o Git habilita metodologias ágeis, comandos básicos no git,comandos git que voce usa no dia-a-dia, fluxos de trabalho do git (git workflows)</li>
         </ul>
-        <footer class="footer program-footer">
-            <div class="footer-flex footer-center">
-                <nav class="footer-nav" role="navigation">
-                    <a href="../../landing.html" class="footer-link">Início</a>
-                    <a href="program.html" class="footer-link">Programa</a>
-                </nav>
-                <form class="logout-form">
-                    <button id="logoutButton" type="button" class="logout-button">Logout</button>
-                </form>
-                <div class="program-meta">
-                    <span class="muted">© 2025 Curso de Git. Todos os direitos reservados.</span>
-                </div>
+        <footer class="site-footer">
+            <p>&copy; 2025 Curso de Git. Todos os direitos reservados.</p>
+            <div class="footer-badges">
+                <a href="https://pages.github.com/" class="github-link">
+                    <span>🐙 GitHub Pages</span>
+                    <img src="../../static/images/github-mark-white.png"
+                         alt="GitHub Logo"
+                         class="footer-logo">
+                </a>
+                <a href="http://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
+                    <img src="http://jigsaw.w3.org/css-validator/images/vcss"
+                         alt="CSS válido!"
+                         class="footer-logo">
+                </a>
             </div>
-            <div class="footer-instruction muted">Informações e links úteis</div>
         </footer>
     </div>
 </body>
