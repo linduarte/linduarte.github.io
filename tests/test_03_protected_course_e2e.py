@@ -3,7 +3,7 @@ import re
 # import time
 from playwright.sync_api import Page, expect
 
-COURSE_PAGE = "app/templates/git-course/1-index.html"
+COURSE_PAGE = "app/templates/git-course/1a-prefacio.html"
 
 
 def test_protected_requires_token(page: Page, base_url: str):

@@ -36,7 +36,7 @@ def test_complete_registration_flow(page: Page, base_url: str):
 
         # Verifica sucesso
         current_url = page.url
-        if "1-index.html" in current_url or "course" in current_url:
+        if "1a-prefacio.html" in current_url or "course" in current_url:
             expect(page.locator('[data-test="course-heading"]')).to_be_visible(
                 timeout=5000
             )
@@ -76,7 +76,7 @@ def test_complete_login_flow(page: Page, base_url: str):
 
         # Verifica sucesso
         current_url = page.url
-        if "1a-prefacio.html" in current_url or "1-index.html" in current_url:
+        if "1a-prefacio.html" in current_url:
             assert True
         else:
             success_locator = page.get_by_text(re.compile(r"sucesso|ok|success", re.I))
@@ -98,7 +98,7 @@ def test_logout_functionality(page: Page, base_url: str, auth_token: str):
         page.context.add_init_script(
             f"() => {{ localStorage.setItem('access_token', '{auth_token}'); }}"
         )
-        page.goto(f"{base_url}/app/templates/git-course/1-index.html")
+        page.goto(f"{base_url}/app/templates/git-course/1a-prefacio.html")
         page.wait_for_load_state("networkidle")
 
         current_url = page.url
