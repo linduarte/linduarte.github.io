@@ -13,3 +13,4 @@ __pycache__/
 
 # Remove the *.webp line if it exists and replace with specific files
 # app/static/images/waves.webp (commented out since it's now optimized)
+# Ignore local test images\nfailure_login.png\nfailure_logout.png

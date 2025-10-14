@@ -156,7 +156,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         const token = localStorage.getItem('access_token');
         if (!token) {
-            window.location.href = 'login.html';
+            window.location.href = '../../../landing.html';
             return;
         }
         const logoutBtn = document.getElementById('logoutButton');

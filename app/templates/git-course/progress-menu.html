@@ -26,7 +26,8 @@
     document.addEventListener('DOMContentLoaded', () => {
         const token = localStorage.getItem('access_token');
         if (!token) {
-            window.location.href = 'login.html';
+            // redirect to site entry (landing.html) when not authenticated
+            window.location.href = '../../../landing.html';
             return;
         }
         const logoutBtn = document.getElementById('logoutButton');
