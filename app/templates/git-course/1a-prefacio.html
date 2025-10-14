@@ -182,13 +182,12 @@
             const start = Date.now();
             const tryCheck = () => {
                 const token = localStorage.getItem('access_token');
-                console.log('TEST_LOG: auth-guard poll, token=', token);
                 if (token) {
-                    console.log('TEST_LOG: token found, continuing load');
+                    // token found, continue
                     return;
                 }
                 if (Date.now() - start >= maxWait) {
-                    console.log('TEST_LOG: token not found after wait, redirecting');
+                    // token not found after wait, redirecting
                     window.location.href = '../../../landing.html';
                     return;
                 }
@@ -201,7 +200,7 @@
         try {
             const success = sessionStorage.getItem('login_success');
             if (success) {
-                console.log('TEST_LOG: showing post-login banner');
+                // showing post-login banner
                 const banner = document.createElement('div');
                 banner.id = 'post-login-banner';
                 banner.setAttribute('data-test', 'login-success');
