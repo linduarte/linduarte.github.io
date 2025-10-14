@@ -6,10 +6,11 @@
   <title>Redirecionando...</title>
   <script>
     (function () {
-      try {
+        try {
         const token = localStorage.getItem('access_token');
         if (token) {
-          window.location.replace('app/templates/git-course/1-index.html');
+          // 1-index.html was removed; redirect authenticated users to the prefácio page
+          window.location.replace('app/templates/git-course/1a-prefacio.html');
         } else {
           window.location.replace('landing.html');
         }
