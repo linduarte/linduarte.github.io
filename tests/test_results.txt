@@ -1,72 +1,7 @@
-  .venv  🐍  v3.13.0 Admin in linduarte.github.io ( main) ➜
-pytest -q -k "not slow" -vv
-====================================== test session starts ======================================
-platform win32 -- Python 3.13.0, pytest-8.4.2, pluggy-1.6.0
-rootdir: D:\reposground\work\linduarte.github.io
-configfile: pyproject.toml
-testpaths: tests
-plugins: anyio-4.8.0, base-url-2.1.0, html-4.1.1, metadata-3.1.1, playwright-0.7.1
-collected 15 items
-
-tests\test_01_redirect_e2e.py ..                                                           [ 13%]
-tests\test_02_landing_auth_links_e2e.py ..                                                 [ 26%]
-tests\test_03_protected_course_e2e.py FFF                                                  [ 46%]
-tests\test_04_auth_flow_e2e.py sFF                                                         [ 66%]
-tests\test_05_accessibility_e2e.py .s                                                      [ 80%]
-tests\test_06_visual_regression_e2e.py ...                                                 [100%]
-
+  .venv  🐍  v3.13.0 Admin in linduarte.github.io ( main) ✗
+pytest -q -s tests/test_04_auth_flow_e2e.py::test_complete_login_flow -q -s
+F
 =========================================== FAILURES ============================================
-____________________________ test_protected_requires_token[chromium] ____________________________
-tests\test_03_protected_course_e2e.py:12: in test_protected_requires_token
-    page.wait_for_url(re.compile(r".*/landing\.html$"))
-.venv\Lib\site-packages\playwright\sync_api\_generated.py:9162: in wait_for_url
-    self._sync(
-.venv\Lib\site-packages\playwright\_impl\_page.py:584: in wait_for_url
-    return await self._main_frame.wait_for_url(**locals_to_params(locals()))
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-.venv\Lib\site-packages\playwright\_impl\_frame.py:263: in wait_for_url
-    async with self.expect_navigation(
-.venv\Lib\site-packages\playwright\_impl\_event_context_manager.py:33: in __aexit__
-    await self._future
-.venv\Lib\site-packages\playwright\_impl\_frame.py:239: in continuation
-    event = await waiter.result()
-            ^^^^^^^^^^^^^^^^^^^^^
-E   playwright._impl._errors.TimeoutError: Timeout 30000ms exceeded.
-E   =========================== logs ===========================
-E   waiting for navigation to "re.compile('.*/landing\\.html$')" until 'load'
-E   ============================================================
-______________________________ test_protected_with_token[chromium] ______________________________
-tests\test_03_protected_course_e2e.py:39: in test_protected_with_token
-    heading.wait_for(timeout=7000)
-.venv\Lib\site-packages\playwright\sync_api\_generated.py:17975: in wait_for
-    self._sync(self._impl_obj.wait_for(timeout=timeout, state=state))
-.venv\Lib\site-packages\playwright\_impl\_locator.py:692: in wait_for
-    await self._frame.wait_for_selector(
-.venv\Lib\site-packages\playwright\_impl\_frame.py:369: in wait_for_selector
-    await self._channel.send(
-.venv\Lib\site-packages\playwright\_impl\_connection.py:69: in send
-    return await self._connection.wrap_api_call(
-.venv\Lib\site-packages\playwright\_impl\_connection.py:558: in wrap_api_call
-    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E   playwright._impl._errors.TimeoutError: Locator.wait_for: Timeout 7000ms exceeded.
-E   Call log:
-E     - waiting for locator("[data-test=\"course-heading\"], #course-heading") to be visible
-______________________________ test_logout_clears_token[chromium] _______________________________
-tests\test_03_protected_course_e2e.py:46: in test_logout_clears_token
-    logout_btn.wait_for(timeout=5000)
-.venv\Lib\site-packages\playwright\sync_api\_generated.py:17975: in wait_for
-    self._sync(self._impl_obj.wait_for(timeout=timeout, state=state))
-.venv\Lib\site-packages\playwright\_impl\_locator.py:692: in wait_for
-    await self._frame.wait_for_selector(
-.venv\Lib\site-packages\playwright\_impl\_frame.py:369: in wait_for_selector
-    await self._channel.send(
-.venv\Lib\site-packages\playwright\_impl\_connection.py:69: in send
-    return await self._connection.wrap_api_call(
-.venv\Lib\site-packages\playwright\_impl\_connection.py:558: in wrap_api_call
-    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
-E   playwright._impl._errors.TimeoutError: Locator.wait_for: Timeout 5000ms exceeded.
-E   Call log:
-E     - waiting for locator("#logoutButton") to be visible
 ______________________________ test_complete_login_flow[chromium] _______________________________
 tests\test_04_auth_flow_e2e.py:83: in test_complete_login_flow
     expect(success_locator).to_be_visible(timeout=5000)
@@ -84,32 +19,5 @@ E   Actual value: <element(s) not found>
 E   Call log:
 E     - Expect "to_be_visible" with timeout 5000ms
 E     - waiting for get_by_text(re.compile(r"sucesso|ok|success", re.IGNORECASE))
-______________________________ test_logout_functionality[chromium] ______________________________
-tests\test_04_auth_flow_e2e.py:113: in test_logout_functionality
-    expect(logout_btn).to_be_visible(timeout=3000)
-E   AssertionError: Locator expected to be visible
-E   AssertionError: Locator expected to be visible
-E   Actual value: <element(s) not found>
-E   Actual value: <element(s) not found>
-E   Call log:
-E   Call log:
-E     - Expect "to_be_visible" with timeout 3000ms
-E     - Expect "to_be_visible" with timeout 3000ms
-E     - waiting for locator("#logoutButton")
-E     - waiting for locator("#logoutButton")
-
-During handling of the above exception, another exception occurred:
-tests\test_04_auth_flow_e2e.py:125: in test_logout_functionality
-    raise AssertionError(f"Erro no teste de logout: {e}")
-E   AssertionError: Erro no teste de logout: Locator expected to be visible
-E   Actual value: <element(s) not found>
-E   Call log:
-E     - Expect "to_be_visible" with timeout 3000ms
-E     - waiting for locator("#logoutButton")
 ==================================== short test summary info ====================================
-FAILED tests/test_03_protected_course_e2e.py::test_protected_requires_token[chromium] - playwright._impl._errors.TimeoutError: Timeout 30000ms exceeded.
-FAILED tests/test_03_protected_course_e2e.py::test_protected_with_token[chromium] - playwright._impl._errors.TimeoutError: Locator.wait_for: Timeout 7000ms exceeded.
-FAILED tests/test_03_protected_course_e2e.py::test_logout_clears_token[chromium] - playwright._impl._errors.TimeoutError: Locator.wait_for: Timeout 5000ms exceeded.
 FAILED tests/test_04_auth_flow_e2e.py::test_complete_login_flow[chromium] - AssertionError: Erro no teste de login: Locator expected to be visible
-FAILED tests/test_04_auth_flow_e2e.py::test_logout_functionality[chromium] - AssertionError: Erro no teste de logout: Locator expected to be visible
-======================= 5 failed, 8 passed, 2 skipped in 60.72s (0:01:00) =======================

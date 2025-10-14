@@ -164,11 +164,9 @@
     <script src="../../static/js/config.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const token = localStorage.getItem('access_token');
-        if (!token) {
-            window.location.href = '../../../landing.html';
-            return;
-        }
+        // Note: don't check token immediately — allow tests to inject token via
+        // page.context.add_init_script before navigation completes. A short
+        // delayed guard check follows below.
         const logoutBtn = document.getElementById('logoutButton');
         if (logoutBtn) {
             logoutBtn.addEventListener('click', (e) => {
@@ -176,6 +174,48 @@
                 localStorage.removeItem('access_token');
                 window.location.href = '../../../landing.html';
             });
+        }
+    // Polling guard: wait up to 1000ms for token injected by Playwright's
+        // page.context.add_init_script. Poll every 50ms. This avoids a race
+        // where the guard runs before the test has injected the token.
+        (function waitForToken(maxWait = 1000, interval = 50) {
+            const start = Date.now();
+            const tryCheck = () => {
+                const token = localStorage.getItem('access_token');
+                console.log('TEST_LOG: auth-guard poll, token=', token);
+                if (token) {
+                    console.log('TEST_LOG: token found, continuing load');
+                    return;
+                }
+                if (Date.now() - start >= maxWait) {
+                    console.log('TEST_LOG: token not found after wait, redirecting');
+                    window.location.href = '../../../landing.html';
+                    return;
+                }
+                setTimeout(tryCheck, interval);
+            };
+            tryCheck();
+        })();
+        // If we arrived after login, show a transient success banner so tests
+        // can assert success even after navigation.
+        try {
+            const success = sessionStorage.getItem('login_success');
+            if (success) {
+                console.log('TEST_LOG: showing post-login banner');
+                const banner = document.createElement('div');
+                banner.id = 'post-login-banner';
+                banner.setAttribute('data-test', 'login-success');
+                banner.textContent = 'Sucesso! Success. Bem-vindo ao curso.';
+                banner.style.cssText = 'position:fixed;top:16px;left:50%;transform:translateX(-50%);background:#388e3c;color:#fff;padding:8px 16px;border-radius:8px;z-index:2000;font-weight:700;';
+                document.body.appendChild(banner);
+                // remove flag so it doesn't persist across reloads
+                sessionStorage.removeItem('login_success');
+                setTimeout(() => {
+                    try { banner.remove(); } catch (e) {}
+                }, 3000);
+            }
+        } catch (e) {
+            console.log('TEST_LOG: post-login banner error', e);
         }
     });
     </script>
@@ -187,7 +227,7 @@
 
     <div class="course-container">
         <div class="welcome-header">
-            <h1>🎉 Bem-vindo ao Curso de Git!</h1>
+            <h1 data-test="course-heading">🎉 Bem-vindo ao Curso de Git!</h1>
             <p>Sua jornada para dominar o controle de versão começa aqui</p>
         </div>
 

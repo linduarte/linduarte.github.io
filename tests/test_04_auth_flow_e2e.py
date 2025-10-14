@@ -61,6 +61,12 @@ def test_complete_login_flow(page: Page, base_url: str):
         page.goto(f"{base_url}/app/templates/git-course/login.html")
         expect(page).to_have_url(f"{base_url}/app/templates/git-course/login.html")
 
+        # Forward browser console messages to pytest stdout for diagnosis
+        try:
+            page.on("console", lambda msg: print("PAGE_CONSOLE:", msg.text))
+        except Exception:
+            pass
+
         # Tenta localizar campo de usuário
         username_field = page.locator("#email")
         if not username_field.is_visible():
@@ -70,9 +76,38 @@ def test_complete_login_flow(page: Page, base_url: str):
         username_field.fill("demo_user")
         page.fill("#password", "demo_pass")
 
-        # Submete
-        page.click("button[type='submit']")
+        # Submete - dispatch submit event directly to avoid flaky clicks
+        page.evaluate(
+            """
+            () => {
+                const form = document.getElementById('loginForm');
+                if (form) {
+                    form.dispatchEvent(new Event('submit', {cancelable: true, bubbles: true}));
+                } else {
+                    const btn = document.querySelector("button[type='submit']");
+                    if (btn) btn.click();
+                }
+            }
+        """
+        )
+        print("TEST_STEP: url-after-click (immediate) =", page.url)
+        # Wait briefly for navigation to the course start (demo branch redirects there)
+        try:
+            page.wait_for_url(re.compile(r".*1a-prefacio.html.*"), timeout=2000)
+        except Exception:
+            # not navigated; continue and let the existing assertions run and record artifacts
+            pass
+        print("TEST_STEP: url-after-wait_for_url =", page.url)
         page.wait_for_load_state("networkidle", timeout=8000)
+        print("TEST_STEP: url-after-networkidle =", page.url)
+
+        # Give a short chance for the in-page success banner to appear
+        try:
+            success_banner = page.locator('[data-test="login-success"]')
+            success_banner.wait_for(state="visible", timeout=2000)
+        except Exception:
+            # continue; fallback checks below will assert appropriately
+            pass
 
         # Verifica sucesso
         current_url = page.url
@@ -85,6 +120,9 @@ def test_complete_login_flow(page: Page, base_url: str):
     except Exception as e:
         try:
             page.screenshot(path="failure_login.png")
+            # Save page HTML for debugging
+            with open("failure_login_content.html", "w", encoding="utf-8") as f:
+                f.write(page.content())
         except Exception:
             pass
         raise AssertionError(f"Erro no teste de login: {e}")

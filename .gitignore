@@ -1,4 +1,12 @@
-# created by virtualenv automatically
+# Ignore local test artifacts
+failure_*.png
+failure_*.html
+
+# Python virtualenv
+.venv/
+
+# Byte-compiled / caches
+__pycache__/# created by virtualenv automatically
 .venv/
 .python-version
 app/__pycache__/
