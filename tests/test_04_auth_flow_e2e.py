@@ -109,6 +109,15 @@ def test_complete_login_flow(page: Page, base_url: str):
             # continue; fallback checks below will assert appropriately
             pass
 
+        # Defensive check: wait for localStorage token set by the simulated login
+        try:
+            page.wait_for_function(
+                "() => !!localStorage.getItem('access_token')", timeout=8000
+            )
+        except Exception:
+            # token might not be present; fall back to UI checks below
+            pass
+
         # Verifica sucesso
         current_url = page.url
         if "1a-prefacio.html" in current_url:
@@ -132,10 +141,22 @@ def test_complete_login_flow(page: Page, base_url: str):
 def test_logout_functionality(page: Page, base_url: str, auth_token: str):
     """Testa logout e redirecionamento"""
     try:
-        # Injeta token
-        page.context.add_init_script(
+        # Ensure token is present in localStorage for this origin before visiting
+        # the guarded page. Navigate to the login origin, set token, then go.
+        page.goto(f"{base_url}/app/templates/git-course/login.html")
+        page.wait_for_load_state("networkidle")
+        # Set token directly in localStorage on the same origin
+        page.evaluate(
             f"() => {{ localStorage.setItem('access_token', '{auth_token}'); }}"
         )
+        # Confirm token present
+        try:
+            page.wait_for_function(
+                "() => !!localStorage.getItem('access_token')", timeout=3000
+            )
+        except Exception:
+            # proceed anyway; guard will handle missing token
+            pass
         # navigate with a test injection signal so the page gives a longer grace period
         page.goto(f"{base_url}/app/templates/git-course/1a-prefacio.html?test_inject=1")
         page.wait_for_load_state("networkidle")
@@ -146,10 +167,18 @@ def test_logout_functionality(page: Page, base_url: str, auth_token: str):
             pytest.skip("Redirecionado para landing: token inválido ou auth guard ativo")  # type: ignore
 
         # Verifica botão de logout
+        # ensure token was present before logout
+        token_now = page.evaluate("() => localStorage.getItem('access_token')")
+        assert token_now is not None, "Token ausente antes do logout"
+
         logout_btn = page.locator("#logoutButton")
         expect(logout_btn).to_be_visible(timeout=3000)
         logout_btn.click()
         page.wait_for_load_state("networkidle", timeout=5000)
+
+        # token should be removed after logout
+        token_after = page.evaluate("() => localStorage.getItem('access_token')")
+        assert token_after is None, "Token não removido após logout"
 
         final_url = page.url
         assert "landing.html" in final_url or "index.html" in final_url
