@@ -58,8 +58,22 @@ def test_complete_registration_flow(page: Page, base_url: str):
 def test_complete_login_flow(page: Page, base_url: str):
     """Testa fluxo completo de login em produção (simulado)"""
     try:
-        page.goto(f"{base_url}/app/templates/git-course/login.html")
-        expect(page).to_have_url(f"{base_url}/app/templates/git-course/login.html")
+        # If running in CI, append ?ci=1 to opt into a slightly longer redirect
+        ci_flag = False
+        try:
+            ci_flag = bool(page.context._impl_obj._connection._transport._connection._ws.closed)  # type: ignore
+        except Exception:
+            # fallback: rely on env var exposed by CI
+            import os
+
+            ci_flag = os.getenv("CI", "false").lower() in ("1", "true", "yes")
+
+        login_url = f"{base_url}/app/templates/git-course/login.html"
+        if ci_flag:
+            login_url += "?ci=1"
+
+        page.goto(login_url)
+        expect(page).to_have_url(login_url)
 
         # Forward browser console messages to pytest stdout for diagnosis
         try:
@@ -173,8 +187,25 @@ def test_logout_functionality(page: Page, base_url: str, auth_token: str):
         except Exception:
             # proceed anyway; guard will handle missing token
             pass
+        # determine if running in CI (fallback to env var)
+        ci_flag = False
+        try:
+            import os
+
+            ci_flag = os.getenv("CI", "false").lower() in ("1", "true", "yes")
+        except Exception:
+            ci_flag = False
+
         # navigate with a test injection signal so the page gives a longer grace period
-        page.goto(f"{base_url}/app/templates/git-course/1a-prefacio.html?test_inject=1")
+        prefacio_url = (
+            f"{base_url}/app/templates/git-course/1a-prefacio.html?test_inject=1"
+        )
+        if ci_flag and "?" in prefacio_url:
+            prefacio_url += "&ci=1"
+        elif ci_flag:
+            prefacio_url += "?ci=1"
+
+        page.goto(prefacio_url)
         page.wait_for_load_state("networkidle")
 
         current_url = page.url

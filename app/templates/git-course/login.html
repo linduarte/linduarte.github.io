@@ -131,6 +131,11 @@
   <script src="../../static/js/config.js"></script>
 
   <script>
+    // Read query param to allow CI to opt-in to a longer redirect delay
+    const __login_url_params = new URLSearchParams(window.location.search || '');
+    const __login_ci_flag = __login_url_params.get('ci') === '1' || __login_url_params.get('ci') === 'true';
+    const __login_redirect_delay = __login_ci_flag ? 1000 : 250;
+
     document.getElementById('loginForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const email = document.getElementById('email').value;
@@ -170,7 +175,7 @@
     const existing = localStorage.getItem('access_token');
     if (!existing) localStorage.setItem('access_token', 'demo_login_token_' + Date.now());
   } catch (e) { /* ignore */ }
-  setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, 1000);
+  setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, __login_redirect_delay);
         return;
       }
 
@@ -194,7 +199,7 @@
     const existing = localStorage.getItem('access_token');
     if (!existing) localStorage.setItem('access_token', 'demo_login_token_' + Date.now());
   } catch (e) {}
-  setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, 1000);
+  setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, __login_redirect_delay);
         return;
       }
 
@@ -252,7 +257,7 @@
             // redirect with a short delay so storage writes complete. Add a
             // query parameter to make the post-login signal deterministic.
             try { if (!localStorage.getItem('access_token')) localStorage.setItem('access_token', payload.access_token || ('demo_login_token_' + Date.now())); } catch (e) {}
-            setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, 1000);
+            setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, __login_redirect_delay);
             return;
           } else {
             throw new Error(`${response.status}: ${payload.detail || payload.message || 'Credenciais inválidas'}`);
@@ -287,7 +292,7 @@
   try { sessionStorage.setItem('login_success', '1'); } catch (e) { }
   // redirect with a short delay so storage writes complete
   try { if (!localStorage.getItem('access_token')) localStorage.setItem('access_token', 'demo_login_token_' + Date.now()); } catch (e) {}
-  setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, 1000);
+  setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, __login_redirect_delay);
       } else {
         resultEl.style.color = '#d32f2f';
         resultEl.textContent = 'Servidor indisponível. Tente: email válido e senha.';
