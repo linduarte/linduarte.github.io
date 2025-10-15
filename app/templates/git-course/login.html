@@ -161,7 +161,9 @@
   // persist a transient flag so the destination page can show a success banner
   try { sessionStorage.setItem('login_success', '1'); } catch (e) { /* ignore */ }
   // redirect immediately so tests that inspect URL pass
-  window.location.href = '1a-prefacio.html';
+  // append a query param to signal a test-triggered login (more deterministic
+  // than relying only on sessionStorage across navigation)
+  window.location.href = '1a-prefacio.html?login=1';
         return;
       }
 
@@ -181,7 +183,7 @@
   }
   try { sessionStorage.setItem('login_success', '1'); } catch (e) { }
   // redirect immediately so tests that inspect URL pass
-  window.location.href = '1a-prefacio.html';
+  window.location.href = '1a-prefacio.html?login=1';
         return;
       }
 
@@ -236,8 +238,9 @@
             // mark for tests
             resultEl.setAttribute('data-test', 'login-success');
             resultEl.style.display = 'block';
-            // redirect immediately so tests see final URL
-            window.location.href = '1a-prefacio.html';
+            // redirect immediately so tests see final URL. Add a query
+            // parameter to make the post-login signal deterministic.
+            window.location.href = '1a-prefacio.html?login=1';
             return;
           } else {
             throw new Error(`${response.status}: ${payload.detail || payload.message || 'Credenciais inválidas'}`);
@@ -271,7 +274,7 @@
   resultEl.style.display = 'block';
   try { sessionStorage.setItem('login_success', '1'); } catch (e) { }
   // redirect immediately so tests that inspect URL pass
-  window.location.href = '1a-prefacio.html';
+  window.location.href = '1a-prefacio.html?login=1';
       } else {
         resultEl.style.color = '#d32f2f';
         resultEl.textContent = 'Servidor indisponível. Tente: email válido e senha.';

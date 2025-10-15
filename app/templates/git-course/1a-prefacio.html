@@ -176,16 +176,31 @@
                 window.location.href = '../../../landing.html';
             });
         }
-    // Polling guard: wait up to 1000ms for token injected by Playwright's
-        // page.context.add_init_script. Poll every 50ms. This avoids a race
-        // where the guard runs before the test has injected the token.
-    (function waitForToken(maxWait = 1500, interval = 50) {
+    // Polling guard: wait for token injected by Playwright's
+        // page.context.add_init_script or for the test-driven query param.
+        // Increase maxWait slightly for CI environments and poll every 50ms.
+        // This avoids a race where the guard runs before the test has injected
+        // the token or before the browser completed setting localStorage.
+    (function waitForToken(maxWait = 2500, interval = 50) {
             const start = Date.now();
             const tryCheck = () => {
                 const token = localStorage.getItem('access_token');
+                // Also consider a test-driven query param that indicates
+                // the login flow just executed and the page will have set
+                // sessionStorage/login_success; tests append ?login=1.
+                const params = new URLSearchParams(window.location.search || '');
+                const testLoginFlag = params.get('login');
                 if (token) {
                     // token found, continue
                     return;
+                }
+                if (testLoginFlag === '1') {
+                    // test redirected with ?login=1; give a small extra grace
+                    // period for localStorage to be populated, then continue.
+                    if (Date.now() - start < maxWait) {
+                        setTimeout(tryCheck, interval);
+                        return;
+                    }
                 }
                 if (Date.now() - start >= maxWait) {
                     // token not found after wait, redirecting
