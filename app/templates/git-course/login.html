@@ -165,7 +165,8 @@
   // than relying only on sessionStorage across navigation). Use a short
   // timeout to allow localStorage/sessionStorage writes to complete in
   // headless/CI environments before navigation.
-  setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, 250);
+  console.log('TEST_LOG: redirecting (simulated demo_user). token=', localStorage.getItem('access_token'), 'login_success=', sessionStorage.getItem('login_success'));
+  setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, 500);
         return;
       }
 
@@ -185,7 +186,8 @@
   }
   try { sessionStorage.setItem('login_success', '1'); } catch (e) { }
   // redirect with a short delay so storage writes complete
-  setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, 250);
+  console.log('TEST_LOG: redirecting (isLocalDev). token=', localStorage.getItem('access_token'), 'login_success=', sessionStorage.getItem('login_success'));
+  setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, 500);
         return;
       }
 
@@ -242,7 +244,8 @@
             resultEl.style.display = 'block';
             // redirect with a short delay so storage writes complete. Add a
             // query parameter to make the post-login signal deterministic.
-            setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, 250);
+            console.log('TEST_LOG: redirecting (API success). token=', localStorage.getItem('access_token'), 'login_success=', sessionStorage.getItem('login_success'));
+            setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, 500);
             return;
           } else {
             throw new Error(`${response.status}: ${payload.detail || payload.message || 'Credenciais inválidas'}`);
@@ -276,7 +279,8 @@
   resultEl.style.display = 'block';
   try { sessionStorage.setItem('login_success', '1'); } catch (e) { }
   // redirect with a short delay so storage writes complete
-  setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, 250);
+  console.log('TEST_LOG: redirecting (simulation fallback). token=', localStorage.getItem('access_token'), 'login_success=', sessionStorage.getItem('login_success'));
+  setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, 500);
       } else {
         resultEl.style.color = '#d32f2f';
         resultEl.textContent = 'Servidor indisponível. Tente: email válido e senha.';
