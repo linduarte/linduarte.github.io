@@ -165,7 +165,6 @@
   // than relying only on sessionStorage across navigation). Use a short
   // timeout to allow localStorage/sessionStorage writes to complete in
   // headless/CI environments before navigation.
-  console.log('TEST_LOG: redirecting (simulated demo_user). token=', localStorage.getItem('access_token'), 'login_success=', sessionStorage.getItem('login_success'));
   try {
     // Redundantly persist token to reduce CI race conditions
     const existing = localStorage.getItem('access_token');
@@ -191,7 +190,6 @@
   }
   try { sessionStorage.setItem('login_success', '1'); } catch (e) { }
   // redirect with a short delay so storage writes complete
-  console.log('TEST_LOG: redirecting (isLocalDev). token=', localStorage.getItem('access_token'), 'login_success=', sessionStorage.getItem('login_success'));
   try {
     const existing = localStorage.getItem('access_token');
     if (!existing) localStorage.setItem('access_token', 'demo_login_token_' + Date.now());
@@ -253,7 +251,6 @@
             resultEl.style.display = 'block';
             // redirect with a short delay so storage writes complete. Add a
             // query parameter to make the post-login signal deterministic.
-            console.log('TEST_LOG: redirecting (API success). token=', localStorage.getItem('access_token'), 'login_success=', sessionStorage.getItem('login_success'));
             try { if (!localStorage.getItem('access_token')) localStorage.setItem('access_token', payload.access_token || ('demo_login_token_' + Date.now())); } catch (e) {}
             setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, 1000);
             return;
@@ -289,7 +286,6 @@
   resultEl.style.display = 'block';
   try { sessionStorage.setItem('login_success', '1'); } catch (e) { }
   // redirect with a short delay so storage writes complete
-  console.log('TEST_LOG: redirecting (simulation fallback). token=', localStorage.getItem('access_token'), 'login_success=', sessionStorage.getItem('login_success'));
   try { if (!localStorage.getItem('access_token')) localStorage.setItem('access_token', 'demo_login_token_' + Date.now()); } catch (e) {}
   setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, 1000);
       } else {
