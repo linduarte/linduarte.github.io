@@ -15,7 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
     <style>
         body {
-            background: url('../../static/images/waves.webp') center/cover no-repeat fixed;
+            background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
             font-family: 'Victor Mono', monospace;
             margin: 0;
             padding: 0;
@@ -173,9 +173,6 @@
     </script>
 </head>
 <body class="intro-page">
-    <img src="../../static/images/github-pages-logo.png"
-         alt="Powered by GitHub Pages"
-         class="github-pages-logo">
 
     <div class="container">
         <h1>git add</h1>
@@ -189,7 +186,7 @@
                 <li>Descompacte os arquivos e copie cole no site "simple-website".</li>
                 <li>Verifique pelo Windows Explorer a estrutura agora completa do repositório.</li>
             </ol></ul>
-            <img src="../../static/images/git-status-after-copy.webp" alt="Imagem ...">
+            <img src="/app/static/images/git-status-after-copy.webp" alt="Imagem ...">
             <p class="image-description">Esta imagem mostra usando o comando <code class="language-bash">git status</code> que representa como os arquivos do repositório estão em relação ao Git, ou seja em vermelho,
             que os arquivos não estão sendo rastreados pelo git, "untracked", indica que se use o comando <code class="language-bash">git add</code>
             para mudar o status dos arquivos. Sinaliza mais embaixo dizendo que nada foi adicionado para a realização do "commit".
@@ -206,7 +203,7 @@
         </ul>
         <div class="note">
             <strong>Nota:</strong> O comando <code class="language-bash">git add .</code> adiciona todos os arquivos. Use <code class="language-bash">git add &lt;arquivo&gt;</code> para adicionar arquivos específicos.
-            <img src="../../static/images/git%20add_all.webp" alt="Imagem GitGraph">
+            <img src="/app/static/images/git%20add_all.webp" alt="Imagem GitGraph">
             <p class="image-description">Na imagem anterior podemos notar a aplicação do comando 'git add' em duas situações - na primeira aplicado na
                 pasta 'style' contendo 4 arquivos e no segundo comando 'git add' aplicado usando o curinga '*' para aplicar em todos os arquivos com extensão 'html'.
                 Ao se aplicar o comando <strong>git status</strong> observa-se que todos os arquivos foram 'staged', ou seja prontos para receberem a confirmação via o comando <strong>git commit</strong>.
@@ -240,7 +237,7 @@
             <div class="footer-badges">
                 <a href="https://pages.github.com/" class="github-link">
                     <span>🐙 GitHub Pages</span>
-                    <img src="../../static/images/github-mark-white.png"
+                <img src="/app/static/images/github-mark-white.png"
                          alt="GitHub Logo"
                          class="footer-logo">
                 </a>
