@@ -115,8 +115,17 @@ if not PLUGIN_MODE:
 
     @pytest.fixture(scope="session")
     def browser(_playwright):
-        # headless=True para CI
-        browser = _playwright.chromium.launch(headless=True)
+        # Allow choosing browser via E2E_BROWSER env var (chromium|firefox|webkit)
+        # Default to chromium for local dev and compatibility with previous runs.
+        from os import getenv
+
+        choice = (getenv("E2E_BROWSER") or "chromium").strip().lower()
+        if choice == "firefox":
+            browser = _playwright.firefox.launch(headless=True)
+        elif choice == "webkit":
+            browser = _playwright.webkit.launch(headless=True)
+        else:
+            browser = _playwright.chromium.launch(headless=True)
         yield browser
         browser.close()
 

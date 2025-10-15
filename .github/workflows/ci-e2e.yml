@@ -14,7 +14,10 @@ on:
 jobs:
   e2e:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
+    strategy:
+      matrix:
+        browser: [chromium, firefox, webkit]
 
     steps:
       - name: Checkout
@@ -38,9 +41,11 @@ jobs:
       - name: Run Playwright E2E tests
         env:
           PYTHONUNBUFFERED: "1"
+          E2E_BROWSER: ${{ matrix.browser }}
         run: |
           # Capture pytest stdout/stderr to a file so we can upload and inspect it
           set -euo pipefail
+          echo "Running E2E matrix browser=${E2E_BROWSER}"
           pytest -k e2e --maxfail=2 --disable-warnings -v 2>&1 | tee pytest-output.log
           # propagate pytest exit code
           exit ${PIPESTATUS[0]}
