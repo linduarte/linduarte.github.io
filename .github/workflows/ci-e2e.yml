@@ -39,7 +39,11 @@ jobs:
         env:
           PYTHONUNBUFFERED: "1"
         run: |
-          pytest -k e2e --maxfail=2 --disable-warnings -v
+          # Capture pytest stdout/stderr to a file so we can upload and inspect it
+          set -euo pipefail
+          pytest -k e2e --maxfail=2 --disable-warnings -v 2>&1 | tee pytest-output.log
+          # propagate pytest exit code
+          exit ${PIPESTATUS[0]}
       - name: Upload test artifacts
         if: always()
         uses: actions/upload-artifact@v4
@@ -50,3 +54,4 @@ jobs:
             failure_*.html
             failure_*.log
             failure_*.txt
+            pytest-output.log
