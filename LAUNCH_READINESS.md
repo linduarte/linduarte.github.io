@@ -18,9 +18,9 @@ Quick commands
 - Run Lighthouse (Chrome):
   npx lighthouse https://<your-preview-url> --output html --output-path=LH-report.html --chrome-flags="--headless"
 
-- Run Playwright tests locally (Windows PowerShell):
+-- Run Playwright tests locally (Windows PowerShell) using the repo wrapper `uv`:
   & .venv\Scripts\Activate.ps1
-  pytest -k e2e -v
+  uv run pytest -k e2e -v
 
 - Run a11y check with pa11y (example):
   npx pa11y https://<your-preview-url>
