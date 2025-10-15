@@ -162,8 +162,10 @@
   try { sessionStorage.setItem('login_success', '1'); } catch (e) { /* ignore */ }
   // redirect immediately so tests that inspect URL pass
   // append a query param to signal a test-triggered login (more deterministic
-  // than relying only on sessionStorage across navigation)
-  window.location.href = '1a-prefacio.html?login=1';
+  // than relying only on sessionStorage across navigation). Use a short
+  // timeout to allow localStorage/sessionStorage writes to complete in
+  // headless/CI environments before navigation.
+  setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, 250);
         return;
       }
 
@@ -182,8 +184,8 @@
     banner.style.display = 'block';
   }
   try { sessionStorage.setItem('login_success', '1'); } catch (e) { }
-  // redirect immediately so tests that inspect URL pass
-  window.location.href = '1a-prefacio.html?login=1';
+  // redirect with a short delay so storage writes complete
+  setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, 250);
         return;
       }
 
@@ -238,9 +240,9 @@
             // mark for tests
             resultEl.setAttribute('data-test', 'login-success');
             resultEl.style.display = 'block';
-            // redirect immediately so tests see final URL. Add a query
-            // parameter to make the post-login signal deterministic.
-            window.location.href = '1a-prefacio.html?login=1';
+            // redirect with a short delay so storage writes complete. Add a
+            // query parameter to make the post-login signal deterministic.
+            setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, 250);
             return;
           } else {
             throw new Error(`${response.status}: ${payload.detail || payload.message || 'Credenciais inválidas'}`);
@@ -273,8 +275,8 @@
   resultEl.setAttribute('data-test', 'login-success');
   resultEl.style.display = 'block';
   try { sessionStorage.setItem('login_success', '1'); } catch (e) { }
-  // redirect immediately so tests that inspect URL pass
-  window.location.href = '1a-prefacio.html?login=1';
+  // redirect with a short delay so storage writes complete
+  setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, 250);
       } else {
         resultEl.style.color = '#d32f2f';
         resultEl.textContent = 'Servidor indisponível. Tente: email válido e senha.';
