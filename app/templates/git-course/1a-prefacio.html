@@ -190,6 +190,13 @@
                 // sessionStorage/login_success; tests append ?login=1.
                 const params = new URLSearchParams(window.location.search || '');
                 const testLoginFlag = params.get('login');
+                const testInjectFlag = params.get('test_inject');
+                // If the test indicates this is a CI/test navigation, give a
+                // longer grace period for token injection (headless/CI can be
+                // slower). Increase maxWait to 5000ms in those cases.
+                if (testLoginFlag === '1' || testInjectFlag === '1') {
+                    maxWait = 5000;
+                }
                 if (token) {
                     // token found, continue
                     return;

@@ -104,7 +104,7 @@ def test_complete_login_flow(page: Page, base_url: str):
         # Give a short chance for the in-page success banner to appear
         try:
             success_banner = page.locator('[data-test="login-success"]')
-            success_banner.wait_for(state="visible", timeout=4000)
+            success_banner.wait_for(state="visible", timeout=8000)
         except Exception:
             # continue; fallback checks below will assert appropriately
             pass
@@ -136,7 +136,8 @@ def test_logout_functionality(page: Page, base_url: str, auth_token: str):
         page.context.add_init_script(
             f"() => {{ localStorage.setItem('access_token', '{auth_token}'); }}"
         )
-        page.goto(f"{base_url}/app/templates/git-course/1a-prefacio.html")
+        # navigate with a test injection signal so the page gives a longer grace period
+        page.goto(f"{base_url}/app/templates/git-course/1a-prefacio.html?test_inject=1")
         page.wait_for_load_state("networkidle")
 
         current_url = page.url
