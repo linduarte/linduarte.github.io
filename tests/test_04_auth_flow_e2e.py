@@ -132,6 +132,22 @@ def test_complete_login_flow(page: Page, base_url: str):
             # Save page HTML for debugging
             with open("failure_login_content.html", "w", encoding="utf-8") as f:
                 f.write(page.content())
+            # Save collected console messages if any
+            try:
+                with open("failure_console.log", "w", encoding="utf-8") as cf:
+                    # page.console_messages is not a standard attribute; we print
+                    # console messages into stdout (PAGE_CONSOLE:) earlier. As a
+                    # fallback, attempt to evaluate and capture localStorage state.
+                    try:
+                        token_val = page.evaluate(
+                            "() => localStorage.getItem('access_token')"
+                        )
+                        cf.write(f"localStorage.access_token={token_val}\n")
+                        cf.write(f"url={page.url}\n")
+                    except Exception as _:
+                        cf.write("failed to read runtime state\n")
+            except Exception:
+                pass
         except Exception:
             pass
         raise AssertionError(f"Erro no teste de login: {e}")

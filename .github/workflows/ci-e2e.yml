@@ -40,3 +40,13 @@ jobs:
           PYTHONUNBUFFERED: "1"
         run: |
           pytest -k e2e --maxfail=2 --disable-warnings -v
+      - name: Upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-failures-${{ github.run_id }}
+          path: |
+            failure_*.png
+            failure_*.html
+            failure_*.log
+            failure_*.txt

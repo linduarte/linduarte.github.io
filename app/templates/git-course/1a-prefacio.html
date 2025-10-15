@@ -211,6 +211,7 @@
                 }
                 if (Date.now() - start >= maxWait) {
                     // token not found after wait, redirecting
+                    console.log('TEST_LOG: auth-guard redirecting to landing; token=', localStorage.getItem('access_token'), 'elapsed=', Date.now()-start);
                     window.location.href = '../../../landing.html';
                     return;
                 }
