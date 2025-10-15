@@ -25,25 +25,18 @@ jobs:
         with:
           python-version: '3.13'
 
-      - name: Install uv
+      - name: Upgrade pip and install project deps
         run: |
-          pip install uv
-
-      - name: Setup virtualenv (uv)
-        run: |
-          uv venv
-          echo "VIRTUAL_ENV=$(uv venv --path)" >> $GITHUB_ENV
-
-      - name: Install dependencies
-        run: |
-          uv pip install .[e2e]
+          python -m pip install --upgrade pip
+          pip install .[e2e]
 
       - name: Install Playwright browsers
         run: |
-          uv run playwright install --with-deps
+          # Use python -m playwright to ensure the playwright CLI from the installed package is used
+          python -m playwright install --with-deps
 
       - name: Run Playwright E2E tests
         env:
           PYTHONUNBUFFERED: "1"
         run: |
-          uv run pytest -k e2e --maxfail=2 --disable-warnings -v
+          pytest -k e2e --maxfail=2 --disable-warnings -v

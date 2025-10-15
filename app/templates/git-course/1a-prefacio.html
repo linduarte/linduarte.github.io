@@ -179,7 +179,7 @@
     // Polling guard: wait up to 1000ms for token injected by Playwright's
         // page.context.add_init_script. Poll every 50ms. This avoids a race
         // where the guard runs before the test has injected the token.
-        (function waitForToken(maxWait = 1000, interval = 50) {
+    (function waitForToken(maxWait = 1500, interval = 50) {
             const start = Date.now();
             const tryCheck = () => {
                 const token = localStorage.getItem('access_token');
