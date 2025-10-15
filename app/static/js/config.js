@@ -109,6 +109,50 @@ window.apiCall = apiCall;
 window.safeParseJSON = safeParseJSON;
 window.apiForm = apiForm;
 
+// Backwards-compatibility runtime fixer
+// Some test-artifacts and older templates reference legacy paths like
+// '/static/images/...' or '../../static/images/...'. When served from the
+// repository root these resolve to non-existent locations and cause noisy
+// 404s in audits. Normalize common legacy image paths to the canonical
+// '/app/static/images/' at DOMContentLoaded.
+function _fixLegacyImagePaths() {
+    try {
+        const imgs = Array.from(document.getElementsByTagName('img'));
+        imgs.forEach((img) => {
+            const raw = img.getAttribute('src') || '';
+            if (!raw) return;
+            // If already correct, skip
+            if (raw.startsWith('/app/static/images/') || raw.includes('/app/static/images/')) return;
+            // Replace absolute '/static/...' -> '/app/static/...'
+            if (raw.startsWith('/static/images/')) {
+                img.src = raw.replace('/static/images/', '/app/static/images/');
+                return;
+            }
+            // Replace relative '../../static/...' patterns used in templates
+            if (raw.includes('../../static/images/')) {
+                img.src = raw.replace(/\.\.\/\.\.\/static\/images\//g, '/app/static/images/');
+                return;
+            }
+            // Replace any remaining occurrences of '/static/images/' anywhere
+            if (raw.includes('/static/images/')) {
+                img.src = raw.replace('/static/images/', '/app/static/images/');
+            }
+        });
+    } catch (e) {
+        // Non-fatal - do not break page
+        console.warn('fixLegacyImagePaths failed', e && e.message);
+    }
+}
+
+if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', _fixLegacyImagePaths);
+    } else {
+        // already ready
+        setTimeout(_fixLegacyImagePaths, 0);
+    }
+}
+
 // Dev notes (Windows PowerShell):
 // 1) Create venv (if not exists):  python -m venv .venv
 // 2) Activate:  .\.venv\Scripts\Activate.ps1

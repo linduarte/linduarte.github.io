@@ -1,24 +1,32 @@
-# Ignore local test artifacts
-failure_*.png
-failure_*.html
+# .gitignore - repository-specific ignores
 
-# Python virtualenv
+# Python virtual environment
 .venv/
 
 # Byte-compiled / caches
-__pycache__/# created by virtualenv automatically
-.venv/
-.python-version
-app/__pycache__/
-app/__init__.py
-uv.lock
-.ruff_cache/
 __pycache__/
+app/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.ruff_cache/
 
-# Large image files (over 500KB)
-# Add specific large files here instead of blanket *.webp
-# app/static/images/large-file.webp
+# Local test artifacts created by test runs / CI / debugging
+failure_*.png
+failure_*.html
+failure_login.png
+failure_logout.png
 
-# Remove the *.webp line if it exists and replace with specific files
-# app/static/images/waves.webp (commented out since it's now optimized)
-# Ignore local test images\nfailure_login.png\nfailure_logout.png
+# Generated reports and test artifacts (keep these out of the repo)
+reports/
+reports/**
+tests/artifacts/
+tests/artifacts/**
+
+# Tooling / lock files / small local files
+.python-version
+uv.lock
+
+# If you need to ignore specific large images, add them explicitly here.
+# e.g. app/static/images/large-file.webp
