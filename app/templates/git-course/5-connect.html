@@ -39,6 +39,7 @@
         /* Footer */
         .footer {
             background-color: rgba(234, 216, 231, 0.8);
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
             height: 200px;
             border-radius: 12px;
             padding: 20px;
@@ -61,7 +62,8 @@
         .footer-link {
             color: #6c757d;
             text-decoration: none;
-            font-size: 14px;
+            font-family: 'Victor Mono', monospace;
+            font-size: 12px;
             padding: 8px 12px;
             border-radius: 6px;
             background: rgba(255,255,255,0.7);
@@ -81,7 +83,8 @@
         }
 
         .logout-button, .form-btn {
-            font-size: 12px !important;
+            font-family: 'Victor Mono', monospace;
+            font-size: 13px !important;
             padding: 8px 16px !important;
             border: none;
             border-radius: 6px;
@@ -98,16 +101,18 @@
 
         .footer-instruction {
             text-align: center;
-            margin-top: 15px;
-            font-size: 12px !important; /* Fonte menor */
+            font-family: 'Victor Mono', monospace;
+            margin-top: 12px;
+            font-size: 13px !important; /* Fonte menor */
             color: #6c757d;
             line-height: 1.4;
         }
 
         .footer-copyright {
             text-align: center;
+            font-family: 'Victor Mono', monospace;
             margin-bottom: 15px;
-            font-size: 14px;
+            font-size: 12px;
             color: #6c757d;
             font-weight: 500;
         }
@@ -128,7 +133,7 @@
             gap: 8px;
             color: #6c757d;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 12px;
         }
 
         .github-link:hover, .w3c-link:hover {
@@ -144,6 +149,14 @@
 
         .footer-logo:hover {
             opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .github-pages-logo {
+                width: 80px;
+                top: 10px;
+                right: 10px;
+            }
         }
 
 

@@ -55,7 +55,7 @@
             color: #6c757d;
             text-decoration: none;
             font-family: 'Victor Mono', monospace;
-            font-size: 13px;
+            font-size: 15px;
             padding: 8px 12px;
             border-radius: 6px;
             background: rgba(255,255,255,0.7);
@@ -76,7 +76,7 @@
 
         .logout-button, .form-btn {
             font-family: 'Victor Mono', monospace;
-            font-size: 12px !important;
+            font-size: 14px !important;
             padding: 8px 16px !important;
             border: none;
             border-radius: 6px;
@@ -95,7 +95,7 @@
             text-align: center;
             font-family: 'Victor Mono', monospace;
             margin-top: 15px;
-            font-size: 12px !important; /* Fonte menor */
+            font-size: 15px !important; /* Fonte menor */
             color: #6c757d;
             line-height: 1.4;
         }
@@ -104,7 +104,7 @@
             text-align: center;
             font-family: 'Victor Mono', monospace;
             margin-bottom: 15px;
-            font-size: 13px;
+            font-size: 15px;
             color: #6c757d;
             font-weight: 500;
         }
@@ -454,18 +454,40 @@
         <!-- filepath:https://4sysops.com/archives/git-reset-vs-git-revert/-->
 
         <footer class="footer">
+            <div class="footer-copyright">
+                © 2025 Curso de Git. Todos os direitos reservados.
+            </div>
+
             <div class="footer-flex">
-                <nav class="footer-nav footer-left">
+                <nav class="footer-nav">
                     <a href="12-git-diff.html" class="footer-link">Voltar</a>
                     <a href="14-git-init.html" class="footer-link">Próximo: git-init</a>
                 </nav>
-                <form class="logout-form">
+
+                <div class="footer-buttons">
                     <button id="logoutButton" type="button" class="logout-button">Logout</button>
-                </form>
-                <button id="markCompletedButton" data-topic-id="14" class="form-btn">Marcar como concluído</button>
+                    <button id="markCompletedButton" data-topic-id="4" class="form-btn">Concluído ✓</button>
+                </div>
             </div>
-            <div class="footer-instruction">Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Marcar como concluído.</div>
-        </footer>
+
+            <div class="footer-instruction">
+                Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Concluído.
+            </div>
+
+            <div class="footer-badges">
+                <a href="https://pages.github.com/" class="github-link">
+                    <span>🐙 GitHub Pages</span>
+                    <img src="../../static/images/github-mark-white.png"
+                         alt="GitHub Logo"
+                         class="footer-logo">
+                </a>
+                <a href="http://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
+                    <img src="http://jigsaw.w3.org/css-validator/images/vcss"
+                         alt="CSS válido!"
+                         class="footer-logo">
+                </a>
+            </div>
+      </footer>
         <script src="../../static/js/git-course-functions.js"></script>
     <script>
     document.getElementById("markCompletedButton").addEventListener("click", async () => {
