@@ -136,6 +136,13 @@
     const __login_ci_flag = __login_url_params.get('ci') === '1' || __login_url_params.get('ci') === 'true';
     const __login_redirect_delay = __login_ci_flag ? 1000 : 250;
 
+    // Helper to redirect to prefacio while preserving CI opt-in flag
+    function __redirectToPrefacio() {
+      let target = '1a-prefacio.html?login=1';
+      if (__login_ci_flag) target += '&ci=1';
+      window.location.href = target;
+    }
+
     document.getElementById('loginForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const email = document.getElementById('email').value;
@@ -175,7 +182,7 @@
     const existing = localStorage.getItem('access_token');
     if (!existing) localStorage.setItem('access_token', 'demo_login_token_' + Date.now());
   } catch (e) { /* ignore */ }
-  setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, __login_redirect_delay);
+  setTimeout(__redirectToPrefacio, __login_redirect_delay);
         return;
       }
 
@@ -199,7 +206,7 @@
     const existing = localStorage.getItem('access_token');
     if (!existing) localStorage.setItem('access_token', 'demo_login_token_' + Date.now());
   } catch (e) {}
-  setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, __login_redirect_delay);
+  setTimeout(__redirectToPrefacio, __login_redirect_delay);
         return;
       }
 
@@ -257,7 +264,7 @@
             // redirect with a short delay so storage writes complete. Add a
             // query parameter to make the post-login signal deterministic.
             try { if (!localStorage.getItem('access_token')) localStorage.setItem('access_token', payload.access_token || ('demo_login_token_' + Date.now())); } catch (e) {}
-            setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, __login_redirect_delay);
+            setTimeout(__redirectToPrefacio, __login_redirect_delay);
             return;
           } else {
             throw new Error(`${response.status}: ${payload.detail || payload.message || 'Credenciais inválidas'}`);

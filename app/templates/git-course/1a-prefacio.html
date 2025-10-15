@@ -195,7 +195,10 @@
                 // longer grace period for token injection (headless/CI can be
                 // slower). Increase maxWait to 5000ms in those cases.
                 if (testLoginFlag === '1' || testInjectFlag === '1') {
-                    maxWait = 5000;
+                    // Give more time in CI/test navigation to avoid races
+                    maxWait = 7000;
+                    // also increase polling interval slightly to reduce overhead
+                    interval = 75;
                 }
                 if (token) {
                     // token found, continue
@@ -232,9 +235,12 @@
                 document.body.appendChild(banner);
                 // remove flag so it doesn't persist across reloads
                 sessionStorage.removeItem('login_success');
+                // If this navigation came from a test or CI, keep the banner
+                // visible longer so the test can reliably detect it.
+                const bannerTimeout = (new URLSearchParams(window.location.search || '').get('ci') === '1' || new URLSearchParams(window.location.search || '').get('login') === '1') ? 6000 : 3000;
                 setTimeout(() => {
                     try { banner.remove(); } catch (e) {}
-                }, 3000);
+                }, bannerTimeout);
             }
         } catch (e) {
             console.log('TEST_LOG: post-login banner error', e);
