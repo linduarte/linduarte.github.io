@@ -42,9 +42,9 @@ jobs:
         run: |
           mkdir -p reports
           # capture both stdout (html) and stderr for debugging; keep job non-failing
-          npx -y pa11y "http://localhost:8000/landing.html" --reporter html > reports/landing-pa11y.html 2> reports/landing-pa11y.err || true
-          npx -y pa11y "http://localhost:8000/app/templates/git-course/login.html" --reporter html > reports/login-pa11y.html 2> reports/login-pa11y.err || true
-          npx -y pa11y "http://localhost:8000/app/templates/git-course/1a-prefacio.html" --reporter html > reports/prefacio-pa11y.html 2> reports/prefacio-pa11y.err || true
+          npx -y pa11y "http://localhost:8000/landing.html" --config pa11y-ci.config.json --reporter html > reports/landing-pa11y.html 2> reports/landing-pa11y.err || true
+          npx -y pa11y "http://localhost:8000/app/templates/git-course/login.html" --config pa11y-ci.config.json --reporter html > reports/login-pa11y.html 2> reports/login-pa11y.err || true
+          npx -y pa11y "http://localhost:8000/app/templates/git-course/1a-prefacio.html" --config pa11y-ci.config.json --reporter html > reports/prefacio-pa11y.html 2> reports/prefacio-pa11y.err || true
           # show small diagnostics to logs so that empty files are easier to debug in CI
           echo "Landing pa11y size:" && ls -l reports/landing-pa11y.* || true
           echo "Login pa11y size:" && ls -l reports/login-pa11y.* || true
