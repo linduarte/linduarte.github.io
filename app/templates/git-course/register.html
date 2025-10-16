@@ -52,7 +52,7 @@
       font-size: 1em;
     }
     button {
-      background: #f14e32;
+      background: #dc391d; /* improved contrast */
       color: #fff;
       border: none;
       border-radius: 6px;
@@ -63,7 +63,7 @@
       transition: background 0.2s;
     }
     button:hover {
-      background: #5c4033;
+      background: #a53320;
     }
     #result {
       margin-top: 18px;
@@ -73,13 +73,14 @@
   </style>
 </head>
 <body>
+  <main>
   <div class="register-container">
     <h2>Crie sua conta</h2>
     <form id="registerForm">
-      <label>Email:</label>
-      <input type="text" id="email" name="email" required>
-      <label>Senha:</label>
-      <input type="password" id="password" name="password" required>
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email" aria-required="true" required>
+      <label for="password">Senha:</label>
+      <input type="password" id="password" name="password" aria-required="true" required>
       <button type="submit">Registrar</button>
     </form>
     <div id="result"></div>

@@ -2,6 +2,27 @@ html { background-color:slategray;
 
 }
 
+/* Accessibility: visible skip link for keyboard users */
+.skip-link {
+    position: absolute;
+    left: -999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+.skip-link:focus {
+    left: 10px;
+    top: 10px;
+    width: auto;
+    height: auto;
+    padding: 8px 12px;
+    background: #000;
+    color: #fff;
+    z-index: 9999;
+    border-radius: 4px;
+}
+
 body {
     min-height: 100vh;
     max-width: 1000px;
@@ -163,9 +184,7 @@ h5 {
 .grid-item p {
     font-family:'Times New Roman', Times, serif; /* Choose a suitable font family */
     font-size: 19px; /* Adjust as needed for text size */
-    color: #333; /* Choose a suitable text color */
-
-
+    color: #222; /* Improved contrast for accessibility */
 }
 
 .grid-block{

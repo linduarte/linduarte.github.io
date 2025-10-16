@@ -76,7 +76,7 @@
       font-size: 1em;
     }
     button {
-      background: #f14e32;
+      background: #dc391d; /* darker orange for contrast */
       color: #fff;
       border: none;
       border-radius: 6px;
@@ -87,7 +87,7 @@
       transition: background 0.2s;
     }
     button:hover {
-      background: #5c4033;
+      background: #a53320; /* hover darker */
     }
     #result {
       margin-top: 18px;
@@ -98,13 +98,14 @@
 </head>
 <body>
   <!-- debug instrumentation removed -->
+  <main>
   <div class="login-container">
     <h2>Entrar no Git Course</h2>
     <form id="loginForm">
-      <label>Email:</label>
-      <input type="email" id="email" name="email" required>
-      <label>Senha:</label>
-      <input type="password" id="password" name="password" required>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" aria-required="true" required>
+      <label for="password">Senha:</label>
+      <input type="password" id="password" name="password" aria-required="true" required>
       <button type="submit">Entrar</button>
     </form>
   <div id="result"></div>

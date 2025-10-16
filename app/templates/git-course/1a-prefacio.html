@@ -79,7 +79,7 @@
             margin: 40px 0;
         }
         .start-button button {
-            background: #f14e32;
+            background: #dc391d; /* improved contrast */
             color: white;
             padding: 18px 40px;
             border: none;
@@ -88,12 +88,12 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(241, 78, 50, 0.3);
+            box-shadow: 0 4px 15px rgba(220, 57, 29, 0.25);
         }
         .start-button button:hover {
-            background: #d63a24;
+            background: #a53320;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(241, 78, 50, 0.4);
+            box-shadow: 0 6px 20px rgba(165, 51, 32, 0.35);
         }
         .footer-actions {
             display: flex;
@@ -249,6 +249,7 @@
     </script>
 </head>
 <body>
+    <main>
     <div class="course-container">
         <div class="welcome-header">
             <h1 data-test="course-heading">🎉 Bem-vindo ao Curso de Git!</h1>
@@ -281,9 +282,9 @@
             </div>
         </div>
 
-        <div style="background: #e8f4fd; padding: 20px; border-radius: 10px; margin: 30px 0; border-left: 4px solid #0d6efd;">
+        <div style="background: #ffffff; padding: 20px; border-radius: 10px; margin: 30px 0; border-left: 4px solid #0d6efd;">
             <h4 style="color: #0d6efd; margin-bottom: 10px;">💡 Dica importante</h4>
-            <p style="margin: 0; color: #5c4033;">Este curso segue uma abordagem prática baseada no livro "Practical Guide to Git and GitHub For Windows Users" de Roberto Vormittag. Você aprenderá fazendo!</p>
+            <p style="margin: 0; color: #222;">Este curso segue uma abordagem prática baseada no livro "Practical Guide to Git and GitHub For Windows Users" de Roberto Vormittag. Você aprenderá fazendo!</p>
         </div>
 
         <div class="start-button">
@@ -299,6 +300,7 @@
             <button id="logoutButton" class="logout-btn">Logout</button>
         </div>
     </div>
+    </main>
 
     <footer class="site-footer">
       <p>&copy; 2025 Curso de Git. Todos os direitos reservados.</p>
