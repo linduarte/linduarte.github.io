@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      pull-requests: write
 
     steps:
       - name: Checkout repository
@@ -26,16 +27,28 @@ jobs:
 
       - name: Start simple HTTP server
         run: |
-          python -m http.server 8000 &
-          # give server a moment to start
-          sleep 2
+          # start a simple server in background and redirect output to /dev/null
+          python -m http.server 8000 > /dev/null 2>&1 &
+          # wait for the server to be reachable (give it a few seconds)
+          for i in 1 2 3 4 5; do
+            if curl -sS -I http://localhost:8000/landing.html | head -n1 | grep -q "200"; then
+              echo "server up"; break
+            else
+              echo "waiting for server... ($i)"; sleep 1
+            fi
+          done
 
       - name: Run pa11y reports
         run: |
           mkdir -p reports
-          npx -y pa11y "http://localhost:8000/landing.html" --reporter html > reports/landing-pa11y.html || true
-          npx -y pa11y "http://localhost:8000/app/templates/git-course/login.html" --reporter html > reports/login-pa11y.html || true
-          npx -y pa11y "http://localhost:8000/app/templates/git-course/1a-prefacio.html" --reporter html > reports/prefacio-pa11y.html || true
+          # capture both stdout (html) and stderr for debugging; keep job non-failing
+          npx -y pa11y "http://localhost:8000/landing.html" --reporter html > reports/landing-pa11y.html 2> reports/landing-pa11y.err || true
+          npx -y pa11y "http://localhost:8000/app/templates/git-course/login.html" --reporter html > reports/login-pa11y.html 2> reports/login-pa11y.err || true
+          npx -y pa11y "http://localhost:8000/app/templates/git-course/1a-prefacio.html" --reporter html > reports/prefacio-pa11y.html 2> reports/prefacio-pa11y.err || true
+          # show small diagnostics to logs so that empty files are easier to debug in CI
+          echo "Landing pa11y size:" && ls -l reports/landing-pa11y.* || true
+          echo "Login pa11y size:" && ls -l reports/login-pa11y.* || true
+          echo "Prefacio pa11y size:" && ls -l reports/prefacio-pa11y.* || true
 
       - name: Run Lighthouse (desktop)
         env:
@@ -51,3 +64,51 @@ jobs:
         with:
           name: audit-reports
           path: reports/
+
+      - name: Post audit summary to PR (when applicable)
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const repo = process.env.GITHUB_REPOSITORY;
+            const runId = process.env.GITHUB_RUN_ID;
+            const artifactUrl = `https://github.com/${repo}/suites/${runId}/artifacts`;
+            const reports = [
+              {file: 'reports/landing-lighthouse.report.json', title: 'Landing'},
+              {file: 'reports/login-lighthouse.report.json', title: 'Login'},
+              {file: 'reports/prefacio-lighthouse.report.json', title: 'Prefacio'},
+            ];
+
+            let body = `## Automated audit summary\n\nArtifacts: ${artifactUrl}\n\n`;
+            for (const r of reports) {
+              if (!fs.existsSync(r.file)) { body += `### ${r.title}\n- No Lighthouse report generated.\n\n`; continue; }
+              try {
+                const j = JSON.parse(fs.readFileSync(r.file, 'utf8'));
+                const cats = j.categories || {};
+                const perf = cats.performance ? Math.round((cats.performance.score||0)*100) : 'N/A';
+                const acc = cats.accessibility ? Math.round((cats.accessibility.score||0)*100) : 'N/A';
+                const bp = cats['best-practices'] ? Math.round((cats['best-practices'].score||0)*100) : 'N/A';
+                const seo = cats.seo ? Math.round((cats.seo.score||0)*100) : 'N/A';
+                const fcp = j.audits && j.audits['first-contentful-paint'] ? j.audits['first-contentful-paint'].displayValue : 'N/A';
+                const lcp = j.audits && j.audits['largest-contentful-paint'] ? j.audits['largest-contentful-paint'].displayValue : 'N/A';
+                const cls = j.audits && j.audits['cumulative-layout-shift'] ? j.audits['cumulative-layout-shift'].displayValue : 'N/A';
+                body += `### ${r.title}\n- Performance: **${perf}**\n- Accessibility: **${acc}**\n- Best practices: **${bp}**\n- SEO: **${seo}**\n- FCP: ${fcp}\n- LCP: ${lcp}\n- CLS: ${cls}\n\n`;
+              } catch (e) {
+                body += `### ${r.title}\n- Failed to parse report: ${e.message}\n\n`;
+              }
+            }
+
+            // Post comment to the PR
+            const issue_number = context.issue.number;
+            if (!issue_number) {
+              core.setFailed('No issue/PR number found in context; skipping comment.');
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number,
+                body,
+              });
+            }
