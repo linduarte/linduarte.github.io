@@ -1,0 +1,53 @@
+name: Generate accessibility & performance reports
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - main
+      - 'fix/*'
+
+jobs:
+  audit:
+    name: Run pa11y & Lighthouse and upload reports
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Start simple HTTP server
+        run: |
+          python -m http.server 8000 &
+          # give server a moment to start
+          sleep 2
+
+      - name: Run pa11y reports
+        run: |
+          mkdir -p reports
+          npx -y pa11y "http://localhost:8000/landing.html" --reporter html > reports/landing-pa11y.html || true
+          npx -y pa11y "http://localhost:8000/app/templates/git-course/login.html" --reporter html > reports/login-pa11y.html || true
+          npx -y pa11y "http://localhost:8000/app/templates/git-course/1a-prefacio.html" --reporter html > reports/prefacio-pa11y.html || true
+
+      - name: Run Lighthouse (desktop)
+        env:
+          LH_HEADLESS_FLAGS: "--headless --no-sandbox --disable-gpu"
+        run: |
+          mkdir -p reports
+          npx -y lighthouse "http://localhost:8000/landing.html" --chrome-flags="$LH_HEADLESS_FLAGS" --emulated-form-factor=desktop --throttling-method=provided --output=json --output-path=reports/landing-lighthouse.report.json || true
+          npx -y lighthouse "http://localhost:8000/app/templates/git-course/login.html" --chrome-flags="$LH_HEADLESS_FLAGS" --emulated-form-factor=desktop --throttling-method=provided --output=json --output-path=reports/login-lighthouse.report.json || true
+          npx -y lighthouse "http://localhost:8000/app/templates/git-course/1a-prefacio.html" --chrome-flags="$LH_HEADLESS_FLAGS" --emulated-form-factor=desktop --throttling-method=provided --output=json --output-path=reports/prefacio-lighthouse.report.json || true
+
+      - name: Upload reports as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-reports
+          path: reports/
