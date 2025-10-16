@@ -174,10 +174,6 @@
     </script>
 </head>
 <body>
-    <img src="/app/static/images/github-pages-logo.png"
-         alt="Powered by GitHub Pages"
-         class="github-pages-logo">
-
     <div class="container">
         <h1>O que é um 'branch' (ramo)? - Parte 2</h1>
         <nav class="styled-nav">
@@ -193,7 +189,7 @@
             <h2>Alternando ramificações sem mesclar</h2>
             <p class="p-styled spaced-p">Você pode ver a extensão das mudanças que fez na branch de teste do projeto Phonetic Website na seção anterior listando o conteúdo do
                diretório de trabalho:</p>
-           <img src="/app/static/images/ls-a.webp" alt="arquivos do ramo test" class="img-halfwidth">
+           <img src="/app/static/images/ls-a.webp" alt="arquivos do ramo test" class="img-halfwidth" width="600" height="338">
 
            <p class="p-styled spaced-p">Todos os arquivos CSS foram movidos um nível para cima e o diretório de estilo não existe mais.</p>
 
@@ -202,7 +198,7 @@
            <p class="p-styled spaced-p">Vamos voltar para a branch main usando o comando <code class="language-bash">git checkout</code> e listar o conteúdo do diretório de
              trabalho novamente:</p>
 
-             <img src="/app/static/images/checkout-main.webp" alt="git checkout no ramo main" class="img-halfwidth">
+             <img src="/app/static/images/checkout-main.webp" alt="git checkout no ramo main" class="img-halfwidth" width="600" height="338">
 
            <p class="p-styled spaced-p">Como você pode ver na lista, o conteúdo do diretório de trabalho foi restaurado. O diretório de estilo está de volta, contendo todos os arquivos CSS.
             As referências de estilo no código HTML não mudaram. Teste o site em um navegador para verificar se está funcionando corretamente.</p>
@@ -220,7 +216,7 @@
               último commit da especial2:</p>
 
 
-            <img src="/app/static/images/git_diagram_a.webp" alt="Diagrama mostrando a posição do HEAD pelo último comite" class="img-halfwidth">
+            <img src="/app/static/images/git_diagram_a.webp" alt="Diagrama mostrando a posição do HEAD pelo último comite" class="img-halfwidth" width="600" height="338">
 
             <p class="p-styled spaced-p">Na imagem anterior a linha representa o ramo principal, 'main' com
                 cada comite mostrado como um círculo. A seta indica a direção do desenvolvimento, ou seja 'HEAD' e aponta para o último comite.
@@ -231,31 +227,31 @@
             <p class="p-styled spaced-p">Após o comando <code class="language-bash">git checkout main</code>, o ponteiro HEAD se move para o último commit na branch main e o conteúdo do diretório
                 de trabalho muda de acordo.</p>
 
-            <img src="/app/static/images/git-branch_2.webp" alt="Tela mostrando o histórico de comites realizados" class="img-fullwidth">
-
-            <p class="p-styled spaced-p">Você sempre pode verificar qual branch está atualizado com <code class="language-bash">git branch</code> ou <code class="language-bash">git log</code> .</p>
-
-
-            <p class="p-styled spaced-p">Se você tiver mudanças não confirmadas ao trocar para outro branch, o Git vai tentar mesclar essas mudanças no branch de destino.
-                Se as mudanças forem incompatíveis, o Git não vai permitir a troca. Você pode forçar a troca usando a opção -f, por exemplo, <code class="language-bash">git checkout -f main</code>
-                se não se importar em perder as mudanças não confirmadas. É uma boa prática trocar de branches só quando o diretório de trabalho está limpo.</p>
-
-            <p class="p-styled spaced-p">Os commits de cada branch estão seguros no banco de dados do repositório do projeto (o diretório .git). Não importa quais
-                mudanças você faça em outra branch, tudo será restaurado quando você voltar, a menos que decida mesclar as mudanças. Mesclagem é o assunto que vamos abordar na
-                próxima seção.</p>
-
-        </section>
-
-        <section id="section2">
-            <h2>Mesclando (merging)</h2>
-            <p class="p-styled spaced-p">Em um fluxo de trabalho típico do Git, os desenvolvedores normalmente implementam um pedido de novo recurso em um
-                branch separado. Assim, eles podem experimentar mudanças livremente sem afetar a base de código principal. As mudanças são testadas a fundo no
-                branch de novo recurso. Só depois de testes bem-sucedidos, as mudanças são mescladas no branch principal de desenvolvimento.</p>
-
-            <p class="p-styled spaced-p">Vamos supor que temos duas novas solicitações de recursos para implementar. A primeira é adicionar as letras G, H, I e a segunda é adicionar
-                as letras J, K, L para o site fonético. Implementaremos cada uma dessas solicitações de recursos em branches separados.</p>
-
-               <img src="/app/static/images/branch_ghi_jkl.webp" alt="Tela mostrando dois novos branches (ghi - jkl)" class="img-fullwidth">
+                <img src="/app/static/images/git_diagram_b.webp" alt="Tela mostrando o histórico de comites realizados" class="img-fullwidth" width="1200" height="675">
+                <img src="/app/static/images/git-branch_2.webp" alt="Tela mostrando o histórico de comites realizados" class="img-fullwidth" width="1200" height="675">
+              <img src="/app/static/images/branch_ghi_jkl.webp" alt="Tela mostrando dois novos branches (ghi - jkl)" class="img-fullwidth" width="1200" height="675">
+                <img src="/app/static/images/checkout-ghi.webp" alt="Tela mostrando git checkout g-h-i" class="img-fullwidth" width="1200" height="675">
+                <img src="/app/static/images/added_G.webp" alt="Tela mostrando letra G adicionada e comitada" class="img-fullwidth" width="1200" height="675">
+                <img src="/app/static/images/git-log-ghi.webp" alt="Tela mostrando git log das letras G, H e I" class="img-fullwidth" width="1200" height="675">
+                <img src="/app/static/images/git-st-ghi.webp" alt="Tela mostrando o git status do ramo g-h-i" class="img-fullwidth" width="1200" height="675">
+                <img src="/app/static/images/git_checkout_main.webp" alt="Tela mostrando o git checkout main" class="img-full" width="900" height="506">
+                <img src="/app/static/images/git-merge-ghi.webp" alt="Tela mostrando o git merge" class="img-full" width="900" height="506">
+                <img src="/app/static/images/git-log-main.webp" alt="Tela mostrando git log após o merge" class="img-full" width="900" height="506">
+                    <img src="/app/static/images/gitgraph_view.webp" alt="Tela mostrando a visão gitgraph após o merge" class="img-fullwidth" width="1200" height="675">
+                     <img src="/app/static/images/git-sw-jkl.webp" alt="Tela mostrando git switch  j-k-l" class="img-fullwidth" width="1200" height="675">
+                     <img src="/app/static/images/git-log-jkl.webp" alt="Tela mostrando git log de j-k-l" class="img-fullwidth" width="1200" height="675">
+                     <img src="/app/static/images/pilots-add_J.webp" alt="Tela mostrando git status" class="img-fullwidth" width="1200" height="675" style="height:auto;max-width:100%;">
+                     <img src="/app/static/images/git-log-total.webp" alt="Tela mostrando git log total" class="img-fullwidth" width="1200" height="675">
+                     <img src="/app/static/images/git-st-jkl.webp" alt="Tela mostrando o git status do ramo j-k-l" class="img-fullwidth" width="1200" height="675">
+                     <img src="/app/static/images/git-log-main.webp" alt="Tela mostrando git checkout main" class="img-full" width="900" height="506">
+                         <img src="/app/static/images/git-merge-br2.webp" alt="Tela mostrando git merge j-k-l" class="img-full" width="900" height="506">
+                     <img src="/app/static/images/git-st-conflit.webp" alt="Tela mostrando git status" class="img-fullwidth" width="1200" height="675">
+                        <img src="/app/static/images/pilots_conflits.webp" alt="Tela mostrando git status" class="img-fullwidth" width="1200" height="675">
+                          <img src="/app/static/images/pilots-fixed.webp" alt="Tela mostrando git status" class="img-fullwidth" width="1200" height="675" style="height:auto;max-width:100%;">
+                          <img src="/app/static/images/git-comit-resolv.webp" alt="Tela mostrando git log de main" class="img-fullwidth" width="1200" height="675">
+                          <img src="/app/static/images/git-log-main-merg.webp" alt="Tela mostrando git log de main" class="img-fullwidth" width="1200" height="675">
+                          <img src="/app/static/images/git-tag-push.webp" alt="Tela mostrando git tag" class="img-fullwidth" width="1200" height="675">
+                          <img src="/app/static/images/git-st-conclus.webp" alt="Tela mostrando git status" class="img-fullwidth" width="1200" height="675">
 
             <p class="p-styled spaced-p">Vamos implementar o primeiro requisito através de um exercício.</p>
 
@@ -449,7 +445,7 @@
             <div class="footer-flex">
                 <nav class="footer-nav">
                     <a href="11-branch-1.html" class="footer-link">← Voltar</a>
-                    <a href="13-git-diff.html" class="footer-link">Próximo: git-diff →</a>
+                    <a href="12-git-diff.html" class="footer-link">Próximo: git-diff →</a>
                 </nav>
 
                 <div class="footer-buttons">
@@ -467,12 +463,12 @@
                     <span>🐙 GitHub Pages</span>
                     <img src="/app/static/images/github-mark-white.png"
                          alt="GitHub Logo"
-                         class="footer-logo">
+                         class="footer-logo" width="16" height="16">
                 </a>
-                <a href="http://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
-                    <img src="http://jigsaw.w3.org/css-validator/images/vcss"
+                <a href="https://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
+                    <img src="https://jigsaw.w3.org/css-validator/images/vcss"
                          alt="CSS válido!"
-                         class="footer-logo">
+                         class="footer-logo" width="45" height="16">
                 </a>
             </div>
         </footer>

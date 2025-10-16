@@ -192,7 +192,7 @@
         <p class="p-styled  spaced-p">Para demonstrar cada um dos cenários acima, precisaremos de uma alteração indesejada para desfazer. Nós vamos novamente usar o projeto Phonetic sistema
             para experimentar.  Abra pilots.html em um editor de texto e exclua todas as palavras, exceto "Alfa", para que o alfabeto fique assim: </p>
 
-    <img src="/app/static/images/alpha.webp" alt="Exemplo de git reset" class="img-full">
+    <img src="/app/static/images/alpha.webp" alt="Exemplo de git reset" class="img-full" width="900" height="506" style="height:auto;max-width:100%;">
 
        <p class="p-styled  spaced-p">Salve a alteração e verifique abrindo no navegador o arquivo pilots.html.
         Vamos aprender agora a recuperar as letras apagadas usando as características de desfazer do git. No caso do exemplo parece ser simples recuperar as demais palavras
@@ -204,7 +204,7 @@
         fazer é reverter o arquivo de volta para sua última versão confirmada usando o comando <code class="language-bash">git checkout</code> da seguinte forma:
       </p>
 
-    <img src="/app/static/images/1-checkout.webp" alt="Exemplo de git checkout" class="img-full">
+    <img src="/app/static/images/1-checkout.webp" alt="Exemplo de git checkout" class="img-full" width="900" height="506">
 
       <p>Abra o arquivo pilots.html em seu navegador e certifique-se todas as palavras foram recuperadas. O comando <code class="language-bash">git checkout</code> mostra na imagem acima que
      o diretório de trabalho está limpo.</p>
@@ -215,20 +215,20 @@
         usando o comando <code class="language-bash">git add</code>.
      </p>
 
-    <img src="/app/static/images/2-add.webp" alt="Exemplo de git add" class="img-full">
+    <img src="/app/static/images/2-add.webp" alt="Exemplo de git add" class="img-full" width="900" height="506">
 
      <p class="p-styled  spaced-p">Ao acionar o <code class="language-bash">git status</code> mostra que o pilots.html está pronto para ser comitado. Na tela podemos ver ainda a sugestão de rodar o
         <code class="language-bash">git reset HEAD file</code> para retornar com o arquivo para  o diretório de trabalho. E é isto que precisamos fazer primeiro.
      </p>
 
-    <img src="/app/static/images/3-reset.webp" alt="Exemplo de git reset" class="img-full">
+    <img src="/app/static/images/3-reset.webp" alt="Exemplo de git reset" class="img-full" width="900" height="506">
 
      <p class="p-styled  spaced-p"> O <code class="language-bash">git reset</code> removeu o arquivo do index (area de staging) entretanto a mudança não desejada ainda se encontra no diretório de
     trabalho como se pode ver na imagem acima pelo comando <code class="language-bash">git status</code>. Para recuperar as palavras perdidas voce ainda necessita repetir
    o processo de desfazer a mudança que se encontra no diretório de trabalho. Para isto basta repetir a ação anterior usando o comando <code class="language-bash">git checkout</code> restaurar
     o arquivo. </p>
 
-    <img src="/app/static/images/4-checkout.webp" alt="Exemplo de git chekout" class="img-full">
+    <img src="/app/static/images/4-checkout.webp" alt="Exemplo de git chekout" class="img-full" width="900" height="506">
 
     <p class="p-styled  spaced-p">Repita a verificação do arquivo pilots.html no seu navegar para constatar que o mesmo está completo</p>
 
@@ -238,23 +238,23 @@
         usando o comando <code class="language-bash">git add</code> bem como comitar a alteração com o comando <code class="language-bash">git commit</code>.
      </p>
 
-    <img src="/app/static/images/5-commit.webp" alt="Exemplo de git commit" class="img-full">
+    <img src="/app/static/images/5-commit.webp" alt="Exemplo de git commit" class="img-full" width="900" height="506">
 
      <p class="p-styled  spaced-p">Agora vamos usar o <code class="language-bash">git log</code> para nos mostrar o novo comite.</p>
 
-    <img src="/app/static/images/6-log.webp" alt="Exemplo de git log" class="img-full">
+    <img src="/app/static/images/6-log.webp" alt="Exemplo de git log" class="img-full" width="900" height="506">
 
      <p class="p-styled  spaced-p"> Para desfazermos do comite voce necessita rodar  o <code class="language-bash">git revert</code>especificando o hash associado à mudança indesejada
     conforme vimos pelo <code class="language-bash">git log</code> aplicado.</p>
 
-    <img src="/app/static/images/7-revert.webp" alt="Exemplo de git revert" class="img-full">
+    <img src="/app/static/images/7-revert.webp" alt="Exemplo de git revert" class="img-full" width="900" height="506">
 
     <p class="p-styled  spaced-p">A expressão ou 'flag'<strong>"--no-edit"</strong> previne que o comite abra o editor configurado no <strong>git config global...</strong>
     Vá até o navegador e certifique-se que o arquivo pilots.html está completo.</p>
 
     <p class="p-styled  spaced-p">Podemos agora verificar o histórico do projeto até o presente momento:</p>
 
-    <img src="/app/static/images/8-log.webp" alt="Exemplo de git log" class="img-full">
+    <img src="/app/static/images/8-log.webp" alt="Exemplo de git log" class="img-full" width="900" height="506">
 
     <p class="p-styled  spaced-p">Como você pode ver na saída do log do git, um commit de reversão foi adicionado para cancelar o efeito da alteração indesejada.
         O Git foi projetado para nunca perder o histórico, por isso mantém o commit que você deseja reverter e o substitui por um novo. </p>
@@ -353,7 +353,7 @@
         <p class="p-styled  spaced-p">Para testar o <code class="language-bash">git reset</code>, crie um novo diretório: Nota - passe o mouse por sobre a imagem para ver a sequencia de ações.</p>
 
         <div class="image-container">
-            <img src="/app/static/images/commit_exemplo.webp" alt="Exemplo de git reset" class="img-full">
+            <img src="/app/static/images/commit_exemplo.webp" alt="Exemplo de git reset" class="img-full" width="900" height="506">
             <div class="hover-text">
            <ul>
             <li>Inicialize um novo repositório Git e crie um arquivo de texto simples:</li>
@@ -364,7 +364,7 @@
            </ul>
         </div>
         <div class="image-container">
-            <img src="/app/static/images/reset.webp" alt="Exemplo de git reset" class="img-full">
+            <img src="/app/static/images/reset.webp" alt="Exemplo de git reset" class="img-full" width="900" height="506">
             <div class="hover-text">
            <ul>
             <li>Agora, faça algumas alterações no file.txt. Em seguida, prepare-os e confirme-os:</li>
@@ -393,17 +393,17 @@
 
         <p class="p-styled  spaced-p">Para testar o <code class="language-bash">git revert</code>, crie um novo diretório: </p>
 
-    <img src="/app/static/images/reset.webp" alt="Exemplo de git reset" class="img-full">
+    <img src="/app/static/images/reset.webp" alt="Exemplo de git reset" class="img-full" width="900" height="506">
 
          <p class="p-styled  spaced-p">Desta vez, usarei o comando <code class="language-bash">git reflog</code>. O <code class="language-bash">git reflog</code> é um comando usado para exibir o log de referência, que registra as alterações nos ponteiros
             de ramificação e HEAD. </p>
 
-            <img src="/app/static/images/git-reflog.webp" alt="Exemplo de git reset" class="img-full">
+        <img src="/app/static/images/git-reflog.webp" alt="Exemplo de git reset" class="img-full" width="900" height="506">
 
        <p class="p-styled  spaced-p">Em seguida, executarei o <code class="language-bash">git revert</code> para criar uma nova confirmação que desfaz as alterações introduzidas pela confirmação
         de destino.</p>
 
-    <img src="/app/static/images/git-revert-head.webp" alt="Exemplo de git reset" class="img-full">
+    <img src="/app/static/images/git-revert-head.webp" alt="Exemplo de git reset" class="img-full" width="900" height="506">
 
         <p class="p-styled  spaced-p">Você verá uma nova confirmação refletindo as alterações feitas pela confirmação de reversão.
 
@@ -481,10 +481,10 @@
                          alt="GitHub Logo"
                          class="footer-logo">
                 </a>
-                <a href="http://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
-                    <img src="http://jigsaw.w3.org/css-validator/images/vcss"
+                <a href="https://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
+                    <img src="https://jigsaw.w3.org/css-validator/images/vcss"
                          alt="CSS válido!"
-                         class="footer-logo">
+                         class="footer-logo" width="45" height="16">
                 </a>
             </div>
       </footer>
