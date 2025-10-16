@@ -75,12 +75,13 @@ h5 {
 /*images */
 
 .logo img{
-   position:absolute;
-   margin-left:700px;
-   margin-top:0px;
-   width:150px;
-   height:63px;
-   z-index: 1; /*bring the image to front*/
+    /* Use normal flow inside the header to avoid absolute-position overflow */
+    position: relative;
+    margin: 0;
+    width:150px;
+    height:63px;
+    z-index: 1;
+    display: block;
 }
 
 .call h4{
@@ -97,13 +98,13 @@ h5 {
 /* Grid Container */
 .grid-container {
     background-color: slategray;
-    display: table;
-    width:100%;
-    grid-template-rows: 500px 500px;
-    grid-template-columns: 60% 40%; /* Consider using percentage-based columns */
-
-
-
+    /* Use CSS Grid for predictable, responsive layout instead of table display
+       and avoid fixed row heights which cause vertical compression. */
+    display: grid;
+    width: 100%;
+    grid-template-columns: 60% 40%; /* two-column layout */
+    grid-auto-rows: minmax(200px, auto); /* let rows size to content, but at least 200px */
+    gap: 20px; /* spacing between columns/rows */
 }
 
 
