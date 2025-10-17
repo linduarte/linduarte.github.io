@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "sharp": "^0.34.4"
+  }
+  ,
+  "scripts": {
+    "generate:ci": "node scripts/ci_generate_variants.js --input=reports_image_candidates_summary.json --out=tmp/generated-images"
+  }
+}

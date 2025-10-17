@@ -23,6 +23,18 @@ jobs:
           npm install -g http-server
           # install lighthouse and pa11y locally on runner when needed (npx will fetch if missing)
 
+      - name: Install Node dependencies (for image generation)
+        run: |
+          npm ci
+
+      - name: Generate responsive image variants (CI)
+        run: |
+          node scripts/ci_generate_variants.js --input=reports_image_candidates_summary.json --out=tmp/generated-images || true
+          # copy generated variants into the served static images folder
+          if [ -d tmp/generated-images ]; then
+            cp -v tmp/generated-images/* app/static/images/ || true
+          fi
+
       - name: Start static server
         run: |
           mkdir -p reports_download
