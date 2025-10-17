@@ -93,13 +93,23 @@ jobs:
 
       - name: Run pa11y (landing)
         run: |
-          # pass chrome launcher args so Puppeteer can run in GitHub Actions
-          npx -y pa11y http://localhost:8000/landing.html --reporter html --chrome-launcher-args='--no-sandbox --disable-gpu' > reports_download/landing-pa11y.html || true
+          # choose base URL depending on whether HTTPS server is running on 8443
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && ss -ltn | grep -q ":8443"; then
+            BASE_URL="https://localhost:8443"
+          else
+            BASE_URL="http://localhost:8000"
+          fi
+          # use pa11y config (pa11y-ci.config.json) so launcher args are provided via config
+          npx -y pa11y "$BASE_URL/landing.html" --config pa11y-ci.config.json --reporter html > reports_download/landing-pa11y.html 2> reports_download/landing-pa11y.err || true
 
       - name: Run pa11y (prefacio)
         run: |
-          # pass chrome launcher args so Puppeteer can run in GitHub Actions
-          npx -y pa11y http://localhost:8000/app/templates/git-course/1a-prefacio.html --reporter html --chrome-launcher-args='--no-sandbox --disable-gpu' > reports_download/prefacio-pa11y.html || true
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && ss -ltn | grep -q ":8443"; then
+            BASE_URL="https://localhost:8443"
+          else
+            BASE_URL="http://localhost:8000"
+          fi
+          npx -y pa11y "$BASE_URL/app/templates/git-course/1a-prefacio.html" --config pa11y-ci.config.json --reporter html > reports_download/prefacio-pa11y.html 2> reports_download/prefacio-pa11y.err || true
 
       - name: Generate audit summary
         run: |
