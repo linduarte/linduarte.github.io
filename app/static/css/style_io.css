@@ -2,27 +2,6 @@ html { background-color:slategray;
 
 }
 
-/* Accessibility: visible skip link for keyboard users */
-.skip-link {
-    position: absolute;
-    left: -999px;
-    top: auto;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-}
-.skip-link:focus {
-    left: 10px;
-    top: 10px;
-    width: auto;
-    height: auto;
-    padding: 8px 12px;
-    background: #000;
-    color: #fff;
-    z-index: 9999;
-    border-radius: 4px;
-}
-
 body {
     min-height: 100vh;
     max-width: 1000px;
@@ -96,13 +75,12 @@ h5 {
 /*images */
 
 .logo img{
-    /* Use normal flow inside the header to avoid absolute-position overflow */
-    position: relative;
-    margin: 0;
-    width:150px;
-    height:63px;
-    z-index: 1;
-    display: block;
+   position:absolute;
+   margin-left:700px;
+   margin-top:0px;
+   width:150px;
+   height:63px;
+   z-index: 1; /*bring the image to front*/
 }
 
 .call h4{
@@ -119,13 +97,13 @@ h5 {
 /* Grid Container */
 .grid-container {
     background-color: slategray;
-    /* Use CSS Grid for predictable, responsive layout instead of table display
-       and avoid fixed row heights which cause vertical compression. */
-    display: grid;
-    width: 100%;
-    grid-template-columns: 60% 40%; /* two-column layout */
-    grid-auto-rows: minmax(200px, auto); /* let rows size to content, but at least 200px */
-    gap: 20px; /* spacing between columns/rows */
+    display: table;
+    width:100%;
+    grid-template-rows: 1700px 1700px;
+    grid-template-columns: 60% 40%; /* Consider using percentage-based columns */
+
+
+
 }
 
 
@@ -184,7 +162,9 @@ h5 {
 .grid-item p {
     font-family:'Times New Roman', Times, serif; /* Choose a suitable font family */
     font-size: 19px; /* Adjust as needed for text size */
-    color: #222; /* Improved contrast for accessibility */
+    color: #333; /* Choose a suitable text color */
+
+
 }
 
 .grid-block{

@@ -4,72 +4,140 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Curso Git - Aprenda de forma prática e eficiente</title>
-    <link rel="stylesheet" href="/app/static/css/style_io.css">
-    <link rel="stylesheet" href="/app/static/css/common-styles.css">
-    <link rel="stylesheet" href="/app/static/css/git-course.css">
+    <link rel="stylesheet" href="app/static/css/style_io.css">
+    <link rel="stylesheet" href="app/static/css/common-styles.css">
+    <link rel="stylesheet" href="app/static/css/git-course.css">
     <style>
-        /* Simplified, conservative landing page styles to restore layout stability. */
         body {
-            background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
-            font-family: 'Victor Mono', monospace;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            color: #222;
+            background: url('app/static/images/waves.webp') center/cover no-repeat fixed !important;
+            background-size: cover !important;
+            background-position: center center !important;
+            background-attachment: fixed !important;
+            font-family: 'Victor Mono', monospace !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            min-height: 100vh !important;
+            width: 100% !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 100vw;
         }
 
         .main-container {
-            background: rgba(255,255,255,0.85);
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-            margin: 36px auto;
-            padding: 28px;
-            max-width: 1100px;
-            min-height: auto;
+            background: rgba(255,255,255,0.75) !important;
+            border-radius: 16px !important;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25) !important;
+            margin: 40px auto !important;
+            padding: 40px !important;
+            max-width: 1100px !important;
+            backdrop-filter: blur(8px) !important;
+            -webkit-backdrop-filter: blur(8px) !important;
+            border: 1px solid rgba(255,255,255,0.2) !important;
         }
 
-        header.header.logo { display:flex; gap:18px; align-items:center; }
-        .call { flex:1 }
-        .banner-message { margin:0 0 8px 0; font-size:28px; color:#1f2b3a; }
-        .banner-submessage a { margin-right:12px }
-
-        .grid-container { display:flex; gap:24px; align-items:flex-start; }
-        .column1 { flex:1 }
-        .column2 { width:320px; }
-
-        .subject-title, .curse-title {
-            background: rgba(241,78,50,0.06);
-            padding: 12px;
-            border-radius: 6px;
-            border-left: 4px solid #f14e32;
-            margin-bottom: 14px;
+        .construction-section {
+            display: flex !important;
+            align-items: center !important;
+            gap: 30px !important;
+            padding: 20px !important;
+            background: rgba(248,249,250,0.6) !important;
+            border-radius: 12px !important;
+            margin-bottom: 30px !important;
         }
 
+        /* Transparência no conteúdo principal */
+        .grid-container {
+            background: rgba(255,255,255,0.3) !important;
+            border-radius: 12px !important;
+            padding: 20px !important;
+            margin: 20px 0 !important;
+        }
+
+        .column1, .column2 {
+            background: rgba(255,255,255,0.2) !important;
+            border-radius: 8px !important;
+            padding: 15px !important;
+            margin: 10px 0 !important;
+        }
+
+        /* Site footer (landing page) */
         .site-footer {
-            text-align:center;
-            padding:18px;
-            margin-top:30px;
-            background-color: rgba(234,216,231,0.8);
-            border-radius:8px;
-            color:#6c757d;
-            font-size:14px;
+            text-align: center !important;
+            padding: 20px !important;
+            margin-top: 40px !important;
+            background-color: rgba(234, 216, 231, 0.8);
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
+            border-radius: 12px !important;
+            border-top: 1px solid rgba(233,236,239,0.5) !important;
+            color: #6c757d !important;
+            font-size: 14px !important;
         }
 
-        .footer-badges { display:flex; justify-content:center; gap:18px; margin-top:12px; }
-        .footer-logo { height:18px }
+        .footer-badges {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 20px !important;
+            margin-top: 15px !important;
+            flex-wrap: wrap !important;
+        }
 
-        @media (max-width: 860px) {
-            .grid-container { flex-direction:column }
-            .column2 { width:100% }
-            header.header.logo { flex-direction:column; align-items:flex-start }
-            .banner-message { font-size:20px }
+        .github-link, .w3c-link {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            color: #6c757d !important;
+            text-decoration: none !important;
+            font-size: 14px !important;
+        }
+
+        .github-link:hover, .w3c-link:hover {
+            color: #f14e32 !important;
+        }
+
+        .footer-logo {
+            height: 20px !important;
+            width: auto !important;
+            opacity: 0.8 !important;
+            transition: opacity 0.3s !important;
+        }
+
+        .footer-logo:hover {
+            opacity: 1 !important;
+        }
+
+        /* Garantir que os títulos tenham fundo destacado igual ao "Introdução ao Git" */
+        .subject-title, .curse-title {
+            background: rgba(241, 78, 50, 0.1) !important;
+            padding: 15px !important;
+            border-radius: 8px !important;
+            border-left: 4px solid #f14e32 !important;
+            margin-bottom: 20px !important;
+        }
+
+        .subject-title h4, .curse-title h4 {
+            margin: 0 !important;
+            color: #f14e32 !important;
+        }
+
+        @media (max-width: 768px) {
+            .construction-section {
+                flex-direction: column !important;
+                text-align: center !important;
+            }
+            .footer-badges {
+                flex-direction: column !important;
+                gap: 10px !important;
+            }
         }
     </style>
 </head>
 <body>
-    <a href="#content" class="skip-link">Ir para o conteúdo</a>
-    <main id="content">
     <div class="main-container">
+        <!-- construction-section removed to prevent layout distortion; placeholder kept for spacing -->
+        <div class="construction-placeholder" aria-hidden="true" style="height: 1px; margin-bottom: 30px;"></div>
 
         <header class="header logo" >
             <img alt="Git Logo"
@@ -89,16 +157,16 @@
                 <div class="column1 grid-item subject-title">
                    <h4><strong>O que é <em>'Git'</em>? E por que ele é importante!</strong></h4>
                 </div>
-            </main>
+                <div>
                     <p><strong><em>É um sistema de controle de versão distribuída</em></strong> permitindo que vários desenvolvedores possam colaborar em um projeto de maneira simultanea.<br>
                     O <strong>Git</strong> acompanha as alterações que ocorrem nos códigos fonte, permite o versionamento, e facilita a colaboração entre os membros de um grupo.<br>
                     O <strong>Git</strong> se tornou importante porque é muito 'robusto', flexível e eficiente no controle das alterações de versão no ambiente colaborativo de desenvolvimento.<br>
                     Sua ampla adoção, poderosas funcionalidades e suporte ao mais diversos fluxos de trabalho fazem dele uma ferramenta essencial nas práticas de desenvolvimento.<br>
                     Trabalhando em pequenos projetos ou em aplicações de larga escala em ambientes corporativos o <strong>Git</strong> com suas várias funcionalidades contribue para as atividades de desenvolvimento de software.
                     </p>
-            </div>
+                </div>
 
-            <section>
+                <section>
                     <h5>Navegação</h5>
                     <nav class="nav">
                         <ul>
@@ -142,9 +210,9 @@
                         Esta transparência é de todo crucial para o entendimento das complexidades do controle de versão permitindo atuações de maneira imediata.<br>
                         Deve-se salientar ainda que o terminal permite criar 'scripts' que auxiliam os desenvolvedores a automatizar tarefas repetitivas ou customizar
                         fluxos de trabalho específicos de seus projetos.<br>
-                        </div>
-
-                        <section>
+                        <div>
+                        <picture class="cl">
+                            <img src="/app/static/images/cl_new-tr.webp"
                               srcset="/app/static/images/cl_new-tr-100.webp?=100 100w, /app/static/images/cl_new-tr-200.webp?=200 200w, /app/static/images/cl_new-tr-400.webp?=400 400w, /app/static/images/cl_new-tr-800.webp?=800 800w"
                               sizes="(max-width: 800px) 100vw, 50vw"
                               alt="Terminal Git bash">
@@ -373,9 +441,9 @@
                     </article>
                 </section>
             </div>
-    </div>
+        </div>
 
-    <!-- Footer principal unificado -->
+        <!-- Footer principal unificado -->
         <footer class="site-footer">
             <p>&copy; 2025 Curso de Git. Todos os direitos reservados.</p>
             <div class="footer-badges">
@@ -383,16 +451,15 @@
                     <span>🐙 GitHub Pages</span>
                     <img src="/app/static/images/github-mark-white.png"
                          alt="GitHub Logo"
-                         class="footer-logo" width="16" height="16">
+                         class="footer-logo">
                 </a>
-                <a href="https://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
-                    <img src="https://jigsaw.w3.org/css-validator/images/vcss"
+                <a href="http://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
+                    <img src="http://jigsaw.w3.org/css-validator/images/vcss"
                          alt="CSS válido!"
-                         class="footer-logo" width="45" height="16">
+                         class="footer-logo">
                 </a>
             </div>
-</footer>
+        </footer>
     </div>
-    </main>
 </body>
 </html>
