@@ -111,6 +111,15 @@ jobs:
           fi
           npx -y pa11y "$BASE_URL/app/templates/git-course/1a-prefacio.html" --config pa11y-ci.config.json --reporter html > reports_download/prefacio-pa11y.html 2> reports_download/prefacio-pa11y.err || true
 
+      - name: Run pa11y (login)
+        run: |
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && ss -ltn | grep -q ":8443"; then
+            BASE_URL="https://localhost:8443"
+          else
+            BASE_URL="http://localhost:8000"
+          fi
+          npx -y pa11y "$BASE_URL/app/templates/git-course/login.html" --config pa11y-ci.config.json --reporter html > reports_download/login-pa11y.html 2> reports_download/login-pa11y.err || true
+
       - name: Generate audit summary
         run: |
           node scripts/generate_audit_summary.js > reports_download/audit-summary.md || true
