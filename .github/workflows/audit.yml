@@ -74,11 +74,13 @@ jobs:
 
       - name: Run pa11y (landing)
         run: |
-          npx -y pa11y http://localhost:8000/landing.html --reporter html > reports_download/landing-pa11y.html || true
+          # pass chrome launcher args so Puppeteer can run in GitHub Actions
+          npx -y pa11y http://localhost:8000/landing.html --reporter html --chrome-launcher-args='--no-sandbox --disable-gpu' > reports_download/landing-pa11y.html || true
 
       - name: Run pa11y (prefacio)
         run: |
-          npx -y pa11y http://localhost:8000/app/templates/git-course/1a-prefacio.html --reporter html > reports_download/prefacio-pa11y.html || true
+          # pass chrome launcher args so Puppeteer can run in GitHub Actions
+          npx -y pa11y http://localhost:8000/app/templates/git-course/1a-prefacio.html --reporter html --chrome-launcher-args='--no-sandbox --disable-gpu' > reports_download/prefacio-pa11y.html || true
 
       - name: Generate audit summary
         run: |
@@ -97,12 +99,18 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs')
-            const issue_number = context.payload.pull_request.number
+            // determine PR number defensively — workflow is PR-scoped, but be defensive
             const summaryPath = 'reports_download/audit-summary.md'
             const body = fs.existsSync(summaryPath) ? fs.readFileSync(summaryPath, 'utf8') : 'No audit summary generated.'
-            await github.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number,
-              body: 'Automated audit summary (Lighthouse + pa11y)\n\n' + body
-            })
+            const prNumber = context.payload.pull_request?.number || null
+            if (!prNumber) {
+              core = require('@actions/core')
+              core.info('No pull request number found in context, skipping PR comment.')
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body: 'Automated audit summary (Lighthouse + pa11y)\n\n' + body
+              })
+            }

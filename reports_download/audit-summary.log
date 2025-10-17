@@ -1,0 +1,30 @@
+## Automated audit summary
+
+### Landing
+- Performance: **81**
+- Accessibility: **86**
+- Best practices: **73**
+- SEO: **91**
+- FCP: 1.7 s
+- LCP: 5.0 s
+- CLS: 0
+
+### Login
+- Performance: **76**
+- Accessibility: **100**
+- Best practices: **54**
+- SEO: **91**
+- FCP: 2.2 s
+- LCP: 5.9 s
+- CLS: 0
+
+### Prefacio
+- Performance: **69**
+- Accessibility: **87**
+- Best practices: **54**
+- SEO: **91**
+- FCP: 3.1 s
+- LCP: 8.5 s
+- CLS: 0
+
+
