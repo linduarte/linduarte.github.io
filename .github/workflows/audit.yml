@@ -1,0 +1,108 @@
+name: CI Audits
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  audits:
+    name: Lighthouse & pa11y audits
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install global helpers
+        run: |
+          npm install -g http-server
+          # install lighthouse and pa11y locally on runner when needed (npx will fetch if missing)
+
+      - name: Start static server
+        run: |
+          mkdir -p reports_download
+          # Prefer HTTPS if certs are present (mkcert). Fall back to HTTP otherwise.
+          if [ -f "certs/localhost.pem" ] && [ -f "certs/localhost-key.pem" ]; then
+            npx http-server -p 8443 -S --cert certs/localhost.pem --key certs/localhost-key.pem -c-1 > server.log 2>&1 &
+          else
+            npx http-server -p 8000 -c-1 > server.log 2>&1 &
+          fi
+          # wait so the server is ready
+          sleep 5
+
+      - name: Run Lighthouse (landing)
+        run: |
+          # choose base URL depending on whether HTTPS server is running on 8443
+          if ss -ltn | grep -q ":8443"; then
+            BASE_URL="https://localhost:8443"
+          else
+            BASE_URL="http://localhost:8000"
+          fi
+          npx -y lighthouse "$BASE_URL/landing.html" \
+            --output=json --output-path=reports_download/landing-lighthouse.report.json \
+            --blocked-url-patterns='*gc.kis.v2.scr.kaspersky-labs.com*' \
+            --chrome-flags="--no-sandbox --headless --disable-gpu"
+
+      - name: Run Lighthouse (login)
+        run: |
+          if ss -ltn | grep -q ":8443"; then
+            BASE_URL="https://localhost:8443"
+          else
+            BASE_URL="http://localhost:8000"
+          fi
+          npx -y lighthouse "$BASE_URL/app/templates/git-course/login.html" \
+            --output=json --output-path=reports_download/login-lighthouse.report.json \
+            --blocked-url-patterns='*gc.kis.v2.scr.kaspersky-labs.com*' \
+            --chrome-flags="--no-sandbox --headless --disable-gpu"
+
+      - name: Run Lighthouse (prefacio)
+        run: |
+          if ss -ltn | grep -q ":8443"; then
+            BASE_URL="https://localhost:8443"
+          else
+            BASE_URL="http://localhost:8000"
+          fi
+          npx -y lighthouse "$BASE_URL/app/templates/git-course/1a-prefacio.html" \
+            --output=json --output-path=reports_download/prefacio-lighthouse.report.json \
+            --blocked-url-patterns='*gc.kis.v2.scr.kaspersky-labs.com*' \
+            --chrome-flags="--no-sandbox --headless --disable-gpu"
+
+      - name: Run pa11y (landing)
+        run: |
+          npx -y pa11y http://localhost:8000/landing.html --reporter html > reports_download/landing-pa11y.html || true
+
+      - name: Run pa11y (prefacio)
+        run: |
+          npx -y pa11y http://localhost:8000/app/templates/git-course/1a-prefacio.html --reporter html > reports_download/prefacio-pa11y.html || true
+
+      - name: Generate audit summary
+        run: |
+          node scripts/generate_audit_summary.js > reports_download/audit-summary.md || true
+
+      - name: Upload audit artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-reports
+          path: reports_download/**
+
+      - name: Post PR comment with audit summary
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs')
+            const issue_number = context.payload.pull_request.number
+            const summaryPath = 'reports_download/audit-summary.md'
+            const body = fs.existsSync(summaryPath) ? fs.readFileSync(summaryPath, 'utf8') : 'No audit summary generated.'
+            await github.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number,
+              body: 'Automated audit summary (Lighthouse + pa11y)\n\n' + body
+            })
