@@ -9,7 +9,29 @@ function run(cmd, args, opts={}){
   if (res.status !== 0) throw new Error(`${cmd} exited ${res.status}`);
 }
 
-const argv = require('minimist')(process.argv.slice(2));
+// tiny arg parser to avoid extra deps (supports --input, --out, --widths)
+function parseArgs(args) {
+  const res = {};
+  for (let i = 0; i < args.length; i++) {
+    const a = args[i];
+    if (a.startsWith('--')) {
+      const [k, v] = a.slice(2).split('=');
+      if (v !== undefined) res[k] = v;
+      else {
+        // look ahead for a value unless next is another flag
+        const nxt = args[i+1];
+        if (nxt && !nxt.startsWith('--')) { res[k] = nxt; i++; } else { res[k] = true }
+      }
+    } else if (a.startsWith('-')) {
+      const key = a.slice(1);
+      const nxt = args[i+1];
+      if (nxt && !nxt.startsWith('-')) { res[key] = nxt; i++; } else { res[key] = true }
+    }
+  }
+  return res;
+}
+
+const argv = parseArgs(process.argv.slice(2));
 const input = argv.input || argv.i || 'reports_image_candidates_summary.json';
 const outDir = argv.out || argv.o || 'tmp/generated-images';
 const widthsOverride = argv.widths ? argv.widths.split(',').map(s=>s.trim()) : null;

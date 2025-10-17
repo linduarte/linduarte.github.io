@@ -25,6 +25,7 @@ jobs:
 
       - name: Install Node dependencies (for image generation)
         run: |
+          # Use npm ci to install exact locked deps (package-lock.json present)
           npm ci
 
       - name: Generate responsive image variants (CI)
@@ -36,12 +37,17 @@ jobs:
           fi
 
       - name: Start static server
+        env:
+          TRUSTED_CERTS: ${{ secrets.TRUSTED_CERTS }}
         run: |
           mkdir -p reports_download
-          # Prefer HTTPS if certs are present (mkcert). Fall back to HTTP otherwise.
-          if [ -f "certs/localhost.pem" ] && [ -f "certs/localhost-key.pem" ]; then
+          # For CI reliability prefer HTTP by default. Only start HTTPS when
+          # TRUSTED_CERTS is explicitly true and cert files exist in repo.
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && [ -f "certs/localhost.pem" ] && [ -f "certs/localhost-key.pem" ]; then
+            echo "Starting HTTPS server (trusted certs)"
             npx http-server -p 8443 -S --cert certs/localhost.pem --key certs/localhost-key.pem -c-1 > server.log 2>&1 &
           else
+            echo "Starting HTTP server (default for CI)"
             npx http-server -p 8000 -c-1 > server.log 2>&1 &
           fi
           # wait so the server is ready
@@ -50,7 +56,8 @@ jobs:
       - name: Run Lighthouse (landing)
         run: |
           # choose base URL depending on whether HTTPS server is running on 8443
-          if ss -ltn | grep -q ":8443"; then
+          # Choose base URL: prefer HTTPS only when TRUSTED_CERTS is true and port 8443 is open
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && ss -ltn | grep -q ":8443"; then
             BASE_URL="https://localhost:8443"
           else
             BASE_URL="http://localhost:8000"
@@ -62,7 +69,7 @@ jobs:
 
       - name: Run Lighthouse (login)
         run: |
-          if ss -ltn | grep -q ":8443"; then
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && ss -ltn | grep -q ":8443"; then
             BASE_URL="https://localhost:8443"
           else
             BASE_URL="http://localhost:8000"
@@ -74,7 +81,7 @@ jobs:
 
       - name: Run Lighthouse (prefacio)
         run: |
-          if ss -ltn | grep -q ":8443"; then
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && ss -ltn | grep -q ":8443"; then
             BASE_URL="https://localhost:8443"
           else
             BASE_URL="http://localhost:8000"
