@@ -7,6 +7,10 @@ on:
 jobs:
   audits:
     name: Lighthouse & pa11y audits
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -135,7 +139,7 @@ jobs:
           path: reports_download/**
 
       - name: Post PR comment with audit summary
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
