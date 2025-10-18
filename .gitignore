@@ -44,3 +44,18 @@ reports_local/
 reports_local/**
 server.log
 tmp/
+
+# Node dependencies (don't commit node_modules)
+node_modules/
+
+# Ignore generated responsive image variants produced by CI or local generators
+app/static/images/*-150.webp
+app/static/images/*-300.webp
+app/static/images/*-600.webp
+app/static/images/*-100.webp
+app/static/images/*-200.webp
+app/static/images/*-400.webp
+app/static/images/*-800.webp
+
+# Backups created by tooling
+tmp/backups-*
