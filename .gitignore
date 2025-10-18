@@ -36,6 +36,10 @@ reports_download/
 reports_download/**
 reports_download_ci/
 reports_download_ci/**
+reports_download_ci_latest/
+reports_download_ci_latest/**
+reports_download_ci_latest_run/
+reports_download_ci_latest_run/**
 reports_local/
 reports_local/**
 server.log
