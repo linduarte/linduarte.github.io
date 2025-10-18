@@ -92,3 +92,10 @@ for (const t of tasks) {
 }
 
 console.log('Done.');
+
+// Run sanitizer to remove accidental '?=NUMBER' tokens from generated filenames
+try {
+  run('node', ['scripts/sanitize_query_suffixes.js', '--html=false']);
+} catch (e) {
+  console.error('Sanitizer failed:', e.message);
+}
