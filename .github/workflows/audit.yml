@@ -36,6 +36,10 @@ jobs:
             cp -v tmp/generated-images/* app/static/images/ || true
           fi
 
+      # NOTE: temporary sanitization step that removed accidental '?=NUMBER' suffixes
+      # was used during debugging. It has been removed now that the root cause is
+      # being addressed; will be reintroduced only if CI artifacts show regressions.
+
       - name: Start static server
         env:
           TRUSTED_CERTS: ${{ secrets.TRUSTED_CERTS }}

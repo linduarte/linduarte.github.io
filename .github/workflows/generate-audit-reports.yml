@@ -38,6 +38,10 @@ jobs:
             fi
           done
 
+      # NOTE: temporary sanitization step that removed accidental '?=NUMBER' suffixes
+      # was used during debugging. It has been removed now that the root cause is
+      # being addressed; will be reintroduced only if CI artifacts show regressions.
+
       - name: Run pa11y reports
         run: |
           mkdir -p reports
