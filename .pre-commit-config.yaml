@@ -33,7 +33,8 @@ repos:
         name: check no query-suffix tokens
         entry: scripts/check_no_query_suffix.sh
         language: script
-        files: ^(app|scripts|*.html|*.md|\.github)\/
+        # match paths under app/, scripts/, .github/ or files ending with .html or .md
+        files: '(^app/|^scripts/|^\.github/|\.html$|\.md$)'
 
   - repo: https://github.com/pycqa/isort
     rev: 5.12.0
