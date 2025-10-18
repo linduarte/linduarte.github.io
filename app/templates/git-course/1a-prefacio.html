@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Prefácio - Git Course</title>
-    <link rel="stylesheet" href="/app/static/css/style.css">
-    <link rel="stylesheet" href="/app/static/css/common-styles.css">
-    <link rel="stylesheet" href="/app/static/css/git-course.css">
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="stylesheet" href="../../static/css/common-styles.css">
+    <link rel="stylesheet" href="../../static/css/git-course.css">
     <style>
         body {
-            background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
+            background: url('../../static/images/waves.webp') center/cover no-repeat fixed;
             font-family: 'Victor Mono', monospace;
         }
         .course-container {
@@ -79,7 +79,7 @@
             margin: 40px 0;
         }
         .start-button button {
-            background: #dc391d; /* improved contrast */
+            background: #f14e32;
             color: white;
             padding: 18px 40px;
             border: none;
@@ -88,12 +88,12 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(220, 57, 29, 0.25);
+            box-shadow: 0 4px 15px rgba(241, 78, 50, 0.3);
         }
         .start-button button:hover {
-            background: #a53320;
+            background: #d63a24;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(165, 51, 32, 0.35);
+            box-shadow: 0 6px 20px rgba(241, 78, 50, 0.4);
         }
         .footer-actions {
             display: flex;
@@ -162,7 +162,7 @@
             }
         }
     </style>
-    <script src="/app/static/js/config.js"></script>
+    <script src="../../static/js/config.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         // Note: don't check token immediately — allow tests to inject token via
@@ -195,10 +195,7 @@
                 // longer grace period for token injection (headless/CI can be
                 // slower). Increase maxWait to 5000ms in those cases.
                 if (testLoginFlag === '1' || testInjectFlag === '1') {
-                    // Give more time in CI/test navigation to avoid races
-                    maxWait = 7000;
-                    // also increase polling interval slightly to reduce overhead
-                    interval = 75;
+                    maxWait = 5000;
                 }
                 if (token) {
                     // token found, continue
@@ -214,6 +211,7 @@
                 }
                 if (Date.now() - start >= maxWait) {
                     // token not found after wait, redirecting
+                    console.log('TEST_LOG: auth-guard redirecting to landing; token=', localStorage.getItem('access_token'), 'elapsed=', Date.now()-start);
                     window.location.href = '../../../landing.html';
                     return;
                 }
@@ -235,12 +233,9 @@
                 document.body.appendChild(banner);
                 // remove flag so it doesn't persist across reloads
                 sessionStorage.removeItem('login_success');
-                // If this navigation came from a test or CI, keep the banner
-                // visible longer so the test can reliably detect it.
-                const bannerTimeout = (new URLSearchParams(window.location.search || '').get('ci') === '1' || new URLSearchParams(window.location.search || '').get('login') === '1') ? 6000 : 3000;
                 setTimeout(() => {
                     try { banner.remove(); } catch (e) {}
-                }, bannerTimeout);
+                }, 3000);
             }
         } catch (e) {
             console.log('TEST_LOG: post-login banner error', e);
@@ -249,17 +244,14 @@
     </script>
 </head>
 <body>
-                        <div>
-                                                <picture class="cl">
-                                                        <img src="/app/static/images/cl_new-tr.webp"
-                                                            srcset="/app/static/images/cl_new-tr-100.webp 100w, /app/static/images/cl_new-tr-200.webp 200w, /app/static/images/cl_new-tr-400.webp 400w, /app/static/images/cl_new-tr-800.webp 800w"
-                                                            sizes="(max-width: 800px) 100vw, 50vw"
-                                                            alt="Terminal Git bash"
-                                                            width="800" height="450"
-                                                            loading="lazy"
-                                                            style="max-width:100%;height:auto;aspect-ratio:16/9;">
-                                                </picture>
-                        </div>
+    <div class="course-container">
+        <div class="welcome-header">
+            <h1 data-test="course-heading">🎉 Bem-vindo ao Curso de Git!</h1>
+            <p>Sua jornada para dominar o controle de versão começa aqui</p>
+        </div>
+
+        <div class="course-overview">
+            <div class="overview-section">
                 <h3>🎯 O que você vai aprender</h3>
                 <ul>
                     <li>Fundamentos do controle de versão</li>
@@ -284,9 +276,9 @@
             </div>
         </div>
 
-        <div style="background: #ffffff; padding: 20px; border-radius: 10px; margin: 30px 0; border-left: 4px solid #0d6efd;">
+        <div style="background: #e8f4fd; padding: 20px; border-radius: 10px; margin: 30px 0; border-left: 4px solid #0d6efd;">
             <h4 style="color: #0d6efd; margin-bottom: 10px;">💡 Dica importante</h4>
-            <p style="margin: 0; color: #222;">Este curso segue uma abordagem prática baseada no livro "Practical Guide to Git and GitHub For Windows Users" de Roberto Vormittag. Você aprenderá fazendo!</p>
+            <p style="margin: 0; color: #5c4033;">Este curso segue uma abordagem prática baseada no livro "Practical Guide to Git and GitHub For Windows Users" de Roberto Vormittag. Você aprenderá fazendo!</p>
         </div>
 
         <div class="start-button">
@@ -302,22 +294,21 @@
             <button id="logoutButton" class="logout-btn">Logout</button>
         </div>
     </div>
-    </main>
 
     <footer class="site-footer">
       <p>&copy; 2025 Curso de Git. Todos os direitos reservados.</p>
       <div class="footer-badges">
-                <a href="https://pages.github.com/" class="github-link">
-                    <span>Powered by GitHub Pages</span>
-                    <img src="/app/static/images/github-mark-white.png"
-                             alt="GitHub Logo"
-                             class="footer-logo" width="16" height="16">
-                </a>
-                        <a href="https://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
-                            <img src="https://jigsaw.w3.org/css-validator/images/vcss"
-                                     alt="CSS válido!"
-                                     class="footer-logo" width="45" height="16">
-                        </a>
+        <a href="https://pages.github.com/" class="github-link">
+          <span>Powered by GitHub Pages</span>
+          <img src="../../static/images/github-mark-white.png"
+               alt="GitHub Logo"
+               class="footer-logo">
+        </a>
+        <a href="http://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
+          <img src="http://jigsaw.w3.org/css-validator/images/vcss"
+               alt="CSS válido!"
+               class="footer-logo">
+        </a>
       </div>
     </footer>
 </body>

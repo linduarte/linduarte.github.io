@@ -153,6 +153,15 @@
                 right: 10px;
             }
         }
+        /* Defensive image rules to avoid oversized/distorted images */
+        .img-full, .img-half {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        /* Provide a sensible default for images without srcset */
+        .img-half { width: 400px; }
+        .img-full { width: 900px; }
     </style>
     <script src="/app/static/js/config.js"></script>
     <script>
@@ -192,13 +201,17 @@
             <pre class="spaced-pre"><code class="language-bash">git branch</code></pre>
             Quando se associa o parâmetro '--remote' ao comando 'git branch' é possível listar os 'branches' remotos.
             <pre class="spaced-pre"><code class="language-bash">git branch --remote</code></pre>
-            <img src="/app/static/images/git-branch-re.webp" alt="Imagem do git branch e do git branch remoto" class="img-half" width="400" height="225">
+          <img src="/app/static/images/git-branch-re.webp" alt="Imagem do git branch e do git branch remoto" class="img-half" width="400" height="225"
+              srcset="/app/static/images/git-branch-re.webp 400w"
+              sizes="(max-width: 600px) 100vw, 400px">
             <p class="p-styled spaced-p">Agora nosso repositório posui somente um único ramo, 'branch' chamado 'main'. O ramo 'main' é o ramo padrão do Git.
                 Este ramo é criado automaticamente quando se inicia um novo repositório. O ramo 'main' é o ramo principal do projeto. Ou seja é default.
                 Se compararmos o projeto Git como uma árvore o ramo 'main' seria o tronco da árvore. O ramo 'main' é o ramo que contém o código de produção.
                 A partir do tronco é possivel criarmos linhas separadas de desenvolvimento como ramos independentes com seus próprios comites.
             </p>
-            <img src="/app/static/images/trunck.webp" alt="Screenshot do pilots HTML" class="img-half" width="400" height="225">
+          <img src="/app/static/images/trunck.webp" alt="Screenshot do pilots HTML" class="img-half" width="400" height="225"
+              srcset="/app/static/images/trunck.webp 400w"
+              sizes="(max-width: 600px) 100vw, 400px">
             <p class="p-styled spaced-p">Na imagem anterior a linha representa o ramo principal, 'main' com
                 cada comite mostrado como um círculo. A seta indica a direção do desenvolvimento, ou seja 'HEAD' e aponta para o último comite.
                 O último comite é o comite mais recente. O comite mais recente é o comite que está no topo da pilha de comites. De baixo para cima como pode-se ver na imagem abaixo do git log.
