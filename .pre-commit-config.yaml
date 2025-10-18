@@ -29,6 +29,11 @@ repos:
         types: [python]
         files: \.py$
         additional_dependencies: [black]
+      - id: check-no-query-suffix
+        name: check no query-suffix tokens
+        entry: scripts/check_no_query_suffix.sh
+        language: script
+        files: ^(app|scripts|*.html|*.md|\.github)\/
 
   - repo: https://github.com/pycqa/isort
     rev: 5.12.0
