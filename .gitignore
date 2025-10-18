@@ -30,3 +30,13 @@ uv.lock
 
 # If you need to ignore specific large images, add them explicitly here.
 # e.g. app/static/images/large-file.webp
+
+# CI and local audit artifacts
+reports_download/
+reports_download/**
+reports_download_ci/
+reports_download_ci/**
+reports_local/
+reports_local/**
+server.log
+tmp/
