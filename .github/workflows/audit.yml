@@ -145,18 +145,22 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs')
+            const core = require('@actions/core')
             // determine PR number defensively — workflow is PR-scoped, but be defensive
             const summaryPath = 'reports_download/audit-summary.md'
             const body = fs.existsSync(summaryPath) ? fs.readFileSync(summaryPath, 'utf8') : 'No audit summary generated.'
             const prNumber = context.payload.pull_request?.number || null
             if (!prNumber) {
-              core = require('@actions/core')
               core.info('No pull request number found in context, skipping PR comment.')
             } else {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: prNumber,
-                body: 'Automated audit summary (Lighthouse + pa11y)\n\n' + body
-              })
+              try {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: prNumber,
+                  body: 'Automated audit summary (Lighthouse + pa11y)\n\n' + body
+                })
+              } catch (err) {
+                core.info('Unable to post PR comment (likely a forked PR or missing permissions). Skipping comment. ' + String(err.message))
+              }
             }
