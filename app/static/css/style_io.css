@@ -75,12 +75,13 @@ h5 {
 /*images */
 
 .logo img{
-   position:absolute;
-   margin-left:700px;
-   margin-top:0px;
-   width:150px;
-   height:63px;
-   z-index: 1; /*bring the image to front*/
+    /* Avoid absolute positioning which causes overlap; keep image in flow */
+    position: static;
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+    height: auto;
+    z-index: 1; /* keep stacking context if needed */
 }
 
 .call h4{
@@ -99,7 +100,7 @@ h5 {
     background-color: slategray;
     display: table;
     width:100%;
-    grid-template-rows: 500px 500px;
+    grid-template-rows: 1700px 1700px;
     grid-template-columns: 60% 40%; /* Consider using percentage-based columns */
 
 

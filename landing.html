@@ -31,7 +31,7 @@
             box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25) !important;
             margin: 40px auto !important;
             padding: 40px !important;
-            max-width: 900px !important;
+            max-width: 1100px !important;
             backdrop-filter: blur(8px) !important;
             -webkit-backdrop-filter: blur(8px) !important;
             border: 1px solid rgba(255,255,255,0.2) !important;
@@ -136,12 +136,14 @@
 </head>
 <body>
     <div class="main-container">
-        <!-- Seção de construção com imagem na lateral esquerda -->
+        <!-- construction-section inlined from includes/under-construction.html -->
         <div class="construction-section">
             <div style="flex-shrink: 0;">
-                <img src="app/static/images/under-construction.webp"
+                <!-- Use single under-construction.webp as fallback; regenerate variants in CI if desired -->
+                <img src="/app/static/images/under-construction.webp"
                      alt="Site em construção"
-                     style="max-width: 150px; height: auto; border-radius: 8px;">
+                     width="150" height="100"
+                     style="max-width:150px;height:auto;border-radius:8px;">
             </div>
             <div style="flex-grow: 1;">
                 <h3 style="margin: 0 0 10px 0; color: #f14e32;">Site em Construção</h3>
@@ -223,12 +225,15 @@
                         Deve-se salientar ainda que o terminal permite criar 'scripts' que auxiliam os desenvolvedores a automatizar tarefas repetitivas ou customizar
                         fluxos de trabalho específicos de seus projetos.<br>
                         <div>
-                        <picture class="cl">
-                            <img src="/app/static/images/cl_new-tr.webp"
-                              srcset="/app/static/images/cl_new-tr-100.webp?=100 100w, /app/static/images/cl_new-tr-200.webp?=200 200w, /app/static/images/cl_new-tr-400.webp?=400 400w, /app/static/images/cl_new-tr-800.webp?=800 800w"
-                              sizes="(max-width: 800px) 100vw, 50vw"
-                              alt="Terminal Git bash">
-                        </picture>
+                                                <picture class="cl">
+                                                                                <img src="/app/static/images/cl_new-tr.webp"
+                                                                                    srcset="/app/static/images/cl_new-tr-100.webp 100w, /app/static/images/cl_new-tr-200.webp 200w, /app/static/images/cl_new-tr-400.webp 400w, /app/static/images/cl_new-tr-800.webp 800w"
+                                                                                    sizes="(max-width: 800px) 100vw, 50vw"
+                                                                                    alt="Terminal Git bash"
+                                                                                    width="800" height="450"
+                                                                                    loading="lazy"
+                                                                                    style="max-width:100%;height:auto;aspect-ratio:16/9;">
+                                                                        </picture>
                         </div>
 
                         <h5 id="base5">E como não falar de GitHub?</h5>
@@ -461,14 +466,16 @@
             <div class="footer-badges">
                 <a href="https://pages.github.com/" class="github-link">
                     <span>🐙 GitHub Pages</span>
-                    <img src="../../static/images/github-mark-white.png"
+                    <img src="/app/static/images/github-mark-white.png"
                          alt="GitHub Logo"
-                         class="footer-logo">
+                    class="footer-logo"
+                    width="20" height="20">
                 </a>
                 <a href="http://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
-                    <img src="http://jigsaw.w3.org/css-validator/images/vcss"
-                         alt="CSS válido!"
-                         class="footer-logo">
+                <img src="https://jigsaw.w3.org/css-validator/images/vcss"
+                    alt="CSS válido!"
+                    class="footer-logo"
+                    width="88" height="31">
                 </a>
             </div>
         </footer>

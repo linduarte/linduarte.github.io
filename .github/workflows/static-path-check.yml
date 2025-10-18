@@ -1,0 +1,25 @@
+name: Check static paths
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check-static-paths:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Find legacy static paths in templates
+        run: |
+          echo "Searching for legacy '../../static/' or leading '/static/' references in app/templates/git-course..."
+          set -e
+          # Search for '../../static/' or any src/href starting with /static/ in templates (exclude tests artifacts)
+          matches=$(grep -RIn --exclude-dir=tests -E "\.{2}/\.{2}/static/|[[:space:]](src|href)=[\"']?/static/" app/templates/git-course || true)
+          if [ -n "$matches" ]; then
+            echo "Legacy static path references found:"
+            echo "$matches"
+            exit 1
+          fi
+          echo "No legacy references found."

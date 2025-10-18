@@ -27,6 +27,7 @@ addopts = [
     "--disable-warnings"
 ]
 testpaths = ["tests"]
+norecursedirs = ["tests/artifacts"]
 markers = [
     "e2e: end-to-end tests",
     "visual: visual regression tests",
