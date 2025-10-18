@@ -14,12 +14,12 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Fail if any HTML contains '?=<digits>'
+      - name: Fail if any source files contain '?=<digits>'
         run: |
-          echo "Scanning tracked files for '?=digits' pattern..."
+          echo "Scanning tracked text files for '?=digits' pattern..."
           set -o pipefail
-          # Use git grep to only check tracked files in the commit/PR range
-          matches=$(git grep -nE '\?=[0-9]+' || true)
+          # Only check common text file extensions to avoid binary matches in images
+          matches=$(git grep -nE '\?=[0-9]+' -- '*.html' '*.md' '*.js' '*.css' '*.py' '*.txt' || true)
           if [ -n "$matches" ]; then
             echo "Found accidental query-suffix occurrences (fail CI):"
             echo "$matches"

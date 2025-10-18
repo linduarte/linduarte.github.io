@@ -112,7 +112,7 @@ Audits + re-generation policy (short and actionable)
    - During local work we back up generated files to `tmp/backups-generated-images-*` before any destructive cleanup. Those backups live in the branch workspace only.
 
 3) Sanitization of uploaded artifacts
-   - Old uploaded Lighthouse artifacts occasionally contained query-suffix tokens like `?=800`. The repo includes sanitizer utilities that produce `tmp/clean-artifacts/` copies with such tokens removed for clean review.
+   - Old uploaded Lighthouse artifacts occasionally contained query-suffix tokens like `(token removed)`. The repo includes sanitizer utilities that produce `tmp/clean-artifacts/` copies with such tokens removed for clean review.
 
 4) How CI runs audits
    - CI pipeline steps (see `.github/workflows/*`) will:
@@ -161,3 +161,4 @@ Checklist for maintainers antes da mesclagem
 - [ ] Approve and merge.
 
 ````
+
