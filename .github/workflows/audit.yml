@@ -145,25 +145,7 @@ jobs:
 
       - name: Post PR comment with audit summary
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-              const fs = require(\'fs\')
-
-              const summaryPath = 'reports_download/audit-summary.md'
-              const body = fs.existsSync(summaryPath) ? fs.readFileSync(summaryPath, 'utf8') : 'No audit summary generated.'
-              const prNumber = context.payload.pull_request?.number || null
-              if (!prNumber) {
-              core.info(\'No pull request number found in context, skipping PR comment.\')
-              } else {
-                try {
-                  await github.rest.issues.createComment({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    issue_number: prNumber,
-                    body: 'Automated audit summary (Lighthouse + pa11y)\n\n' + body
-                  })
-                } catch (err) {
-                 core.info(\'Unable to post PR comment (likely a forked PR or missing permissions). Skipping comment. \' + String(err.message))                }
-              }
+        run: |
+          node scripts/post_audit_comment.js --reports-dir=reports_download
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
