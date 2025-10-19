@@ -29,16 +29,18 @@ jobs:
 
       - name: Start simple HTTP server
         run: |
-          # start a simple server in background and redirect output to /dev/null
-          python -m http.server 8000 > /dev/null 2>&1 &
+          # start a simple server in background and redirect output to server.log
+          python -m http.server 8000 > server.log 2>&1 &
           # wait for the server to be reachable (give it a few seconds)
           for i in 1 2 3 4 5; do
-            if curl -sS -I http://localhost:8000/landing.html | head -n1 | grep -q "200"; then
+            if curl -sS -I http://localhost:8000/landing.html >/dev/null 2>&1; then
               echo "server up"; break
             else
-              echo "waiting for server... ($i)"; sleep 1
+              echo "waiting for server... ($i)"; sleep $((i*2))
             fi
           done
+          echo "--- server.log (first 200 lines) ---"
+          sed -n '1,200p' server.log || true
 
       # NOTE: temporary sanitization step that removed accidental '?=NUMBER' suffixes
       # was used during debugging. It has been removed now that the root cause is
@@ -48,9 +50,21 @@ jobs:
         run: |
           mkdir -p reports
           # capture both stdout (html) and stderr for debugging; keep job non-failing
-          npx -y pa11y "http://localhost:8000/landing.html" --config pa11y-ci.config.json --reporter html > reports/landing-pa11y.html 2> reports/landing-pa11y.err || true
-          npx -y pa11y "http://localhost:8000/app/templates/git-course/login.html" --config pa11y-ci.config.json --reporter html > reports/login-pa11y.html 2> reports/login-pa11y.err || true
-          npx -y pa11y "http://localhost:8000/app/templates/git-course/1a-prefacio.html" --config pa11y-ci.config.json --reporter html > reports/prefacio-pa11y.html 2> reports/prefacio-pa11y.err || true
+          for attempt in 1 3; do
+            echo "pa11y landing attempt $attempt"
+            npx -y pa11y "http://localhost:8000/landing.html" --config pa11y-ci.config.json --reporter html > reports/landing-pa11y.html 2> reports/landing-pa11y.err && break || true
+            if [ $attempt -lt 3 ]; then sleep $((attempt*5)); fi
+          done
+          for attempt in 1 3; do
+            echo "pa11y login attempt $attempt"
+            npx -y pa11y "http://localhost:8000/app/templates/git-course/login.html" --config pa11y-ci.config.json --reporter html > reports/login-pa11y.html 2> reports/login-pa11y.err && break || true
+            if [ $attempt -lt 3 ]; then sleep $((attempt*5)); fi
+          done
+          for attempt in 1 3; do
+            echo "pa11y prefacio attempt $attempt"
+            npx -y pa11y "http://localhost:8000/app/templates/git-course/1a-prefacio.html" --config pa11y-ci.config.json --reporter html > reports/prefacio-pa11y.html 2> reports/prefacio-pa11y.err && break || true
+            if [ $attempt -lt 3 ]; then sleep $((attempt*5)); fi
+          done
           # show small diagnostics to logs so that empty files are easier to debug in CI
           echo "Landing pa11y size:" && ls -l reports/landing-pa11y.* || true
           echo "Login pa11y size:" && ls -l reports/login-pa11y.* || true
@@ -61,9 +75,21 @@ jobs:
           LH_HEADLESS_FLAGS: "--headless --no-sandbox --disable-gpu"
         run: |
           mkdir -p reports
-          npx -y lighthouse "http://localhost:8000/landing.html" --chrome-flags="$LH_HEADLESS_FLAGS" --emulated-form-factor=desktop --throttling-method=provided --output=json --output-path=reports/landing-lighthouse.report.json || true
-          npx -y lighthouse "http://localhost:8000/app/templates/git-course/login.html" --chrome-flags="$LH_HEADLESS_FLAGS" --emulated-form-factor=desktop --throttling-method=provided --output=json --output-path=reports/login-lighthouse.report.json || true
-          npx -y lighthouse "http://localhost:8000/app/templates/git-course/1a-prefacio.html" --chrome-flags="$LH_HEADLESS_FLAGS" --emulated-form-factor=desktop --throttling-method=provided --output=json --output-path=reports/prefacio-lighthouse.report.json || true
+          for attempt in 1 3; do
+            echo "Lighthouse landing attempt $attempt"
+            npx -y lighthouse "http://localhost:8000/landing.html" --chrome-flags="$LH_HEADLESS_FLAGS" --emulated-form-factor=desktop --throttling-method=provided --output=json --output-path=reports/landing-lighthouse.report.json && break || true
+            if [ $attempt -lt 3 ]; then sleep $((attempt*5)); fi
+          done
+          for attempt in 1 3; do
+            echo "Lighthouse login attempt $attempt"
+            npx -y lighthouse "http://localhost:8000/app/templates/git-course/login.html" --chrome-flags="$LH_HEADLESS_FLAGS" --emulated-form-factor=desktop --throttling-method=provided --output=json --output-path=reports/login-lighthouse.report.json && break || true
+            if [ $attempt -lt 3 ]; then sleep $((attempt*5)); fi
+          done
+          for attempt in 1 3; do
+            echo "Lighthouse prefacio attempt $attempt"
+            npx -y lighthouse "http://localhost:8000/app/templates/git-course/1a-prefacio.html" --chrome-flags="$LH_HEADLESS_FLAGS" --emulated-form-factor=desktop --throttling-method=provided --output=json --output-path=reports/prefacio-lighthouse.report.json && break || true
+            if [ $attempt -lt 3 ]; then sleep $((attempt*5)); fi
+          done
 
       - name: Upload reports as artifact
         uses: actions/upload-artifact@v4

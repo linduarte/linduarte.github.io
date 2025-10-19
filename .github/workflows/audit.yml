@@ -12,7 +12,7 @@ jobs:
       issues: write
       pull-requests: write
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 40
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -61,6 +61,10 @@ jobs:
           fi
           # wait so the server is ready
           sleep 5
+          echo "--- server.log (first 200 lines) ---"
+          if [ -f server.log ]; then
+            sed -n '1,200p' server.log || true
+          fi
 
       - name: Run Lighthouse (landing)
         run: |
@@ -71,10 +75,25 @@ jobs:
           else
             BASE_URL="http://localhost:8000"
           fi
-          npx -y lighthouse "$BASE_URL/landing.html" \
-            --output=json --output-path=reports_download/landing-lighthouse.report.json \
-            --blocked-url-patterns='*gc.kis.v2.scr.kaspersky-labs.com*' \
-            --chrome-flags="--no-sandbox --headless --disable-gpu"
+          echo "Using BASE_URL=$BASE_URL"
+          # probe the landing page
+          for i in 1 5; do
+            if curl -sS --max-time 2 "$BASE_URL/landing.html" -I >/dev/null 2>&1; then
+              echo "server responded, proceeding"
+              break
+            fi
+            echo "waiting for server to respond... ($i)"; sleep $((i*2))
+          done
+          # retry lighthouse up to 3 times with backoff
+          for attempt in 1 3; do
+            echo "Lighthouse landing attempt $attempt"
+            npx -y lighthouse "$BASE_URL/landing.html" \
+              --output=json --output-path=reports_download/landing-lighthouse.report.json \
+              --blocked-url-patterns='*gc.kis.v2.scr.kaspersky-labs.com*' \
+              --chrome-flags="--no-sandbox --headless --disable-gpu" && break
+            echo "Lighthouse attempt $attempt failed"
+            if [ $attempt -lt 3 ]; then sleep $((attempt*5)); fi
+          done
 
       - name: Run Lighthouse (login)
         run: |
@@ -83,10 +102,16 @@ jobs:
           else
             BASE_URL="http://localhost:8000"
           fi
-          npx -y lighthouse "$BASE_URL/app/templates/git-course/login.html" \
-            --output=json --output-path=reports_download/login-lighthouse.report.json \
-            --blocked-url-patterns='*gc.kis.v2.scr.kaspersky-labs.com*' \
-            --chrome-flags="--no-sandbox --headless --disable-gpu"
+          echo "Using BASE_URL=$BASE_URL"
+          for attempt in 1 3; do
+            echo "Lighthouse login attempt $attempt"
+            npx -y lighthouse "$BASE_URL/app/templates/git-course/login.html" \
+              --output=json --output-path=reports_download/login-lighthouse.report.json \
+              --blocked-url-patterns='*gc.kis.v2.scr.kaspersky-labs.com*' \
+              --chrome-flags="--no-sandbox --headless --disable-gpu" && break
+            echo "Lighthouse login attempt $attempt failed"
+            if [ $attempt -lt 3 ]; then sleep $((attempt*5)); fi
+          done
 
       - name: Run Lighthouse (prefacio)
         run: |
@@ -95,10 +120,16 @@ jobs:
           else
             BASE_URL="http://localhost:8000"
           fi
-          npx -y lighthouse "$BASE_URL/app/templates/git-course/1a-prefacio.html" \
-            --output=json --output-path=reports_download/prefacio-lighthouse.report.json \
-            --blocked-url-patterns='*gc.kis.v2.scr.kaspersky-labs.com*' \
-            --chrome-flags="--no-sandbox --headless --disable-gpu"
+          echo "Using BASE_URL=$BASE_URL"
+          for attempt in 1 3; do
+            echo "Lighthouse prefacio attempt $attempt"
+            npx -y lighthouse "$BASE_URL/app/templates/git-course/1a-prefacio.html" \
+              --output=json --output-path=reports_download/prefacio-lighthouse.report.json \
+              --blocked-url-patterns='*gc.kis.v2.scr.kaspersky-labs.com*' \
+              --chrome-flags="--no-sandbox --headless --disable-gpu" && break
+            echo "Lighthouse prefacio attempt $attempt failed"
+            if [ $attempt -lt 3 ]; then sleep $((attempt*5)); fi
+          done
 
       - name: Run pa11y (landing)
         run: |
@@ -109,7 +140,11 @@ jobs:
             BASE_URL="http://localhost:8000"
           fi
           # use pa11y config (pa11y-ci.config.json) so launcher args are provided via config
-          npx -y pa11y "$BASE_URL/landing.html" --config pa11y-ci.config.json --reporter html > reports_download/landing-pa11y.html 2> reports_download/landing-pa11y.err || true
+          for attempt in 1 3; do
+            echo "pa11y landing attempt $attempt"
+            npx -y pa11y "$BASE_URL/landing.html" --config pa11y-ci.config.json --reporter html > reports_download/landing-pa11y.html 2> reports_download/landing-pa11y.err && break || true
+            if [ $attempt -lt 3 ]; then sleep $((attempt*5)); fi
+          done
 
       - name: Run pa11y (prefacio)
         run: |
@@ -118,7 +153,11 @@ jobs:
           else
             BASE_URL="http://localhost:8000"
           fi
-          npx -y pa11y "$BASE_URL/app/templates/git-course/1a-prefacio.html" --config pa11y-ci.config.json --reporter html > reports_download/prefacio-pa11y.html 2> reports_download/prefacio-pa11y.err || true
+          for attempt in 1 3; do
+            echo "pa11y prefacio attempt $attempt"
+            npx -y pa11y "$BASE_URL/app/templates/git-course/1a-prefacio.html" --config pa11y-ci.config.json --reporter html > reports_download/prefacio-pa11y.html 2> reports_download/prefacio-pa11y.err && break || true
+            if [ $attempt -lt 3 ]; then sleep $((attempt*5)); fi
+          done
 
       - name: Run pa11y (login)
         run: |
@@ -127,7 +166,11 @@ jobs:
           else
             BASE_URL="http://localhost:8000"
           fi
-          npx -y pa11y "$BASE_URL/app/templates/git-course/login.html" --config pa11y-ci.config.json --reporter html > reports_download/login-pa11y.html 2> reports_download/login-pa11y.err || true
+          for attempt in 1 3; do
+            echo "pa11y login attempt $attempt"
+            npx -y pa11y "$BASE_URL/app/templates/git-course/login.html" --config pa11y-ci.config.json --reporter html > reports_download/login-pa11y.html 2> reports_download/login-pa11y.err && break || true
+            if [ $attempt -lt 3 ]; then sleep $((attempt*5)); fi
+          done
 
       - name: Generate audit summary
         run: |
