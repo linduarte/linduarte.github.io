@@ -31,7 +31,8 @@ repos:
         additional_dependencies: [black]
       - id: check-no-query-suffix
         name: check no query-suffix tokens
-        entry: scripts/check_no_query_suffix.sh
+        # Use a small Windows shim to invoke Git Bash reliably (handles spaces in Program Files)
+        entry: scripts/check_no_query_suffix.cmd
         language: script
         # match paths under app/, scripts/, .github/ or files ending with .html or .md
         files: '(^app/|^scripts/|^\.github/|\.html$|\.md$)'

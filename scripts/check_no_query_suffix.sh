@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Quick check for accidental '?=NUMBER' tokens in tracked files
 set -euo pipefail
 
