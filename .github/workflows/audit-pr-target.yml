@@ -3,6 +3,13 @@ name: CI Audits (trusted runner for PRs)
 on:
   pull_request_target:
     types: [opened, synchronize, reopened]
+  # allow manual dispatch so maintainers can run audits against a PR safely
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: 'Pull request number to run audits for'
+        required: true
+        default: '2'
 
 jobs:
   audits:
@@ -17,6 +24,26 @@ jobs:
     steps:
       - name: Checkout (base repository)
         uses: actions/checkout@v4
+
+      - name: Fetch PR head contents (when manually dispatched)
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          set -eux
+          PR=${{ github.event.inputs.pr }}
+          echo "Fetching PR #$PR info"
+          HEAD_REPO=$(gh api repos/${{ github.repository }}/pulls/$PR --jq .head.repo.full_name)
+          HEAD_REF=$(gh api repos/${{ github.repository }}/pulls/$PR --jq .head.ref)
+          echo "Head repo: $HEAD_REPO, ref: $HEAD_REF"
+          # clone the PR head and copy files into workspace
+          git clone --depth=1 https://github.com/$HEAD_REPO pr_head
+          cd pr_head || exit 1
+          git checkout $HEAD_REF || true
+          # copy files from PR into workspace root (overwrite with PR contents)
+          cp -a . ..
+          cd ..
+          rm -rf pr_head
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node
         uses: actions/setup-node@v4
