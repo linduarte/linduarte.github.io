@@ -1,0 +1,167 @@
+name: CI Audits (trusted runner for PRs)
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  audits:
+    name: Lighthouse & pa11y audits (trusted)
+    # run with the base repository's code so we don't execute untrusted workflow from forks
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout (base repository)
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install global helpers
+        run: |
+          npm install -g http-server
+
+      - name: Install Node dependencies (for image generation)
+        run: |
+          npm ci
+
+      - name: Generate responsive image variants (CI)
+        run: |
+          node scripts/ci_generate_variants.js --input=reports_image_candidates_summary.json --out=tmp/generated-images || true
+          if [ -d tmp/generated-images ]; then
+            cp -v tmp/generated-images/* app/static/images/ || true
+          fi
+
+      - name: Start static server
+        run: |
+          mkdir -p reports_download
+          if [ -f "certs/localhost.pem" ] && [ -f "certs/localhost-key.pem" ]; then
+            echo "TRUSTED_CERTS=true" >> $GITHUB_ENV
+            echo "Starting HTTPS server (trusted certs)"
+            npx http-server -p 8443 -S --cert certs/localhost.pem --key certs/localhost-key.pem -c-1 > server.log 2>&1 &
+          else
+            echo "TRUSTED_CERTS=false" >> $GITHUB_ENV
+            echo "Starting HTTP server (default for CI)"
+            npx http-server -p 8000 -c-1 > server.log 2>&1 &
+          fi
+          sleep 5
+          echo "--- server.log (first 200 lines) ---"
+          if [ -f server.log ]; then
+            sed -n '1,200p' server.log || true
+          fi
+
+      - name: Run Lighthouse (landing)
+        run: |
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && curl -sS --head --insecure --max-time 2 https://localhost:8443 >/dev/null 2>&1; then
+            BASE_URL="https://localhost:8443"
+          else
+            BASE_URL="http://localhost:8000"
+          fi
+          echo "Using BASE_URL=$BASE_URL"
+          for attempt in 1 3; do
+            echo "Lighthouse landing attempt $attempt"
+            npx -y lighthouse "$BASE_URL/landing.html" \
+              --output=json --output-path=reports_download/landing-lighthouse.report.json \
+              --blocked-url-patterns='*gc.kis.v2.scr.kaspersky-labs.com*' \
+              --chrome-flags="--no-sandbox --headless --disable-gpu" && break
+            echo "Lighthouse attempt $attempt failed"
+            if [ $attempt -lt 3 ]; then sleep $((attempt*5)); fi
+          done
+
+      - name: Run Lighthouse (login)
+        run: |
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && curl -sS --head --insecure --max-time 2 https://localhost:8443 >/dev/null 2>&1; then
+            BASE_URL="https://localhost:8443"
+          else
+            BASE_URL="http://localhost:8000"
+          fi
+          echo "Using BASE_URL=$BASE_URL"
+          for attempt in 1 3; do
+            echo "Lighthouse login attempt $attempt"
+            npx -y lighthouse "$BASE_URL/app/templates/git-course/login.html" \
+              --output=json --output-path=reports_download/login-lighthouse.report.json \
+              --blocked-url-patterns='*gc.kis.v2.scr.kaspersky-labs.com*' \
+              --chrome-flags="--no-sandbox --headless --disable-gpu" && break
+            echo "Lighthouse login attempt $attempt failed"
+            if [ $attempt -lt 3 ]; then sleep $((attempt*5)); fi
+          done
+
+      - name: Run Lighthouse (prefacio)
+        run: |
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && curl -sS --head --insecure --max-time 2 https://localhost:8443 >/dev/null 2>&1; then
+            BASE_URL="https://localhost:8443"
+          else
+            BASE_URL="http://localhost:8000"
+          fi
+          echo "Using BASE_URL=$BASE_URL"
+          for attempt in 1 3; do
+            echo "Lighthouse prefacio attempt $attempt"
+            npx -y lighthouse "$BASE_URL/app/templates/git-course/1a-prefacio.html" \
+              --output=json --output-path=reports_download/prefacio-lighthouse.report.json \
+              --blocked-url-patterns='*gc.kis.v2.scr.kaspersky-labs.com*' \
+              --chrome-flags="--no-sandbox --headless --disable-gpu" && break
+            echo "Lighthouse prefacio attempt $attempt failed"
+            if [ $attempt -lt 3 ]; then sleep $((attempt*5)); fi
+          done
+
+      - name: Run pa11y (landing)
+        run: |
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && curl -sS --head --insecure --max-time 2 https://localhost:8443 >/dev/null 2>&1; then
+            BASE_URL="https://localhost:8443"
+          else
+            BASE_URL="http://localhost:8000"
+          fi
+          for attempt in 1 3; do
+            echo "pa11y landing attempt $attempt"
+            npx -y pa11y "$BASE_URL/landing.html" --config pa11y-ci.config.json --reporter html > reports_download/landing-pa11y.html 2> reports_download/landing-pa11y.err && break || true
+            if [ $attempt -lt 3 ]; then sleep $((attempt*5)); fi
+          done
+
+      - name: Run pa11y (prefacio)
+        run: |
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && curl -sS --head --insecure --max-time 2 https://localhost:8443 >/dev/null 2>&1; then
+            BASE_URL="https://localhost:8443"
+          else
+            BASE_URL="http://localhost:8000"
+          fi
+          for attempt in 1 3; do
+            echo "pa11y prefacio attempt $attempt"
+            npx -y pa11y "$BASE_URL/app/templates/git-course/1a-prefacio.html" --config pa11y-ci.config.json --reporter html > reports_download/prefacio-pa11y.html 2> reports_download/prefacio-pa11y.err && break || true
+            if [ $attempt -lt 3 ]; then sleep $((attempt*5)); fi
+          done
+
+      - name: Run pa11y (login)
+        run: |
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && curl -sS --head --insecure --max-time 2 https://localhost:8443 >/dev/null 2>&1; then
+            BASE_URL="https://localhost:8443"
+          else
+            BASE_URL="http://localhost:8000"
+          fi
+          for attempt in 1 3; do
+            echo "pa11y login attempt $attempt"
+            npx -y pa11y "$BASE_URL/app/templates/git-course/login.html" --config pa11y-ci.config.json --reporter html > reports_download/login-pa11y.html 2> reports_download/login-pa11y.err && break || true
+            if [ $attempt -lt 3 ]; then sleep $((attempt*5)); fi
+          done
+
+      - name: Generate audit summary
+        run: |
+          node scripts/generate_audit_summary.js > reports_download/audit-summary.md || true
+
+      - name: Upload audit artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-reports
+          path: reports_download/**
+
+      - name: Post PR comment with audit summary (trusted runner)
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        run: |
+          node scripts/post_audit_comment.js --reports-dir=reports_download
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
