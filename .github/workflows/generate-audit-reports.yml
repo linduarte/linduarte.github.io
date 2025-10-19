@@ -110,7 +110,7 @@ jobs:
             const issue_number = context.issue.number;
             if (!issue_number) {
               // No PR number found in context; skip posting but keep the job non-failing
-              console.log('No issue/PR number found in context; skipping PR comment.');
+              core.info('No issue/PR number found in context; skipping PR comment.');
             } else {
               await github.rest.issues.createComment({
                 owner: context.repo.owner,

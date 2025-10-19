@@ -39,6 +39,11 @@ jobs:
           if [ -d tmp/generated-images ]; then
             cp -v tmp/generated-images/* app/static/images/ || true
           fi
+          node scripts/ci_generate_variants.js --input=reports_image_candidates_summary.json --out=tmp/generated-images || true
+          # copy generated variants into the served static images folder
+          if [ -d tmp/generated-images ]; then
+            cp -v tmp/generated-images/* app/static/images/ || true
+          fi
 
       # NOTE: temporary sanitization step that removed accidental '?=NUMBER' suffixes
       # was used during debugging. It has been removed now that the root cause is
