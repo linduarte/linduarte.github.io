@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Prefácio - Git Course</title>
-    <link rel="stylesheet" href="../../static/css/style.css">
-    <link rel="stylesheet" href="../../static/css/common-styles.css">
-    <link rel="stylesheet" href="../../static/css/git-course.css">
+    <link rel="stylesheet" href="/app/static/css/style.css">
+    <link rel="stylesheet" href="/app/static/css/common-styles.css">
+    <link rel="stylesheet" href="/app/static/css/git-course.css">
     <style>
         body {
-            background: url('../../static/images/waves.webp') center/cover no-repeat fixed;
+        background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
             font-family: 'Victor Mono', monospace;
         }
         .course-container {
@@ -162,7 +162,7 @@
             }
         }
     </style>
-    <script src="../../static/js/config.js"></script>
+    <script src="/app/static/js/config.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         // Note: don't check token immediately — allow tests to inject token via
@@ -173,7 +173,7 @@
             logoutBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 localStorage.removeItem('access_token');
-                window.location.href = '../../../landing.html';
+                window.location.href = '/landing.html';
             });
         }
     // Polling guard: wait for token injected by Playwright's
@@ -300,7 +300,7 @@
       <div class="footer-badges">
         <a href="https://pages.github.com/" class="github-link">
           <span>Powered by GitHub Pages</span>
-          <img src="../../static/images/github-mark-white.png"
+        <img src="/app/static/images/github-mark-white.png"
                alt="GitHub Logo"
                class="footer-logo">
         </a>
