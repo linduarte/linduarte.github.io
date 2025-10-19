@@ -106,25 +106,49 @@ async function main() {
   const url = `https://api.github.com/repos/${owner}/${repoName}/issues/${prNumber}/comments`;
   const payload = JSON.stringify({ body });
 
-  try {
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        Authorization: `token ${token}`,
-        'Content-Type': 'application/json',
-        'User-Agent': 'post-audit-comment-script'
-      },
-      body: payload
+  // Use Node's https.request to avoid depending on global fetch
+  const https = require('https');
+
+  function postJson(urlStr, data, token) {
+    return new Promise((resolve, reject) => {
+      try {
+        const u = new URL(urlStr);
+        const opts = {
+          hostname: u.hostname,
+          path: u.pathname + (u.search || ''),
+          method: 'POST',
+          headers: {
+            'Authorization': `token ${token}`,
+            'Content-Type': 'application/json',
+            'User-Agent': 'post-audit-comment-script',
+            'Content-Length': Buffer.byteLength(data)
+          }
+        };
+        const req = https.request(opts, res => {
+          let body = '';
+          res.setEncoding('utf8');
+          res.on('data', d => body += d);
+          res.on('end', () => resolve({ status: res.statusCode, body }));
+        });
+        req.on('error', err => reject(err));
+        req.write(data);
+        req.end();
+      } catch (err) {
+        reject(err);
+      }
     });
-    if (!res.ok) {
-      const txt = await res.text();
-      console.info('Failed to post PR comment:', res.status, txt);
+  }
+
+  try {
+    const res = await postJson(url, payload, token);
+    if (!res || res.status < 200 || res.status >= 300) {
+      console.info('Failed to post PR comment:', res && res.status, res && res.body);
       return 1;
     }
     console.info('Posted audit comment to PR #' + prNumber);
     return 0;
   } catch (e) {
-    console.info('Error posting PR comment:', e.message || e);
+    console.info('Error posting PR comment:', e && (e.message || e));
     return 1;
   }
 }
