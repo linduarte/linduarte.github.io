@@ -14,7 +14,7 @@ body {
 
 body {
     font-family: 'Victor Mono', monospace;
-    background-image: url("/static/images/waves.webp"); /* Relative path to the image */
+    background-image: url("/app/static/images/waves.webp"); /* Relative path to the image */
     color: #5c4033;
     display: flex;
     flex-direction: column;

@@ -1,0 +1,166 @@
+name: CI Audits
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  audits:
+    name: Lighthouse & pa11y audits
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install global helpers
+        run: |
+          npm install -g http-server
+          # install lighthouse and pa11y locally on runner when needed (npx will fetch if missing)
+
+      - name: Install Node dependencies (for image generation)
+        run: |
+          # Use npm ci to install exact locked deps (package-lock.json present)
+          npm ci
+
+      - name: Generate responsive image variants (CI)
+        run: |
+          node scripts/ci_generate_variants.js --input=reports_image_candidates_summary.json --out=tmp/generated-images || true
+          # copy generated variants into the served static images folder
+          if [ -d tmp/generated-images ]; then
+            cp -v tmp/generated-images/* app/static/images/ || true
+          fi
+
+      # NOTE: temporary sanitization step that removed accidental '?=NUMBER' suffixes
+      # was used during debugging. It has been removed now that the root cause is
+      # being addressed; will be reintroduced only if CI artifacts show regressions.
+
+      - name: Start static server
+        env:
+          TRUSTED_CERTS: ${{ secrets.TRUSTED_CERTS }}
+        run: |
+          mkdir -p reports_download
+          # For CI reliability prefer HTTP by default. Only start HTTPS when
+          # TRUSTED_CERTS is explicitly true and cert files exist in repo.
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && [ -f "certs/localhost.pem" ] && [ -f "certs/localhost-key.pem" ]; then
+            echo "Starting HTTPS server (trusted certs)"
+            npx http-server -p 8443 -S --cert certs/localhost.pem --key certs/localhost-key.pem -c-1 > server.log 2>&1 &
+          else
+            echo "Starting HTTP server (default for CI)"
+            npx http-server -p 8000 -c-1 > server.log 2>&1 &
+          fi
+          # wait so the server is ready
+          sleep 5
+
+      - name: Run Lighthouse (landing)
+        run: |
+          # choose base URL depending on whether HTTPS server is running on 8443
+          # Choose base URL: prefer HTTPS only when TRUSTED_CERTS is true and port 8443 is open
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && ss -ltn | grep -q ":8443"; then
+            BASE_URL="https://localhost:8443"
+          else
+            BASE_URL="http://localhost:8000"
+          fi
+          npx -y lighthouse "$BASE_URL/landing.html" \
+            --output=json --output-path=reports_download/landing-lighthouse.report.json \
+            --blocked-url-patterns='*gc.kis.v2.scr.kaspersky-labs.com*' \
+            --chrome-flags="--no-sandbox --headless --disable-gpu"
+
+      - name: Run Lighthouse (login)
+        run: |
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && ss -ltn | grep -q ":8443"; then
+            BASE_URL="https://localhost:8443"
+          else
+            BASE_URL="http://localhost:8000"
+          fi
+          npx -y lighthouse "$BASE_URL/app/templates/git-course/login.html" \
+            --output=json --output-path=reports_download/login-lighthouse.report.json \
+            --blocked-url-patterns='*gc.kis.v2.scr.kaspersky-labs.com*' \
+            --chrome-flags="--no-sandbox --headless --disable-gpu"
+
+      - name: Run Lighthouse (prefacio)
+        run: |
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && ss -ltn | grep -q ":8443"; then
+            BASE_URL="https://localhost:8443"
+          else
+            BASE_URL="http://localhost:8000"
+          fi
+          npx -y lighthouse "$BASE_URL/app/templates/git-course/1a-prefacio.html" \
+            --output=json --output-path=reports_download/prefacio-lighthouse.report.json \
+            --blocked-url-patterns='*gc.kis.v2.scr.kaspersky-labs.com*' \
+            --chrome-flags="--no-sandbox --headless --disable-gpu"
+
+      - name: Run pa11y (landing)
+        run: |
+          # choose base URL depending on whether HTTPS server is running on 8443
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && ss -ltn | grep -q ":8443"; then
+            BASE_URL="https://localhost:8443"
+          else
+            BASE_URL="http://localhost:8000"
+          fi
+          # use pa11y config (pa11y-ci.config.json) so launcher args are provided via config
+          npx -y pa11y "$BASE_URL/landing.html" --config pa11y-ci.config.json --reporter html > reports_download/landing-pa11y.html 2> reports_download/landing-pa11y.err || true
+
+      - name: Run pa11y (prefacio)
+        run: |
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && ss -ltn | grep -q ":8443"; then
+            BASE_URL="https://localhost:8443"
+          else
+            BASE_URL="http://localhost:8000"
+          fi
+          npx -y pa11y "$BASE_URL/app/templates/git-course/1a-prefacio.html" --config pa11y-ci.config.json --reporter html > reports_download/prefacio-pa11y.html 2> reports_download/prefacio-pa11y.err || true
+
+      - name: Run pa11y (login)
+        run: |
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && ss -ltn | grep -q ":8443"; then
+            BASE_URL="https://localhost:8443"
+          else
+            BASE_URL="http://localhost:8000"
+          fi
+          npx -y pa11y "$BASE_URL/app/templates/git-course/login.html" --config pa11y-ci.config.json --reporter html > reports_download/login-pa11y.html 2> reports_download/login-pa11y.err || true
+
+      - name: Generate audit summary
+        run: |
+          node scripts/generate_audit_summary.js > reports_download/audit-summary.md || true
+
+      - name: Upload audit artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-reports
+          path: reports_download/**
+
+      - name: Post PR comment with audit summary
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs')
+            const core = require('@actions/core')
+            // determine PR number defensively — workflow is PR-scoped, but be defensive
+            const summaryPath = 'reports_download/audit-summary.md'
+            const body = fs.existsSync(summaryPath) ? fs.readFileSync(summaryPath, 'utf8') : 'No audit summary generated.'
+            const prNumber = context.payload.pull_request?.number || null
+            if (!prNumber) {
+              core.info('No pull request number found in context, skipping PR comment.')
+            } else {
+              try {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: prNumber,
+                  body: 'Automated audit summary (Lighthouse + pa11y)\n\n' + body
+                })
+              } catch (err) {
+                core.info('Unable to post PR comment (likely a forked PR or missing permissions). Skipping comment. ' + String(err.message))
+              }
+            }

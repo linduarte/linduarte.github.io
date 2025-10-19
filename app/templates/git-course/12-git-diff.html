@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Git Diff</title>
-    <link rel="stylesheet" href="../../static/css/style.css">
-    <link rel="stylesheet" href="../../static/css/common-styles.css">
-    <link rel="stylesheet" href="../../static/css/git-course.css">
+    <link rel="stylesheet" href="/app/static/css/style.css">
+    <link rel="stylesheet" href="/app/static/css/common-styles.css">
+    <link rel="stylesheet" href="/app/static/css/git-course.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +19,7 @@
     </script>
     <style>
         body {
-            background: url('../../static/images/waves.webp') center/cover no-repeat fixed;
+            background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
             font-family: 'Victor Mono', monospace;
             margin: 0;
             padding: 0;
@@ -157,7 +157,7 @@
             }
         }
     </style>
-    <script src="../../static/js/config.js"></script>
+    <script src="/app/static/js/config.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         const token = localStorage.getItem('access_token');
@@ -177,9 +177,6 @@
     </script>
 </head>
 <body class="intro-page">
-    <img src="../../static/images/github-pages-logo.png"
-         alt="Powered by GitHub Pages"
-         class="github-pages-logo">
 
     <div class="container">
 
@@ -208,26 +205,26 @@
         torna-se importante saber o status de nossa última intervenção no repositório quando realizadmos o comite da letra 'D'. A imagem abaixo registra o status e nos informa
         que estamos 1(um) comite a frente do repositório remoto.</p>
 
-       <img src="../../static/images/status_comit_let_D.webp" alt="Tela mostrando o status do repositório" class="img-full">
+    <img src="/app/static/images/status_comit_let_D.webp" alt="Tela mostrando o status do repositório" class="img-full" width="900" height="506">
 
        <p class="p-styled  spaced-p">Vamos implementar uma nova 'feature request' adicionando a letra 'E'
         aos arquivos pilots.html, cities.html e names.html da mesma forma anteriormente realizada com a letra 'D'.</p>
 
-        <img src="../../static/images/add_letter.webp" alt="Tela mostrando a adição da letra 'E' nos arquivos HTML." class="img-full">
+    <img src="/app/static/images/add_letter.webp" alt="Tela mostrando a adição da letra 'E' nos arquivos HTML." class="img-full" width="900" height="506">
 
         <p class="p-styled  spaced-p">Feitas as adições nos arquivos HTML, vamos adicionar os arquivos  ao index, usando o <code class="language-bash">git add</code>.</p>
 
-        <img src="../../static/images/git_add_let_F.webp" alt="Tela mostrando o status e a aplicação do git add." class="img-full">
+    <img src="/app/static/images/git_add_let_F.webp" alt="Tela mostrando o status e a aplicação do git add." class="img-full" width="900" height="506">
 
         <p class="p-styled  spaced-p">Vamos implementar novamente uma 'feature request' adicionando a letra 'F' aos arquivos pilots.html, cities.html e names.html na seguinte ordem repectivamente: 'Foxtrot', 'Fillmore' e 'Fred',da mesma forma anteriormente realizada com a letra 'E'.</p>
 
-       <img src="../../static/images/git_add_let_E.webp" alt="Tela mostrando o status após a adição da letra F." class="img-full">
+    <img src="/app/static/images/git_add_let_E.webp" alt="Tela mostrando o status após a adição da letra F." class="img-full" width="900" height="506">
 
        <p class="p-styled  spaced-p">A imagem anterior mostra o status depois da aplicação da letra F.
         Aqui é muito importante perceber que as adições da letra 'F' não foram submetidas ao  <code class="language-bash">git add</code> por isto permanecem sem o controle do git ao passo
        que as adições das letra 'E' permitem que os arquivos sejam comitados.</p>
 
-       <img src="../../static/images/git-log-oneline.webp" alt="Tela mostrando o log após a adição da letra D." class="img-full">
+            <img src="/app/static/images/git-log-oneline.webp" alt="Tela mostrando o log após a adição da letra D." class="img-full" width="900" height="506" style="height:auto;max-width:100%;">
 
        <p class="p-styled  spaced-p">Temos então três situações distintas ou seja,
         a letra 'D' foi adicionada e comitada, a letra 'E' foi adicionada mas não comitada e a letra 'F' não foi adicionada e nem comitada.
@@ -264,13 +261,13 @@
             Podemos notar que a letra 'E' foi adicionada ao arquivo sem contudo ser comitada. A letra 'F' foi adicionada ao arquivo sem contudo ser colocada no index ou staged.
         </p>
 
-        <img src="../../static/images/git_st_diff.webp" alt="Tela mostrando o comando git status aplicado ao arquivo pilitos.htmlt" class="img-full">
+    <img src="/app/static/images/git_st_diff.webp" alt="Tela mostrando o comando git status aplicado ao arquivo pilitos.htmlt" class="img-full" width="900" height="506" style="height:auto;max-width:100%;">
 
         <p class="p-styled  spaced-p">Na imagem abaixo vamos interpretar a saída do comando
             git diff pilots.html linha por linha.
            </p>
 
-           <img src="../../static/images/git-diff-pilot.webp" alt="Tela mostrando o comando git status aplicado ao arquivo pilitos.htmlt" class="img-full">
+            <img src="/app/static/images/git-diff-pilot.webp" alt="Tela mostrando o comando git status aplicado ao arquivo pilitos.htmlt" class="img-full" width="900" height="506">
 
 
 
@@ -320,7 +317,7 @@
 
            <h4>Conteúdo antes e depois</h4>
 
-           <img src="../../static/images/conteudo_diff.webp" alt="Conteúdo antes e depois" class="img-full">
+           <img src="/app/static/images/conteudo_diff.webp" alt="Conteúdo antes e depois" class="img-full" width="238" height="163" style="height:163;max-width:100%;">
 
 
            <h4>Estado do repositório</h4>
@@ -339,7 +336,7 @@
            <li>Isso mostrará as diferenças que já foram adicionadas ao stage, mas ainda não commitadas.</li>
            <li>A imagem anterior confirma que a letra 'E' foi adicionada via <code class="language-bash">git add</code>  mas não comitada.</li>
            </ul>
-           <img src="../../static/images/git-diff_staged.webp" alt="Conteúdo antes e depois" class="img-full">
+           <img src="/app/static/images/git-diff_staged.webp" alt="Conteúdo antes e depois" class="img-full" width="900" height="506" style="height:auto;max-width:100%;">
 
            <h4>Vendo as alterações desde o último comite.</h4>
 
@@ -348,7 +345,7 @@
             <li>Na imagem abaixo vemos uma linha contendo a palavra 'Echo' e 'Foxtrot' adicionadas como indicado pelo sinal '+'. O git diff interpreta o HEAD com um hash do último comite.</li>
             <li>O resultado é esperado pois o comite (letra D) foi feito antes da adição das letras 'E' e 'F'. </li>
            </ul>
-           <img src="../../static/images/git-diff-head.webp" alt="Conteúdo antes e depois" class="img-full">
+           <img src="/app/static/images/git-diff-head.webp" alt="Conteúdo antes e depois" class="img-full" width="900" height="506" style="height:auto;max-width:100%;">
 
            <h4>Vendo mudanças entre dois comites</h4>
 
@@ -364,7 +361,7 @@
             </ul>
 
             <pre class="spaced-pre code-block"><code class="language-bash">index 9dd516f..ce31f88 100644</code></pre>
-            <img src="../../static/images/git-diff-head-head.webp" alt="Entre dois comites" class="img-full">
+               <img src="/app/static/images/git-diff-head-head.webp" alt="Entre dois comites" class="img-full" width="900" height="506">
 
             <ul>
             <li>9dd516f: Hash da versão anterior do arquivo (HEAD~1).</li>
@@ -380,7 +377,7 @@
             <li><pre class="spaced-pre code-block"><code class="language-bash">git diff d298f74 2dded79 pilots.html</code></pre></li>
             <li>Na imagem anterior podemos observar os seguintes pontos:</li>
             </ul>
-            <img src="../../static/images/git-log-diff.webp" alt="Entre dois comites" class="img-full">
+            <img src="/app/static/images/git-log-diff.webp" alt="Entre dois comites" class="img-full" width="900" height="506">
 
             <ul>
             <li>O comando <code class="language-bash">git log --oneline --decorate</code> mostrou que o commit 2dded79 adicionou algo novo ao projeto.</li>
@@ -389,13 +386,13 @@
 
             <h4>Agora vamos comitar as pendências do 'feature request', ou seja a inserção da letra 'E' e da letra 'F'.</h4>
 
-            <img src="../../static/images/commit_E.webp" alt="Entre dois comites" class="img-full">
-            <img src="../../static/images/commit_F.webp" alt="Entre dois comites" class="img-full">
+            <img src="/app/static/images/commit_E.webp" alt="Entre dois comites" class="img-full" width="900" height="506">
+            <img src="/app/static/images/commit_F.webp" alt="Entre dois comites" class="img-full" width="900" height="506">
             <p class="p-styled  spaced-p">Ressalvo que o comite da letra 'F' foi precedido de um comando <code class="language-bash">git add</code> pois o mesmo estava 'unstaged'.</p>
 
             <h4>Conclusão desta etapa</h4>
 
-            <img src="../../static/images/git-st-final.webp" alt="Entre dois comites" class="img-full">
+               <img src="/app/static/images/git-st-final.webp" alt="Entre dois comites" class="img-full" width="900" height="506">
 
            <section>
             <h3>Git Graph</h3>
@@ -451,14 +448,14 @@
             <div class="footer-badges">
                 <a href="https://pages.github.com/" class="github-link">
                     <span>🐙 GitHub Pages</span>
-                    <img src="../../static/images/github-mark-white.png"
+                    <img src="/app/static/images/github-mark-white.png"
                          alt="GitHub Logo"
                          class="footer-logo">
                 </a>
-                <a href="http://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
-                    <img src="http://jigsaw.w3.org/css-validator/images/vcss"
+                <a href="https://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
+                    <img src="https://jigsaw.w3.org/css-validator/images/vcss"
                          alt="CSS válido!"
-                         class="footer-logo">
+                         class="footer-logo" width="45" height="16">
                 </a>
             </div>
         </footer>

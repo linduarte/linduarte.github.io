@@ -1,0 +1,28 @@
+name: Prevent accidental '?=WIDTH' in HTML
+
+on:
+  push:
+    branches:
+      - main
+      - 'fix/*'
+  pull_request:
+
+jobs:
+  check-query-suffix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Fail if any source files contain '?=<digits>'
+        run: |
+          echo "Scanning tracked text files for '?=digits' pattern..."
+          set -o pipefail
+          # Only check common text file extensions to avoid binary matches in images
+          matches=$(git grep -nE '\?=[0-9]+' -- '*.html' '*.md' '*.js' '*.css' '*.py' '*.txt' || true)
+          if [ -n "$matches" ]; then
+            echo "Found accidental query-suffix occurrences (fail CI):"
+            echo "$matches"
+            exit 1
+          fi
+          echo "No occurrences found."
