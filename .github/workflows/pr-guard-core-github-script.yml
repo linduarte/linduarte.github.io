@@ -36,8 +36,8 @@ jobs:
             # Only scan text files that exist in the workspace
             if [ -f "$f" ]; then
               # Look at diff hunks to find introduced lines referencing problematic tokens
-              git diff $BASE...HEAD -- "$f" | grep -nE "actions/github-script|require\('@actions/core'\)|const core = require\('@actions/core'\)" || true
-              m=$(git diff $BASE...HEAD -- "$f" | grep -nE "actions/github-script|require\('@actions/core'\)|const core = require\('@actions/core'\)" || true)
+              # detect common patterns in the diff
+              m=$(git diff $BASE...HEAD -- "$f" | grep -nE "actions/github-script|require\(['\"]@actions/core['\"]\)|require\(['\"]@actions/github['\"]\)|const[[:space:]]+core|let[[:space:]]+core|var[[:space:]]+core|\{[[:space:]]*core[[:space:]]*\}[[:space:]]*=|import[[:space:]]+.*from[[:space:]]+['\"]@actions/core['\"]" || true)
               if [ -n "$m" ]; then
                 found=true
                 matches="$matches\n$f:\n$m\n"
@@ -84,12 +84,15 @@ jobs:
           FIXED=false
           for f in $CHANGED_FILES; do
             if [ -f "$f" ]; then
-              if git diff $BASE...HEAD -- "$f" | grep -q "const core = require('@actions/core')"; then
-                echo "Removing 'const core = require('@actions/core')' from $f"
+              # If any of the problematic patterns appear in the diff for this file attempt to remove
+              # common import/require lines. Only operate on exact file paths in the PR.
+              if git diff $BASE...HEAD -- "$f" | grep -q -E "require\(['\"]@actions/core['\"]\)|const[[:space:]]+core[[:space:]]*=|let[[:space:]]+core[[:space:]]*=|var[[:space:]]+core[[:space:]]*=|const[[:space:]]+\{[[:space:]]*core[[:space:]]*\}[[:space:]]*=|import[[:space:]]+.*core.*from[[:space:]]+['\"]@actions/core['\"]"; then
+                echo "Removing @actions/core import/require lines from $f"
                 # make a backup
                 cp "$f" "$f.bak"
-                # remove the offending line (only exact matches) and write back
-                sed "/const core = require('@actions\/core')/d" "$f.bak" > "$f"
+                # remove lines that import/require @actions/core or declare `core` (simpler, robust)
+                cp "$f" "$f.bak"
+                grep -v -E "@actions/core|\b(const|let|var)[[:space:]]+core\b" "$f.bak" > "$f" || true
                 git add "$f"
                 FIXED=true
               fi
