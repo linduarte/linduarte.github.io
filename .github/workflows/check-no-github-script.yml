@@ -1,0 +1,27 @@
+name: Prevent use of actions/github-script
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  fail-if-github-script:
+    runs-on: ubuntu-latest
+    name: Fail if PR introduces actions/github-script
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+
+      - name: Scan for actions/github-script usage
+        run: |
+          set -euo pipefail
+          echo "Scanning repository for 'actions/github-script' occurrences..."
+          # Search YAML workflow files and any files in .github for references
+          matches=$(git grep -n --full-name "actions/github-script" -- ':!node_modules' || true)
+          if [ -n "$matches" ]; then
+            echo "Found usage of actions/github-script which can cause redeclare issues and security concerns:" >&2
+            echo "$matches" >&2
+            echo "Please avoid using actions/github-script inline; use a checked-in script (node) or a maintained action." >&2
+            exit 1
+          fi
+          echo "No 'actions/github-script' references found."
