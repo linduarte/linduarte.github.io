@@ -12,6 +12,7 @@ jobs:
       issues: write
       pull-requests: write
     runs-on: ubuntu-latest
+    env: {}
     timeout-minutes: 40
     steps:
       - name: Checkout
@@ -46,16 +47,16 @@ jobs:
       # being addressed; will be reintroduced only if CI artifacts show regressions.
 
       - name: Start static server
-        env:
-          TRUSTED_CERTS: ${{ secrets.TRUSTED_CERTS }}
         run: |
           mkdir -p reports_download
           # For CI reliability prefer HTTP by default. Only start HTTPS when
-          # TRUSTED_CERTS is explicitly true and cert files exist in repo.
-          if [ "${TRUSTED_CERTS:-}" = "true" ] && [ -f "certs/localhost.pem" ] && [ -f "certs/localhost-key.pem" ]; then
+          # TRUSTED_CERTS is set via job env; only start HTTPS when it is explicitly true and cert files exist in repo.
+            if [ -f "certs/localhost.pem" ] && [ -f "certs/localhost-key.pem" ]; then
+              echo "TRUSTED_CERTS=true" >> $GITHUB_ENV
             echo "Starting HTTPS server (trusted certs)"
             npx http-server -p 8443 -S --cert certs/localhost.pem --key certs/localhost-key.pem -c-1 > server.log 2>&1 &
           else
+              echo "TRUSTED_CERTS=false" >> $GITHUB_ENV
             echo "Starting HTTP server (default for CI)"
             npx http-server -p 8000 -c-1 > server.log 2>&1 &
           fi
