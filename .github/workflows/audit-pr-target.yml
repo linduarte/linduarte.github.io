@@ -34,13 +34,18 @@ jobs:
           HEAD_REPO=$(gh api repos/${{ github.repository }}/pulls/$PR --jq .head.repo.full_name)
           HEAD_REF=$(gh api repos/${{ github.repository }}/pulls/$PR --jq .head.ref)
           echo "Head repo: $HEAD_REPO, ref: $HEAD_REF"
-          # clone the PR head and copy files into workspace
-          git clone --depth=1 https://github.com/$HEAD_REPO pr_head
-          cd pr_head || exit 1
-          git checkout $HEAD_REF || true
-          # copy files from PR into workspace root (overwrite with PR contents)
-          cp -a . ..
-          cd ..
+          # Attempt to clone the specific branch directly to include branch history
+          if git ls-remote --heads https://github.com/$HEAD_REPO $HEAD_REF | grep -q $HEAD_REF; then
+            git clone --depth=1 --branch "$HEAD_REF" https://github.com/$HEAD_REPO pr_head
+          else
+            git clone --depth=1 https://github.com/$HEAD_REPO pr_head
+            cd pr_head
+            git fetch --depth=1 origin "$HEAD_REF" || true
+            git checkout -B pr_head FETCH_HEAD || true
+            cd ..
+          fi
+          # Copy files from PR into workspace root but exclude .git to avoid permission errors
+          tar --exclude='.git' -C pr_head -cf - . | tar -C .. -xpf -
           rm -rf pr_head
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
