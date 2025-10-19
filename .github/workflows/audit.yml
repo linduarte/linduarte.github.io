@@ -34,11 +34,7 @@ jobs:
 
       - name: Generate responsive image variants (CI)
         run: |
-          node scripts/ci_generate_variants.js --input=reports_image_candidates_summary.json --out=tmp/generated-images || true
-          # copy generated variants into the served static images folder
-          if [ -d tmp/generated-images ]; then
-            cp -v tmp/generated-images/* app/static/images/ || true
-          fi
+          # Generate CI-only responsive images (best-effort)
           node scripts/ci_generate_variants.js --input=reports_image_candidates_summary.json --out=tmp/generated-images || true
           # copy generated variants into the served static images folder
           if [ -d tmp/generated-images ]; then
@@ -70,7 +66,7 @@ jobs:
         run: |
           # choose base URL depending on whether HTTPS server is running on 8443
           # Choose base URL: prefer HTTPS only when TRUSTED_CERTS is true and port 8443 is open
-          if [ "${TRUSTED_CERTS:-}" = "true" ] && ss -ltn | grep -q ":8443"; then
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && curl -sS --head --insecure --max-time 2 https://localhost:8443 >/dev/null 2>&1; then
             BASE_URL="https://localhost:8443"
           else
             BASE_URL="http://localhost:8000"
@@ -82,7 +78,7 @@ jobs:
 
       - name: Run Lighthouse (login)
         run: |
-          if [ "${TRUSTED_CERTS:-}" = "true" ] && ss -ltn | grep -q ":8443"; then
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && curl -sS --head --insecure --max-time 2 https://localhost:8443 >/dev/null 2>&1; then
             BASE_URL="https://localhost:8443"
           else
             BASE_URL="http://localhost:8000"
@@ -94,7 +90,7 @@ jobs:
 
       - name: Run Lighthouse (prefacio)
         run: |
-          if [ "${TRUSTED_CERTS:-}" = "true" ] && ss -ltn | grep -q ":8443"; then
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && curl -sS --head --insecure --max-time 2 https://localhost:8443 >/dev/null 2>&1; then
             BASE_URL="https://localhost:8443"
           else
             BASE_URL="http://localhost:8000"
@@ -107,7 +103,7 @@ jobs:
       - name: Run pa11y (landing)
         run: |
           # choose base URL depending on whether HTTPS server is running on 8443
-          if [ "${TRUSTED_CERTS:-}" = "true" ] && ss -ltn | grep -q ":8443"; then
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && curl -sS --head --insecure --max-time 2 https://localhost:8443 >/dev/null 2>&1; then
             BASE_URL="https://localhost:8443"
           else
             BASE_URL="http://localhost:8000"
@@ -117,7 +113,7 @@ jobs:
 
       - name: Run pa11y (prefacio)
         run: |
-          if [ "${TRUSTED_CERTS:-}" = "true" ] && ss -ltn | grep -q ":8443"; then
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && curl -sS --head --insecure --max-time 2 https://localhost:8443 >/dev/null 2>&1; then
             BASE_URL="https://localhost:8443"
           else
             BASE_URL="http://localhost:8000"
@@ -126,7 +122,7 @@ jobs:
 
       - name: Run pa11y (login)
         run: |
-          if [ "${TRUSTED_CERTS:-}" = "true" ] && ss -ltn | grep -q ":8443"; then
+          if [ "${TRUSTED_CERTS:-}" = "true" ] && curl -sS --head --insecure --max-time 2 https://localhost:8443 >/dev/null 2>&1; then
             BASE_URL="https://localhost:8443"
           else
             BASE_URL="http://localhost:8000"
