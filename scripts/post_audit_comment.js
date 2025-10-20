@@ -165,7 +165,22 @@ async function main() {
   try {
     const res = await postJson(url, payload, token);
     if (!res || res.status < 200 || res.status >= 300) {
-      console.info('Failed to post PR comment:', res && res.status, res && res.body);
+      console.info('Failed to post PR comment with provided token:', res && res.status, res && res.body);
+      // If we got a 403 and a fallback token is provided, try that once.
+      const alt = process.env.REPO_WRITE_TOKEN;
+      if (res && res.status === 403 && alt && alt !== token) {
+        try {
+          console.info('Attempting retry with REPO_WRITE_TOKEN fallback...');
+          const r2 = await postJson(url, payload, alt);
+          if (r2 && r2.status >= 200 && r2.status < 300) {
+            console.info('Posted audit comment to PR #' + prNumber + ' using REPO_WRITE_TOKEN');
+            return 0;
+          }
+          console.info('Retry with REPO_WRITE_TOKEN failed:', r2 && r2.status, r2 && r2.body);
+        } catch (e2) {
+          console.info('Retry with REPO_WRITE_TOKEN error:', e2 && (e2.message || e2));
+        }
+      }
       return 1;
     }
     console.info('Posted audit comment to PR #' + prNumber);
