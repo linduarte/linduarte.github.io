@@ -6,6 +6,8 @@
     "generate:ci": "node scripts/ci_generate_variants.js --input=reports_image_candidates_summary.json --out=tmp/generated-images"
   },
   "devDependencies": {
-    "playwright": "^1.56.1"
+    "playwright": "^1.56.1",
+    "pa11y": "^6.0.0",
+    "puppeteer": "^24.15.0"
   }
 }
