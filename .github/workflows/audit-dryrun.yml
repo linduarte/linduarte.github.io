@@ -12,6 +12,9 @@ on:
       pr_number:
         description: 'Optional PR number to target for the preview comment (manual dispatch only)'
         required: false
+      post:
+        description: 'If true, attempt to post the generated comment to the PR (requires invoker permission)'
+        required: false
 
 jobs:
   preview-comment:
@@ -40,3 +43,29 @@ jobs:
           fi
           echo "Running: node scripts/post_audit_comment.js $ARGS"
           node scripts/post_audit_comment.js $ARGS
+
+      - name: Check invoker permission to allow posting
+        id: check-invoker
+        if: ${{ github.event.inputs.post == 'true' }}
+        run: |
+          ACTOR="${{ github.actor }}"
+          OWNER_REPO="${{ github.repository }}"
+          echo "Checking collaborator permission for invoker $ACTOR on $OWNER_REPO"
+          resp=$(curl -s -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${OWNER_REPO}/collaborators/${ACTOR}/permission")
+          perm=$(echo "$resp" | python -c "import sys,json; j=json.load(sys.stdin); print(j.get('permission',''))")
+          echo "invoker permission=$perm"
+          if [ "$perm" = "admin" ] || [ "$perm" = "write" ] || [ "$perm" = "maintain" ]; then
+            echo "allow_post=true" >> $GITHUB_OUTPUT
+          else
+            echo "allow_post=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Post audit comment to PR (manual)
+        if: ${{ github.event.inputs.post == 'true' && github.event.inputs.pr_number && steps.check-invoker.outputs.allow_post == 'true' }}
+        run: |
+          echo "Posting generated comment to PR #${{ github.event.inputs.pr_number }}"
+          node scripts/post_audit_comment.js --reports-dir=${{ github.event.inputs.reports_dir || 'reports' }} --pr=${{ github.event.inputs.pr_number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
