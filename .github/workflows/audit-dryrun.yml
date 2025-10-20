@@ -1,71 +1,74 @@
-name: Audit dry-run preview
+###AUDIT_DRYRUN_MARKER: replace next
+  name: Audit dry-run preview
 
-on:
-  workflow_dispatch:
-    inputs:
-      reports_url:
-        description: 'Optional URL to the uploaded reports (overrides computed artifact URL)'
-        required: false
-      reports_dir:
-        description: 'Directory where reports are located (defaults to reports)'
-        required: false
-      pr_number:
-        description: 'Optional PR number to target for the preview comment (manual dispatch only)'
-        required: false
-      post:
-        description: 'If true, attempt to post the generated comment to the PR (requires invoker permission)'
-        required: false
+  on:
+    workflow_dispatch:
+      inputs:
+        reports_url:
+          description: 'Optional URL to the uploaded reports (overrides computed artifact URL)'
+          required: false
+        reports_dir:
+          description: 'Directory where reports are located (defaults to reports)'
+          required: false
+        pr_number:
+          description: 'Optional PR number to target for the preview comment (manual dispatch only)'
+          required: false
+        post:
+          description: 'If true, attempt to post the generated comment to the PR (requires invoker permission)'
+          required: false
 
-jobs:
-  preview-comment:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+  jobs:
+    preview-comment:
+      runs-on: ubuntu-latest
+      permissions:
+        issues: write
+        pull-requests: write
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
 
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
+        - name: Set up Node
+          uses: actions/setup-node@v4
+          with:
+            node-version: '18'
 
-      - name: Run post-audit comment (dry-run)
-        env:
-          REPORTS_URL: ${{ github.event.inputs.reports_url }}
-          PR_NUMBER: ${{ github.event.inputs.pr_number }}
-        run: |
-          set -e
-          ARGS="--dry-run"
-          if [ -n "${{ github.event.inputs.reports_dir }}" ]; then
-            ARGS="$ARGS --reports-dir=${{ github.event.inputs.reports_dir }}"
-          fi
-          if [ -n "${{ github.event.inputs.reports_url }}" ]; then
-            ARGS="$ARGS --reports-url=${{ github.event.inputs.reports_url }}"
-          fi
-          echo "Running: node scripts/post_audit_comment.js $ARGS"
-          node scripts/post_audit_comment.js $ARGS
+        - name: Run post-audit comment (dry-run)
+          env:
+            REPORTS_URL: ${{ github.event.inputs.reports_url }}
+            PR_NUMBER: ${{ github.event.inputs.pr_number }}
+          run: |
+            set -euo pipefail
+            ARGS="--dry-run"
+            if [ -n "${{ github.event.inputs.reports_dir }}" ]; then
+              ARGS="$ARGS --reports-dir=${{ github.event.inputs.reports_dir }}"
+            fi
+            if [ -n "${{ github.event.inputs.reports_url }}" ]; then
+              ARGS="$ARGS --reports-url=${{ github.event.inputs.reports_url }}"
+            fi
+            echo "Running: node scripts/post_audit_comment.js $ARGS"
+            node scripts/post_audit_comment.js $ARGS
 
-      - name: Check invoker permission to allow posting
-        id: check-invoker
-        if: ${{ github.event.inputs.post == 'true' }}
-        run: |
-          ACTOR="${{ github.actor }}"
-          OWNER_REPO="${{ github.repository }}"
-          echo "Checking collaborator permission for invoker $ACTOR on $OWNER_REPO"
-          resp=$(curl -s -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${OWNER_REPO}/collaborators/${ACTOR}/permission")
-          perm=$(echo "$resp" | python -c "import sys,json; j=json.load(sys.stdin); print(j.get('permission',''))")
-          echo "invoker permission=$perm"
-          if [ "$perm" = "admin" ] || [ "$perm" = "write" ] || [ "$perm" = "maintain" ]; then
-            echo "allow_post=true" >> $GITHUB_OUTPUT
-          else
-            echo "allow_post=false" >> $GITHUB_OUTPUT
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Post audit comment to PR (manual)
-        if: ${{ github.event.inputs.post == 'true' && github.event.inputs.pr_number && steps.check-invoker.outputs.allow_post == 'true' }}
-        run: |
-          echo "Posting generated comment to PR #${{ github.event.inputs.pr_number }}"
-          node scripts/post_audit_comment.js --reports-dir=${{ github.event.inputs.reports_dir || 'reports' }} --pr=${{ github.event.inputs.pr_number }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        - name: Post audit comment to PR (manual)
+          if: ${{ github.event.inputs.post == 'true' && github.event.inputs.pr_number != '' }}
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            REPO_WRITE_TOKEN: ${{ secrets.REPO_WRITE_TOKEN }}
+          run: |
+            set -euo pipefail
+            ACTOR="${{ github.actor }}"
+            OWNER_REPO="${{ github.repository }}"
+            echo "Checking collaborator permission for invoker $ACTOR on $OWNER_REPO"
+            resp=$(curl -s -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${OWNER_REPO}/collaborators/${ACTOR}/permission")
+            perm=$(echo "$resp" | python -c "import sys,json; j=json.load(sys.stdin); print(j.get('permission',''))")
+            echo "invoker permission=$perm"
+            if [ "$perm" = "admin" ] || [ "$perm" = "write" ] || [ "$perm" = "maintain" ]; then
+              if [ -n "${REPO_WRITE_TOKEN:-}" ]; then
+                echo "REPO_WRITE_TOKEN is present (will be used as fallback if needed)"
+              else
+                echo "REPO_WRITE_TOKEN is NOT present"
+              fi
+              echo "Posting generated comment to PR #${{ github.event.inputs.pr_number }}"
+              node scripts/post_audit_comment.js --reports-dir=${{ github.event.inputs.reports_dir || 'reports' }} --pr=${{ github.event.inputs.pr_number }}
+            else
+              echo "Invoker not allowed to post; skipping post step."
+            fi
