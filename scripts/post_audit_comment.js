@@ -108,8 +108,11 @@ async function main() {
 
   const [owner, repoName] = (process.env.GITHUB_REPOSITORY || '').split('/');
   if (!owner || !repoName) {
-    console.info('GITHUB_REPOSITORY not set; skipping comment.');
-    return 0;
+    if (!dryRun) {
+      console.info('GITHUB_REPOSITORY not set; skipping comment.');
+      return 0;
+    }
+    // in dry-run mode, it's ok if GITHUB_REPOSITORY is not set; continue and just print the body
   }
 
   const url = `https://api.github.com/repos/${owner}/${repoName}/issues/${prNumber}/comments`;
