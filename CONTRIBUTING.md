@@ -37,3 +37,21 @@ If you find CI is failing due to `Identifier 'core' has already been declared`
 - Open a PR with the fix; the repository hosts a guard workflow that will flag any further attempts to introduce `actions/github-script`.
 
 Thanks — and happy hacking!
+
+Quick example (full replacement)
+
+1) Workflow step (replace inline github-script):
+
+```yaml
+- name: Post audit comment
+  run: node scripts/post_audit_comment.js --reports-dir=reports_download
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+2) scripts/post_audit_comment.js (simple checked-in pattern):
+
+```js
+// read reports and post comment using a small https request or octokit
+// avoids requiring '@actions/core' inside an inline github-script wrapper
+```
