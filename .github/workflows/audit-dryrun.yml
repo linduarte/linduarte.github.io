@@ -9,6 +9,9 @@ on:
       reports_dir:
         description: 'Directory where reports are located (defaults to reports)'
         required: false
+      pr_number:
+        description: 'Optional PR number to target for the preview comment (manual dispatch only)'
+        required: false
 
 jobs:
   preview-comment:
@@ -25,6 +28,7 @@ jobs:
       - name: Run post-audit comment (dry-run)
         env:
           REPORTS_URL: ${{ github.event.inputs.reports_url }}
+          PR_NUMBER: ${{ github.event.inputs.pr_number }}
         run: |
           set -e
           ARGS="--dry-run"

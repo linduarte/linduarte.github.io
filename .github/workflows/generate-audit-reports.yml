@@ -104,6 +104,19 @@ jobs:
           name: audit-reports
           path: reports/
 
+      - name: Preview audit comment (dry-run)
+        # Always run so maintainers can see the preview in logs
+        run: |
+          # compute a best-effort reports URL (artifact URL per run)
+          REPO=${GITHUB_REPOSITORY}
+          RUN_ID=${GITHUB_RUN_ID}
+          ARTIFACTS_URL="https://github.com/${REPO}/suites/${RUN_ID}/artifacts"
+          echo "Reports URL: ${ARTIFACTS_URL}"
+          node scripts/post_audit_comment.js --dry-run --reports-dir=reports --reports-url=${ARTIFACTS_URL}
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+
       - name: Post audit summary to PR (when applicable)
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
         run: |
