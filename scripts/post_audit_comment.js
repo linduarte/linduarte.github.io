@@ -6,11 +6,12 @@ const fs = require('fs');
 const path = require('path');
 
 function parseArgs() {
-  const out = { reportsDir: null, pr: null };
+  const out = { reportsDir: null, pr: null, dry: false };
   for (let i = 2; i < process.argv.length; i++) {
     const a = process.argv[i];
     if (a.startsWith('--reports-dir=')) out.reportsDir = a.split('=')[1];
     if (a.startsWith('--pr=')) out.pr = a.split('=')[1];
+    if (a === '--dry-run' || a === '--dry') out.dry = true;
   }
   if (!out.reportsDir) out.reportsDir = 'reports';
   return out;
@@ -99,8 +100,9 @@ async function main() {
   }
 
   const token = process.env.GITHUB_TOKEN;
-  if (!token) {
-    console.info('No GITHUB_TOKEN provided; skipping comment.');
+  const dryRun = args.dry || process.env.DRY_RUN === 'true';
+  if (!token && !dryRun) {
+    console.info('No GITHUB_TOKEN provided and not running in dry-run mode; skipping comment.');
     return 0;
   }
 
@@ -144,6 +146,13 @@ async function main() {
         reject(err);
       }
     });
+  }
+
+  if (dryRun) {
+    console.log('--- DRY RUN: comment body follows ---');
+    console.log(body);
+    console.log('--- END DRY RUN ---');
+    return 0;
   }
 
   try {
