@@ -6,11 +6,12 @@ const fs = require('fs');
 const path = require('path');
 
 function parseArgs() {
-  const out = { reportsDir: null, pr: null, dry: false };
+  const out = { reportsDir: null, pr: null, dry: false, reportsUrl: null };
   for (let i = 2; i < process.argv.length; i++) {
     const a = process.argv[i];
     if (a.startsWith('--reports-dir=')) out.reportsDir = a.split('=')[1];
     if (a.startsWith('--pr=')) out.pr = a.split('=')[1];
+    if (a.startsWith('--reports-url=')) out.reportsUrl = a.split('=')[1];
     if (a === '--dry-run' || a === '--dry') out.dry = true;
   }
   if (!out.reportsDir) out.reportsDir = 'reports';
@@ -33,10 +34,11 @@ function scoreOf(j, key) {
 async function main() {
   const args = parseArgs();
   const reportsDir = args.reportsDir;
+  const reportsUrl = args.reportsUrl || process.env.REPORTS_URL;
 
   const repo = process.env.GITHUB_REPOSITORY || '';
   const runId = process.env.GITHUB_RUN_ID || '';
-  const artifactUrl = repo && runId ? `https://github.com/${repo}/suites/${runId}/artifacts` : 'Artifacts unavailable';
+  const artifactUrl = reportsUrl || (repo && runId ? `https://github.com/${repo}/suites/${runId}/artifacts` : 'Artifacts unavailable');
 
   const reports = [
     { file: path.join(reportsDir, 'landing-lighthouse.report.json'), title: 'Landing' },
@@ -101,6 +103,7 @@ async function main() {
 
   const token = process.env.GITHUB_TOKEN;
   const dryRun = args.dry || process.env.DRY_RUN === 'true';
+  const finalReportsUrl = reportsUrl || process.env.REPORTS_URL;
   if (!token && !dryRun) {
     console.info('No GITHUB_TOKEN provided and not running in dry-run mode; skipping comment.');
     return 0;
@@ -154,6 +157,7 @@ async function main() {
   if (dryRun) {
     console.log('--- DRY RUN: comment body follows ---');
     console.log(body);
+    if (finalReportsUrl) console.log('\nReports URL: ' + finalReportsUrl);
     console.log('--- END DRY RUN ---');
     return 0;
   }

@@ -1,0 +1,38 @@
+name: Audit dry-run preview
+
+on:
+  workflow_dispatch:
+    inputs:
+      reports_url:
+        description: 'Optional URL to the uploaded reports (overrides computed artifact URL)'
+        required: false
+      reports_dir:
+        description: 'Directory where reports are located (defaults to reports)'
+        required: false
+
+jobs:
+  preview-comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Run post-audit comment (dry-run)
+        env:
+          REPORTS_URL: ${{ github.event.inputs.reports_url }}
+        run: |
+          set -e
+          ARGS="--dry-run"
+          if [ -n "${{ github.event.inputs.reports_dir }}" ]; then
+            ARGS="$ARGS --reports-dir=${{ github.event.inputs.reports_dir }}"
+          fi
+          if [ -n "${{ github.event.inputs.reports_url }}" ]; then
+            ARGS="$ARGS --reports-url=${{ github.event.inputs.reports_url }}"
+          fi
+          echo "Running: node scripts/post_audit_comment.js $ARGS"
+          node scripts/post_audit_comment.js $ARGS
