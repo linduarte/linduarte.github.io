@@ -117,8 +117,28 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_RUN_ID: ${{ github.run_id }}
 
+      - name: Check PR author permission to allow posting
+        id: check-post
+        if: github.event_name == 'pull_request'
+        run: |
+          PR_USER="${{ github.event.pull_request.user.login }}"
+          OWNER_REPO="${{ github.repository }}"
+          echo "Checking collaborator permission for $PR_USER on $OWNER_REPO"
+          resp=$(curl -s -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${OWNER_REPO}/collaborators/${PR_USER}/permission")
+          perm=$(echo "$resp" | python -c "import sys,json; j=json.load(sys.stdin); print(j.get('permission',''))")
+          echo "permission=$perm"
+          if [ "$perm" = "admin" ] || [ "$perm" = "write" ] || [ "$perm" = "maintain" ]; then
+            echo "allow_post=true" >> $GITHUB_OUTPUT
+          else
+            echo "allow_post=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Post audit summary to PR (when applicable)
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        # This step posts the comment only when the PR originates from the same repo
+        # and the PR author has sufficient permissions (admin/write/maintain).
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && steps.check-post.outputs.allow_post == 'true'
         run: |
           node scripts/post_audit_comment.js --reports-dir=reports
         env:
