@@ -50,6 +50,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Export PR_NUMBER for dispatch runs
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "PR_NUMBER=${{ github.event.inputs.pr }}" >> $GITHUB_ENV
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -218,8 +223,11 @@ jobs:
           path: reports_download/**
 
       - name: Post PR comment with audit summary (trusted runner)
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        if: |
+          (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) ||
+          (github.event_name == 'workflow_dispatch' && github.event.inputs.pr != '')
         run: |
-          node scripts/post_audit_comment.js --reports-dir=reports_download
+          echo "Posting comment for PR=${{ github.event.inputs.pr || github.event.pull_request.number }}"
+          node scripts/post_audit_comment.js --reports-dir=reports_download --pr=${{ github.event.inputs.pr || github.event.pull_request.number }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

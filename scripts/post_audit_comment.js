@@ -6,10 +6,11 @@ const fs = require('fs');
 const path = require('path');
 
 function parseArgs() {
-  const out = { reportsDir: null };
+  const out = { reportsDir: null, pr: null };
   for (let i = 2; i < process.argv.length; i++) {
     const a = process.argv[i];
     if (a.startsWith('--reports-dir=')) out.reportsDir = a.split('=')[1];
+    if (a.startsWith('--pr=')) out.pr = a.split('=')[1];
   }
   if (!out.reportsDir) out.reportsDir = 'reports';
   return out;
@@ -74,10 +75,16 @@ async function main() {
     }
   }
 
-  // Read event payload to find PR number
+  // Read event payload to find PR number (pull_request runs)
   const eventPath = process.env.GITHUB_EVENT_PATH;
   let prNumber = null;
-  if (eventPath && fs.existsSync(eventPath)) {
+  if (args.pr) {
+    prNumber = args.pr;
+  }
+  if (!prNumber && process.env.PR_NUMBER) {
+    prNumber = process.env.PR_NUMBER;
+  }
+  if (!prNumber && eventPath && fs.existsSync(eventPath)) {
     try {
       const ev = JSON.parse(fs.readFileSync(eventPath, 'utf8'));
       prNumber = ev.pull_request && ev.pull_request.number ? ev.pull_request.number : null;
@@ -87,7 +94,7 @@ async function main() {
   }
 
   if (!prNumber) {
-    console.info('No PR number found in event payload; skipping comment.');
+    console.info('No PR number found (event payload or PR_NUMBER/env arg); skipping comment.');
     return 0;
   }
 
