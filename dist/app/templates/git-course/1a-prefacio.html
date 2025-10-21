@@ -79,7 +79,8 @@
             margin: 40px 0;
         }
         .start-button button {
-            background: #f14e32;
+            /* darker tone to meet contrast ratios */
+            background: #b82a12;
             color: white;
             padding: 18px 40px;
             border: none;
@@ -91,7 +92,7 @@
             box-shadow: 0 4px 15px rgba(241, 78, 50, 0.3);
         }
         .start-button button:hover {
-            background: #d63a24;
+            background: #8b1f10;
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(241, 78, 50, 0.4);
         }
@@ -212,7 +213,7 @@
                 if (Date.now() - start >= maxWait) {
                     // token not found after wait, redirecting
                     console.log('TEST_LOG: auth-guard redirecting to landing; token=', localStorage.getItem('access_token'), 'elapsed=', Date.now()-start);
-                    window.location.href = '../../../landing.html';
+                    window.location.href = '/landing.html';
                     return;
                 }
                 setTimeout(tryCheck, interval);
@@ -276,13 +277,14 @@
             </div>
         </div>
 
-        <div style="background: #e8f4fd; padding: 20px; border-radius: 10px; margin: 30px 0; border-left: 4px solid #0d6efd;">
-            <h4 style="color: #0d6efd; margin-bottom: 10px;">💡 Dica importante</h4>
+    <div style="background: #ffffff; padding: 20px; border-radius: 10px; margin: 30px 0; border-left: 4px solid #0d6efd;">
+        <h4 style="color: #0a2540; margin-bottom: 10px;">💡 Dica importante</h4>
             <p style="margin: 0; color: #5c4033;">Este curso segue uma abordagem prática baseada no livro "Practical Guide to Git and GitHub For Windows Users" de Roberto Vormittag. Você aprenderá fazendo!</p>
         </div>
 
         <div class="start-button">
-            <button onclick="window.location.href='2-introduction.html'">
+            <button style="background: #8b0000; color: #ffffff; border: none; padding: 10px 18px; border-radius: 6px; cursor: pointer;"
+                    onclick="window.location.href='2-introduction.html'">
                 🚀 Iniciar Jornada Git
             </button>
         </div>
@@ -291,25 +293,47 @@
             <div style="color: #666; font-size: 14px;">
                 Tempo estimado: 4-6 horas • Nível: Iniciante
             </div>
-            <button id="logoutButton" class="logout-btn">Logout</button>
+            <button class="logout-btn">Logout</button>
         </div>
     </div>
 
-    <footer class="site-footer">
-      <p>&copy; 2025 Curso de Git. Todos os direitos reservados.</p>
-      <div class="footer-badges">
-        <a href="https://pages.github.com/" class="github-link">
-          <span>Powered by GitHub Pages</span>
-    <img src="/app/static/images/github-mark-white.png"
-               alt="GitHub Logo"
-               class="footer-logo">
-        </a>
-        <a href="http://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
-        <img src="https://jigsaw.w3.org/css-validator/images/vcss"
-               alt="CSS válido!"
-               class="footer-logo">
-        </a>
-      </div>
-    </footer>
+      <footer class="footer">
+            <div class="footer-copyright">
+                © 2025 Curso de Git. Todos os direitos reservados.
+            </div>
+
+            <div class="footer-flex">
+                <nav class="footer-nav">
+                    <a href="/landing.html" class="footer-link">Voltar</a>
+                    <a href="2-introduction.html" class="footer-link">Próximo: Introdução →</a>
+                </nav>
+
+                <div class="footer-buttons">
+                    <button id="logoutButton" type="button" class="logout-button">Logout</button>
+                    <button id="markCompletedButton" data-topic-id="1" class="form-btn">Concluído ✓</button>
+                </div>
+            </div>
+
+            <div class="footer-instruction">
+                Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Concluído.
+            </div>
+
+            <div class="footer-badges">
+                <a href="https://pages.github.com/" class="github-link">
+                    <span>🐙 GitHub Pages</span>
+                <img src="/app/static/images/github-mark-white.png"
+                    alt="GitHub Logo"
+                    class="footer-logo" width="16" height="16">
+                </a>
+                <a href="https://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
+                    <img src="https://jigsaw.w3.org/css-validator/images/vcss"
+                         alt="CSS válido!"
+                         class="footer-logo" width="45" height="16">
+                </a>
+            </div>
+      </footer>
+    </div>
+
+    <script src="/app/static/js/git-course-functions.js"></script>
 </body>
 </html>

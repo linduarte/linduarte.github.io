@@ -158,7 +158,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         const token = localStorage.getItem('access_token');
         if (!token) {
-            window.location.href = '../../../landing.html';
+            window.location.href = '/landing.html';
             return;
         }
         const logoutBtn = document.getElementById('logoutButton');
@@ -166,8 +166,8 @@
             logoutBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 localStorage.removeItem('access_token');
-                // landing.html está na raiz do repositório; a partir de app/templates/git-course/ o caminho relativo é ../../../landing.html
-                window.location.href = '../../../landing.html';
+                // landing.html está na raiz do repositório; use caminho absoluto para evitar fragilidade
+                window.location.href = '/landing.html';
             });
         }
     });
