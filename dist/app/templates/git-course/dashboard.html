@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Git Course</title>
+  <link rel="stylesheet" href="/app/static/css/git-course-c.css">
+  <style>
+    body {
+  background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
+      font-family: 'Victor Mono', monospace;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .dashboard-container {
+      max-width: 700px;
+      margin: 80px auto;
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+      text-align: center;
+    }
+
+    .github-pages-logo {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 120px;
+      height: auto;
+      z-index: 1000;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+
+    .github-pages-logo:hover {
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .github-pages-logo {
+        width: 80px;
+        top: 10px;
+        right: 10px;
+      }
+    }
+
+    h1 {
+      color: #f14e32;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.1em;
+      margin-bottom: 30px;
+    }
+
+    button {
+      background: #f14e32;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 24px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin: 6px;
+    }
+
+    button:hover {
+      background: #5c4033;
+    }
+
+    .status {
+      margin-top: 20px;
+      font-weight: 600;
+      color: #5c4033;
+    }
+
+    .topics {
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    .topics h3 {
+      color: #f14e32;
+    }
+
+    .topics ul {
+      list-style-type: square;
+      padding-left: 20px;
+    }
+
+    .topics li {
+      margin: 8px 0;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <h1>Bem-vindo ao Git Course!</h1>
+    <p id="welcomeMessage">Carregando...</p>
+    <button id="btnProgress">Ver Progresso</button>
+    <button id="btnLogout">Logout</button>
+
+    <div id="result" class="status"></div>
+
+    <div class="topics" id="topicsList" style="display:none;">
+      <h3>Seus Tópicos de Aprendizado:</h3>
+      <ul id="topicsUl"></ul>
+    </div>
+  </div>
+
+  <script src="/app/static/js/config.js"></script>
+  <script>
+    const token = localStorage.getItem('access_token');
+    const resultDiv = document.getElementById('result');
+    const topicsList = document.getElementById('topicsList');
+    const topicsUl = document.getElementById('topicsUl');
+    const welcome = document.getElementById('welcomeMessage');
+
+    if (!token) {
+      window.location.href = "login.html";
+    } else {
+      try {
+        // Decodifica o token JWT (sem biblioteca externa)
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const username = payload.sub || "Usuário";
+        welcome.textContent = `Olá, ${username}! 🚀 Pronto para continuar seus estudos?`;
+      } catch {
+        welcome.textContent = "Bem-vindo!";
+      }
+    }
+
+    document.getElementById('btnLogout').addEventListener('click', () => {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      window.location.href = "login.html";
+    });
+
+    document.getElementById('btnProgress').addEventListener('click', async () => {
+      try {
+        const response = await fetch(`${API_URL}/progress/summary`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          resultDiv.textContent = `Você possui ${data.total} progresso(s) registrados.`;
+          resultDiv.style.color = '#388e3c';
+          topicsList.style.display = 'block';
+          topicsUl.innerHTML = '';
+          if (data.topics) {
+            data.topics.forEach(topic => {
+              const li = document.createElement('li');
+              li.textContent = topic.title;
+              topicsUl.appendChild(li);
+            });
+          }
+        } else {
+          resultDiv.textContent = data.detail || 'Erro ao carregar progresso.';
+          resultDiv.style.color = '#f44336';
+        }
+      } catch (err) {
+        resultDiv.textContent = 'Falha ao conectar com o servidor.';
+        resultDiv.style.color = '#f44336';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Commit</title>
+    <link rel="stylesheet" href="/app/static/css/style.css">
+    <link rel="stylesheet" href="/app/static/css/common-styles.css">
+    <link rel="stylesheet" href="/app/static/css/git-course.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <style>
+        body {
+            background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
+            font-family: 'Victor Mono', monospace;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background: rgba(255,255,255,0.75);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
+            margin: 40px auto;
+            padding: 40px;
+            max-width: 900px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        /* Footer */
+        .footer {
+            background-color: rgba(234, 216, 231, 0.8);
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
+            height: 200px;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .footer-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-link {
+            color: #6c757d;
+            text-decoration: none;
+            font-family: 'Victor Mono', monospace;
+            font-size: 12px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.7);
+            transition: all 0.3s;
+        }
+
+        .footer-link:hover {
+            color: #f14e32;
+            background: rgba(255,255,255,0.9);
+        }
+
+        /* Botões alinhados à direita com mesmo estilo */
+        .footer-buttons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .logout-button, .form-btn {
+            font-family: 'Victor Mono', monospace;
+            font-size: 13px !important;
+            padding: 8px 16px !important;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f14e32;
+            color: white;
+        }
+
+        .logout-button:hover, .form-btn:hover {
+            background: #d63916;
+            transform: translateY(-1px);
+        }
+
+        .footer-instruction {
+            text-align: center;
+            font-family: 'Victor Mono', monospace;
+            margin-top: 12px;
+            font-size: 13px !important; /* Fonte menor */
+            color: #6c757d;
+            line-height: 1.4;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            font-family: 'Victor Mono', monospace;
+            margin-bottom: 15px;
+            font-size: 12px;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        /* Footer badges */
+        .footer-badges {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .github-link, .w3c-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .github-link:hover, .w3c-link:hover {
+            color: #f14e32;
+        }
+
+        .footer-logo {
+            height: 20px;
+            width: auto;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-logo:hover {
+            opacity: 1;
+        }
+        @media (max-width: 768px) {
+            .github-pages-logo {
+                width: 80px;
+                top: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+    <script src="/app/static/js/config.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            window.location.href = '../../../landing.html';
+            return;
+        }
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('access_token');
+                window.location.href = '../../../landing.html';
+            });
+        }
+    });
+    </script>
+</head>
+<body class="intro-page">
+    <div class="container">
+        <h1>Git commit </h1>
+
+
+        <p class="p-styled  spaced-p">Essa forma do comando <code class="language-bash">git commit --message "Arquivos iniciais do projeto adicionados"</code> é muito usada quando você tem arquivos preparados que estão prontos para serem adicionados permanentemente
+             ao histórico do seu projeto e você quer documentar o que as mudanças envolvem. Ao incluir uma mensagem, você fornece contexto sobre esse ponto
+              específico no seu projeto, que é útil tanto para referência pessoal quanto para colaboração com os outros.</p>
+        <ul>
+            <li>message: Este sinalizador permite que você inclua uma mensagem curta e descritiva que explica as alterações neste commit.</li>
+        </ul>
+
+        <p class="p-styled  spaced-p">Temos uma situação particular de comite
+            em que não haja arquivos preparados mas quer se registrar um ponto na história do projeto. Para isso, você pode usar a opção <code class="language-bash">--allow-empty</code>
+            com o comando <code class="language-bash">git commit</code>. Isso cria um commit vazio, que pode ser útil para marcar um ponto no histórico do projeto sem adicionar alterações.</p>
+
+
+        <p class="p-styled  spaced-p">Outra forma de utilizar o commit é atualizando
+            o último commit adicionando as alterações preparadas no momento, alterando o hash do commit.  O comando <code class="language-bash">git commit --amend</code>
+            representa o git comite amend.</p>
+
+        <ul>
+            <li style="font-size: 18px;">amend: Aplica as alterações atualmente preparadas ao último commit, atualizando-o. Observe que isso mudará o hash do commit.</li>
+        </ul>
+
+        <p class="p-styled  spaced-p">
+            O que vem a ser o <strong>hash</strong>: é um código único que identifica um commit. O hash é gerado a partir do conteúdo do commit e de seu histórico.
+            O hash é uma sequência de 40 caracteres hexadecimais. O hash é único para cada commit e é usado para identificar um commit de forma única.
+            Exemplo: commit d298f74fe5768dca084fd29d93bc24f48ad25088 - podemos usar os 7 primeiros caracteres para identificar o commit. Neste caso o hash é d298f74.
+       </p>
+
+
+    <img src="/app/static/images/git_commit_new.webp" alt="Tela mostrando o resultado após usar o comando 'git commit" class="img-full" width="900" height="506">
+
+        <p class="p-styled  spaced-p">A imagem anterior mostra a ação de implementação
+             do comando  git commit com a mensagem utilizada para caracterizar a confirmação do commit. Pode-se notar ao lado da palavra 'main' o hash deste comite.
+             Deve-se observar que cada hash é único, portanto ao implementar em seu projeto este comit hash será diferente. </p>
+
+        <p class="p-styled  spaced-p">A imagem anterior confirma o comite dos arquivos que foram adicionados ao repositório</p>
+
+    <img src="/app/static/images/log_hash.webp" alt="Tela mostrando o resultado após usar o comando 'git commit" class="img-full" width="900" height="506">
+       <p class="p-styled  spaced-p">A título ilustrativo usando um comando denominado "git log --oneline --graph" obtemos
+             a relação de comits até então realizados no projeto. Nota-se os hashs associados a cada comit. Observe que as representações gráficas feitas pelo GitGraph mostram a aplicação destes commits e os hash associados.
+            Vale salientar que o <strong><em>hash id=109f780</em></strong> foi realizado ao se criar o repositório no GitHub. Nota-se tambem que ao lado do <strong><em>hash id=d298f74</em></strong> se apresenta a mensagem
+            usada no comit.</p>
+
+    <img src="/app/static/images/git_st_comit_files.webp" alt="Tela mostrando o status após o comite realizado" class="img-full" width="900" height="506">
+
+        <p class="p-styled  spaced-p">Podemos observar que na imagem existe uma mensagem dizendo que nosso ramo (branch) está a frente do seu repositório
+            (origin?main) , ou seja no GitHub. Sugere que se use o comando 'git push' para enviar esta 'diferença' para o repositório remoto objetivando que os dois repositórios
+        fiquem iguais.</p>
+
+        <p class="p-styled  spaced-p">A partir desta informação devemos proceder com a equalização dos repositórios usando o comando <code class="language-bash">git push</code>
+            que pode ser entendido como uma publicação no repositório remoto (GitHub)</p>
+
+
+        <p class="p-styled  spaced-p">Antes porem de procedermos com este comando devemos entender como o Git identifica o repositório remoto. Vamos usar então o <code class="language-bash">git remote</code></p>
+
+    <img src="/app/static/images/git-remote.webp" alt="Tela mostrando o 'git remote'" class="img-full" width="900" height="506">
+
+        <p class="p-styled  spaced-p">A imagem acima mostra como o Git identifica o repositório remoto chamando-o de 'origin'.</p>
+
+        <p>Podemos buscar mais informações sobre este repositório remoto conforme mostra a imagem abaixo.</p>
+
+    <img src="/app/static/images/git-remote-show-origin.webp" alt="Tela mostrando o 'git remote show origin'" class="img-full" width="900" height="506">
+
+        <p class="p-styled  spaced-p">Na imagem acima podemos observar que o repositório remoto 'origin' é um repositório do tipo 'fetch' e 'push'. O 'fetch' é um comando que baixa os arquivos do repositório remoto para o repositório local.
+            O 'push' é um comando que envia os arquivos do repositório local para o repositório remoto. </p>
+
+        <p class="p-styled  spaced-p">Para procedermos com a atualização do repertório remoto com a nova versão do projeto devemos usar o <code class="language-bash">git push origin main</code></p>.
+
+    <img src="/app/static/images/git-push.webp" alt="Tela mostrando o 'git push origin main'" class="img-full" width="900" height="506">
+
+        <p class="p-styled  spaced-p">Caso voce faça o login on seu GitHub terá a visão mostrada na imagem abaixo.</p>
+
+    <img src="/app/static/images/github_view.webp" alt="Tela mostrando o repositório no GitHub após o comando 'git push' ser acionado." class="img-full" width="900" height="506">
+
+        <p class="p-styled  spaced-p">Finalizando esta etapa podemos ver o status do repositório local em relação ao remoto indicando que os dois estão equalizados.</p>
+
+    <img src="/app/static/images/git-status-featreq.webp" alt="Tela mostrando o repositório no GitHub após o comando 'git push' ser acionado." class="img-full" width="900" height="506">
+
+        <!-- filepath:https://commandmasters.com/commands/git-init-common/-->
+
+
+
+     <section>
+            <h3>Git Graph</h3>
+            <p>Diagrama Mermaid  para o Git graph</p>
+            <div class="mermaid">
+                %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchOrder': 0}} }%%
+                gitGraph
+                commit id: "0-109f780"
+                commit id: "1-d298f74"
+
+            </div>
+            <h3>Mermaid Code</h3>
+            <p>Código Mermaid para o Git graph</p>
+            <div class="code-box">
+                <pre>
+                    <code>
+%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchOrder': 0}} }%%
+
+                        gitGraph
+                        commit id: "0-109f780"
+                        commit id: "1-d298f74"
+
+                    </code>
+                </pre>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-copyright">
+                © 2025 Curso de Git. Todos os direitos reservados.
+            </div>
+
+            <div class="footer-flex">
+                <nav class="footer-nav">
+                    <a href="8-git-add.html" class="footer-link">← Voltar</a>
+                    <a href="10-feature_req.html" class="footer-link">Próximo:feature_req →</a>
+                </nav>
+
+                <div class="footer-buttons">
+                    <button id="logoutButton" type="button" class="logout-button">Logout</button>
+                    <button id="markCompletedButton" data-topic-id="4" class="form-btn">Concluído ✓</button>
+                </div>
+            </div>
+
+            <div class="footer-instruction">
+                Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Concluído.
+            </div>
+
+            <div class="footer-badges">
+                <a href="https://pages.github.com/" class="github-link">
+                    <span>🐙 GitHub Pages</span>
+                    <img src="/app/static/images/github-mark-white.png"
+                        alt="GitHub Logo"
+                        class="footer-logo" width="16" height="16">
+                </a>
+                <a href="https://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
+                    <img src="https://jigsaw.w3.org/css-validator/images/vcss"
+                         alt="CSS válido!"
+                         class="footer-logo" width="45" height="16">
+                </a>
+            </div>
+      </footer>
+    <script src="/app/static/js/git-course-functions.js"></script>
+    <script>Prism.highlightAll();</script>
+    </div>
+</body>
+</html>
