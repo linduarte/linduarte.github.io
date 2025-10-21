@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Entrando...</title>
+  <script>
+    (function () {
+      try {
+        const token = localStorage.getItem('access_token');
+        if (token) {
+          // If user appears logged-in, go to the protected prefácio entry.
+          window.location.replace('/app/templates/git-course/1a-prefacio.html');
+        } else {
+          // Otherwise, send the visitor to the public landing page.
+          window.location.replace('/landing.html');
+        }
+      } catch (e) {
+        window.location.replace('/landing.html');
+      }
+    })();
+  </script>
+</head>
+<body style="font-family: Arial, sans-serif; text-align: center; margin-top: 20vh;">
+  <p>Entrando...</p>
+  <p>
+    Se não redirecionar automaticamente:
+    <a href="/landing.html">Landing</a> |
+    <a href="/app/templates/git-course/login.html">Login</a>
+  </p>
+</body>
+</html>
