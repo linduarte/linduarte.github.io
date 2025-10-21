@@ -273,46 +273,46 @@
 
             <h4>Comando executado</h4>
             <ul>
-            <li><code class="language-bash">git diff</code></li>
-            <li>Esse comando compara as diferenças entre a versão atual do arquivo pilots.html e a última versão commitada no repositório.</li>
+            <li style="font-size: 18px;"><code class="language-bash">git diff</code></li>
+            <li style="font-size: 18px;">Esse comando compara as diferenças entre a versão atual do arquivo pilots.html e a última versão commitada no repositório.</li>
             </ul>
 
             <h4>Primeiras linhas de saída</h4>
             <ul>
-            <li><code class="language-bash">diff --git a/pilots.html b/pilots.html</code></li>
-            <li>Isso indica que a comparação está sendo feita no arquivo pilots.html. O git diff compara a versão anterior (a/pilots.html) com a versão atual (b/pilots.html).</li>
+            <li style="font-size: 18px;"><code class="language-bash">diff --git a/pilots.html b/pilots.html</code></li>
+            <li style="font-size: 18px;">Isso indica que a comparação está sendo feita no arquivo pilots.html. O git diff compara a versão anterior (a/pilots.html) com a versão atual (b/pilots.html).</li>
             </ul>
 
             <h4> Índice (hashes das versões do arquivo)</h4>
 
             <ul>
-            <li><code class="language-bash">index fb4318f..32706f8 100644</code></li>
-            <li>fb4318f → Hash do commit anterior do arquivo.</li>
-            <li>32706f8 → Hash do estado atual do arquivo (com as mudanças).</li>
-            <li>100644 → Indica as permissões do arquivo (arquivo comum sem permissão de execução).</li>
+            <li style="font-size: 18px;"><code class="language-bash">index fb4318f..32706f8 100644</code></li>
+            <li style="font-size: 18px;">fb4318f → Hash do commit anterior do arquivo.</li>
+            <li style="font-size: 18px;">32706f8 → Hash do estado atual do arquivo (com as mudanças).</li>
+            <li style="font-size: 18px;">100644 → Indica as permissões do arquivo (arquivo comum sem permissão de execução).</li>
            </ul>
 
             <h4>Identificação das versões do arquivo</h4>
             <ul>
-            <li>
+            <li style="font-size: 18px;">
                 <code class="language-bash">--- a/pilots.html</code>
                 <code class="language-bash">+++ b/pilots.html</code>
             </li>
             </ul>
 
             <ul>
-            <li>--- a/pilots.html → Indica a versão antiga do arquivo.</li>
-            <li>   +++ b/pilots.html → Indica a versão modificada.</li>
+            <li style="font-size: 18px;">--- a/pilots.html → Indica a versão antiga do arquivo.</li>
+            <li style="font-size: 18px;">   +++ b/pilots.html → Indica a versão modificada.</li>
             </ul>
 
             <h4>Bloco de contexto (linhas alteradas):</h4>
 
             <ul>
-            <li><code class="language-bash">@@ -22,6 +22,7 @@</code></li>
-            <li>Esse trecho indica que a modificação está na altura da linha 22 no arquivo original:</li>
-            <li>-22,6 → No arquivo antigo, o trecho começava na linha 22 e tinha 6 linhas.</li>
-            <li>+22,7 → No arquivo novo, o trecho começa na linha 22 e agora tem 7 linhas.</li>
-            <li>Isso sugere que foi adicionada uma linha ao código.</li>
+            <li style="font-size: 18px;"><code class="language-bash">@@ -22,6 +22,7 @@</code></li>
+            <li style="font-size: 18px;">Esse trecho indica que a modificação está na altura da linha 22 no arquivo original:</li>
+            <li style="font-size: 18px;">-22,6 → No arquivo antigo, o trecho começava na linha 22 e tinha 6 linhas.</li>
+            <li style="font-size: 18px;">+22,7 → No arquivo novo, o trecho começa na linha 22 e agora tem 7 linhas.</li>
+            <li style="font-size: 18px;">Isso sugere que foi adicionada uma linha ao código.</li>
             </ul>
 
            <h4>Conteúdo antes e depois</h4>
@@ -323,65 +323,65 @@
            <h4>Estado do repositório</h4>
 
            <ul>
-            <li> A linha Delta já foi commitada anteriormente.</li>
-            <li> A linha &lt;li&gt;Foxtrot&lt;/li&gt;  foi adicionada, mas ainda está unstaged (não foi adicionada ao índice com git add).</li>
-           <li>O comando <code class="language-bash">git add pilots.html</code> foi executado anteriormente para incluir outras mudanças no stage, mas a linha &lt;li&gt;Foxtrot&lt;/li&gt; ainda não foi adicionada ao stage.</li>
+            <li style="font-size: 18px;"> A linha Delta já foi commitada anteriormente.</li>
+            <li style="font-size: 18px;"> A linha &lt;li&gt;Foxtrot&lt;/li&gt;  foi adicionada, mas ainda está unstaged (não foi adicionada ao índice com git add).</li>
+            <li style="font-size: 18px;">O comando <code class="language-bash">git add pilots.html</code> foi executado anteriormente para incluir outras mudanças no stage, mas a linha &lt;li&gt;Foxtrot&lt;/li&gt; ainda não foi adicionada ao stage.</li>
            </ul>
 
            <h4>Testando no repositório</h4>
 
            <p class="p-styled  spaced-p">Se você quiser ver todas as diferenças, incluindo as que já estão no stage, use:</p>
            <ul>
-           <li><pre class="spaced-pre code-block"><code class="language-bash">git diff --staged pilots.html</code></pre></li>
-           <li>Isso mostrará as diferenças que já foram adicionadas ao stage, mas ainda não commitadas.</li>
-           <li>A imagem anterior confirma que a letra 'E' foi adicionada via <code class="language-bash">git add</code>  mas não comitada.</li>
+           <li style="font-size: 18px;"><pre class="spaced-pre code-block"><code class="language-bash">git diff --staged pilots.html</code></pre></li>
+           <li style="font-size: 18px;">Isso mostrará as diferenças que já foram adicionadas ao stage, mas ainda não commitadas.</li>
+           <li style="font-size: 18px;">A imagem anterior confirma que a letra 'E' foi adicionada via <code class="language-bash">git add</code>  mas não comitada.</li>
            </ul>
            <img src="/app/static/images/git-diff_staged.webp" alt="Conteúdo antes e depois" class="img-full" width="900" height="506" style="height:auto;max-width:100%;">
 
            <h4>Vendo as alterações desde o último comite.</h4>
 
            <ul>
-           <li><pre class="spaced-pre code-block"><code class="language-bash">git diff HEAD pilots.html</code></pre></li>
-            <li>Na imagem abaixo vemos uma linha contendo a palavra 'Echo' e 'Foxtrot' adicionadas como indicado pelo sinal '+'. O git diff interpreta o HEAD com um hash do último comite.</li>
-            <li>O resultado é esperado pois o comite (letra D) foi feito antes da adição das letras 'E' e 'F'. </li>
+           <li style="font-size: 18px;"><pre class="spaced-pre code-block"><code class="language-bash">git diff HEAD pilots.html</code></pre></li>
+           <li style="font-size: 18px;">Na imagem abaixo vemos uma linha contendo a palavra 'Echo' e 'Foxtrot' adicionadas como indicado pelo sinal '+'. O git diff interpreta o HEAD com um hash do último comite.</li>
+           <li style="font-size: 18px;">O resultado é esperado pois o comite (letra D) foi feito antes da adição das letras 'E' e 'F'. </li>
            </ul>
            <img src="/app/static/images/git-diff-head.webp" alt="Conteúdo antes e depois" class="img-full" width="900" height="506" style="height:auto;max-width:100%;">
 
            <h4>Vendo mudanças entre dois comites</h4>
 
            <ul>
-           <li><pre class="spaced-pre code-block"><code class="language-bash">git diff HEAD~1 HEAD pilots.html</code></pre></li>
-           <li>Esse comando compara a versão do arquivo pilots.html entre: </li>
+           <li style="font-size: 18px;"><pre class="spaced-pre code-block"><code class="language-bash">git diff HEAD~1 HEAD pilots.html</code></pre></li>
+           <li style="font-size: 18px;">Esse comando compara a versão do arquivo pilots.html entre: </li>
            </ul>
 
            <ul>
-            <li>HEAD~1: O commit anterior ao atual (o "pai" do commit atual).</li>
-            <li>HEAD: O commit atual.</li>
-            <li>Isso significa que estamos verificando as mudanças feitas no último commit que afetaram pilots.html.</li>
+            <li style="font-size: 18px;">HEAD~1: O commit anterior ao atual (o "pai" do commit atual).</li>
+            <li style="font-size: 18px;">HEAD: O commit atual.</li>
+            <li style="font-size: 18px;">Isso significa que estamos verificando as mudanças feitas no último commit que afetaram pilots.html.</li>
             </ul>
 
             <pre class="spaced-pre code-block"><code class="language-bash">index 9dd516f..ce31f88 100644</code></pre>
                <img src="/app/static/images/git-diff-head-head.webp" alt="Entre dois comites" class="img-full" width="900" height="506">
 
             <ul>
-            <li>9dd516f: Hash da versão anterior do arquivo (HEAD~1).</li>
-            <li>ce31f88: Hash da versão atual do arquivo (HEAD).</li>
-            <li>100644: Permissões do arquivo (arquivo comum, sem execução).</li>
-             <li>Esse <code class="language-bash">git diff</code> confirma que no último commit foi adicionada a linha &lt;li&gt;Delta&lt;/li&gt; ao pilots.html.</li>
+            <li style="font-size: 18px;">9dd516f: Hash da versão anterior do arquivo (HEAD~1).</li>
+            <li style="font-size: 18px;">ce31f88: Hash da versão atual do arquivo (HEAD).</li>
+            <li style="font-size: 18px;">100644: Permissões do arquivo (arquivo comum, sem execução).</li>
+            <li style="font-size: 18px;">Esse <code class="language-bash">git diff</code> confirma que no último commit foi adicionada a linha &lt;li&gt;Delta&lt;/li&gt; ao pilots.html.</li>
             </ul>
 
             <h4>Obtendo os hashes pelo git log para verificar a diferença entre comites.</h4>
 
             <ul>
-            <li><pre class="spaced-pre code-block"><code class="language-bash">git log --online --decorate</code></pre></li>
-            <li><pre class="spaced-pre code-block"><code class="language-bash">git diff d298f74 2dded79 pilots.html</code></pre></li>
-            <li>Na imagem anterior podemos observar os seguintes pontos:</li>
+            <li style="font-size: 18px;"><pre class="spaced-pre code-block"><code class="language-bash">git log --online --decorate</code></pre></li>
+            <li style="font-size: 18px;"><pre class="spaced-pre code-block"><code class="language-bash">git diff d298f74 2dded79 pilots.html</code></pre></li>
+            <li style="font-size: 18px;">Na imagem anterior podemos observar os seguintes pontos:</li>
             </ul>
             <img src="/app/static/images/git-log-diff.webp" alt="Entre dois comites" class="img-full" width="900" height="506">
 
             <ul>
-            <li>O comando <code class="language-bash">git log --oneline --decorate</code> mostrou que o commit 2dded79 adicionou algo novo ao projeto.</li>
-            <li>git diff d298f74 2dded79 pilots.html revelou exatamente qual foi essa mudança: a adição da linha &lt;li&gt;Delta&lt;/li&gt;</li>
+            <li style="font-size: 18px;">O comando <code class="language-bash">git log --oneline --decorate</code> mostrou que o commit 2dded79 adicionou algo novo ao projeto.</li>
+            <li style="font-size: 18px;">git diff d298f74 2dded79 pilots.html revelou exatamente qual foi essa mudança: a adição da linha &lt;li&gt;Delta&lt;/li&gt;</li>
             </ul>
 
             <h4>Agora vamos comitar as pendências do 'feature request', ou seja a inserção da letra 'E' e da letra 'F'.</h4>
