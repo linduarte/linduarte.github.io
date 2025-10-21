@@ -8,8 +8,9 @@
     (function () {
         try {
         const token = localStorage.getItem('access_token');
+        // Default to landing.html (registration/login). If an auth token is present,
+        // redirect to the course prefácio page.
         if (token) {
-          // 1-index.html was removed; redirect authenticated users to the prefácio page
           window.location.replace('app/templates/git-course/1a-prefacio.html');
         } else {
           window.location.replace('landing.html');
