@@ -155,6 +155,8 @@
         const refreshToken = localStorage.getItem('refresh_token');
         if (!refreshToken) return false;
         try {
+          // If silent, announce that we're attempting a refresh
+          if (silent) showToast('Tentando renovar...', { spinner: true, timeout: 0 });
           // Example refresh endpoint — your backend would need to provide this.
           const resp = await fetch('/api/auth/refresh', {
             method: 'POST',
@@ -167,7 +169,8 @@
           if (data && data.access_token) {
             localStorage.setItem('access_token', data.access_token);
             if (data.refresh_token) localStorage.setItem('refresh_token', data.refresh_token);
-            // Redirect to prefácio
+            // Announce success and redirect to prefácio
+            if (silent) showToast('Renovado', { spinner: false, timeout: 1500 });
             window.location.replace('/app/templates/git-course/1a-prefacio.html');
             return true;
           }
@@ -176,7 +179,9 @@
           // Refresh failed — either fail silently or fall back to login
           try { localStorage.removeItem('access_token'); } catch (__) {}
           try { localStorage.removeItem('refresh_token'); } catch (__) {}
-          if (!silent) {
+          if (silent) {
+            showToast('Renovação falhou', { spinner: false, timeout: 3500 });
+          } else {
             // Show a short failure message and then link to login
             alert('Renovação falhou. Por favor, faça login novamente.');
             window.location.href = '/app/templates/git-course/login.html';
