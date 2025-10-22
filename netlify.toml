@@ -1,0 +1,10 @@
+[build]
+  functions = "netlify/functions"
+  publish = "."
+
+# Optional: add a build command if your site needs a build step.
+# command = "npm run build"
+
+[dev]
+  functions = "netlify/functions"
+  port = 8888

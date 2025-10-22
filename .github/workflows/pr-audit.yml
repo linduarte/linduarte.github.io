@@ -8,6 +8,15 @@ on:
       url:
         description: 'Optional URL to audit (overrides default Pages URL)'
         required: false
+      perf_threshold:
+        description: 'Performance threshold (0-100) to mark audit as passing'
+        required: false
+      acc_threshold:
+        description: 'Accessibility threshold (0-100) to mark audit as passing'
+        required: false
+      pa11y_max_issues:
+        description: 'Maximum allowed pa11y issues before failing the audit'
+        required: false
 
 permissions:
   contents: read
@@ -16,6 +25,7 @@ permissions:
 jobs:
   audit:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -44,6 +54,34 @@ jobs:
             echo "TARGET_URL=${{ secrets.AUDIT_URL }}" >> $GITHUB_ENV
           else
             echo "TARGET_URL=https://linduarte.github.io" >> $GITHUB_ENV
+          fi
+
+      - name: Determine thresholds
+        id: thresholds
+        run: |
+          # Allow overrides via workflow_dispatch inputs or repository secrets; otherwise defaults
+          if [ -n "${{ github.event.inputs.perf_threshold }}" ]; then
+            echo "PERF_THRESHOLD=${{ github.event.inputs.perf_threshold }}" >> $GITHUB_ENV
+          elif [ -n "${{ secrets.PERF_THRESHOLD }}" ]; then
+            echo "PERF_THRESHOLD=${{ secrets.PERF_THRESHOLD }}" >> $GITHUB_ENV
+          else
+            echo "PERF_THRESHOLD=50" >> $GITHUB_ENV
+          fi
+
+          if [ -n "${{ github.event.inputs.acc_threshold }}" ]; then
+            echo "ACC_THRESHOLD=${{ github.event.inputs.acc_threshold }}" >> $GITHUB_ENV
+          elif [ -n "${{ secrets.ACC_THRESHOLD }}" ]; then
+            echo "ACC_THRESHOLD=${{ secrets.ACC_THRESHOLD }}" >> $GITHUB_ENV
+          else
+            echo "ACC_THRESHOLD=90" >> $GITHUB_ENV
+          fi
+
+          if [ -n "${{ github.event.inputs.pa11y_max_issues }}" ]; then
+            echo "PA11Y_MAX_ISSUES=${{ github.event.inputs.pa11y_max_issues }}" >> $GITHUB_ENV
+          elif [ -n "${{ secrets.PA11Y_MAX_ISSUES }}" ]; then
+            echo "PA11Y_MAX_ISSUES=${{ secrets.PA11Y_MAX_ISSUES }}" >> $GITHUB_ENV
+          else
+            echo "PA11Y_MAX_ISSUES=5" >> $GITHUB_ENV
           fi
 
       - name: Run Lighthouse (JSON)
@@ -76,6 +114,57 @@ jobs:
           name: pr-audit-reports-${{ github.run_id }}
           path: reports/
 
+      - name: Evaluate thresholds (fail if below)
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const core = require('@actions/core');
+
+            let lh = null;
+            try {
+              lh = JSON.parse(fs.readFileSync('reports/lighthouse.json','utf8'));
+            } catch (e) {
+              core.warning('Lighthouse JSON not available or unreadable');
+            }
+
+            let pa = [];
+            try {
+              pa = JSON.parse(fs.readFileSync('reports/pa11y.json','utf8')) || [];
+            } catch (e) {
+              core.warning('pa11y JSON not available or unreadable');
+            }
+
+            const getScore = (cat) => lh && lh.categories && lh.categories[cat] ? Math.round((lh.categories[cat].score||0)*100) : null;
+            const perf = getScore('performance');
+            const acc = getScore('accessibility');
+            const paCount = Array.isArray(pa) ? pa.length : null;
+
+            const perfThreshold = parseInt(process.env.PERF_THRESHOLD || '50', 10);
+            const accThreshold = parseInt(process.env.ACC_THRESHOLD || '90', 10);
+            const paMax = parseInt(process.env.PA11Y_MAX_ISSUES || '5', 10);
+
+            let failed = false;
+            let reasons = [];
+            if (perf !== null && perf < perfThreshold) {
+              failed = true;
+              reasons.push(`Performance ${perf} < threshold ${perfThreshold}`);
+            }
+            if (acc !== null && acc < accThreshold) {
+              failed = true;
+              reasons.push(`Accessibility ${acc} < threshold ${accThreshold}`);
+            }
+            if (paCount !== null && paCount > paMax) {
+              failed = true;
+              reasons.push(`pa11y issues ${paCount} > allowed ${paMax}`);
+            }
+
+            if (failed) {
+              core.setFailed(`Audit thresholds not met: ${reasons.join('; ')}`);
+            } else {
+              core.info('All audit thresholds met.');
+            }
+
       - name: Post PR comment with summary
         uses: actions/github-script@v6
         with:
@@ -83,21 +172,14 @@ jobs:
             const fs = require('fs');
             const runId = process.env.GITHUB_RUN_ID || 'unknown';
             const pagesUrl = process.env.TARGET_URL || 'https://linduarte.github.io';
+            const perfThreshold = process.env.PERF_THRESHOLD || '50';
+            const accThreshold = process.env.ACC_THRESHOLD || '90';
+            const paMax = process.env.PA11Y_MAX_ISSUES || '5';
 
             let lh = null;
-            try {
-              const raw = fs.readFileSync('reports/lighthouse.json', 'utf8');
-              lh = JSON.parse(raw);
-            } catch (e) {
-              // ignore
-            }
-
+            try { lh = JSON.parse(fs.readFileSync('reports/lighthouse.json','utf8')); } catch (e) {}
             let pa = [];
-            try {
-              pa = JSON.parse(fs.readFileSync('reports/pa11y.json','utf8')) || [];
-            } catch (e) {
-              // ignore
-            }
+            try { pa = JSON.parse(fs.readFileSync('reports/pa11y.json','utf8')) || []; } catch (e) {}
 
             const score = (cat => lh && lh.categories && lh.categories[cat] ? Math.round((lh.categories[cat].score||0)*100) : 'n/a');
             const perf = score('performance');
@@ -109,7 +191,9 @@ jobs:
             const paIssues = Array.isArray(pa) ? pa.length : 'n/a';
             const topPa = Array.isArray(pa) && pa.length ? pa.slice(0,5).map(i=>`- ${i.message} (${i.selector||i.context||i.code||''})`).join('\n') : 'None';
 
-            const body = `## Automated audit summary\n\n**Target URL:** ${pagesUrl}\n\n**Lighthouse**\n- Performance: ${perf}\n- Accessibility: ${acc}\n- Best practices: ${bp}\n- SEO: ${seo}\n- PWA: ${pwa}\n\n**pa11y**\n- Issues found: ${paIssues}\n\nTop pa11y issues (up to 5):\n${topPa}\n\nArtifacts (JSON/HTML) are attached to this workflow run as a single artifact named \\`pr-audit-reports-${runId}\\`.\n\nIf you want the audit to run against a different URL (preview), re-run this workflow and pass a URL using the workflow_dispatch input, or set the repository secret `AUDIT_URL`.\n\n> This comment was generated automatically by the PR audit workflow.`;
+            const status = (perf !== 'n/a' && perf !== null && parseInt(perf)>=parseInt(perfThreshold) && acc !== 'n/a' && acc !== null && parseInt(acc)>=parseInt(accThreshold) && (paIssues==='n/a' || parseInt(paIssues) <= parseInt(paMax))) ? 'PASS' : 'FAIL';
+
+            const body = `## Automated audit summary\n\n**Target URL:** ${pagesUrl}\n\n**Lighthouse**\n- Performance: ${perf} (threshold ${perfThreshold})\n- Accessibility: ${acc} (threshold ${accThreshold})\n- Best practices: ${bp}\n- SEO: ${seo}\n- PWA: ${pwa}\n\n**pa11y**\n- Issues found: ${paIssues} (allowed ${paMax})\n\nTop pa11y issues (up to 5):\n${topPa}\n\n**Audit result:** ${status}\n\nArtifacts (JSON/HTML) are attached to this workflow run as a single artifact named \`pr-audit-reports-${runId}\`.\n\nIf you want the audit to run against a different URL (preview), re-run this workflow and pass a URL using the workflow_dispatch input, or set the repository secret \`AUDIT_URL\`.\n\n> This comment was generated automatically by the PR audit workflow.`;
 
             const pr = context.payload.pull_request && context.payload.pull_request.number;
             if (!pr) {
