@@ -48,13 +48,18 @@ jobs:
           if [ "$found" = true ]; then
             echo "Found problematic patterns in PR diff:" >&2
             echo -e "$matches" >&2
+            mkdir -p reports
+            printf "%s\n" "$matches" > reports/scan-matches.txt
             echo "found=true" >> $GITHUB_OUTPUT
             echo "matches<<EOF" >> $GITHUB_OUTPUT
             echo -e "$matches" >> $GITHUB_OUTPUT
             echo "EOF" >> $GITHUB_OUTPUT
+            # also expose a file path for safe consumption by later steps
+            echo "matches_file=reports/scan-matches.txt" >> $GITHUB_OUTPUT
           else
             echo "found=false" >> $GITHUB_OUTPUT
             echo "matches=" >> $GITHUB_OUTPUT
+            echo "matches_file=" >> $GITHUB_OUTPUT
           fi
 
       - name: Fail for forks (can't auto-fix)
@@ -112,8 +117,12 @@ jobs:
             echo "proposed_patch=reports/proposed.patch" >> $GITHUB_OUTPUT
           else
             echo "No auto-fixable require lines found. Please fix manually."
-            echo "Matches:" >&2
-            echo "${{ steps.scan.outputs.matches }}" >&2
+            echo "Matches (see step output file):" >&2
+            if [ -n "${{ steps.scan.outputs.matches_file }}" ]; then
+              cat "${{ steps.scan.outputs.matches_file }}" >&2 || true
+            else
+              echo "(no matches file was produced)" >&2
+            fi
             exit 1
           fi
 
