@@ -63,3 +63,4 @@ Variáveis:
 Problema “fixture 'page' not found”:
 - Verifique se playwright / pytest-playwright foram instalados (ver pyproject atualizado).
 - OU use o fallback já incluso em tests/conftest.py.
+<!-- audit test:  -->
