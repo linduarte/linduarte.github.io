@@ -77,9 +77,15 @@ jobs:
           git config user.name "${GIT_AUTHOR_NAME}"
           git config user.email "${GIT_AUTHOR_EMAIL}"
 
+          # Recompute base and changed files in this step (each step has a fresh shell)
+          echo "Fetching base branch ${GITHUB_BASE_REF}..."
+          git fetch origin ${GITHUB_BASE_REF}
+          BASE=FETCH_HEAD
+          CHANGED_FILES=$(git diff --name-only $BASE...HEAD || true)
+
           # Replace occurrences of the exact require line in the files changed by the PR
           echo "Files to consider:"
-          echo "$CHANGED_FILES"
+          echo "${CHANGED_FILES:-}"
 
           FIXED=false
           for f in $CHANGED_FILES; do
@@ -91,7 +97,6 @@ jobs:
                 # make a backup
                 cp "$f" "$f.bak"
                 # remove lines that import/require @actions/core or declare `core` (simpler, robust)
-                cp "$f" "$f.bak"
                 grep -v -E "@actions/core|\b(const|let|var)[[:space:]]+core\b" "$f.bak" > "$f" || true
                 git add "$f"
                 FIXED=true
