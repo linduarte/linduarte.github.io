@@ -6,6 +6,7 @@
   <title>Entrando...</title>
   <script>
     // Client-side token validation: parse a JWT in localStorage.access_token and check `exp` claim.
+    // If expired, show a small UI to let the user login or attempt a refresh using a `refresh_token`.
     (function () {
       function base64UrlDecode(input) {
         // Replace url-safe chars and add padding
@@ -50,14 +51,91 @@
         return false;
       }
 
+      function renderExpiredUI(hasRefresh) {
+        document.body.innerHTML = '';
+        const container = document.createElement('div');
+        container.style.fontFamily = 'Arial, sans-serif';
+        container.style.maxWidth = '520px';
+        container.style.margin = '10vh auto';
+        container.style.padding = '20px';
+        container.style.border = '1px solid #e6e6e6';
+        container.style.borderRadius = '6px';
+        container.style.textAlign = 'center';
+
+        const h = document.createElement('h2');
+        h.textContent = 'Sessão expirada';
+        container.appendChild(h);
+
+        const p = document.createElement('p');
+        p.textContent = 'Sua sessão expirou. Faça login para continuar ou tente renovar o token se disponível.';
+        container.appendChild(p);
+
+        const btnLogin = document.createElement('button');
+        btnLogin.textContent = 'Login';
+        btnLogin.style.margin = '8px';
+        btnLogin.onclick = function () { window.location.href = '/app/templates/git-course/login.html'; };
+        container.appendChild(btnLogin);
+
+        if (hasRefresh) {
+          const btnRefresh = document.createElement('button');
+          btnRefresh.textContent = 'Tentar renovar token';
+          btnRefresh.style.margin = '8px';
+          btnRefresh.onclick = function () {
+            attemptRefresh();
+            btnRefresh.disabled = true;
+            btnRefresh.textContent = 'Tentando...';
+          };
+          container.appendChild(btnRefresh);
+        }
+
+        const note = document.createElement('p');
+        note.style.marginTop = '12px';
+        note.style.fontSize = '13px';
+        note.style.color = '#666';
+        note.textContent = 'Se a renovação falhar, faça login novamente.';
+        container.appendChild(note);
+
+        document.body.appendChild(container);
+      }
+
+      async function attemptRefresh() {
+        const refreshToken = localStorage.getItem('refresh_token');
+        if (!refreshToken) return;
+        try {
+          // Example refresh endpoint — your backend would need to provide this.
+          const resp = await fetch('/api/auth/refresh', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ refresh_token: refreshToken })
+          });
+
+          if (!resp.ok) throw new Error('refresh-failed');
+          const data = await resp.json();
+          if (data && data.access_token) {
+            localStorage.setItem('access_token', data.access_token);
+            if (data.refresh_token) localStorage.setItem('refresh_token', data.refresh_token);
+            // Redirect to prefácio
+            window.location.replace('/app/templates/git-course/1a-prefacio.html');
+            return;
+          }
+        } catch (e) {
+          // Refresh failed — fall back to login
+          try { localStorage.removeItem('access_token'); } catch (__) {}
+          try { localStorage.removeItem('refresh_token'); } catch (__) {}
+          // Show a short failure message and then link to login
+          alert('Renovação falhou. Por favor, faça login novamente.');
+          window.location.href = '/app/templates/git-course/login.html';
+        }
+      }
+
       try {
         const token = localStorage.getItem('access_token');
         if (token && isTokenValid(token)) {
           window.location.replace('/app/templates/git-course/1a-prefacio.html');
         } else {
-          // Token is missing or expired -> ensure removal and go to landing
-          localStorage.removeItem('access_token');
-          window.location.replace('/landing.html');
+          // Token is missing or expired -> show UI; do not auto-remove refresh_token here
+          const hasRefresh = !!localStorage.getItem('refresh_token');
+          renderExpiredUI(hasRefresh);
         }
       } catch (e) {
         try { localStorage.removeItem('access_token'); } catch (__) {}
