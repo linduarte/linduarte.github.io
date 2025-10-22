@@ -1,0 +1,124 @@
+name: PR audits — Lighthouse + pa11y
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'Optional URL to audit (overrides default Pages URL)'
+        required: false
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Chromium
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser
+          echo "CHROME_BIN=/usr/bin/chromium-browser" >> $GITHUB_ENV
+
+      - name: Create reports dir
+        run: mkdir -p reports
+
+      - name: Determine target URL
+        id: determine
+        run: |
+          # Priority: workflow_dispatch input -> repository secret AUDIT_URL -> default Pages URL
+          if [ -n "${{ github.event.inputs.url }}" ]; then
+            echo "TARGET_URL=${{ github.event.inputs.url }}" >> $GITHUB_ENV
+          elif [ -n "${{ secrets.AUDIT_URL }}" ]; then
+            echo "TARGET_URL=${{ secrets.AUDIT_URL }}" >> $GITHUB_ENV
+          else
+            echo "TARGET_URL=https://linduarte.github.io" >> $GITHUB_ENV
+          fi
+
+      - name: Run Lighthouse (JSON)
+        env:
+          CHROME_BIN: ${{ env.CHROME_BIN }}
+          PAGES_URL: ${{ env.TARGET_URL }}
+        run: |
+          echo "Running Lighthouse (JSON) against: $PAGES_URL"
+          npx -y lighthouse "$PAGES_URL" --chrome-flags="--headless --no-sandbox" --output=json --output-path=reports/lighthouse.json || true
+
+      - name: Run Lighthouse (HTML)
+        env:
+          CHROME_BIN: ${{ env.CHROME_BIN }}
+          PAGES_URL: ${{ env.TARGET_URL }}
+        run: |
+          echo "Running Lighthouse (HTML) against: $PAGES_URL"
+          npx -y lighthouse "$PAGES_URL" --chrome-flags="--headless --no-sandbox" --output=html --output-path=reports/lighthouse.html || true
+
+      - name: Run pa11y (JSON + HTML)
+        env:
+          PAGES_URL: ${{ env.TARGET_URL }}
+        run: |
+          echo "Running pa11y against: $PAGES_URL"
+          npx -y pa11y "$PAGES_URL" --reporter json > reports/pa11y.json || true
+          npx -y pa11y "$PAGES_URL" --reporter html > reports/pa11y.html || true
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-audit-reports-${{ github.run_id }}
+          path: reports/
+
+      - name: Post PR comment with summary
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const runId = process.env.GITHUB_RUN_ID || 'unknown';
+            const pagesUrl = process.env.TARGET_URL || 'https://linduarte.github.io';
+
+            let lh = null;
+            try {
+              const raw = fs.readFileSync('reports/lighthouse.json', 'utf8');
+              lh = JSON.parse(raw);
+            } catch (e) {
+              // ignore
+            }
+
+            let pa = [];
+            try {
+              pa = JSON.parse(fs.readFileSync('reports/pa11y.json','utf8')) || [];
+            } catch (e) {
+              // ignore
+            }
+
+            const score = (cat => lh && lh.categories && lh.categories[cat] ? Math.round((lh.categories[cat].score||0)*100) : 'n/a');
+            const perf = score('performance');
+            const acc = score('accessibility');
+            const bp = score('best-practices');
+            const seo = score('seo');
+            const pwa = score('pwa');
+
+            const paIssues = Array.isArray(pa) ? pa.length : 'n/a';
+            const topPa = Array.isArray(pa) && pa.length ? pa.slice(0,5).map(i=>`- ${i.message} (${i.selector||i.context||i.code||''})`).join('\n') : 'None';
+
+            const body = `## Automated audit summary\n\n**Target URL:** ${pagesUrl}\n\n**Lighthouse**\n- Performance: ${perf}\n- Accessibility: ${acc}\n- Best practices: ${bp}\n- SEO: ${seo}\n- PWA: ${pwa}\n\n**pa11y**\n- Issues found: ${paIssues}\n\nTop pa11y issues (up to 5):\n${topPa}\n\nArtifacts (JSON/HTML) are attached to this workflow run as a single artifact named \\`pr-audit-reports-${runId}\\`.\n\nIf you want the audit to run against a different URL (preview), re-run this workflow and pass a URL using the workflow_dispatch input, or set the repository secret `AUDIT_URL`.\n\n> This comment was generated automatically by the PR audit workflow.`;
+
+            const pr = context.payload.pull_request && context.payload.pull_request.number;
+            if (!pr) {
+              core.info('No pull request found in context, skipping comment.');
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr,
+                body
+              });
+            }
