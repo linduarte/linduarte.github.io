@@ -44,69 +44,41 @@ jobs:
       - name: Create reports dir
         run: mkdir -p reports
 
-      - name: Determine target URL
-        id: determine
-        run: |
-          # Priority: workflow_dispatch input -> repository secret AUDIT_URL -> default Pages URL
-          if [ -n "${{ github.event.inputs.url }}" ]; then
-            echo "TARGET_URL=${{ github.event.inputs.url }}" >> $GITHUB_ENV
-          elif [ -n "${{ secrets.AUDIT_URL }}" ]; then
-            echo "TARGET_URL=${{ secrets.AUDIT_URL }}" >> $GITHUB_ENV
-          else
-            echo "TARGET_URL=https://linduarte.github.io" >> $GITHUB_ENV
-          fi
+      - name: Set audit environment variables
+        id: set-vars
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const core = globalThis.core || (globalThis.core = require('@actions/core'));
+            const inputs = (github.context.payload && github.context.payload.inputs) || {};
+            const target = inputs.url || process.env.AUDIT_URL || 'https://linduarte.github.io';
+            core.exportVariable('TARGET_URL', target);
 
-      - name: Determine thresholds
-        id: thresholds
-        run: |
-          # Allow overrides via workflow_dispatch inputs or repository secrets; otherwise defaults
-          if [ -n "${{ github.event.inputs.perf_threshold }}" ]; then
-            echo "PERF_THRESHOLD=${{ github.event.inputs.perf_threshold }}" >> $GITHUB_ENV
-          elif [ -n "${{ secrets.PERF_THRESHOLD }}" ]; then
-            echo "PERF_THRESHOLD=${{ secrets.PERF_THRESHOLD }}" >> $GITHUB_ENV
-          else
-            echo "PERF_THRESHOLD=50" >> $GITHUB_ENV
-          fi
+            const perf = inputs.perf_threshold || process.env.PERF_THRESHOLD || '50';
+            core.exportVariable('PERF_THRESHOLD', String(perf));
 
-          if [ -n "${{ github.event.inputs.acc_threshold }}" ]; then
-            echo "ACC_THRESHOLD=${{ github.event.inputs.acc_threshold }}" >> $GITHUB_ENV
-          elif [ -n "${{ secrets.ACC_THRESHOLD }}" ]; then
-            echo "ACC_THRESHOLD=${{ secrets.ACC_THRESHOLD }}" >> $GITHUB_ENV
-          else
-            echo "ACC_THRESHOLD=90" >> $GITHUB_ENV
-          fi
+            const acc = inputs.acc_threshold || process.env.ACC_THRESHOLD || '90';
+            core.exportVariable('ACC_THRESHOLD', String(acc));
 
-          if [ -n "${{ github.event.inputs.pa11y_max_issues }}" ]; then
-            echo "PA11Y_MAX_ISSUES=${{ github.event.inputs.pa11y_max_issues }}" >> $GITHUB_ENV
-          elif [ -n "${{ secrets.PA11Y_MAX_ISSUES }}" ]; then
-            echo "PA11Y_MAX_ISSUES=${{ secrets.PA11Y_MAX_ISSUES }}" >> $GITHUB_ENV
-          else
-            echo "PA11Y_MAX_ISSUES=5" >> $GITHUB_ENV
-          fi
+            const pa = inputs.pa11y_max_issues || process.env.PA11Y_MAX_ISSUES || '5';
+            core.exportVariable('PA11Y_MAX_ISSUES', String(pa));
 
       - name: Run Lighthouse (JSON)
-        env:
-          CHROME_BIN: ${{ env.CHROME_BIN }}
-          PAGES_URL: ${{ env.TARGET_URL }}
         run: |
           echo "Running Lighthouse (JSON) against: $PAGES_URL"
           npx -y lighthouse "$PAGES_URL" --chrome-flags="--headless --no-sandbox" --output=json --output-path=reports/lighthouse.json || true
 
       - name: Run Lighthouse (HTML)
-        env:
-          CHROME_BIN: ${{ env.CHROME_BIN }}
-          PAGES_URL: ${{ env.TARGET_URL }}
         run: |
           echo "Running Lighthouse (HTML) against: $PAGES_URL"
           npx -y lighthouse "$PAGES_URL" --chrome-flags="--headless --no-sandbox" --output=html --output-path=reports/lighthouse.html || true
 
       - name: Run pa11y (JSON + HTML)
-        env:
-          PAGES_URL: ${{ env.TARGET_URL }}
         run: |
           echo "Running pa11y against: $PAGES_URL"
-          npx -y pa11y "$PAGES_URL" --reporter json > reports/pa11y.json || true
-          npx -y pa11y "$PAGES_URL" --reporter html > reports/pa11y.html || true
+          # Pass Chrome launcher options to disable sandboxing (required on GitHub runners)
+          npx -y pa11y "$PAGES_URL" --chrome-launcher-options='{"args":["--no-sandbox","--disable-setuid-sandbox","--headless"]}' --reporter json > reports/pa11y.json || true
+          npx -y pa11y "$PAGES_URL" --chrome-launcher-options='{"args":["--no-sandbox","--disable-setuid-sandbox","--headless"]}' --reporter html > reports/pa11y.html || true
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
@@ -119,7 +91,7 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const core = require('@actions/core');
+            const core = globalThis.core || (globalThis.core = require('@actions/core'));
 
             let lh = null;
             try {
