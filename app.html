@@ -98,9 +98,9 @@
         document.body.appendChild(container);
       }
 
-      async function attemptRefresh() {
+      async function attemptRefresh(silent = false) {
         const refreshToken = localStorage.getItem('refresh_token');
-        if (!refreshToken) return;
+        if (!refreshToken) return false;
         try {
           // Example refresh endpoint — your backend would need to provide this.
           const resp = await fetch('/api/auth/refresh', {
@@ -116,15 +116,19 @@
             if (data.refresh_token) localStorage.setItem('refresh_token', data.refresh_token);
             // Redirect to prefácio
             window.location.replace('/app/templates/git-course/1a-prefacio.html');
-            return;
+            return true;
           }
+          return false;
         } catch (e) {
-          // Refresh failed — fall back to login
+          // Refresh failed — either fail silently or fall back to login
           try { localStorage.removeItem('access_token'); } catch (__) {}
           try { localStorage.removeItem('refresh_token'); } catch (__) {}
-          // Show a short failure message and then link to login
-          alert('Renovação falhou. Por favor, faça login novamente.');
-          window.location.href = '/app/templates/git-course/login.html';
+          if (!silent) {
+            // Show a short failure message and then link to login
+            alert('Renovação falhou. Por favor, faça login novamente.');
+            window.location.href = '/app/templates/git-course/login.html';
+          }
+          return false;
         }
       }
 
@@ -136,6 +140,16 @@
           // Token is missing or expired -> show UI; do not auto-remove refresh_token here
           const hasRefresh = !!localStorage.getItem('refresh_token');
           renderExpiredUI(hasRefresh);
+          // If a refresh token exists, attempt a silent refresh once automatically.
+          // This keeps the manual "Tentar renovar token" button for the user while
+          // attempting to recover the session automatically when possible.
+          if (hasRefresh) {
+            // Delay briefly to allow the UI to render and avoid race conditions.
+            setTimeout(() => {
+              // silent=true => don't show alerts or redirect to login on failure
+              attemptRefresh(true);
+            }, 600);
+          }
         }
       } catch (e) {
         try { localStorage.removeItem('access_token'); } catch (__) {}
