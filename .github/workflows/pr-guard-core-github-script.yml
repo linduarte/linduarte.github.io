@@ -66,7 +66,7 @@ jobs:
           echo "${{ steps.scan.outputs.matches }}" >&2
           exit 1
 
-      - name: Auto-fix same-repo PR (remove const core require)
+      - name: Auto-fix same-repo PR (generate proposed patch)
         if: steps.scan.outputs.found == 'true' && github.event.pull_request.head.repo.full_name == github.repository
         env:
           GIT_AUTHOR_NAME: github-actions
@@ -83,38 +83,60 @@ jobs:
           BASE=FETCH_HEAD
           CHANGED_FILES=$(git diff --name-only $BASE...HEAD || true)
 
-          # Replace occurrences of the exact require line in the files changed by the PR
+          # Prepare a proposed patch file in reports/proposed.patch
+          mkdir -p reports
+          : > reports/proposed.patch
+
           echo "Files to consider:"
           echo "${CHANGED_FILES:-}"
 
-          FIXED=false
+          PROPOSED=false
           for f in $CHANGED_FILES; do
             if [ -f "$f" ]; then
-              # If any of the problematic patterns appear in the diff for this file attempt to remove
-              # common import/require lines. Only operate on exact file paths in the PR.
               if git diff $BASE...HEAD -- "$f" | grep -q -E "require\(['\"]@actions/core['\"]\)|const[[:space:]]+core[[:space:]]*=|let[[:space:]]+core[[:space:]]*=|var[[:space:]]+core[[:space:]]*=|const[[:space:]]+\{[[:space:]]*core[[:space:]]*\}[[:space:]]*=|import[[:space:]]+.*core.*from[[:space:]]+['\"]@actions/core['\"]"; then
-                echo "Removing @actions/core import/require lines from $f"
-                # make a backup
+                echo "Building proposed patch for $f"
                 cp "$f" "$f.bak"
-                # remove lines that import/require @actions/core or declare `core` (simpler, robust)
-                grep -v -E "@actions/core|\b(const|let|var)[[:space:]]+core\b" "$f.bak" > "$f" || true
-                git add "$f"
-                FIXED=true
+                # create modified version without the problematic lines
+                grep -v -E "@actions/core|\b(const|let|var)[[:space:]]+core\b" "$f.bak" > "$f.modified" || true
+                # produce a unified diff between original and modified
+                diff -u "$f.bak" "$f.modified" >> reports/proposed.patch || true
+                rm -f "$f.modified"
+                PROPOSED=true
               fi
             fi
           done
 
-          if [ "$FIXED" = true ]; then
-            git commit -m "ci: remove duplicate require('@actions/core') introduced in PR (automated fix)" || true
-            # push back to the branch (only works for same-repo PRs)
-            git push origin HEAD:${{ github.head_ref }} || true
-            echo "Auto-fix applied and pushed to branch ${GITHUB_HEAD_REF}."
+          if [ "$PROPOSED" = true ]; then
+            echo "Proposed patch written to reports/proposed.patch"
+            echo "(the workflow will post this as a PR comment for manual review)"
+            echo "proposed_patch=reports/proposed.patch" >> $GITHUB_OUTPUT
           else
             echo "No auto-fixable require lines found. Please fix manually."
             echo "Matches:" >&2
             echo "${{ steps.scan.outputs.matches }}" >&2
             exit 1
           fi
+
+      - name: Post proposed patch as PR comment
+        if: steps.scan.outputs.found == 'true' && github.event.pull_request.head.repo.full_name == github.repository
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const path = 'reports/proposed.patch';
+            let patch = '';
+            try { patch = fs.readFileSync(path, 'utf8'); } catch (e) { patch = null }
+            const pr = context.payload.pull_request && context.payload.pull_request.number;
+            if (!pr) {
+              core.info('No pull request found in context, skipping posting proposed patch.');
+            } else if (!patch) {
+              await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number: pr, body: 'Guard scan detected problematic patterns but could not generate an automatic patch. Please fix the files manually.\n\nMatches:\n' + (steps.scan && steps.scan.outputs && steps.scan.outputs.matches ? steps.scan.outputs.matches : '') });
+            } else {
+              const body = 'Guard scan detected use of `@actions/core` or `actions/github-script` in the PR diff.\n\n' +
+                'Suggested automated patch (apply locally if desired):\n\n' + '``diff\n' + patch + '\n```\n\n' +
+                'If this change is acceptable, apply it locally and push, or reply to this comment to request an automated push.';
+              await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number: pr, body });
+            }
 
       - name: Inform success
         run: |
