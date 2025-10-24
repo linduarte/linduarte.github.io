@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Git Add</title>
+    <title>Configuração Git</title>
     <link rel="stylesheet" href="/app/static/css/style.css">
     <link rel="stylesheet" href="/app/static/css/common-styles.css">
     <link rel="stylesheet" href="/app/static/css/git-course.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
@@ -31,6 +30,14 @@
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255,255,255,0.2);
         }
+
+        /* Corrigir tamanho do botão */
+        .form-btn {
+            font-size: 12px !important;
+            padding: 6px 12px !important;
+            margin: 0 5px !important;
+        }
+
         /* Footer */
         .footer {
             background-color: rgba(234, 216, 231, 0.8);
@@ -152,6 +159,8 @@
                 right: 10px;
             }
         }
+
+
     </style>
     <script src="/app/static/js/config.js"></script>
     <script>
@@ -173,48 +182,71 @@
     </script>
 </head>
 <body class="intro-page">
-
     <div class="container">
-        <h1>git add</h1>
-
-            <h4>Adicionando arquivos ao projeto</h4>
-            <p>Antes de usar o comando <code class="language-bash">git add</code>, é importante ter arquivos novos no seu projeto. Este comando é usado para adicionar essas mudanças ao stage, preparando-as para o próximo commit.</p>
-            <p><strong>Passos para adicionar arquivos ao repositório:</strong></p>
-            <ul>
-            <ol>
-                <li style="font-size: 18px;">Faça o download dos arquivos usando este <a href="https://github.com/robertovormittag/phonetic-website">link.</a></li>
-                <li style="font-size: 18px;">Descompacte os arquivos e copie cole no site "simple-website".</li>
-                <li style="font-size: 18px;">Verifique pelo Windows Explorer a estrutura agora completa do repositório.</li>
-            </ol>
-            </ul>
-
-            <img src="/app/static/images/git-status-after-copy.webp" alt="Imagem ...">
-            <p class="image-description">Esta imagem mostra usando o comando <code class="language-bash">git status</code> que representa como os arquivos do repositório estão em relação ao Git, ou seja em vermelho,
-            que os arquivos não estão sendo rastreados pelo git, "untracked", indica que se use o comando <code class="language-bash">git add</code>
-            para mudar o status dos arquivos. Sinaliza mais embaixo dizendo que nada foi adicionado para a realização do "commit".
-        Mais embaixo temos a estrurura to repositório mostrada com os arquivos e um pasta 'style'.</p>
-
-        <pre><code class="language-bash">git add path/to/file</code></pre>
-        <p>Esse comando é usado quando você deseja preparar um arquivo específico para um <strong>commit</strong>.
-            Por exemplo, você pode estar trabalhando em vários arquivos, mas apenas um está pronto para ser confirmado.
-            Ao preparar esse arquivo individualmente, você pode garantir que ele seja o único incluído no próximo <strong>commit,</strong>
-            mantendo o histórico de <strong>commits</strong> limpo e organizado.</p>
-    <ul class="git-add-steps-list">
-            <li style="font-size: 18px;"><strong>'git add':</strong>O comando base para preparar arquivos para <strong>commit</strong>.</li>
-            <li style="font-size: 18px;"><strong>'path/to/file':</strong>O caminho específico do arquivo que você deseja adicionar ao <strong>index</strong></li>
+        <h1>Configuração Básica do Git: Importância e Ajustes Essenciais</h1>
+        <p class="p-styled  spaced-p">O Git é uma ferramenta poderosa de controle de versão, e uma configuração adequada é essencial para garantir um fluxo de trabalho eficiente
+            e padronizado. Abaixo, explicamos os principais ajustes que devem ser realizados logo após a instalação do Git, especialmente ao usá-lo no Windows Terminal com Git Bash.</p>
+        <h4> Configuração de Identidade</h4>
+    <ul class="left-list">
+            <li>
+                <strong>user.name:</strong> Define o nome que será associado a seus commits. Esse nome aparece no histórico do repositório e permite identificar quem realizou cada modificação.
+                <pre><code class="language-bash">git config --global user.name "Seu Nome"</code></pre>
+            </li>
+            <li>
+                <strong>user.email:</strong> Define o e-mail vinculado aos commits. Em plataformas como GitHub e GitLab, este e-mail precisa estar associado à sua conta para que os commits sejam reconhecidos corretamente.
+                <pre><code class="language-bash">git config --global user.email "seuemail@example.com"</code></pre>
+                <p>Importante: Para garantir privacidade no GitHub, pode-se usar um e-mail do tipo <code>@users.noreply.github.com</code> (disponível nas configurações da conta).</p>
+            </li>
         </ul>
-        <div class="note">
-            <strong>Nota:</strong> O comando <code class="language-bash">git add .</code> adiciona todos os arquivos. Use <code class="language-bash">git add &lt;arquivo&gt;</code> para adicionar arquivos específicos.
-            <img src="/app/static/images/git%20add_all.webp" alt="Imagem GitGraph">
-            <p class="image-description">Na imagem anterior podemos notar a aplicação do comando 'git add' em duas situações - na primeira aplicado na
-                pasta 'style' contendo 4 arquivos e no segundo comando 'git add' aplicado usando o curinga '*' para aplicar em todos os arquivos com extensão 'html'.
-                Ao se aplicar o comando <strong>git status</strong> observa-se que todos os arquivos foram 'staged', ou seja prontos para receberem a confirmação via o comando <strong>git commit</strong>.
-                Alguns arquivos que já tiverem passados pelo comando <strong>git add</strong> podem ser alterados ou seja modificados e assim estes deverão também
-                ser alvo do comando <strong>git add</strong> para que eles mudem de status, ou fiquem na condição 'staged', prontos para serem comitados.
-            </p>
+        <h4>Configuração de Fim de Linha</h4>
+    <ul class="left-list">
+            <li>
+           <strong> core.autocrlf</strong>
+            <p>Define a forma como o Git lida com a quebra de linha em arquivos de texto. No Windows, é recomendado configurar este ajuste para
+             evitar problemas de compatibilidade entre sistemas operacionais.</p></li>
+            <li>
+           <strong>Comando:</strong>
+            <pre><code class="language-bash">git config --global core.autocrlf true</code></pre>
+            <p>No Linux/Mac, o ideal é desativar a conversão:</p>
+            <pre><code class="language-bash">git config --global core.autocrlf input</code></pre></li>
+            <li>
+                <strong>core.safecrlf</strong>
+            <p>Define a verificação de quebra de linha. Este ajuste é útil para evitar problemas de corrupção de arquivos de texto.</p>
+            <li>
+            <pre><code class="language-bash">git config --global core.safecrlf true</code></pre></li>
+        </ul>
+        <h4>Configuração do Editor Padrão</h4>
+    <ul class="left-list">
+            <li>
+           <strong>core.editor</strong>
+            <p>Define o editor de texto padrão para mensagens de commit e outras interações com o Git. </p>
+            <pre><code class="language-bash">git config --global core.editor "code --wait"</code></pre>
+            Exemplo:
+            <pre><code class="language-bash">git config --global core.editor "nano"</code></pre></li>
+        </ul>
+        <h4>Configuração de Cores</h4>
+    <ul class="left-list">
+            <li>
+           <strong>color.ui</strong>
+            <p>Ativa a exibição de cores na saída do Git, facilitando a leitura e interpretação de informações.</p>
+            <pre><code class="language-bash">git config --global color.ui auto</code></pre> </li>
+        </ul>
+        <p class="p-styled  spaced-p">Essas configurações são essenciais para garantir um ambiente de trabalho eficiente e padronizado. Com elas, você estará pronto para
+             começar a trabalhar com o Git e aproveitar todos os benefícios que essa ferramenta oferece.</p>
+          <h4>Diferença entre Global, Local e System</h4>
+        <p class="p-styled  spaced-p">Os comandos <code class="language-bash">git config --global</code>, <code class="language-bash">git config --local</code> e <code class="language-bash">git config --system</code>
+            são usados para definir configurações em diferentes níveis. Veja a seguir a diferença entre eles:</p>
+    <ul class="left-list">
+            <li><strong>Global:</strong> Aplica as configurações a todos os repositórios do usuário. São armazenadas no arquivo <code class="language-bash">~/.gitconfig</code>.</li>
+            <li><strong>Local:</strong> Aplica as configurações apenas ao repositório atual. São armazenadas no arquivo <code class="language-bash">.git/config</code> do repositório.</li>
+            <li><strong>System:</strong> Aplica as configurações a todos os usuários do sistema. São armazenadas no arquivo <code class="language-bash">/etc/gitconfig</code>.</li>
+        </ul>
+        <p class="p-styled  spaced-p">Para verificar as configurações atuais, utilize o comando <code class="language-bash">git config --list</code>. Ele exibirá todas as configurações
+            definidas no nível atual (global, local ou system).</p>
 
-            <!-- filepath:https://commandmasters.com/commands/git-init-common/-->
-        </div>
+
+        <p class="image-description">A imagem acima mostra a utilização das configurações do git em uma imagem criada por IA.<code class="language-bash">git config</code>
+           </p>
         <footer class="footer">
             <div class="footer-copyright">
                 © 2025 Curso de Git. Todos os direitos reservados.
@@ -222,8 +254,8 @@
 
             <div class="footer-flex">
                 <nav class="footer-nav">
-                    <a href="7-git-status.html" class="footer-link">← Voltar</a>
-                    <a href="9-git-commit.html" class="footer-link">Próximo: Git commit →</a>
+                    <a href="2-introduction.html" class="footer-link">← Voltar</a>
+                    <a href="4-hosting.html" class="footer-link">Próximo: Hosting</a>
                 </nav>
 
                 <div class="footer-buttons">
@@ -240,18 +272,19 @@
                 <a href="https://pages.github.com/" class="github-link">
                     <span>🐙 GitHub Pages</span>
                 <img src="/app/static/images/github-mark-white.png"
-                         alt="GitHub Logo"
-                         class="footer-logo" width="16" height="16">
+                    alt="GitHub Logo"
+                    class="footer-logo" width="16" height="16">
                 </a>
-                <a href="https://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
-                    <img src="https://jigsaw.w3.org/css-validator/images/vcss"
-                         alt="CSS válido!"
-                         class="footer-logo" width="45" height="16">
-                </a>
+                    <a href="https://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
+                        <img src="https://jigsaw.w3.org/css-validator/images/vcss"
+                             alt="CSS válido!"
+                             class="footer-logo" width="45" height="16">
+                    </a>
             </div>
       </footer>
-    <script src="/app/static/js/git-course-functions.js"></script>
-    <script>Prism.highlightAll();</script>
     </div>
+
+    <!--<script>Prism.highlightAll();</script>-->
+    <script src="/app/static/js/git-course-functions.js"></script>
 </body>
 </html>

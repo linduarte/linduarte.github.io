@@ -33,6 +33,41 @@ console.log("✅ Script loaded successfully!");
     return false;
 }
 
+// Intercept fetch calls that modify progress and signal other tabs/pages.
+// This avoids editing every handler: when a POST/PUT/DELETE to /progress succeeds
+// we write a timestamp to localStorage (for cross-tab notifications) and
+// dispatch a custom event (for same-tab listeners).
+(function() {
+  if (!window.fetch) return; // very old browsers
+  const _origFetch = window.fetch.bind(window);
+  window.fetch = async function(resource, init) {
+    const response = await _origFetch(resource, init);
+    try {
+      const method = (init && init.method) ? String(init.method).toUpperCase() : 'GET';
+      const url = (typeof resource === 'string') ? resource : (resource && resource.url) || '';
+      if (url && url.indexOf('/progress') !== -1 && ['POST','PUT','DELETE'].includes(method) && response && response.ok) {
+        try {
+          const ts = Date.now().toString();
+          // localStorage change will trigger storage event in OTHER tabs
+          localStorage.setItem('progressUpdated', ts);
+        } catch (err) {
+          // ignore (e.g., private mode)
+        }
+        try {
+          // Dispatch a same-tab event so pages in the same window can react immediately
+          window.dispatchEvent(new CustomEvent('progressUpdated', { detail: { timestamp: Date.now() } }));
+        } catch (err) {
+          // ignore
+        }
+      }
+    } catch (err) {
+      // swallow any observation errors
+      console.error('fetch-observer', err);
+    }
+    return response;
+  };
+})();
+
         function hideProgressMenu() {
           document.getElementById('progress-content').style.display = 'none';
         }
@@ -168,3 +203,55 @@ console.log("✅ Script loaded successfully!");
             document.getElementById('resultDelete').innerText = response.ok ? 'Progresso deletado!' : `Erro: ${result.detail}`;
           };
         }
+
+// Attach optimistic handler for the standard "Concluído" button (#markCompletedButton).
+// Idempotent and safe to call multiple times. It will attach immediately if the button
+// exists or on DOMContentLoaded otherwise.
+function attachMarkCompletedHandler() {
+  const hook = () => {
+    try {
+      const btn = document.getElementById('markCompletedButton');
+      if (!btn) return;
+      if (btn.dataset.progressHandlerAttached) return; // already attached
+      btn.dataset.progressHandlerAttached = '1';
+      btn.addEventListener('click', async () => {
+        const origText = btn.innerText;
+        btn.disabled = true;
+        btn.innerText = 'Enviando...';
+        const token = localStorage.getItem('access_token');
+        const topicId = btn.dataset.topicId;
+        try {
+          const response = await fetch('/progress', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            body: JSON.stringify({ topic_id: topicId, completed: true, feedback: 'Concluído via UI' })
+          });
+          if (handle401(response)) return;
+          const data = await response.json();
+          if (response.ok) {
+            btn.innerText = 'Concluído ✓';
+            btn.classList.add('completed');
+          } else {
+            btn.disabled = false;
+            btn.innerText = origText;
+            alert('Erro ao marcar o progresso');
+          }
+        } catch (err) {
+          btn.disabled = false;
+          btn.innerText = origText;
+          alert('Erro de conexão ao marcar progresso');
+        }
+      });
+    } catch (err) {
+      console.error('attachMarkCompletedHandler', err);
+    }
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', hook);
+  } else {
+    hook();
+  }
+}
+
+// Auto-attach on script load for convenience
+try { attachMarkCompletedHandler(); } catch (e) { /* ignore */ }

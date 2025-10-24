@@ -1,15 +1,12 @@
-name: E2E Frontend Playwright (DISABLED)
+name: E2E Frontend Playwright
 
-# Comentar 'on' para desabilitar completamente
-# on:
-#   push:
-#     branches: [main]
-#   pull_request:
-#     branches: [main]
-
-# Trigger manual apenas
+# Run E2E tests on pushes to main and on pull requests targeting main, and still allow manual runs
 on:
-  workflow_dispatch:  # Só roda quando disparado manualmente
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
   e2e:

@@ -137,6 +137,26 @@ img {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
+/* Ensure images marked with .img-full are responsive and do not distort */
+.img-full {
+    display:block;
+    max-width:100%;
+    height:auto;
+}
+
+/* Accessibility helper: visually hidden but available to screen readers */
+.sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
 .image-description {
     font-size: 1em; /* Ensure consistency */
     color: #5c4033;
@@ -294,6 +314,8 @@ span.token.function {
     color: #333; /* Dark text color */
     font-weight: bold;
     font-size: 1.1em;
+    display: block; /* Make the link fill the card for larger touch target */
+    padding: 18px 12px; /* Ensure sufficient target size */
 }
 
 .nav-card a:hover {

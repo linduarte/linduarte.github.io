@@ -56,7 +56,7 @@
         }
 
         .footer-link {
-            color: #6c757d;
+            color: var(--neutral);
             text-decoration: none;
             font-family: 'Victor Mono', monospace;
             font-size: 15px;
@@ -228,36 +228,36 @@
                 cada comite mostrado como um círculo. A seta indica a direção do desenvolvimento, ou seja 'HEAD' e aponta para o último comite.
                 O último comite é o comite mais recente. O comite mais recente é o comite que está no topo da pilha de comites. De baixo para cima como pode-se ver na imagem abaixo do git log.
             </p>
-            <img src="/app/static/images/git_diagram_b.webp" alt="Tela mostrando o histórico de comites realizados" class="img-fullwidth" width="1200" height="675" style="height:auto;max-width:100%;">
+                <img src="/app/static/images/git_diagram_b.webp" alt="Tela mostrando o histórico de comites realizados" class="img-fullwidth" style="height:auto;max-width:100%;">
 
             <p class="p-styled spaced-p">Após o comando <code class="language-bash">git checkout main</code>, o ponteiro HEAD se move para o último commit na branch main e o conteúdo do diretório
                 de trabalho muda de acordo.</p>
 
 
-                <img src="/app/static/images/git-branch_2.webp" alt="Tela mostrando o histórico de comites realizados" class="img-fullwidth" width="1200" height="675">
-              <img src="/app/static/images/branch_ghi_jkl.webp" alt="Tela mostrando dois novos branches (ghi - jkl)" class="img-fullwidth" width="1200" height="675">
-                <img src="/app/static/images/checkout-ghi.webp" alt="Tela mostrando git checkout g-h-i" class="img-fullwidth" width="1200" height="675">
-                <img src="/app/static/images/added_G.webp" alt="Tela mostrando letra G adicionada e comitada" class="img-fullwidth" width="1200" height="675">
-                <img src="/app/static/images/git-log-ghi.webp" alt="Tela mostrando git log das letras G, H e I" class="img-fullwidth" width="1200" height="675">
-                <img src="/app/static/images/git-st-ghi.webp" alt="Tela mostrando o git status do ramo g-h-i" class="img-fullwidth" width="1200" height="675">
-                <img src="/app/static/images/git_checkout_main.webp" alt="Tela mostrando o git checkout main" class="img-full" width="900" height="506">
-                <img src="/app/static/images/git-merge-ghi.webp" alt="Tela mostrando o git merge" class="img-full" width="900" height="506">
-                <img src="/app/static/images/git-log-main.webp" alt="Tela mostrando git log após o merge" class="img-full" width="900" height="506">
-                    <img src="/app/static/images/gitgraph_view.webp" alt="Tela mostrando a visão gitgraph após o merge" class="img-fullwidth" width="1200" height="675">
-                     <img src="/app/static/images/git-sw-jkl.webp" alt="Tela mostrando git switch  j-k-l" class="img-fullwidth" width="1200" height="675">
-                     <img src="/app/static/images/git-log-jkl.webp" alt="Tela mostrando git log de j-k-l" class="img-fullwidth" width="1200" height="675">
-                     <img src="/app/static/images/pilots-add_J.webp" alt="Tela mostrando git status" class="img-fullwidth" width="201" height="215" style="height:auto;max-width:100%;">
-                     <img src="/app/static/images/git-log-total.webp" alt="Tela mostrando git log total" class="img-fullwidth" width="1200" height="675">
-                     <img src="/app/static/images/git-st-jkl.webp" alt="Tela mostrando o git status do ramo j-k-l" class="img-fullwidth" width="1200" height="675">
-                     <img src="/app/static/images/git-log-main.webp" alt="Tela mostrando git checkout main" class="img-full" width="900" height="506">
-                         <img src="/app/static/images/git-merge-br2.webp" alt="Tela mostrando git merge j-k-l" class="img-full" width="900" height="506">
-                     <img src="/app/static/images/git-st-conflit.webp" alt="Tela mostrando git status" class="img-fullwidth" width="1200" height="675">
-                        <img src="/app/static/images/pilots_conflits.webp" alt="Tela mostrando git status" class="img-fullwidth" width="1200" height="675">
-                          <img src="/app/static/images/pilots-fixed.webp" alt="Tela mostrando git status" class="img-fullwidth" width="264" height="400" style="height:auto;max-width:100%;">
-                          <img src="/app/static/images/git-comit-resolv.webp" alt="Tela mostrando git log de main" class="img-fullwidth" width="1200" height="675">
-                          <img src="/app/static/images/git-log-main-merg.webp" alt="Tela mostrando git log de main" class="img-fullwidth" width="1200" height="675">
-                          <img src="/app/static/images/git-tag-push.webp" alt="Tela mostrando git tag" class="img-fullwidth" width="1200" height="675">
-                          <img src="/app/static/images/git-st-conclus.webp" alt="Tela mostrando git status" class="img-fullwidth" width="1200" height="675">
+                <img src="/app/static/images/git-branch_2.webp" alt="Tela mostrando o histórico de comites realizados" class="img-fullwidth">
+              <img src="/app/static/images/branch_ghi_jkl.webp" alt="Tela mostrando dois novos branches (ghi - jkl)" class="img-fullwidth">
+                <img src="/app/static/images/checkout-ghi.webp" alt="Tela mostrando git checkout g-h-i" class="img-fullwidth">
+                <img src="/app/static/images/added_G.webp" alt="Tela mostrando letra G adicionada e comitada" class="img-fullwidth">
+                <img src="/app/static/images/git-log-ghi.webp" alt="Tela mostrando git log das letras G, H e I" class="img-fullwidth">
+                <img src="/app/static/images/git-st-ghi.webp" alt="Tela mostrando o git status do ramo g-h-i" class="img-fullwidth">
+                <img src="/app/static/images/git_checkout_main.webp" alt="Tela mostrando o git checkout main" class="img-full">
+                <img src="/app/static/images/git-merge-ghi.webp" alt="Tela mostrando o git merge" class="img-full">
+                <img src="/app/static/images/git-log-main.webp" alt="Tela mostrando git log após o merge" class="img-full">
+                    <img src="/app/static/images/gitgraph_view.webp" alt="Tela mostrando a visão gitgraph após o merge" class="img-fullwidth">
+                     <img src="/app/static/images/git-sw-jkl.webp" alt="Tela mostrando git switch  j-k-l" class="img-fullwidth">
+                     <img src="/app/static/images/git-log-jkl.webp" alt="Tela mostrando git log de j-k-l" class="img-fullwidth">
+                     <img src="/app/static/images/pilots-add_J.webp" alt="Tela mostrando git status" class="img-fullwidth" style="height:auto;max-width:100%;">
+                     <img src="/app/static/images/git-log-total.webp" alt="Tela mostrando git log total" class="img-fullwidth">
+                     <img src="/app/static/images/git-st-jkl.webp" alt="Tela mostrando o git status do ramo j-k-l" class="img-fullwidth">
+                     <img src="/app/static/images/git-log-main.webp" alt="Tela mostrando git checkout main" class="img-full">
+                         <img src="/app/static/images/git-merge-br2.webp" alt="Tela mostrando git merge j-k-l" class="img-full">
+                     <img src="/app/static/images/git-st-conflit.webp" alt="Tela mostrando git status" class="img-fullwidth">
+                        <img src="/app/static/images/pilots_conflits.webp" alt="Tela mostrando git status" class="img-fullwidth">
+                          <img src="/app/static/images/pilots-fixed.webp" alt="Tela mostrando git status" class="img-fullwidth" style="height:auto;max-width:100%;">
+                          <img src="/app/static/images/git-comit-resolv.webp" alt="Tela mostrando git log de main" class="img-fullwidth">
+                          <img src="/app/static/images/git-log-main-merg.webp" alt="Tela mostrando git log de main" class="img-fullwidth">
+                          <img src="/app/static/images/git-tag-push.webp" alt="Tela mostrando git tag" class="img-fullwidth">
+                          <img src="/app/static/images/git-st-conclus.webp" alt="Tela mostrando git status" class="img-fullwidth">
 
             <p class="p-styled spaced-p">Vamos implementar o primeiro requisito através de um exercício.</p>
 
@@ -479,31 +479,7 @@
             </div>
         </footer>
     <script src="/app/static/js/git-course-functions.js"></script>
-    <script>
-    document.getElementById("markCompletedButton").addEventListener("click", async () => {
-        const token = localStorage.getItem("access_token");
-        const topicId = document.getElementById("markCompletedButton").dataset.topicId;
-    const response = await fetch("/progress", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-                topic_id: topicId,
-                completed: true,
-                feedback: "Muito bom este tópico!",
-            }),
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-            alert("Progresso marcado com sucesso!");
-        } else {
-            alert("Erro ao marcar o progresso");
-        }
-    });
-    </script>
+    <!-- handler moved to shared js: attachMarkCompletedHandler() -->
     </div>
     <script>Prism.highlightAll();</script>
 </body>
