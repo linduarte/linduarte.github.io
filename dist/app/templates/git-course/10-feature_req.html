@@ -328,26 +328,39 @@ commit id: "2-2dded79"
       </footer>
     <script>
     document.getElementById("markCompletedButton").addEventListener("click", async () => {
+        const btn = document.getElementById("markCompletedButton");
+        const origText = btn.innerText;
+        btn.disabled = true;
+        btn.innerText = 'Enviando...';
         const token = localStorage.getItem("access_token");
-        const topicId = document.getElementById("markCompletedButton").dataset.topicId;
-    const response = await fetch("/progress", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-                topic_id: topicId,
-                completed: true,
-                feedback: "Muito bom este tópico!",
-            }),
-        });
+        const topicId = btn.dataset.topicId;
+        try {
+            const response = await fetch("/progress", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    topic_id: topicId,
+                    completed: true,
+                    feedback: "Muito bom este tópico!",
+                }),
+            });
 
-        const data = await response.json();
-        if (response.ok) {
-            alert("Progresso marcado com sucesso!");
-        } else {
-            alert("Erro ao marcar o progresso");
+            const data = await response.json();
+            if (response.ok) {
+                btn.innerText = 'Concluído ✓';
+                btn.classList.add('completed');
+            } else {
+                btn.disabled = false;
+                btn.innerText = origText;
+                alert('Erro ao marcar o progresso');
+            }
+        } catch (err) {
+            btn.disabled = false;
+            btn.innerText = origText;
+            alert('Erro de conexão ao marcar progresso');
         }
     });
     </script>

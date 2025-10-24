@@ -18,31 +18,12 @@
         mermaid.initialize({ startOnLoad: true });
     </script>
     <style>
-        body {
-            background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
-            font-family: 'Victor Mono', monospace;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            background: rgba(255,255,255,0.75);
-            border-radius: 16px;
-            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
-            margin: 40px auto;
-            padding: 40px;
-            max-width: 900px;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        /* Footer */
-        .footer {
-            background-color: rgba(234, 216, 231, 0.8);
-            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
-            height: 200px;
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 40px;
+        .footer-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .footer-flex {
@@ -157,6 +138,7 @@
             }
         }
     </style>
+    <!-- handler moved to shared js: attachMarkCompletedHandler() -->
     <script src="/app/static/js/config.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -459,31 +441,7 @@
                 </a>
             </div>
         </footer>
-    <script>
-    document.getElementById("markCompletedButton").addEventListener("click", async () => {
-        const token = localStorage.getItem("access_token");
-        const topicId = document.getElementById("markCompletedButton").dataset.topicId;
-    const response = await fetch("/progress", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-                topic_id: topicId,
-                completed: true,
-                feedback: "Muito bom este tópico!",
-            }),
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-            alert("Progresso marcado com sucesso!");
-        } else {
-            alert("Erro ao marcar o progresso");
-        }
-    });
-    </script>
+    <script src="/app/static/js/git-course-functions.js"></script>
     <script>Prism.highlightAll();</script>
     </div>
 </body>

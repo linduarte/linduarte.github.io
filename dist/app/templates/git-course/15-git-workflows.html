@@ -511,33 +511,9 @@
                          class="footer-logo" width="45" height="16">
                 </a>
             </div>
-      </footer>
-    <script>
-    document.getElementById("markCompletedButton").addEventListener("click", async () => {
-        const token = localStorage.getItem("access_token");
-        const topicId = document.getElementById("markCompletedButton").dataset.topicId;
-    const response = await fetch("/progress", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-                topic_id: topicId,
-                completed: true,
-                feedback: "Muito bom este tópico!",
-            }),
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-            alert("Progresso marcado com sucesso!");
-        } else {
-            alert("Erro ao marcar o progresso");
-        }
-    });
-    </script>
-    <script src="/app/static/js/git-course-functions.js"></script>
+            </footer>
+        <script src="/app/static/js/git-course-functions.js"></script>
+        <!-- handler moved to shared js: attachMarkCompletedHandler() -->
     </div>
     <script>Prism.highlightAll();</script>
 </body>
