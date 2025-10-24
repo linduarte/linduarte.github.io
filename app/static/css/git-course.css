@@ -137,6 +137,26 @@ img {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
+/* Ensure images marked with .img-full are responsive and do not distort */
+.img-full {
+    display:block;
+    max-width:100%;
+    height:auto;
+}
+
+/* Accessibility helper: visually hidden but available to screen readers */
+.sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
 .image-description {
     font-size: 1em; /* Ensure consistency */
     color: #5c4033;
@@ -268,19 +288,21 @@ span.token.function {
 
 .nav-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    grid-template-columns: repeat(3, 1fr); /* 3 columns on wide screens */
     gap: 20px; /* Space between cards */
     padding: 20px;
 }
 
-
 .nav-card {
+    display: flex; /* allow link to stretch */
+    align-items: stretch;
+    justify-content: center;
     background-color: #ead8e7; /* Light background for cards */
     border: 1px solid #ddd; /* Subtle border */
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
     text-align: center; /* Center text */
-    padding: 15px;
+    padding: 8px; /* keep internal spacing, link provides main hit area */
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
 }
 
@@ -294,10 +316,58 @@ span.token.function {
     color: #333; /* Dark text color */
     font-weight: bold;
     font-size: 1.1em;
+    display: inline-flex; /* inline-flex to center content */
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 24px 16px; /* Increase touch target (vertical x horizontal) */
+    min-height: 56px; /* Enforce minimum size to satisfy target-size audits */
+    box-sizing: border-box;
 }
 
 .nav-card a:hover {
     color: #007BFF; /* Highlight link on hover */
+}
+
+/* Make the nav responsive: fewer columns on smaller screens so each target gets wider */
+@media (max-width: 900px) {
+    .nav-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-grid {
+        grid-template-columns: 1fr;
+        padding: 12px;
+        gap: 12px;
+    }
+    .nav-card a {
+        padding: 20px 12px;
+        min-height: 56px;
+    }
+}
+
+/* Under-construction include helpers */
+.construction-section {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+.construction-section .construction-image {
+    max-width: 150px;
+    height: auto;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+.construction-section h2 {
+    margin: 0 0 10px 0;
+    color: #f14e32;
+}
+.construction-section p {
+    margin: 0;
+    color: var(--neutral);
+    line-height: 1.5;
 }
 
 .table-container {

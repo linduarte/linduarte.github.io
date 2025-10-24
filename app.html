@@ -39,16 +39,46 @@
         }
       }
 
+      // Read optional expected audience/issuer from meta tags.
+      // If not provided, checks that depend on them are permissive.
+      const expectedAud = (document.querySelector('meta[name="jwt-aud"]') || {}).content || null;
+      const expectedIss = (document.querySelector('meta[name="jwt-iss"]') || {}).content || null;
+
       function isTokenValid(token) {
         const payload = parseJwt(token);
         if (!payload) return false;
-        // If `exp` exists, check expiry (exp is seconds since epoch)
-        if (payload.exp && typeof payload.exp === 'number') {
-          const now = Math.floor(Date.now() / 1000);
-          return payload.exp > now + 5; // 5s leeway
+        const now = Math.floor(Date.now() / 1000);
+
+        // nbf: not-before (optional). If present, ensure token is usable now (5s leeway).
+        if (payload.nbf && typeof payload.nbf === 'number') {
+          if (now + 5 < payload.nbf) return false;
         }
-        // No exp claim: consider it invalid (safer)
-        return false;
+
+        // exp: expiry (recommended). If present, ensure not expired.
+        if (payload.exp && typeof payload.exp === 'number') {
+          if (!(payload.exp > now + 5)) return false; // expired or about to expire
+        } else {
+          // No exp claim: consider it invalid (safer)
+          return false;
+        }
+
+        // aud: audience (optional). Only enforce when both the token has `aud`
+        // and an expected audience is configured via meta tag. If the token
+        // lacks aud, default to permissive behavior.
+        if (payload.aud && expectedAud) {
+          if (Array.isArray(payload.aud)) {
+            if (payload.aud.indexOf(expectedAud) === -1) return false;
+          } else {
+            if (payload.aud !== expectedAud) return false;
+          }
+        }
+
+        // iss: issuer (optional). Only enforce when both present and expected.
+        if (payload.iss && expectedIss) {
+          if (payload.iss !== expectedIss) return false;
+        }
+
+        return true;
       }
 
       function renderExpiredUI(hasRefresh) {

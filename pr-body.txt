@@ -1,0 +1,10 @@
+Summary:
+- Harden client-side JWT validation in `app.html`: added checks for `nbf`, `exp` (required), `aud`, and `iss`.
+  - `exp` is required; tokens without `exp` are treated as invalid.
+  - `nbf` is enforced if present (5s leeway).
+  - `aud` and `iss` are enforced only when both the token contains them and the page defines expected values via meta tags (<meta name="jwt-aud" content="...">, <meta name="jwt-iss" content="...">). When claims are missing, behavior is permissive.
+- Fixed `.github/workflows/pr-audit.yml` to avoid parse-time expression errors: compute TARGET_URL and thresholds at runtime with `actions/github-script` and export them for steps.
+
+Testing notes:
+- Branch `feature/harden-jwt` includes the change; please trigger the PR audit workflow once created to validate Lighthouse/pa11y against the Pages URL.
+- If you want different default behavior (e.g., permissive `exp`), I can adjust quickly.

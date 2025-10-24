@@ -2,14 +2,16 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hospedagem</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuração Git</title>
+    <link rel="stylesheet" href="/app/static/css/style.css">
     <link rel="stylesheet" href="/app/static/css/common-styles.css">
     <link rel="stylesheet" href="/app/static/css/git-course.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
     <style>
         body {
             background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
@@ -150,7 +152,6 @@
         .footer-logo:hover {
             opacity: 1;
         }
-
         @media (max-width: 768px) {
             .github-pages-logo {
                 width: 80px;
@@ -158,9 +159,9 @@
                 right: 10px;
             }
         }
+
+
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
     <script src="/app/static/js/config.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -180,55 +181,81 @@
     });
     </script>
 </head>
-<body>
+<body class="intro-page">
     <div class="container">
-        <h1>Hospedagem - Projeto "Phonetic Website"</h1>
-        <p class="p-styled spaced-p">
-          Seguiremos um roteiro baseado no livro denominado <strong>"Practical Guide to Git and GitHub For Windows Users"</strong>, escrito por Roberto Vormittag.
-        </p>
-        <p class="p-styled spaced-p">
-         Por que "Phonetic website? A ideia apresentada no livro é usar 'palavras' para representar letras na técnica muito usada em radio comunicação. É mais fácil distinguir as palavras 'Delta' e 'Tango' do que as letras 'D' e ''T'. Um dos mais conhecidos é o alfabeto dos pilotos começando com 'Alpha', 'Bravo', 'Charlie' (A, B e C). Assim o voo BA-461 é comunicado pelos pilotos como "Bravo Alpha Four Six One".
-          Desta forma o "Phonetic website" usa o alfabeto dos pilotos acrescido de nomes de 'cidades' e 'pessoas' para o desenvolvimento prático dos commandos do Git.
-          O site é estático e usa HTML e CSS sem que voce precise aprender técnicas de construção de sites.
-          O acesso a este site que é hospedado no GitHub é: https://github.com/robertovormittag/phonetic-website.
-          Basta que voce faça o download do zip deste site.
-          Depois de feito o download do arquivo zip, extraia seu conteúdo.
-          Voce irá encontrar três páginas em HTML e uma pasta 'style' na qual existem quatro folhas de estilo, CSS. O arquivo README.md pode ser apagado. </p>
-          <img src="/app/static/images/alphabetic.webp" alt="Screenshot da pasta extraida do site" class="image-centered">
-          <img src="/app/static/images/pilots_web.webp" alt="Screenshot do navegafor mostrando o site `Pilots`" class="image-centered">
-        <p class="p-styled spaced-p">A imagem acima mostra três abas de navegação nas quais voce pode encontrar as primeiras letras de cada alfabeto.
-          Com o passar dos exercícios voce irá completar o alfabeto de A até Z.</p>
-        <p class="p-styled spaced-p">Neste momento é hora de voce criar um repositório para hospedar seu projeto.</p>
-      <section class="etapas-section">
-      <h4>Etapas</h4>
-      <p><strong>Estas são as etapas essenciais para iniciar seu projeto no GitHub:</strong></p>
-      <ol class="etapas-list">
-      <li class="left-list"><strong>1:</strong> Crie sua conta no GitHub</li>
-      <li class="left-list"><strong>2:</strong> Faça login em sua conta no GitHub.</li>
-      <li class="left-list"><strong>3:</strong> Crie um repositório no GitHub usando o ícone "+" e selecione "New repository".</li>
-      <li class="left-list"><strong>4:</strong> Nomeie o repositório como 'simple-website'</li>
-      <li class="left-list"><strong>5:</strong> Descreva o projeto como "Phonetic alphabet website"</li>
-      <li class="left-list"><strong>6:</strong> Selecione o repositório como 'Public'</li>
-      <li class="left-list"><strong>7:</strong> Marque "Initialize this repository with a README file"</li>
-      <li class="left-list"><strong>8:</strong> Deixe '.gitignore' e 'license' como "None"</li>
-      <li class="left-list"><strong>9:</strong> Clique em "Create repository"</li>
-      </ol>
+        <h1>Configuração Básica do Git: Importância e Ajustes Essenciais</h1>
+        <p class="p-styled  spaced-p">O Git é uma ferramenta poderosa de controle de versão, e uma configuração adequada é essencial para garantir um fluxo de trabalho eficiente
+            e padronizado. Abaixo, explicamos os principais ajustes que devem ser realizados logo após a instalação do Git, especialmente ao usá-lo no Windows Terminal com Git Bash.</p>
+        <h4> Configuração de Identidade</h4>
+    <ul class="left-list">
+            <li>
+                <strong>user.name:</strong> Define o nome que será associado a seus commits. Esse nome aparece no histórico do repositório e permite identificar quem realizou cada modificação.
+                <pre><code class="language-bash">git config --global user.name "Seu Nome"</code></pre>
+            </li>
+            <li>
+                <strong>user.email:</strong> Define o e-mail vinculado aos commits. Em plataformas como GitHub e GitLab, este e-mail precisa estar associado à sua conta para que os commits sejam reconhecidos corretamente.
+                <pre><code class="language-bash">git config --global user.email "seuemail@example.com"</code></pre>
+                <p>Importante: Para garantir privacidade no GitHub, pode-se usar um e-mail do tipo <code>@users.noreply.github.com</code> (disponível nas configurações da conta).</p>
+            </li>
+        </ul>
+        <h4>Configuração de Fim de Linha</h4>
+    <ul class="left-list">
+            <li>
+           <strong> core.autocrlf</strong>
+            <p>Define a forma como o Git lida com a quebra de linha em arquivos de texto. No Windows, é recomendado configurar este ajuste para
+             evitar problemas de compatibilidade entre sistemas operacionais.</p></li>
+            <li>
+           <strong>Comando:</strong>
+            <pre><code class="language-bash">git config --global core.autocrlf true</code></pre>
+            <p>No Linux/Mac, o ideal é desativar a conversão:</p>
+            <pre><code class="language-bash">git config --global core.autocrlf input</code></pre></li>
+            <li>
+                <strong>core.safecrlf</strong>
+            <p>Define a verificação de quebra de linha. Este ajuste é útil para evitar problemas de corrupção de arquivos de texto.</p>
+            <li>
+            <pre><code class="language-bash">git config --global core.safecrlf true</code></pre></li>
+        </ul>
+        <h4>Configuração do Editor Padrão</h4>
+    <ul class="left-list">
+            <li>
+           <strong>core.editor</strong>
+            <p>Define o editor de texto padrão para mensagens de commit e outras interações com o Git. </p>
+            <pre><code class="language-bash">git config --global core.editor "code --wait"</code></pre>
+            Exemplo:
+            <pre><code class="language-bash">git config --global core.editor "nano"</code></pre></li>
+        </ul>
+        <h4>Configuração de Cores</h4>
+    <ul class="left-list">
+            <li>
+           <strong>color.ui</strong>
+            <p>Ativa a exibição de cores na saída do Git, facilitando a leitura e interpretação de informações.</p>
+            <pre><code class="language-bash">git config --global color.ui auto</code></pre> </li>
+        </ul>
+        <p class="p-styled  spaced-p">Essas configurações são essenciais para garantir um ambiente de trabalho eficiente e padronizado. Com elas, você estará pronto para
+             começar a trabalhar com o Git e aproveitar todos os benefícios que essa ferramenta oferece.</p>
+          <h4>Diferença entre Global, Local e System</h4>
+        <p class="p-styled  spaced-p">Os comandos <code class="language-bash">git config --global</code>, <code class="language-bash">git config --local</code> e <code class="language-bash">git config --system</code>
+            são usados para definir configurações em diferentes níveis. Veja a seguir a diferença entre eles:</p>
+    <ul class="left-list">
+            <li><strong>Global:</strong> Aplica as configurações a todos os repositórios do usuário. São armazenadas no arquivo <code class="language-bash">~/.gitconfig</code>.</li>
+            <li><strong>Local:</strong> Aplica as configurações apenas ao repositório atual. São armazenadas no arquivo <code class="language-bash">.git/config</code> do repositório.</li>
+            <li><strong>System:</strong> Aplica as configurações a todos os usuários do sistema. São armazenadas no arquivo <code class="language-bash">/etc/gitconfig</code>.</li>
+        </ul>
+        <p class="p-styled  spaced-p">Para verificar as configurações atuais, utilize o comando <code class="language-bash">git config --list</code>. Ele exibirá todas as configurações
+            definidas no nível atual (global, local ou system).</p>
 
-      <figure>
-            <img src="/app/static/images/create_repo_github.webp" alt="Screenshot do processo de criação de repositório no GitHub">
-            <figcaption class="image-description">A imagem acima mostra o processo de criação de um novo repositório no GitHub.</figcaption>
-      </figure>
-      </section>
 
-      <footer class="footer">
+        <p class="image-description">A imagem acima mostra a utilização das configurações do git em uma imagem criada por IA.<code class="language-bash">git config</code>
+           </p>
+        <footer class="footer">
             <div class="footer-copyright">
                 © 2025 Curso de Git. Todos os direitos reservados.
             </div>
 
             <div class="footer-flex">
                 <nav class="footer-nav">
-                    <a href="3-git-config.html" class="footer-link">← Voltar</a>
-                    <a href="5-connect.html" class="footer-link">Próximo: Connect →</a>
+                    <a href="2-introduction.html" class="footer-link">← Voltar</a>
+                    <a href="4-hosting.html" class="footer-link">Próximo: Hosting</a>
                 </nav>
 
                 <div class="footer-buttons">
@@ -246,18 +273,18 @@
                     <span>🐙 GitHub Pages</span>
                 <img src="/app/static/images/github-mark-white.png"
                     alt="GitHub Logo"
-                    class="footer-logo">
+                    class="footer-logo" width="16" height="16">
                 </a>
-                <a href="https://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
-                    <img src="https://jigsaw.w3.org/css-validator/images/vcss"
-                         alt="CSS válido!"
-                         class="footer-logo">
-                </a>
+                    <a href="https://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
+                        <img src="https://jigsaw.w3.org/css-validator/images/vcss"
+                             alt="CSS válido!"
+                             class="footer-logo" width="45" height="16">
+                    </a>
             </div>
       </footer>
-    <script src="/app/static/js/git-course-functions.js"></script>
     </div>
 
-
+    <!--<script>Prism.highlightAll();</script>-->
+    <script src="/app/static/js/git-course-functions.js"></script>
 </body>
 </html>

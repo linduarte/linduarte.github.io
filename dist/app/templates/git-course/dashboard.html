@@ -114,6 +114,17 @@
       <h3>Seus Tópicos de Aprendizado:</h3>
       <ul id="topicsUl"></ul>
     </div>
+
+    <!-- Embedded progress section (consolidated from progress-menu.html) -->
+    <section id="progressSection" style="display:none; margin-top:24px; text-align:left;">
+      <h2>Progresso</h2>
+      <div id="progressSummary">Carregando resumo...</div>
+
+      <div id="progressListContainer" style="display:none; margin-top:12px;">
+        <h3>Lista de Progresso</h3>
+        <div id="progressList">Carregando...</div>
+      </div>
+    </section>
   </div>
 
   <script src="/app/static/js/config.js"></script>
@@ -144,33 +155,80 @@
     });
 
     document.getElementById('btnProgress').addEventListener('click', async () => {
-      try {
-        const response = await fetch(`${API_URL}/progress/summary`, {
-          headers: { "Authorization": `Bearer ${token}` }
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          resultDiv.textContent = `Você possui ${data.total} progresso(s) registrados.`;
-          resultDiv.style.color = '#388e3c';
-          topicsList.style.display = 'block';
-          topicsUl.innerHTML = '';
-          if (data.topics) {
-            data.topics.forEach(topic => {
-              const li = document.createElement('li');
-              li.textContent = topic.title;
-              topicsUl.appendChild(li);
-            });
-          }
-        } else {
-          resultDiv.textContent = data.detail || 'Erro ao carregar progresso.';
-          resultDiv.style.color = '#f44336';
-        }
-      } catch (err) {
-        resultDiv.textContent = 'Falha ao conectar com o servidor.';
-        resultDiv.style.color = '#f44336';
+      // Toggle the embedded progress section and load data when shown
+      const section = document.getElementById('progressSection');
+      if (!section) return;
+      if (section.style.display === 'block') {
+        section.style.display = 'none';
+        return;
       }
+      section.style.display = 'block';
+      await loadProgress();
+    });
+
+    async function loadProgress() {
+      const section = document.getElementById('progressSection');
+      const summaryEl = document.getElementById('progressSummary');
+      const listContainer = document.getElementById('progressListContainer');
+      const listEl = document.getElementById('progressList');
+
+      if (!token) { window.location.href = 'login.html'; return; }
+
+      // Summary
+      summaryEl.textContent = 'Carregando resumo...';
+      try {
+        const resp = await fetch(`${API_URL}/progress/summary`, { headers: { 'Authorization': `Bearer ${token}` } });
+        const data = await resp.json();
+        if (resp.ok) {
+          summaryEl.innerHTML = `<b>Total:</b> ${data.total}<br>` +
+            `<b>Concluídos:</b> ${data.concluidos}<br>` +
+            `<b>Pendentes:</b> ${data.pendentes}<br>` +
+            `<b>Tópicos concluídos:</b> ${data.completados?.length ? data.completados.join(', ') : 'Nenhum'}`;
+        } else {
+          summaryEl.textContent = data.detail || 'Erro ao carregar resumo.';
+        }
+      } catch (e) {
+        summaryEl.textContent = 'Erro ao conectar com o servidor.';
+        console.error(e);
+      }
+
+      // List
+      listEl.textContent = 'Carregando...';
+      listContainer.style.display = 'none';
+      try {
+        const resp2 = await fetch(`${API_URL}/progress`, { headers: { 'Authorization': `Bearer ${token}` } });
+        const data2 = await resp2.json();
+        if (resp2.ok) {
+          if (!Array.isArray(data2) || data2.length === 0) {
+            listEl.textContent = 'Nenhum progresso registrado.';
+          } else {
+            listEl.innerHTML = `<ul>${data2.map(p => `<li>ID: ${p.id}, Tópico: ${p.topic_id}, Concluído: ${p.completed}, Feedback: ${p.feedback || '-'} </li>`).join('')}</ul>`;
+          }
+          listContainer.style.display = 'block';
+        } else {
+          listEl.textContent = data2.detail || 'Erro ao carregar lista.';
+        }
+      } catch (e) {
+        listEl.textContent = 'Erro ao carregar lista.';
+        console.error(e);
+      }
+    }
+
+    // React to progress updates from other tabs/windows (storage event)
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'progressUpdated') {
+        // If the embedded progress section is visible, refresh it
+        const section = document.getElementById('progressSection');
+        if (section && section.style.display === 'block') {
+          loadProgress();
+        }
+      }
+    });
+
+    // React to same-tab updates via custom event (dispatched by fetch wrapper)
+    window.addEventListener('progressUpdated', () => {
+      const section = document.getElementById('progressSection');
+      if (section && section.style.display === 'block') loadProgress();
     });
   </script>
 </body>

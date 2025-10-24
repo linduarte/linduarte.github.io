@@ -59,10 +59,10 @@
         }
 
         .footer-link {
-            color: #6c757d;
+            color: var(--neutral);
             text-decoration: none;
             font-family: 'Victor Mono', monospace;
-            font-size: 14px !important;
+            font-size: 12px;
             padding: 8px 12px;
             border-radius: 6px;
             background: rgba(255,255,255,0.7);
@@ -83,7 +83,7 @@
 
         .logout-button, .form-btn {
             font-family: 'Victor Mono', monospace;
-            font-size: 16px !important;
+            font-size: 13px !important;
             padding: 8px 16px !important;
             border: none;
             border-radius: 6px;
@@ -101,8 +101,8 @@
         .footer-instruction {
             text-align: center;
             font-family: 'Victor Mono', monospace;
-            margin-top: 16px;
-            font-size: 15px !important; /* Fonte menor */
+            margin-top: 12px;
+            font-size: 13px !important; /* Fonte menor */
             color: #6c757d;
             line-height: 1.4;
         }
@@ -111,7 +111,7 @@
             text-align: center;
             font-family: 'Victor Mono', monospace;
             margin-bottom: 15px;
-            font-size: 14px !important;
+            font-size: 12px;
             color: #6c757d;
             font-weight: 500;
         }
@@ -193,24 +193,24 @@
         Que assim podem ser mostrados antes e depois das alterações realizadas: </p>
 
         <div class="flex-between-gap">
-            <img src="/app/static/images/pilots_html.webp" alt="Screenshot do pilots HTML" width="325" height="132">
-            <img src="/app/static/images/pilots_html_D.webp" alt="Screenshot do phonetic HTML com a letra D (Delta) adicionada" width="331" height="147">
+            <img src="/app/static/images/pilots_html.webp" alt="Screenshot do pilots HTML" class="img-half">
+            <img src="/app/static/images/pilots_html_D.webp" alt="Screenshot do phonetic HTML com a letra D (Delta) adicionada" class="img-half">
         </div>
 
          <p class="p-styled  spaced-p">
          As imagens acima refletem as alterações realizadas no arquivo pilots.html do projeto.</p>
 
         <div class="flex-between-gap">
-                <img src="/app/static/images/cities_html.webp" alt="Screenshot do pilots HTML" width="322" height="137">
-                <img src="/app/static/images/cities_html_D.webp" alt="Screenshot do phonetic HTML com a letra D (Delta) adicionada" width="322" height="156">
+                <img src="/app/static/images/cities_html.webp" alt="Screenshot do pilots HTML" class="img-half">
+                <img src="/app/static/images/cities_html_D.webp" alt="Screenshot do phonetic HTML com a letra D (Delta) adicionada" class="img-half">
         </div>
 
         <p class="p-styled  spaced-p">
             As imagens acima refletem as alterações realizadas no arquivo ciites.html do projeto.</p>
 
             <div class="flex-between-gap">
-                <img src="/app/static/images/names_html.webp" alt="Screenshot do pilots HTML" width="323" height="133">
-                <img src="/app/static/images/names_html_D.webp" alt="Screenshot do phonetic HTML com a letra D (Delta) adicionada" width="320" height="150">
+                <img src="/app/static/images/names_html.webp" alt="Screenshot do pilots HTML" class="img-half">
+                <img src="/app/static/images/names_html_D.webp" alt="Screenshot do phonetic HTML com a letra D (Delta) adicionada" class="img-half">
             </div>
 
             <p class="p-styled  spaced-p">
@@ -227,7 +227,7 @@
             <p class="p-styled  spaced-p">Agora temos uma imagem de como o git percebeu as alterações realizadas nos arquivos HTML do projeto.
             </p>
 
-            <img src="/app/static/images/html_changes.webp" alt="Tela mostrando o resultado após usar o comando 'git status" width="871" height="386">
+            <img src="/app/static/images/html_changes.webp" alt="Tela mostrando o resultado após usar o comando 'git status" class="img-full">
 
             <p class="p-styled  spaced-p"> A imagem mostra claramente que os três arquivos
                 HTML foram modificados. O Git percebeu as alterações e está pronto para adicionar as mudanças ao repositório. Evidencia claramente que nenhuma mudança
@@ -238,12 +238,12 @@
                 usamos o comando 'git add' seguido do nome do arquivo. Para adicionar todos os arquivos modificados ao repositório usamos o comando 'git add .'
                 O comando 'git add .' adiciona todos os arquivos modificados ao repositório.</p>
 
-                <img src="/app/static/images/html_git-add.webp" alt="Tela mostrando o resultado após usar o comando 'git add"  width="715" height="354">
+                <img src="/app/static/images/html_git-add.webp" alt="Tela mostrando o resultado após usar o comando 'git add" class="img-full">
 
                 <p class="p-styled  spaced-p">A imagem abaixo mostra o comite realizado
                     após a adição dos arquivos HTML  acrescidos da letra D ao repositório bem como o comando git status mostrando que o repositório local está a frente da repositório remoto.
                 </p>
-                    <img src="/app/static/images/git-commit_st.webp" alt="Tela mostrando the result after git add" width="702" height="315">
+                    <img src="/app/static/images/git-commit_st.webp" alt="Tela mostrando the result after git add" class="img-full">
 
                  <p class="p-styled  spaced-p">Pelas últimas ações o projeto do site fonético
                     está evoluindo. Depois de criar o site no GitHub em um repositório local via clone, foram adicionados os arquivos HTML e o folder 'style' e agora por
@@ -253,13 +253,13 @@
 
                  <p class="p-styled  spaced-p">Voce pode verificar a história dos comites no projeto usando o comando:
                  <code class="language-bash">git log</code></p>
-                 <img src="/app/static/images/git_log.webp" alt="Tela mostrando o histórico de comites realizados" width="901" height="498">
+                 <img src="/app/static/images/git_log.webp" alt="Tela mostrando o histórico de comites realizados" class="img-full">
 
                  <p class="p-styled  spaced-p">A imagem acima mostra cada comite associado ao seu longo hash como identificador único do git
                     bem como o autor e data de realização do comite. Nota-se tambem que as mensagens que compuseram cadas um dos comites são apresentadas pelo git log. O comite mais recente é mostrado no topo da lista. Pode-se usar tambem outros comandos do tipo <code class="language-bash">git log --oneline --decorate</code> para mostrar a lista de comites de
                     forma mais resumida conforme a imagem abaixo.
                  </p>
-                 <img src="/app/static/images/git-log-oneline.webp" alt="Tela mostrando o histórico de comites realizados" width="742" height="177">
+                 <img src="/app/static/images/git-log-oneline.webp" alt="Tela mostrando o histórico de comites realizados" class="img-full">
 
                  <p class="p-styled  spaced-p">Observa-se na imagem anterior que o hash de cada comite
                     é um conjunto de 7 caracteres alfanuméricos extraido do início do longo hash.
@@ -328,39 +328,26 @@ commit id: "2-2dded79"
       </footer>
     <script>
     document.getElementById("markCompletedButton").addEventListener("click", async () => {
-        const btn = document.getElementById("markCompletedButton");
-        const origText = btn.innerText;
-        btn.disabled = true;
-        btn.innerText = 'Enviando...';
         const token = localStorage.getItem("access_token");
-        const topicId = btn.dataset.topicId;
-        try {
-            const response = await fetch("/progress", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`,
-                },
-                body: JSON.stringify({
-                    topic_id: topicId,
-                    completed: true,
-                    feedback: "Muito bom este tópico!",
-                }),
-            });
+        const topicId = document.getElementById("markCompletedButton").dataset.topicId;
+    const response = await fetch("/progress", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                topic_id: topicId,
+                completed: true,
+                feedback: "Muito bom este tópico!",
+            }),
+        });
 
-            const data = await response.json();
-            if (response.ok) {
-                btn.innerText = 'Concluído ✓';
-                btn.classList.add('completed');
-            } else {
-                btn.disabled = false;
-                btn.innerText = origText;
-                alert('Erro ao marcar o progresso');
-            }
-        } catch (err) {
-            btn.disabled = false;
-            btn.innerText = origText;
-            alert('Erro de conexão ao marcar progresso');
+        const data = await response.json();
+        if (response.ok) {
+            alert("Progresso marcado com sucesso!");
+        } else {
+            alert("Erro ao marcar o progresso");
         }
     });
     </script>
