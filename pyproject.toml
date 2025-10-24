@@ -33,3 +33,12 @@ markers = [
     "visual: visual regression tests",
     "accessibility: accessibility tests"
 ]
+
+[tool.setuptools.packages.find]
+# Restrict package discovery so setuptools won't attempt to build a wheel
+# that mistakenly includes unrelated top-level directories. This keeps the
+# repository layout flat but tells setuptools to only consider packages that
+# start with `app` (adjust if your package modules live elsewhere).
+where = ["."]
+include = ["app*"]
+exclude = ["certs*", "reports*", "netlify*", "cloudflare*"]
