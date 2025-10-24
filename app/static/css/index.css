@@ -1,7 +1,7 @@
 :root {
     --primary:#0d6efd;
     --primary-hover:#0a58ca;
-    --neutral:#6c757d;
+    --neutral:#343a40;
     --neutral-hover:#565e64;
     --bg:#f5f7fb;
 }
@@ -99,6 +99,17 @@ footer {
     font-size:.7rem;
     margin-top:28px;
     color:#888;
+}
+/* Make images with .img-full responsive to avoid distortion when width/height attrs are present */
+.img-full {
+    display:block;
+    max-width:100%;
+    height:auto;
+}
+/* Ensure footer badges keep a consistent small height via CSS instead of inline attributes */
+.footer-logo {
+    height: 16px;
+    width: auto;
 }
 @media (max-width:480px) {
     .card { padding:34px 22px 30px; border-radius:16px; }
