@@ -1,23 +1,24 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Feature Request</title>
-    <link rel="stylesheet" href="/app/static/css/style.css">
-    <link rel="stylesheet" href="/app/static/css/common-styles.css">
-    <link rel="stylesheet" href="/app/static/css/git-course.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
-    <script type="module">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<title>Feature Request</title>
+<link href="/app/static/css/style.css" rel="stylesheet"/>
+<link href="/app/static/css/common-styles.css" rel="stylesheet"/>
+<link href="/app/static/css/git-course.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
+<script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
         mermaid.initialize({ startOnLoad: true });
     </script>
-    <style>
+<style>
         body {
             background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
             font-family: 'Victor Mono', monospace;
@@ -157,8 +158,8 @@
             }
         }
     </style>
-    <script src="/app/static/js/config.js"></script>
-    <script>
+<script src="/app/static/js/config.js"></script>
+<script>
     document.addEventListener('DOMContentLoaded', () => {
         const token = localStorage.getItem('access_token');
         if (!token) {
@@ -177,110 +178,88 @@
     </script>
 </head>
 <body class="intro-page">
-    <div class="container">
-        <h1>"Feature request" </h1>
-        <p class="p-styled  spaced-p">Durante a vida de um projeto de software é comum a necessidade de implementar novas funcionalidades.
+<div class="container">
+<h1>"Feature request" </h1>
+<p class="p-styled spaced-p">Durante a vida de um projeto de software é comum a necessidade de implementar novas funcionalidades.
            Estas funcionalidades são conhecidas como "feature requests" e são solicitadas pelos usuários do software.
            Para implementar uma "feature request" é necessário seguir um processo que envolve a criação de um novo 'branch' (ramo)
            para a implementação da funcionalidade e a integração da funcionalidade no 'branch' principal do projeto.
 
-           <p class="p-styled  spaced-p">Nesta página vamos implementar uma "feature request" no projeto de exemplo.
+           <p class="p-styled spaced-p">Nesta página vamos implementar uma "feature request" no projeto de exemplo.
            Seguindo o projeto "simple-website" vamos implementar uma alteração demandada pelo usuário para adicionar a letra 'D' ao "Phonectic Website".
            Para realizar esta ação vamos proceder da seguinte forma.</p>
-
-        <p class="p-styled  spaced-p">
+<p class="p-styled spaced-p">
         Para realizar a tarefa devemos modificar os três arquivos  HTML localizados no diretório de trabalho do projeto usamos para esta tarefa o Notepad++ para editar os arquivos HTML.
         Que assim podem ser mostrados antes e depois das alterações realizadas: </p>
-
-        <div class="flex-between-gap">
-            <img src="/app/static/images/pilots_html.webp" alt="Screenshot do pilots HTML" width="325" height="132">
-            <img src="/app/static/images/pilots_html_D.webp" alt="Screenshot do phonetic HTML com a letra D (Delta) adicionada" width="331" height="147">
-        </div>
-
-         <p class="p-styled  spaced-p">
+<div class="flex-between-gap">
+<img alt="Screenshot do pilots HTML" height="132" src="/app/static/images/pilots_html.webp" width="325"/>
+<img alt="Screenshot do phonetic HTML com a letra D (Delta) adicionada" height="147" src="/app/static/images/pilots_html_D.webp" width="331"/>
+</div>
+<p class="p-styled spaced-p">
          As imagens acima refletem as alterações realizadas no arquivo pilots.html do projeto.</p>
-
-        <div class="flex-between-gap">
-                <img src="/app/static/images/cities_html.webp" alt="Screenshot do pilots HTML" width="322" height="137">
-                <img src="/app/static/images/cities_html_D.webp" alt="Screenshot do phonetic HTML com a letra D (Delta) adicionada" width="322" height="156">
-        </div>
-
-        <p class="p-styled  spaced-p">
+<div class="flex-between-gap">
+<img alt="Screenshot do pilots HTML" height="137" src="/app/static/images/cities_html.webp" width="322"/>
+<img alt="Screenshot do phonetic HTML com a letra D (Delta) adicionada" height="156" src="/app/static/images/cities_html_D.webp" width="322"/>
+</div>
+<p class="p-styled spaced-p">
             As imagens acima refletem as alterações realizadas no arquivo ciites.html do projeto.</p>
-
-            <div class="flex-between-gap">
-                <img src="/app/static/images/names_html.webp" alt="Screenshot do pilots HTML" width="323" height="133">
-                <img src="/app/static/images/names_html_D.webp" alt="Screenshot do phonetic HTML com a letra D (Delta) adicionada" width="320" height="150">
-            </div>
-
-            <p class="p-styled  spaced-p">
+<div class="flex-between-gap">
+<img alt="Screenshot do pilots HTML" height="133" src="/app/static/images/names_html.webp" width="323"/>
+<img alt="Screenshot do phonetic HTML com a letra D (Delta) adicionada" height="150" src="/app/static/images/names_html_D.webp" width="320"/>
+</div>
+<p class="p-styled spaced-p">
                 As imagens acima refletem as alterações realizadas no arquivo names.html do projeto.</p>
-
-            <p class="p-styled  spaced-p">
+<p class="p-styled spaced-p">
             Queremos agora adicionar as alterações realizadas ao repositório Git. É importante observar que já realizamos anteriormente um commit por ocasião
             da adição dos arquivos HTML ao repositório.</p>
-
-            <p class="p-styled  spaced-p">Por que o Git usa duas fases  - 'stage' e 'commit' para atualizar o repositório? Quando se faz o 'stage' o Git agrupa todas as mudanças que podem
+<p class="p-styled spaced-p">Por que o Git usa duas fases  - 'stage' e 'commit' para atualizar o repositório? Quando se faz o 'stage' o Git agrupa todas as mudanças que podem
                 ser colocadas em um só 'commit' dando a isto um sentido significativo. O 'commit' é a ação de gravar as mudanças no repositório.
             </p>
-
-            <p class="p-styled  spaced-p">Agora temos uma imagem de como o git percebeu as alterações realizadas nos arquivos HTML do projeto.
+<p class="p-styled spaced-p">Agora temos uma imagem de como o git percebeu as alterações realizadas nos arquivos HTML do projeto.
             </p>
-
-            <img src="/app/static/images/html_changes.webp" alt="Tela mostrando o resultado após usar o comando 'git status" width="871" height="386">
-
-            <p class="p-styled  spaced-p"> A imagem mostra claramente que os três arquivos
+<img alt="Tela mostrando o resultado após usar o comando 'git status" height="386" src="/app/static/images/html_changes.webp" width="871"/>
+<p class="p-styled spaced-p"> A imagem mostra claramente que os três arquivos
                 HTML foram modificados. O Git percebeu as alterações e está pronto para adicionar as mudanças ao repositório. Evidencia claramente que nenhuma mudança
                 foi adicionada para comit.
             </p>
-
-            <p class="p-styled  spaced-p">Para adicionar as mudanças ao repositório
+<p class="p-styled spaced-p">Para adicionar as mudanças ao repositório
                 usamos o comando 'git add' seguido do nome do arquivo. Para adicionar todos os arquivos modificados ao repositório usamos o comando 'git add .'
                 O comando 'git add .' adiciona todos os arquivos modificados ao repositório.</p>
-
-                <img src="/app/static/images/html_git-add.webp" alt="Tela mostrando o resultado após usar o comando 'git add"  width="715" height="354">
-
-                <p class="p-styled  spaced-p">A imagem abaixo mostra o comite realizado
+<img alt="Tela mostrando o resultado após usar o comando 'git add" height="354" src="/app/static/images/html_git-add.webp" width="715"/>
+<p class="p-styled spaced-p">A imagem abaixo mostra o comite realizado
                     após a adição dos arquivos HTML  acrescidos da letra D ao repositório bem como o comando git status mostrando que o repositório local está a frente da repositório remoto.
                 </p>
-                    <img src="/app/static/images/git-commit_st.webp" alt="Tela mostrando the result after git add" width="702" height="315">
-
-                 <p class="p-styled  spaced-p">Pelas últimas ações o projeto do site fonético
+<img alt="Tela mostrando the result after git add" height="315" src="/app/static/images/git-commit_st.webp" width="702"/>
+<p class="p-styled spaced-p">Pelas últimas ações o projeto do site fonético
                     está evoluindo. Depois de criar o site no GitHub em um repositório local via clone, foram adicionados os arquivos HTML e o folder 'style' e agora por
                     último implementado o "feature request" com a inclusão da letra 'D' nos arquivos HTML.</p>
-
-                <h3>Vendo a história do projeto</h3>
-
-                 <p class="p-styled  spaced-p">Voce pode verificar a história dos comites no projeto usando o comando:
+<h3>Vendo a história do projeto</h3>
+<p class="p-styled spaced-p">Voce pode verificar a história dos comites no projeto usando o comando:
                  <code class="language-bash">git log</code></p>
-                 <img src="/app/static/images/git_log.webp" alt="Tela mostrando o histórico de comites realizados" width="901" height="498">
-
-                 <p class="p-styled  spaced-p">A imagem acima mostra cada comite associado ao seu longo hash como identificador único do git
+<img alt="Tela mostrando o histórico de comites realizados" height="498" src="/app/static/images/git_log.webp" width="901"/>
+<p class="p-styled spaced-p">A imagem acima mostra cada comite associado ao seu longo hash como identificador único do git
                     bem como o autor e data de realização do comite. Nota-se tambem que as mensagens que compuseram cadas um dos comites são apresentadas pelo git log. O comite mais recente é mostrado no topo da lista. Pode-se usar tambem outros comandos do tipo <code class="language-bash">git log --oneline --decorate</code> para mostrar a lista de comites de
                     forma mais resumida conforme a imagem abaixo.
                  </p>
-                 <img src="/app/static/images/git-log-oneline.webp" alt="Tela mostrando o histórico de comites realizados" width="742" height="177">
-
-                 <p class="p-styled  spaced-p">Observa-se na imagem anterior que o hash de cada comite
+<img alt="Tela mostrando o histórico de comites realizados" height="177" src="/app/static/images/git-log-oneline.webp" width="742"/>
+<p class="p-styled spaced-p">Observa-se na imagem anterior que o hash de cada comite
                     é um conjunto de 7 caracteres alfanuméricos extraido do início do longo hash.
                  </p>
-
-                 <p class="p-styled  spaced-p">O Git Graph abaixo está sendo construído a partir de cada comite efetivado, considerando o ramo (branch) 'main'  no qual estamos trabalhando.</p>
-
-           <section>
-            <h3>Git Graph</h3>
-            <p>Diagrama Mermaid  para o Git graph</p>
-            <div class="mermaid">
+<p class="p-styled spaced-p">O Git Graph abaixo está sendo construído a partir de cada comite efetivado, considerando o ramo (branch) 'main'  no qual estamos trabalhando.</p>
+<section>
+<h3>Git Graph</h3>
+<p>Diagrama Mermaid  para o Git graph</p>
+<div class="mermaid">
                 %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchOrder': 0}} }%%
                 gitGraph
                 commit id: "0-109f780"
                 commit id: "1-d298f74"
                 commit id: "2-2dded79"
             </div>
-            <h3>Mermaid Code</h3>
-            <p>Código Mermaid para o Git graph</p>
-            <div class="code-box">
-                <pre><code>
+<h3>Mermaid Code</h3>
+<p>Código Mermaid para o Git graph</p>
+<div class="code-box">
+<pre><code>
 %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchOrder': 0}} }%%
 
 gitGraph
@@ -289,44 +268,36 @@ commit id: "1-d298f74"
 commit id: "2-2dded79"
 
 </code></pre>
-            </div>
-        </section>
-    <footer class="footer">
-            <div class="footer-copyright">
+</div>
+</section>
+<footer class="footer">
+<div class="footer-copyright">
                 © 2025 Curso de Git. Todos os direitos reservados.
             </div>
-
-            <div class="footer-flex">
-                <nav class="footer-nav">
-                    <a href="9-git-commit.html" class="footer-link">← Voltar</a>
-                    <a href="11-branch-1.html" class="footer-link">Próximo: brench-1 →</a>
-                </nav>
-
-                <div class="footer-buttons">
-                    <button id="logoutButton" type="button" class="logout-button">Logout</button>
-                    <button id="markCompletedButton" data-topic-id="4" class="form-btn">Concluído ✓</button>
-                </div>
-            </div>
-
-            <div class="footer-instruction">
+<div class="footer-flex">
+<nav class="footer-nav">
+<a class="footer-link" href="9-git-commit.html">← Voltar</a>
+<a class="footer-link" href="11-branch-1.html">Próximo: brench-1 →</a>
+</nav>
+<div class="footer-buttons">
+<button class="logout-button" id="logoutButton" type="button">Logout</button>
+<button class="form-btn" data-topic-id="4" id="markCompletedButton" type="button">Concluído ✓</button>
+</div>
+</div>
+<div class="footer-instruction">
                 Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Concluído.
             </div>
-
-            <div class="footer-badges">
-                <a href="https://pages.github.com/" class="github-link">
-                    <span>🐙 GitHub Pages</span>
-                <img src="/app/static/images/github-mark-white.png"
-                    alt="GitHub Logo"
-                    class="footer-logo" width="16" height="16">
-                </a>
-                <a href="https://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
-                    <img src="https://jigsaw.w3.org/css-validator/images/vcss"
-                         alt="CSS válido!"
-                         class="footer-logo" width="45" height="16">
-                </a>
-            </div>
-      </footer>
-    <script>
+<div class="footer-badges">
+<a class="github-link" href="https://pages.github.com/">
+<span>🐙 GitHub Pages</span>
+<img alt="GitHub Logo" class="footer-logo" height="16" src="/app/static/images/github-mark-white.png" width="16"/>
+</a>
+<a class="w3c-link" href="https://jigsaw.w3.org/css-validator/check/referer">
+<img alt="CSS válido!" class="footer-logo" height="16" src="https://jigsaw.w3.org/css-validator/images/vcss" width="45"/>
+</a>
+</div>
+</footer>
+<script>
     document.getElementById("markCompletedButton").addEventListener("click", async () => {
         const btn = document.getElementById("markCompletedButton");
         const origText = btn.innerText;
@@ -364,7 +335,7 @@ commit id: "2-2dded79"
         }
     });
     </script>
-    </div>
-    <script>Prism.highlightAll();</script>
+</p></div>
+<script>Prism.highlightAll();</script>
 </body>
 </html>

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Dashboard - Git Course</title>
-  <link rel="stylesheet" href="/app/static/css/git-course-c.css">
-  <style>
+<meta charset="utf-8"/>
+<title>Dashboard - Git Course</title>
+<link href="/app/static/css/git-course-c.css" rel="stylesheet"/>
+<style>
     body {
   background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
       font-family: 'Victor Mono', monospace;
@@ -102,33 +103,28 @@
   </style>
 </head>
 <body>
-  <div class="dashboard-container">
-    <h1>Bem-vindo ao Git Course!</h1>
-    <p id="welcomeMessage">Carregando...</p>
-    <button id="btnProgress">Ver Progresso</button>
-    <button id="btnLogout">Logout</button>
-
-    <div id="result" class="status"></div>
-
-    <div class="topics" id="topicsList" style="display:none;">
-      <h3>Seus Tópicos de Aprendizado:</h3>
-      <ul id="topicsUl"></ul>
-    </div>
-
-    <!-- Embedded progress section (consolidated from progress-menu.html) -->
-    <section id="progressSection" style="display:none; margin-top:24px; text-align:left;">
-      <h2>Progresso</h2>
-      <div id="progressSummary">Carregando resumo...</div>
-
-      <div id="progressListContainer" style="display:none; margin-top:12px;">
-        <h3>Lista de Progresso</h3>
-        <div id="progressList">Carregando...</div>
-      </div>
-    </section>
-  </div>
-
-  <script src="/app/static/js/config.js"></script>
-  <script>
+<div class="dashboard-container">
+<h1>Bem-vindo ao Git Course!</h1>
+<p id="welcomeMessage">Carregando...</p>
+<button id="btnProgress" type="button">Ver Progresso</button>
+<button id="btnLogout" type="button">Logout</button>
+<div class="status" id="result"></div>
+<div class="topics" id="topicsList" style="display:none;">
+<h3>Seus Tópicos de Aprendizado:</h3>
+<ul id="topicsUl"></ul>
+</div>
+<!-- Embedded progress section (consolidated from progress-menu.html) -->
+<section id="progressSection" style="display:none; margin-top:24px; text-align:left;">
+<h2>Progresso</h2>
+<div id="progressSummary">Carregando resumo...</div>
+<div id="progressListContainer" style="display:none; margin-top:12px;">
+<h3>Lista de Progresso</h3>
+<div id="progressList">Carregando...</div>
+</div>
+</section>
+</div>
+<script src="/app/static/js/config.js"></script>
+<script>
     const token = localStorage.getItem('access_token');
     const resultDiv = document.getElementById('result');
     const topicsList = document.getElementById('topicsList');

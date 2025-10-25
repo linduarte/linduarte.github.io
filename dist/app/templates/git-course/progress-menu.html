@@ -1,14 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Menu de Progresso</title>
-    <link rel="stylesheet" href="/app/static/css/style.css">
-    <link rel="stylesheet" href="/app/static/css/common-styles.css">
-    <link rel="stylesheet" href="/app/static/css/git-course.css">
-    <link rel="stylesheet" href="/app/static/css/footer-course.css">
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<title>Menu de Progresso</title>
+<link href="/app/static/css/style.css" rel="stylesheet"/>
+<link href="/app/static/css/common-styles.css" rel="stylesheet"/>
+<link href="/app/static/css/git-course.css" rel="stylesheet"/>
+<link href="/app/static/css/footer-course.css" rel="stylesheet"/>
+<style>
         body {
             background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
             font-family: 'Victor Mono', monospace;
@@ -22,8 +23,8 @@
             max-width: 900px;
         }
     </style>
-    <script src="/app/static/js/config.js"></script>
-    <script>
+<script src="/app/static/js/config.js"></script>
+<script>
     document.addEventListener('DOMContentLoaded', () => {
         const token = localStorage.getItem('access_token');
         if (!token) {
@@ -43,80 +44,72 @@
     </script>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1>Menu de Progresso do Curso Git</h1>
-        </header>
-
-        <nav class="progress-nav">
-            <button onclick="showSection('summary')" class="nav-btn">Resumo</button>
-            <button onclick="showSection('list')" class="nav-btn">Listar Progresso</button>
-            <button onclick="showSection('create')" class="nav-btn">Criar Progresso</button>
-            <button onclick="showSection('update')" class="nav-btn">Atualizar Progresso</button>
-            <button onclick="showSection('delete')" class="nav-btn">Deletar Progresso</button>
-        </nav>
-
-        <div id="section-summary" class="content-section">
-            <h2>Resumo do Progresso</h2>
-            <div class="progress-summary">Carregando...</div>
-        </div>
-
-        <div id="section-list" class="content-section" style="display: none;">
-            <h2>Lista de Progresso</h2>
-            <div class="progress-list">Carregando...</div>
-        </div>
-
-        <div id="section-create" class="content-section" style="display: none;">
-            <h2>Registrar Novo Progresso</h2>
-            <form id="formCreate" class="progress-form">
-                <label>Tópico ID: <input type="number" name="topic_id" required></label>
-                <label>Concluído:
+<div class="container">
+<header class="header">
+<h1>Menu de Progresso do Curso Git</h1>
+</header>
+<nav class="progress-nav">
+<button class="nav-btn" onclick="showSection('summary')" type="button">Resumo</button>
+<button class="nav-btn" onclick="showSection('list')" type="button">Listar Progresso</button>
+<button class="nav-btn" onclick="showSection('create')" type="button">Criar Progresso</button>
+<button class="nav-btn" onclick="showSection('update')" type="button">Atualizar Progresso</button>
+<button class="nav-btn" onclick="showSection('delete')" type="button">Deletar Progresso</button>
+</nav>
+<div class="content-section" id="section-summary">
+<h2>Resumo do Progresso</h2>
+<div class="progress-summary">Carregando...</div>
+</div>
+<div class="content-section" id="section-list" style="display: none;">
+<h2>Lista de Progresso</h2>
+<div class="progress-list">Carregando...</div>
+</div>
+<div class="content-section" id="section-create" style="display: none;">
+<h2>Registrar Novo Progresso</h2>
+<form class="progress-form" id="formCreate">
+<label>Tópico ID: <input name="topic_id" required="" type="number"/></label>
+<label>Concluído:
                     <select name="completed">
-                        <option value="true">Sim</option>
-                        <option value="false">Não</option>
-                    </select>
-                </label>
-                <label>Feedback: <textarea name="feedback"></textarea></label>
-                <button type="submit" class="submit-btn">Registrar</button>
-            </form>
-            <div id="resultCreate" class="result-message"></div>
-        </div>
-
-        <div id="section-update" class="content-section" style="display: none;">
-            <h2>Atualizar Progresso</h2>
-            <form id="formUpdate" class="progress-form">
-                <label>ID do Progresso: <input type="number" name="progress_id" required></label>
-                <label>Concluído:
+<option value="true">Sim</option>
+<option value="false">Não</option>
+</select>
+</label>
+<label>Feedback: <textarea name="feedback"></textarea></label>
+<button class="submit-btn" type="submit">Registrar</button>
+</form>
+<div class="result-message" id="resultCreate"></div>
+</div>
+<div class="content-section" id="section-update" style="display: none;">
+<h2>Atualizar Progresso</h2>
+<form class="progress-form" id="formUpdate">
+<label>ID do Progresso: <input name="progress_id" required="" type="number"/></label>
+<label>Concluído:
                     <select name="completed">
-                        <option value="true">Sim</option>
-                        <option value="false">Não</option>
-                    </select>
-                </label>
-                <label>Feedback: <textarea name="feedback"></textarea></label>
-                <button type="submit" class="submit-btn">Atualizar</button>
-            </form>
-            <div id="resultUpdate" class="result-message"></div>
-        </div>
-
-        <div id="section-delete" class="content-section" style="display: none;">
-            <h2>Deletar Progresso</h2>
-            <form id="formDelete" class="progress-form">
-                <label>ID do Progresso: <input type="number" name="progress_id" required></label>
-                <button type="submit" class="submit-btn delete-btn">Deletar</button>
-            </form>
-            <div id="resultDelete" class="result-message"></div>
-        </div>
-
-        <footer class="footer">
-            <a href="/landing.html" class="back-link">Voltar ao Curso</a>
-            <a href="dashboard.html" class="back-link" style="margin-left:12px;">Dashboard</a>
-            <form class="logout-form" style="display: inline-block; margin-left: 20px;">
-                <button id="logoutButton" type="button" class="logout-button">Logout</button>
-            </form>
-        </footer>
-    </div>
-
-    <script>
+<option value="true">Sim</option>
+<option value="false">Não</option>
+</select>
+</label>
+<label>Feedback: <textarea name="feedback"></textarea></label>
+<button class="submit-btn" type="submit">Atualizar</button>
+</form>
+<div class="result-message" id="resultUpdate"></div>
+</div>
+<div class="content-section" id="section-delete" style="display: none;">
+<h2>Deletar Progresso</h2>
+<form class="progress-form" id="formDelete">
+<label>ID do Progresso: <input name="progress_id" required="" type="number"/></label>
+<button class="submit-btn delete-btn" type="submit">Deletar</button>
+</form>
+<div class="result-message" id="resultDelete"></div>
+</div>
+<footer class="footer">
+<a class="back-link" href="/landing.html">Voltar ao Curso</a>
+<a class="back-link" href="dashboard.html" style="margin-left:12px;">Dashboard</a>
+<form class="logout-form" style="display: inline-block; margin-left: 20px;">
+<button class="logout-button" id="logoutButton" type="button">Logout</button>
+</form>
+</footer>
+</div>
+<script>
         function requireToken() {
             const token = localStorage.getItem("access_token");
             if(!token) {
