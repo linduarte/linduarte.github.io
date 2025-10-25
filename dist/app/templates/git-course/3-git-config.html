@@ -1,65 +1,50 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configuração Git</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Configuração do Git</title>
     <link rel="stylesheet" href="/app/static/css/style.css">
     <link rel="stylesheet" href="/app/static/css/common-styles.css">
     <link rel="stylesheet" href="/app/static/css/git-course.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
-    <style>
-        body {
-            background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
-            font-family: 'Victor Mono', monospace;
-            margin: 0;
-            padding: 0;
+    <script src="/app/static/js/config.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            window.location.href = '/landing.html';
+            return;
         }
-        .container {
-            background: rgba(255,255,255,0.75);
-            border-radius: 16px;
-            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
-            margin: 40px auto;
-            padding: 40px;
-            max-width: 900px;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.2);
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('access_token');
+                window.location.href = '/landing.html';
+            });
         }
-
-        /* Corrigir tamanho do botão */
-        .form-btn {
-            font-size: 12px !important;
-            padding: 6px 12px !important;
-            margin: 0 5px !important;
-        }
-
-        /* Footer */
-        .footer {
-            background-color: rgba(234, 216, 231, 0.8);
-            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
-            height: 200px;
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 40px;
-        }
-
-        .footer-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .footer-nav {
-            display: flex;
-            gap: 15px;
-        }
+    });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Configuração do Git</h1>
+        <p>Aprenda a configurar seu usuário e email.</p>
+        <footer class="footer">
+            <div class="footer-flex">
+                <nav class="footer-nav">
+                    <a href="2-introduction.html" class="footer-link">← Voltar</a>
+                </nav>
+                <div class="footer-buttons">
+                    <button id="logoutButton" type="button" class="logout-button">Logout</button>
+                    <button id="markCompletedButton" data-topic-id="2" class="form-btn">Concluído</button>
+                </div>
+            </div>
+        </footer>
+    <script src="/app/static/js/git-course-functions.js"></script>
+    </div>
+</body>
+</html>
 
         .footer-link {
             color: #6c757d;
@@ -184,15 +169,15 @@
 <body class="intro-page">
     <div class="container">
         <h1>Configuração Básica do Git: Importância e Ajustes Essenciais</h1>
-        <p class="p-styled  spaced-p">O Git é uma ferramenta poderosa de controle de versão, e uma configuração adequada é essencial para garantir um fluxo de trabalho eficiente
+        <p class="p-styled  spaced-p" style="font-size: 16px;">O Git é uma ferramenta poderosa de controle de versão, e uma configuração adequada é essencial para garantir um fluxo de trabalho eficiente
             e padronizado. Abaixo, explicamos os principais ajustes que devem ser realizados logo após a instalação do Git, especialmente ao usá-lo no Windows Terminal com Git Bash.</p>
         <h4> Configuração de Identidade</h4>
     <ul class="left-list">
-            <li>
+            <li style="font-size: 18px;">
                 <strong>user.name:</strong> Define o nome que será associado a seus commits. Esse nome aparece no histórico do repositório e permite identificar quem realizou cada modificação.
                 <pre><code class="language-bash">git config --global user.name "Seu Nome"</code></pre>
             </li>
-            <li>
+            <li style="font-size: 18px;">
                 <strong>user.email:</strong> Define o e-mail vinculado aos commits. Em plataformas como GitHub e GitLab, este e-mail precisa estar associado à sua conta para que os commits sejam reconhecidos corretamente.
                 <pre><code class="language-bash">git config --global user.email "seuemail@example.com"</code></pre>
                 <p>Importante: Para garantir privacidade no GitHub, pode-se usar um e-mail do tipo <code>@users.noreply.github.com</code> (disponível nas configurações da conta).</p>
@@ -200,24 +185,24 @@
         </ul>
         <h4>Configuração de Fim de Linha</h4>
     <ul class="left-list">
-            <li>
+            <li style="font-size: 18px;">
            <strong> core.autocrlf</strong>
             <p>Define a forma como o Git lida com a quebra de linha em arquivos de texto. No Windows, é recomendado configurar este ajuste para
              evitar problemas de compatibilidade entre sistemas operacionais.</p></li>
-            <li>
+            <li style="font-size: 18px;">
            <strong>Comando:</strong>
             <pre><code class="language-bash">git config --global core.autocrlf true</code></pre>
             <p>No Linux/Mac, o ideal é desativar a conversão:</p>
             <pre><code class="language-bash">git config --global core.autocrlf input</code></pre></li>
-            <li>
+            <li style="font-size: 18px;">
                 <strong>core.safecrlf</strong>
             <p>Define a verificação de quebra de linha. Este ajuste é útil para evitar problemas de corrupção de arquivos de texto.</p>
-            <li>
+            <li style="font-size: 18px;">
             <pre><code class="language-bash">git config --global core.safecrlf true</code></pre></li>
         </ul>
         <h4>Configuração do Editor Padrão</h4>
     <ul class="left-list">
-            <li>
+            <li style="font-size: 18px;">
            <strong>core.editor</strong>
             <p>Define o editor de texto padrão para mensagens de commit e outras interações com o Git. </p>
             <pre><code class="language-bash">git config --global core.editor "code --wait"</code></pre>
@@ -226,22 +211,22 @@
         </ul>
         <h4>Configuração de Cores</h4>
     <ul class="left-list">
-            <li>
+            <li style="font-size: 18px;">
            <strong>color.ui</strong>
             <p>Ativa a exibição de cores na saída do Git, facilitando a leitura e interpretação de informações.</p>
             <pre><code class="language-bash">git config --global color.ui auto</code></pre> </li>
         </ul>
-        <p class="p-styled  spaced-p">Essas configurações são essenciais para garantir um ambiente de trabalho eficiente e padronizado. Com elas, você estará pronto para
+        <p class="p-styled  spaced-p" style="font-size: 16px;">Essas configurações são essenciais para garantir um ambiente de trabalho eficiente e padronizado. Com elas, você estará pronto para
              começar a trabalhar com o Git e aproveitar todos os benefícios que essa ferramenta oferece.</p>
           <h4>Diferença entre Global, Local e System</h4>
-        <p class="p-styled  spaced-p">Os comandos <code class="language-bash">git config --global</code>, <code class="language-bash">git config --local</code> e <code class="language-bash">git config --system</code>
+        <p class="p-styled  spaced-p" style="font-size: 16px;">Os comandos <code class="language-bash">git config --global</code>, <code class="language-bash">git config --local</code> e <code class="language-bash">git config --system</code>
             são usados para definir configurações em diferentes níveis. Veja a seguir a diferença entre eles:</p>
     <ul class="left-list">
-            <li><strong>Global:</strong> Aplica as configurações a todos os repositórios do usuário. São armazenadas no arquivo <code class="language-bash">~/.gitconfig</code>.</li>
-            <li><strong>Local:</strong> Aplica as configurações apenas ao repositório atual. São armazenadas no arquivo <code class="language-bash">.git/config</code> do repositório.</li>
-            <li><strong>System:</strong> Aplica as configurações a todos os usuários do sistema. São armazenadas no arquivo <code class="language-bash">/etc/gitconfig</code>.</li>
+            <li style="font-size: 18px;"><strong>Global:</strong> Aplica as configurações a todos os repositórios do usuário. São armazenadas no arquivo <code class="language-bash">~/.gitconfig</code>.</li>
+            <li style="font-size: 18px;"><strong>Local:</strong> Aplica as configurações apenas ao repositório atual. São armazenadas no arquivo <code class="language-bash">.git/config</code> do repositório.</li>
+            <li style="font-size: 18px;"><strong>System:</strong> Aplica as configurações a todos os usuários do sistema. São armazenadas no arquivo <code class="language-bash">/etc/gitconfig</code>.</li>
         </ul>
-        <p class="p-styled  spaced-p">Para verificar as configurações atuais, utilize o comando <code class="language-bash">git config --list</code>. Ele exibirá todas as configurações
+        <p class="p-styled  spaced-p" style="font-size: 16px;">Para verificar as configurações atuais, utilize o comando <code class="language-bash">git config --list</code>. Ele exibirá todas as configurações
             definidas no nível atual (global, local ou system).</p>
 
 
