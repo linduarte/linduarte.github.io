@@ -59,3 +59,25 @@ app/static/images/*-800.webp
 
 # Backups created by tooling
 tmp/backups-*
+
+# Ignore backup files created by the HTML normalization scripts
+**/*.bak
+
+# CI / run logs and error artifacts
+*.log
+gh-run-*.log
+*.errors.txt
+gh-run-*.errors.txt
+gh-run-*.audit_context.txt
+gh-run-errors-summary.txt
+
+# Local temporary/test helpers and generated debug files
+pr13.githubscript.matches.txt
+tmp_html_check.py
+extract_run_errors.ps1
+watch_pr_runs.ps1
+
+# Local script helpers created during editing/maintenance (do not track)
+scripts/_print_lines_helper.py
+scripts/_print_range.py
+scripts/commit_html_only.ps1
