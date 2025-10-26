@@ -106,7 +106,7 @@
 <a class="back-link" href="dashboard.html" style="margin-left:12px;">Dashboard</a>
 <form class="logout-form" style="display: inline-block; margin-left: 20px;">
 <button class="logout-button" id="logoutButton" type="button">Logout</button>
-</form>
+<button aria-hidden="true" style="display:none" type="submit">Submit</button></form>
 </footer>
 </div>
 <script>
@@ -137,9 +137,9 @@
                 const resp = await apiCall("/progress/summary");
                 const data = await resp.json();
                 box.innerHTML =
-                  `<b>Total:</b> ${data.total}<br>
-                   <b>Concluídos:</b> ${data.concluidos}<br>
-                   <b>Pendentes:</b> ${data.pendentes}<br>
+                  `<b>Total:</b> ${data.total}<br />
+                   <b>Concluídos:</b> ${data.concluidos}<br />
+                   <b>Pendentes:</b> ${data.pendentes}<br />
                    <b>Tópicos concluídos:</b> ${data.completados?.length ? data.completados.join(", ") : "Nenhum"}`;
             } catch(e) { box.innerHTML = "Erro ao carregar resumo."; console.error(e); }
         }

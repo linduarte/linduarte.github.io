@@ -176,9 +176,9 @@
         const resp = await fetch(`${API_URL}/progress/summary`, { headers: { 'Authorization': `Bearer ${token}` } });
         const data = await resp.json();
         if (resp.ok) {
-          summaryEl.innerHTML = `<b>Total:</b> ${data.total}<br>` +
-            `<b>Concluídos:</b> ${data.concluidos}<br>` +
-            `<b>Pendentes:</b> ${data.pendentes}<br>` +
+          summaryEl.innerHTML = `<b>Total:</b> ${data.total}<br />` +
+            `<b>Concluídos:</b> ${data.concluidos}<br />` +
+            `<b>Pendentes:</b> ${data.pendentes}<br />` +
             `<b>Tópicos concluídos:</b> ${data.completados?.length ? data.completados.join(', ') : 'Nenhum'}`;
         } else {
           summaryEl.textContent = data.detail || 'Erro ao carregar resumo.';
