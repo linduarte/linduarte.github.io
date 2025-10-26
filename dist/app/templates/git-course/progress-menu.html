@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 
-<html lang="pt-BR">
+<html lang="pt">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
 <title>Menu de Progresso</title>
-<link href="/app/static/css/style.css" rel="stylesheet"/>
-<link href="/app/static/css/common-styles.css" rel="stylesheet"/>
-<link href="/app/static/css/git-course.css" rel="stylesheet"/>
-<link href="/app/static/css/footer-course.css" rel="stylesheet"/>
+<link href="/app/static/css/style.css" rel="stylesheet">
+<link href="/app/static/css/common-styles.css" rel="stylesheet">
+<link href="/app/static/css/git-course.css" rel="stylesheet">
+<link href="/app/static/css/footer-course.css" rel="stylesheet">
 <style>
         body {
             background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
@@ -22,7 +22,7 @@
             padding: 40px;
             max-width: 900px;
         }
-    </style>
+</style>
 <script src="/app/static/js/config.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -41,7 +41,7 @@
             });
         }
     });
-    </script>
+</script>
 </head>
 <body>
 <div class="container">
@@ -66,7 +66,7 @@
 <div class="content-section" id="section-create" style="display: none;">
 <h2>Registrar Novo Progresso</h2>
 <form class="progress-form" id="formCreate">
-<label>Tópico ID: <input name="topic_id" required type="number"/></label>
+<label>Tópico ID: <input name="topic_id" required type="number"></label>
 <label>Concluído:
                     <select name="completed">
 <option value="true">Sim</option>
@@ -81,7 +81,7 @@
 <div class="content-section" id="section-update" style="display: none;">
 <h2>Atualizar Progresso</h2>
 <form class="progress-form" id="formUpdate">
-<label>ID do Progresso: <input name="progress_id" required type="number"/></label>
+<label>ID do Progresso: <input name="progress_id" required type="number"></label>
 <label>Concluído:
                     <select name="completed">
 <option value="true">Sim</option>
@@ -96,7 +96,7 @@
 <div class="content-section" id="section-delete" style="display: none;">
 <h2>Deletar Progresso</h2>
 <form class="progress-form" id="formDelete">
-<label>ID do Progresso: <input name="progress_id" required type="number"/></label>
+<label>ID do Progresso: <input name="progress_id" required type="number"></label>
 <button class="submit-btn delete-btn" type="submit">Deletar</button>
 </form>
 <div class="result-message" id="resultDelete"></div>
@@ -106,7 +106,7 @@
 <a class="back-link" href="dashboard.html" style="margin-left:12px;">Dashboard</a>
 <form class="logout-form" style="display: inline-block; margin-left: 20px;">
 <button class="logout-button" id="logoutButton" type="button">Logout</button>
-<button aria-hidden="true" style="display:none" type="submit">Submit</button></form>
+<button aria-hidden style="display:none" type="submit">Submit</button></form>
 </footer>
 </div>
 <script>
@@ -137,9 +137,9 @@
                 const resp = await apiCall("/progress/summary");
                 const data = await resp.json();
                 box.innerHTML =
-                  `<b>Total:</b> ${data.total}<br />
-                   <b>Concluídos:</b> ${data.concluidos}<br />
-                   <b>Pendentes:</b> ${data.pendentes}<br />
+                  `<b>Total:</b> ${data.total}<br>
+                   <b>Concluídos:</b> ${data.concluidos}<br>
+                   <b>Pendentes:</b> ${data.pendentes}<br>
                    <b>Tópicos concluídos:</b> ${data.completados?.length ? data.completados.join(", ") : "Nenhum"}`;
             } catch(e) { box.innerHTML = "Erro ao carregar resumo."; console.error(e); }
         }

@@ -2,16 +2,16 @@
 
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
 <title>Git Diff</title>
-<link href="/app/static/css/style.css" rel="stylesheet"/>
-<link href="/app/static/css/common-styles.css" rel="stylesheet"/>
-<link href="/app/static/css/git-course.css" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&amp;display=swap" rel="stylesheet"/>
+<link href="/app/static/css/style.css" rel="stylesheet">
+<link href="/app/static/css/common-styles.css" rel="stylesheet">
+<link href="/app/static/css/git-course.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&amp;display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
 <script type="module">
@@ -163,9 +163,9 @@
 <div class="container">
 <h1>Comparando versões</h1>
 <p class="p-styled spaced-p">É muito importante notar que existem várias versões de um arquivo em um repositório Git. Cada versão de um arquivo
-         é chamada de 'commit'. Um 'commit' é uma versão de um arquivo em um repositório Git.
+                 é chamada de 'commit'. Um 'commit' é uma versão de um arquivo em um repositório Git.</p>
 
-       <ul>
+             <ul>
 <li>Diretório de trabalho - constitui uma versão de seus arquivos em processo de edição</li>
 <li>A versão 'staged' - ou seja quando voce adicionou utilizando o 'git add' colocando seus arquivos no chamado 'index' , esperando para serem comitados.</li>
 <li>A versão comitada - uma versão para cada comite.</li>
@@ -181,18 +181,18 @@
 <p class="p-styled spaced-p">Para darmos início ao processo de utilização do git diff
         torna-se importante saber o status de nossa última intervenção no repositório quando realizadmos o comite da letra 'D'. A imagem abaixo registra o status e nos informa
         que estamos 1(um) comite a frente do repositório remoto.</p>
-<img alt="Tela mostrando o status do repositório" class="img-full" src="/app/static/images/status_comit_let_D.webp"/>
+<img alt="Tela mostrando o status do repositório" class="img-full" src="/app/static/images/status_comit_let_D.webp">
 <p class="p-styled spaced-p">Vamos implementar uma nova 'feature request' adicionando a letra 'E'
         aos arquivos pilots.html, cities.html e names.html da mesma forma anteriormente realizada com a letra 'D'.</p>
-<img alt="Tela mostrando a adição da letra 'E' nos arquivos HTML." class="img-full" src="/app/static/images/add_letter.webp"/>
+<img alt="Tela mostrando a adição da letra 'E' nos arquivos HTML." class="img-full" src="/app/static/images/add_letter.webp">
 <p class="p-styled spaced-p">Feitas as adições nos arquivos HTML, vamos adicionar os arquivos  ao index, usando o <code class="language-bash">git add</code>.</p>
-<img alt="Tela mostrando o status e a aplicação do git add." class="img-full" src="/app/static/images/git_add_let_F.webp"/>
+<img alt="Tela mostrando o status e a aplicação do git add." class="img-full" src="/app/static/images/git_add_let_F.webp">
 <p class="p-styled spaced-p">Vamos implementar novamente uma 'feature request' adicionando a letra 'F' aos arquivos pilots.html, cities.html e names.html na seguinte ordem repectivamente: 'Foxtrot', 'Fillmore' e 'Fred',da mesma forma anteriormente realizada com a letra 'E'.</p>
-<img alt="Tela mostrando o status após a adição da letra F." class="img-full" src="/app/static/images/git_add_let_E.webp"/>
+<img alt="Tela mostrando o status após a adição da letra F." class="img-full" src="/app/static/images/git_add_let_E.webp">
 <p class="p-styled spaced-p">A imagem anterior mostra o status depois da aplicação da letra F.
         Aqui é muito importante perceber que as adições da letra 'F' não foram submetidas ao  <code class="language-bash">git add</code> por isto permanecem sem o controle do git ao passo
        que as adições das letra 'E' permitem que os arquivos sejam comitados.</p>
-<img alt="Tela mostrando o log após a adição da letra D." class="img-full" src="/app/static/images/git-log-oneline.webp" style="height:auto;max-width:100%;"/>
+<img alt="Tela mostrando o log após a adição da letra D." class="img-full" src="/app/static/images/git-log-oneline.webp" style="height:auto;max-width:100%;">
 <p class="p-styled spaced-p">Temos então três situações distintas ou seja,
         a letra 'D' foi adicionada e comitada, a letra 'E' foi adicionada mas não comitada e a letra 'F' não foi adicionada e nem comitada.
        </p>
@@ -216,11 +216,11 @@
 <p class="p-styled spaced-p">A imagem abaixo mostra o comando git status para o arquivo 'pilots.html'.
             Podemos notar que a letra 'E' foi adicionada ao arquivo sem contudo ser comitada. A letra 'F' foi adicionada ao arquivo sem contudo ser colocada no index ou staged.
         </p>
-<img alt="Tela mostrando o comando git status aplicado ao arquivo pilitos.htmlt" class="img-full" src="/app/static/images/git_st_diff.webp" style="height:auto;max-width:100%;"/>
+<img alt="Tela mostrando o comando git status aplicado ao arquivo pilitos.htmlt" class="img-full" src="/app/static/images/git_st_diff.webp" style="height:auto;max-width:100%;">
 <p class="p-styled spaced-p">Na imagem abaixo vamos interpretar a saída do comando
             git diff pilots.html linha por linha.
            </p>
-<img alt="Tela mostrando o comando git status aplicado ao arquivo pilitos.htmlt" class="img-full" src="/app/static/images/git-diff-pilot.webp"/>
+<img alt="Tela mostrando o comando git status aplicado ao arquivo pilitos.htmlt" class="img-full" src="/app/static/images/git-diff-pilot.webp">
 <h4>Comando executado</h4>
 <ul>
 <li style="font-size: 18px;"><code class="language-bash">git diff</code></li>
@@ -258,7 +258,7 @@
 <li style="font-size: 18px;">Isso sugere que foi adicionada uma linha ao código.</li>
 </ul>
 <h4>Conteúdo antes e depois</h4>
-<img alt="Conteúdo antes e depois" class="img-full" src="/app/static/images/conteudo_diff.webp" style="height:163;max-width:100%;"/>
+<img alt="Conteúdo antes e depois" class="img-full" src="/app/static/images/conteudo_diff.webp" style="height:163;max-width:100%;">
 <h4>Estado do repositório</h4>
 <ul>
 <li style="font-size: 18px;"> A linha Delta já foi commitada anteriormente.</li>
@@ -272,14 +272,14 @@
 <li style="font-size: 18px;">Isso mostrará as diferenças que já foram adicionadas ao stage, mas ainda não commitadas.</li>
 <li style="font-size: 18px;">A imagem anterior confirma que a letra 'E' foi adicionada via <code class="language-bash">git add</code>  mas não comitada.</li>
 </ul>
-<img alt="Conteúdo antes e depois" class="img-full" src="/app/static/images/git-diff_staged.webp" style="height:auto;max-width:100%;"/>
+<img alt="Conteúdo antes e depois" class="img-full" src="/app/static/images/git-diff_staged.webp" style="height:auto;max-width:100%;">
 <h4>Vendo as alterações desde o último comite.</h4>
 <ul>
 <li style="font-size: 18px;"><pre class="spaced-pre code-block"><code class="language-bash">git diff HEAD pilots.html</code></pre></li>
 <li style="font-size: 18px;">Na imagem abaixo vemos uma linha contendo a palavra 'Echo' e 'Foxtrot' adicionadas como indicado pelo sinal '+'. O git diff interpreta o HEAD com um hash do último comite.</li>
 <li style="font-size: 18px;">O resultado é esperado pois o comite (letra D) foi feito antes da adição das letras 'E' e 'F'. </li>
 </ul>
-<img alt="Conteúdo antes e depois" class="img-full" src="/app/static/images/git-diff-head.webp" style="height:auto;max-width:100%;"/>
+<img alt="Conteúdo antes e depois" class="img-full" src="/app/static/images/git-diff-head.webp" style="height:auto;max-width:100%;">
 <h4>Vendo mudanças entre dois comites</h4>
 <ul>
 <li style="font-size: 18px;"><pre class="spaced-pre code-block"><code class="language-bash">git diff HEAD~1 HEAD pilots.html</code></pre></li>
@@ -291,7 +291,7 @@
 <li style="font-size: 18px;">Isso significa que estamos verificando as mudanças feitas no último commit que afetaram pilots.html.</li>
 </ul>
 <pre class="spaced-pre code-block"><code class="language-bash">index 9dd516f..ce31f88 100644</code></pre>
-<img alt="Entre dois comites" class="img-full" src="/app/static/images/git-diff-head-head.webp"/>
+<img alt="Entre dois comites" class="img-full" src="/app/static/images/git-diff-head-head.webp">
 <ul>
 <li style="font-size: 18px;">9dd516f: Hash da versão anterior do arquivo (HEAD~1).</li>
 <li style="font-size: 18px;">ce31f88: Hash da versão atual do arquivo (HEAD).</li>
@@ -304,17 +304,17 @@
 <li style="font-size: 18px;"><pre class="spaced-pre code-block"><code class="language-bash">git diff d298f74 2dded79 pilots.html</code></pre></li>
 <li style="font-size: 18px;">Na imagem anterior podemos observar os seguintes pontos:</li>
 </ul>
-<img alt="Entre dois comites" class="img-full" src="/app/static/images/git-log-diff.webp"/>
+<img alt="Entre dois comites" class="img-full" src="/app/static/images/git-log-diff.webp">
 <ul>
 <li style="font-size: 18px;">O comando <code class="language-bash">git log --oneline --decorate</code> mostrou que o commit 2dded79 adicionou algo novo ao projeto.</li>
 <li style="font-size: 18px;">git diff d298f74 2dded79 pilots.html revelou exatamente qual foi essa mudança: a adição da linha &lt;li&gt;Delta&lt;/li&gt;</li>
 </ul>
 <h4>Agora vamos comitar as pendências do 'feature request', ou seja a inserção da letra 'E' e da letra 'F'.</h4>
-<img alt="Entre dois comites" class="img-full" src="/app/static/images/commit_E.webp"/>
-<img alt="Entre dois comites" class="img-full" src="/app/static/images/commit_F.webp"/>
+<img alt="Entre dois comites" class="img-full" src="/app/static/images/commit_E.webp">
+<img alt="Entre dois comites" class="img-full" src="/app/static/images/commit_F.webp">
 <p class="p-styled spaced-p">Ressalvo que o comite da letra 'F' foi precedido de um comando <code class="language-bash">git add</code> pois o mesmo estava 'unstaged'.</p>
 <h4>Conclusão desta etapa</h4>
-<img alt="Entre dois comites" class="img-full" src="/app/static/images/git-st-final.webp"/>
+<img alt="Entre dois comites" class="img-full" src="/app/static/images/git-st-final.webp">
 <section>
 <h3>Git Graph</h3>
 <p>Diagrama Mermaid  para o Git graph</p>
@@ -365,15 +365,15 @@
 <div class="footer-badges">
 <a class="github-link" href="https://pages.github.com/">
 <span>🐙 GitHub Pages</span>
-<img alt="GitHub Logo" class="footer-logo" src="/app/static/images/github-mark-white.png"/>
+<img alt="GitHub Logo" class="footer-logo" src="/app/static/images/github-mark-white.png">
 </a>
 <a class="w3c-link" href="https://jigsaw.w3.org/css-validator/check/referer">
-<img alt="CSS válido!" class="footer-logo" height="16" src="https://jigsaw.w3.org/css-validator/images/vcss" width="45"/>
+<img alt="CSS válido!" class="footer-logo" height="16" src="https://jigsaw.w3.org/css-validator/images/vcss" width="45">
 </a>
 </div>
 </footer>
 <script src="/app/static/js/git-course-functions.js"></script>
 <script>Prism.highlightAll();</script>
-</p></div>
+</div>
 </body>
 </html>

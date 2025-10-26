@@ -2,13 +2,13 @@
 
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
 <title>Branch - Parte 1</title>
-<link href="/app/static/css/style.css" rel="stylesheet"/>
-<link href="/app/static/css/common-styles.css" rel="stylesheet"/>
-<link href="/app/static/css/git-course.css" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" rel="stylesheet"/>
+<link href="/app/static/css/style.css" rel="stylesheet">
+<link href="/app/static/css/common-styles.css" rel="stylesheet">
+<link href="/app/static/css/git-course.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
 <script type="module">
@@ -208,18 +208,18 @@
 <pre class="spaced-pre"><code class="language-bash">git branch</code></pre>
             Quando se associa o parâmetro '--remote' ao comando 'git branch' é possível listar os 'branches' remotos.
             <pre class="spaced-pre"><code class="language-bash">git branch --remote</code></pre>
-<img alt="Imagem do git branch e do git branch remoto" class="img-half" src="/app/static/images/git-branch-re.webp"/>
+<img alt="Imagem do git branch e do git branch remoto" class="img-half" src="/app/static/images/git-branch-re.webp">
 <p class="p-styled spaced-p">Agora nosso repositório posui somente um único ramo, 'branch' chamado 'main'. O ramo 'main' é o ramo padrão do Git.
                 Este ramo é criado automaticamente quando se inicia um novo repositório. O ramo 'main' é o ramo principal do projeto. Ou seja é default.
                 Se compararmos o projeto Git como uma árvore o ramo 'main' seria o tronco da árvore. O ramo 'main' é o ramo que contém o código de produção.
                 A partir do tronco é possivel criarmos linhas separadas de desenvolvimento como ramos independentes com seus próprios comites.
             </p>
-<img alt="Screenshot do pilots HTML" class="img-half" src="/app/static/images/trunck.webp"/>
+<img alt="Screenshot do pilots HTML" class="img-half" src="/app/static/images/trunck.webp">
 <p class="p-styled spaced-p">Na imagem anterior a linha representa o ramo principal, 'main' com
                 cada comite mostrado como um círculo. A seta indica a direção do desenvolvimento, ou seja 'HEAD' e aponta para o último comite.
                 O último comite é o comite mais recente. O comite mais recente é o comite que está no topo da pilha de comites. De baixo para cima como pode-se ver na imagem abaixo do git log.
             </p>
-<img alt="Tela mostrando o histórico de comites realizados" class="img-full" src="/app/static/images/git-log-oneline.webp"/>
+<img alt="Tela mostrando o histórico de comites realizados" class="img-full" src="/app/static/images/git-log-oneline.webp">
 </section>
 <section id="section2">
 <h2>Trabalhando com ramos (branches)</h2>
@@ -234,45 +234,45 @@
                 Nesta seção, vamos criar um branch separado para experimentar excluir, mover e renomear arquivos em um projeto Git.</p>
 <p class="p-styled spaced-p">Abra o Git Bash e mude para o diretório de trabalho do projeto Site Fonético. Execute os seguintes comandos para criar um novo branch chamado "test" e alterne para ele:
             </p>
-<img alt="Tela mostrando o novo ramo" class="img-full" src="/app/static/images/branch_test.webp"/>
+<img alt="Tela mostrando o novo ramo" class="img-full" src="/app/static/images/branch_test.webp">
 <p class="p-styled spaced-p">Na imagem acima temos o <strong>git branch test</strong> o comando usado para criar o novo ramo (branch).</p>
 <p class="p-styled spaced-p">O <strong>git checkout test</strong> usado para mudarmos do ramo (main) para o ramo (test). Podemos usar outro comando equivalente para
                 realizar a mudança de ramo, o <strong>git switch test</strong>.</p>
 <p class="p-styled spaced-p">Caso se use o <strong>git branch</strong> sem parâmetros teremos a lista de ramos de nosso repositório. A imagem abaixo mostra o referido comando usado
                 e destaca com um asterisco em qual ramo seu repertório está.</p>
-<img alt="Tela mostrando o git branch sem parâmetros" class="img-full" src="/app/static/images/git-branch.webp"/>
+<img alt="Tela mostrando o git branch sem parâmetros" class="img-full" src="/app/static/images/git-branch.webp">
 <p class="p-styled spaced-p">O comando <strong>git log --oneline --decorate</strong> mostra que o novo ramo <strong>test</strong> compartilha todos o comites previamente realizados
                 com o ramo <strong>main</strong>. O HEAD agora aponta para o ramo <strong>test</strong> confirmando que o <strong>test</strong> é agora o ramo padrão. A imagem abaixo
                 mostra com clareza estes aspectos.</p>
-<img alt="Tela mostrando o git log do ramo test" class="img-full" src="/app/static/images/git-log-br.webp"/>
+<img alt="Tela mostrando o git log do ramo test" class="img-full" src="/app/static/images/git-log-br.webp">
 <p class="p-styled spaced-p">Agora podemos realizar mudanças sem afetar o código principal no ramo <strong>main</strong>. Para demonstrar este recurso
                 nós iremos realizar mudanças estruturais e mover os arquivos de estilo (CSS) para um nível acima conforme a imagem abaixo.</p>
-<img alt="Tela mostrando o git mv" class="img-full" src="/app/static/images/git-mv-br.webp"/>
+<img alt="Tela mostrando o git mv" class="img-full" src="/app/static/images/git-mv-br.webp">
 <p class="p-styled spaced-p">Aqui vale a seguinte consideração - voce poderia utilizar o Windows explorer para realizar esta ação mas voce deverá depois utilizar o
                 <strong>git add</strong> para colocar os arquivos no índex ou <strong>'staged'</strong> ao posso que utilizando o comando <strong>git mv e git rm</strong>
                 seus arquivos serão lançados automaticamente para o 'index' ou <strong>'staged'</strong>.</p>
 <p class="p-styled spaced-p">Teste o site em um navegador. Você vai perceber que o Site Fonético perdeu seu estilo e tanto o menu quanto as páginas do alfabeto estão exibidas como
                 listas simples sem formatação. Isso acontece porque a localização dos arquivos CSS mudou e os links da folha de estilo nos arquivos HTML estão quebrados.
                 Vamos consertar esse problema. Abra cada arquivo HTML em sequência e localize a seção <code>&lt;head&gt;</code> no topo do arquivo:</p>
-<img alt="Tela mostrando o pilots.html" src="/app/static/images/pilots-head.webp"/>
+<img alt="Tela mostrando o pilots.html" src="/app/static/images/pilots-head.webp">
 <p class="p-styled spaced-p">A imagem anterior mostra a pasta <strong>'style/site.css'</strong> que precisa ser reparada conforme a imagem abaixo porque
                 a pasta foi movida de lugar: </p>
-<img alt="Tela mostrando o pilots.html reparado" src="/app/static/images/pilots-head_fix.webp"/>
+<img alt="Tela mostrando o pilots.html reparado" src="/app/static/images/pilots-head_fix.webp">
 <p class="p-styled spaced-p">Faça a mudança acima nos arquivos pilots.html, cities.html e names.html. Salve e teste novamente o site em um navegador. Você verá que o estilo
                 do Phonetic Website voltou, pois os links CSS agora estão corretos. Vamos adicionar as mudanças ao index para o próximo commit.</p>
 <p class="p-styled spaced-p">O diretório de estilo agora está vazio e pode ser removido digitando o seguinte comando Git Bash (ou, se preferir, você pode excluir a pasta
                 usando o Windows Explorer):
                 </p>
-<img alt="Tela mostrando git add dos arquivos html" class="img-full" src="/app/static/images/git-add-html.webp"/>
+<img alt="Tela mostrando git add dos arquivos html" class="img-full" src="/app/static/images/git-add-html.webp">
 <p>Verifique o status do repositório com o comando <strong>git status</strong>.</p>
-<img alt="Tela mostrando git status" class="img-full" src="/app/static/images/git-st-test.webp"/>
+<img alt="Tela mostrando git status" class="img-full" src="/app/static/images/git-st-test.webp">
 <p class="p-styled spaced-p">Agora podemos comitar as mudanças:</p>
-<img alt="Tela mostrando git commit" class="img-full" src="/app/static/images/git-commit-test.webp"/>
+<img alt="Tela mostrando git commit" class="img-full" src="/app/static/images/git-commit-test.webp">
 <p class="p-styled spaced-p">A história to ramo (branch) test é mostrada abaixo na imagem:</p>
-<img alt="Tela mostrando git log do ramo test" class="img-full" src="/app/static/images/git-log-test.webp"/>
+<img alt="Tela mostrando git log do ramo test" class="img-full" src="/app/static/images/git-log-test.webp">
 <p class="p-styled spaced-p">Observe que HEAD está apontando para o último commit no branch de teste (HEAD -&gt; test). O diretório de trabalho agora deve estar limpo:
                 </p>
-<img alt="Tela mostrando git st git-st-final" class="img-full" src="/app/static/images/git-log-test.webp"/>
+<img alt="Tela mostrando git st git-st-final" class="img-full" src="/app/static/images/git-log-test.webp">
 </section>
 <section id="section4">
 <h3>Git Graph</h3>
@@ -319,7 +319,7 @@
                 © 2025 Curso de Git. Todos os direitos reservados.
             </div>
 <div class="footer-flex">
-<nav class="footer-nav" aria-label="Navegação">
+<nav class="footer-nav" aria-label="Navegação (rodapé)">
 <a class="footer-link" href="10-feature_req.html">← Voltar</a>
 <a class="footer-link" href="11-branch-2.html">Próximo: brench-2 →</a>
 </nav>
@@ -334,10 +334,10 @@
 <div class="footer-badges">
 <a class="github-link" href="https://pages.github.com/">
 <span>🐙 GitHub Pages</span>
-<img alt="GitHub Logo" class="footer-logo" src="/app/static/images/github-mark-white.png"/>
+<img alt="GitHub Logo" class="footer-logo" src="/app/static/images/github-mark-white.png">
 </a>
 <a class="w3c-link" href="https://jigsaw.w3.org/css-validator/check/referer">
-<img alt="CSS válido!" class="footer-logo" src="https://jigsaw.w3.org/css-validator/images/vcss"/>
+<img alt="CSS válido!" class="footer-logo" src="https://jigsaw.w3.org/css-validator/images/vcss">
 </a>
 </div>
 </footer>
