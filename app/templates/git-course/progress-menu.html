@@ -49,11 +49,11 @@
         </header>
 
         <nav class="progress-nav">
-            <button onclick="showSection('summary')" class="nav-btn">Resumo</button>
-            <button onclick="showSection('list')" class="nav-btn">Listar Progresso</button>
-            <button onclick="showSection('create')" class="nav-btn">Criar Progresso</button>
-            <button onclick="showSection('update')" class="nav-btn">Atualizar Progresso</button>
-            <button onclick="showSection('delete')" class="nav-btn">Deletar Progresso</button>
+            <button type="button" onclick="showSection('summary')" class="nav-btn">Resumo</button>
+            <button type="button" onclick="showSection('list')" class="nav-btn">Listar Progresso</button>
+            <button type="button" onclick="showSection('create')" class="nav-btn">Criar Progresso</button>
+            <button type="button" onclick="showSection('update')" class="nav-btn">Atualizar Progresso</button>
+            <button type="button" onclick="showSection('delete')" class="nav-btn">Deletar Progresso</button>
         </nav>
 
         <div id="section-summary" class="content-section">
@@ -110,9 +110,9 @@
         <footer class="footer">
             <a href="/landing.html" class="back-link">Voltar ao Curso</a>
             <a href="dashboard.html" class="back-link" style="margin-left:12px;">Dashboard</a>
-            <form class="logout-form" style="display: inline-block; margin-left: 20px;">
+            <div class="logout-form" style="display: inline-block; margin-left: 20px;">
                 <button id="logoutButton" type="button" class="logout-button">Logout</button>
-            </form>
+            </div>
         </footer>
     </div>
 
