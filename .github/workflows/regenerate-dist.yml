@@ -84,10 +84,8 @@ jobs:
           # Install project and e2e extras (pytest-playwright etc.)
           python -m pip install .[e2e]
 
-      - name: Install Playwright browsers for Python (Chromium only)
-        run: |
-          # Install Chromium for Python Playwright (not Node)
-          python -m playwright install chromium
+      - name: Install Playwright Browsers
+        run: python -m playwright install
 
       - name: Run Playwright E2E tests
         run: |
