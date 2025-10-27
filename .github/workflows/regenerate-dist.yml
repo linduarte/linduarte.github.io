@@ -46,6 +46,9 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install .
 
+      - name: Install Playwright browsers
+        run: python -m playwright install --with-deps
+
       - name: Run pytest
         run: |
           python -m pytest -q
