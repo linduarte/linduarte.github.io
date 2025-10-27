@@ -28,9 +28,42 @@ jobs:
           name: dist
           path: dist
 
+  check:
+    name: Run tests and HTML validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.13'
+
+      - name: Install Python deps
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install .
+
+      - name: Run pytest
+        run: |
+          python -m pytest -q
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install html-validate
+        run: npm install --no-save html-validate
+
+      - name: Run HTML validation
+        run: npx html-validate "app/templates/**/*.html" landing.html
+
   deploy:
     name: Deploy to GitHub Pages
-    needs: build
+    needs: [build, check]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
