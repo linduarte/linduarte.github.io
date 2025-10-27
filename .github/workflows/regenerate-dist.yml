@@ -87,6 +87,20 @@ jobs:
       - name: Install Playwright Browsers
         run: python -m playwright install
 
+      - name: Debug Playwright browser cache
+        run: |
+          echo "Playwright browsers in ~/.cache/ms-playwright:"
+          ls -lR ~/.cache/ms-playwright || true
+          echo "Playwright browsers in /home/runner/.cache/ms-playwright:"
+          ls -lR /home/runner/.cache/ms-playwright || true
+
+      - name: Debug Playwright browser cache
+        run: |
+          echo "Playwright browsers in ~/.cache/ms-playwright:"
+          ls -lR ~/.cache/ms-playwright || true
+          echo "Playwright browsers in /home/runner/.cache/ms-playwright:"
+          ls -lR /home/runner/.cache/ms-playwright || true
+
       - name: Run Playwright E2E tests
         run: |
           # Run only the e2e-marked tests
