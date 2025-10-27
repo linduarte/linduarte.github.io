@@ -52,6 +52,9 @@ jobs:
       - name: Install Python Playwright browsers
         run: python -m playwright install --with-deps
 
+      - name: Install Playwright Browsers (uv)
+        run: uv run playwright install
+
       - name: Run pytest
         run: |
           python -m pytest -q
@@ -92,6 +95,9 @@ jobs:
 
       - name: Install Python Playwright browsers
         run: python -m playwright install --with-deps
+
+      - name: Install Playwright Browsers (uv)
+        run: uv run playwright install
 
       - name: Debug Playwright browser cache
         run: |
