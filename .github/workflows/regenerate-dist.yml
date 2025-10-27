@@ -47,7 +47,7 @@ jobs:
           python -m pip install .
 
       - name: Install Playwright browsers
-        run: python -m playwright install
+        run: python -m playwright install --with-deps
 
       - name: Run pytest
         run: |
@@ -84,8 +84,8 @@ jobs:
           # Install project and e2e extras (pytest-playwright etc.)
           python -m pip install .[e2e]
 
-      - name: Install Playwright Browsers
-        run: python -m playwright install
+      - name: Install Playwright browsers
+        run: python -m playwright install --with-deps
 
       - name: Debug Playwright browser cache
         run: |
