@@ -64,3 +64,30 @@ Problema “fixture 'page' not found”:
 - Verifique se playwright / pytest-playwright foram instalados (ver pyproject atualizado).
 - OU use o fallback já incluso em tests/conftest.py.
 <!-- audit test:  -->
+
+## Regenerating the `dist` directory (helper tools)
+
+This repository keeps `app/` as the source of truth and intentionally ignores generated build output in `dist/`.
+For convenience there are tracked helpers to recreate `dist/` locally:
+
+- `tools/regenerate-dist.ps1` — PowerShell script (Windows/pwsh). Use `-Force` to overwrite an existing `dist/`.
+- `Makefile` — provides `make dist` (POSIX) and `make dist-windows` which runs the PowerShell helper.
+- `tools/DIST_HELPER.md` — usage notes and examples.
+
+Quick examples:
+
+PowerShell (Windows):
+
+```powershell
+# from repository root
+.\tools\regenerate-dist.ps1 -Force
+```
+
+POSIX (Linux / macOS / WSL):
+
+```bash
+# from repository root
+make dist
+```
+
+If you'd rather have CI produce `dist/` automatically (artifacts or deploy to GitHub Pages), I can add a minimal GitHub Actions workflow — tell me if you'd like that.
