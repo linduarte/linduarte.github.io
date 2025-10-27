@@ -46,14 +46,8 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install .
 
-      - name: Install Node.js Playwright browsers
-        run: npx playwright install --with-deps
-
-      - name: Install Python Playwright browsers
+      - name: Install Playwright Browsers
         run: python -m playwright install --with-deps
-
-      - name: Install Playwright Browsers (uv)
-        run: uv run playwright install
 
       - name: Run pytest
         run: |
@@ -90,14 +84,8 @@ jobs:
           # Install project and e2e extras (pytest-playwright etc.)
           python -m pip install .[e2e]
 
-      - name: Install Node.js Playwright browsers
-        run: npx playwright install --with-deps
-
-      - name: Install Python Playwright browsers
+      - name: Install Playwright Browsers
         run: python -m playwright install --with-deps
-
-      - name: Install Playwright Browsers (uv)
-        run: uv run playwright install
 
       - name: Debug Playwright browser cache
         run: |
