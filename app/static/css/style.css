@@ -1,0 +1,569 @@
+html { background-color:slategray;
+
+}
+
+body {
+    min-height: 100vh;
+    max-width: 1000px;
+    background-color:rgb(228, 226, 236);
+    border-radius: 13px 13px 0 0;
+    margin: auto;
+    margin-bottom: 60px;
+    font-size: calc(15px + 0.390625vw);
+}
+
+.banner-message {
+    color: #f14e32;
+    font-size: 1.5em; /* Reduzido ainda mais */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    margin: 70px 0 10px 0; /* Aumentado margin-top para 70px */
+    font-weight: 600;
+    text-align: center;
+}
+
+.banner-submessage {
+    color: #f14e32; /* Mesma cor laranja do Git para manter consistência */
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    text-decoration: underline; /* Adicionando sublinhado para mais destaque */
+    letter-spacing: 0.5px; /* Melhorando legibilidade */
+}
+
+.call {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.8rem;
+    margin-top: 20px; /* Adicionado margem extra no topo */
+}
+
+
+
+
+/* Footer */
+.footer {
+    grid-area: footer;
+    height: 100px;
+    font-family:'Times New Roman', Times, serif;
+    font-size:large;
+    /*border-radius: 13px 13px 13px 13px;
+    box-shadow: 1px 1px 1px black;*/
+
+}
+
+
+
+
+h5 {
+  font-size:20px;
+  font-family:'Times New Roman', Times, serif;
+
+}
+
+.box {
+    width: 60%; /* Consider using percentage-based width */
+    height: 190px;
+    border-radius: 13px;
+}
+
+
+
+/*images */
+
+.logo img{
+   position:absolute;
+   margin-left:700px;
+   margin-top:0px;
+   width:150px;
+   height:63px;
+   z-index: 1; /*bring the image to front*/
+}
+
+.call h4{
+    font-family: 'Times New Roman', Times, serif;
+    font-size:30px;
+    color:lightcyan;
+    letter-spacing: 1px; /* Adjust letter spacing for style */
+    margin-bottom: 5px; /* Bottom margin for spacing */
+    margin-left: 40px;
+
+}
+
+
+/* Grid Container */
+.grid-container {
+    background-color: slategray;
+    display: table;
+    width:100%;
+    grid-template-rows: 500px 500px;
+    grid-template-columns: 60% 40%; /* Consider using percentage-based columns */
+
+
+
+}
+
+
+
+/* Columns */
+.column1,
+.column2 {
+    border-radius: 13px;
+    box-shadow: 1px 1px 1px black;
+    margin-top: 10px;
+}
+
+
+.column1 {
+    background-color:whitesmoke;/* Set the background color for the first column */
+    height:max-content;
+
+
+}
+
+.column2 {
+    background-color:whitesmoke;/*background-color: peachpuff; /* Set the background color for the second column */
+    height:max-content;
+
+
+
+}
+
+ /* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+    .grid-container {
+        display: block;
+    }
+
+    .column1,
+    .column2 {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+
+
+
+.grid-item {
+    display:table-cell;
+    text-align:left;
+    line-height: 1.5; /* Adjust as needed for better spacing */
+}
+
+.grid-item {
+    padding: 20px; /* Adjust as needed for spacing around the text */
+    margin-bottom: 20px; /* Adjust as needed for spacing between grid-items */
+}
+
+.grid-item p {
+    font-family:'Times New Roman', Times, serif; /* Choose a suitable font family */
+    font-size: 19px; /* Adjust as needed for text size */
+    color: #333; /* Choose a suitable text color */
+
+
+}
+
+.grid-block{
+    padding: 2px;
+}
+
+.subject-title {
+    background-image:linear-gradient(to right, #150839 45%, #e95d74);
+    padding: 5px; /* Padding for spacing */
+    border-radius: 13px; /* Rounded corners for a modern look */
+    box-shadow: 0 2px 4px rgba(237, 233, 233, 0.1); /* Subtle box shadow for depth */
+
+}
+
+.subject-title h4 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    color:lightcyan; /* Title text color */
+    letter-spacing: 1px; /* Adjust letter spacing for style */
+    margin-bottom: 10px; /* Bottom margin for spacing */
+    margin-left: 20px;
+}
+
+.curse-title {
+    background-image:linear-gradient(to right, #150839 45%, #e95d74);
+    padding: 5px; /* Padding for spacing */
+    border-radius: 13px; /* Rounded corners for a modern look */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle box shadow for depth */
+}
+
+.curse-title h4 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size:20px;
+    color:lightcyan;
+    letter-spacing: 1px; /* Adjust letter spacing for style */
+    margin-bottom: 10px; /* Bottom margin for spacing */
+    margin-left: 20px;
+
+}
+
+.topics::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius:0%;
+    left: -10px;
+    top: 50%; /* Adjust this value for vertical alignment */
+    transform: translateY(-50%); /* Adjust this value for vertical alignment */
+    background:#b393d3;
+    border: 2px solid #ea0e0e;
+}
+
+.topics {
+    position: relative;
+    padding-left: 20px; /* Adjust the padding to make space for the ::before circle */
+    /*font-weight: bold; /* Example: Make the text bold */
+    line-height: 1.2; /* Adjust this value for better vertical alignment */
+    display: inline-block; /* Make the element inline-block to align with the pseudo-element */
+}
+
+.cl{
+    aspect-ratio: 2.0522388059701493;
+    width: 100%;
+
+}
+
+/* Main topics in Column 2 */
+.column2 .main-topic {
+    font-family:'Times New Roman', Times, serif;
+    font-size: 19px; /* Adjust the font size for main topics */
+}
+
+/* Items in Column 2 */
+.column2 .item {
+    font-size: 16px; /* Adjust the font size for items */
+
+}
+
+/* Items in clumn 1 */
+
+.cltwo {
+    font-family:'Times New Roman', Times, serif;
+    font-size:18px;
+
+
+}
+
+.clthree {
+    font-family:'Times New Roman', Times, serif;
+    font-size:18px;
+
+
+}
+
+.code-style {
+    font-size: 18px;
+    line-height: 28px;
+    background-color:peachpuff;
+    color: #180202;
+  }
+
+
+/* Navigation on column1*/
+
+
+
+
+.nav {
+    width: 500px;
+    display: inline-block;
+
+    }
+
+
+.nav ul {
+    list-style-type:none;
+    border-radius: 13px 13px 13px 13px;
+    margin: 1px;
+    padding: 1px;
+    overflow: hidden;
+    background-image:linear-gradient(to right, #150839 45%, #e95d74);
+    }
+
+.nav li {
+    display:block;
+    }
+
+
+.nav li a {
+    display:block;
+    color:lavender;
+    text-align: left;
+    padding: 10px 10px;
+    text-decoration:solid;
+    font-family:'Times New Roman', Times, serif;
+    font-size:16px;
+    }
+
+
+.nav li a:hover,
+.nav li a.active{
+    background-color: indigo;
+    }
+
+/* Special paragraph for column2*/
+
+.paragraph {background:lavender; padding:15px; width:300px;}
+
+
+/* Navigation column2 */
+
+.mynav {
+    width: 300px;
+    display: inline-block;
+}
+
+/* Remove bullets, margin and padding */
+.mynav ul {
+    list-style-type:none;
+    border-radius: 13px 13px 13px 13px;
+    margin: 1px;
+    padding: 1px;
+    overflow: hidden;
+    background-image:linear-gradient(to right, #150839 45%, #e95d74);
+}
+
+.mynav li {
+    display:block; /* Or you can use display: inline; */
+}
+
+  /* Define the block styling for the links */
+.mynav li a {
+    display:block;
+    color:lavender;
+    text-align:left;
+    padding: 10px 10px;
+    text-decoration: none;
+    font-family:'Times New Roman', Times, serif;
+    font-size:16px;
+}
+
+  /* This is optional, however if you want to display the
+  active link differently apply a background to it */
+.mynav li a:hover,
+       li a.active {
+    background-color: indigo;
+}
+
+
+/* NEEDED STYLES */
+label {
+    display: block;
+	padding: 8px 22px;
+    margin: 0 0 1px 0;
+	cursor: pointer;
+	background-image:linear-gradient(to right, #150839 45%, #e95d74);
+	border-radius: 13px;
+	color:lavender;
+    transition: ease .5s;
+	position: relative;
+}
+
+
+label:hover {
+	background:rgb(23, 23, 62);
+}
+
+label::after {
+    content: '+';
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute;
+    right: 10px;
+    top: 2px;
+}
+
+
+ul {
+    /*list-style-type:decimal-leading-zero; /* Remove bullets */
+    padding: 10px; /* Remove padding */
+    margin: 0px; /* Remove margins */
+    font-family:'Times New Roman', Times, serif;
+    font-size: 16px;
+
+
+  }
+
+input:checked + label::after {
+    content: '-';
+    right: 14px;
+    top: 3px;
+}
+
+.content {
+    background:lavender;
+    padding: 10px 25px;
+    border: 1px solid #A7A7A7;
+	margin: 0 0 1px 0;
+	border-radius: 13px;
+}
+
+input + label + .content {
+	display: none;
+}
+
+input:checked + label + .content {
+	display: block;
+}
+
+/* Only hide form inputs used as toggles (checkboxes/radios) for accordion-style content.
+   Avoid hiding all inputs so login/register fields remain interactive. */
+input[type="radio"], input[type="checkbox"] {
+    display: none;
+}
+
+/*Responsive header */
+
+.header {
+    overflow:hidden;
+    background-image: linear-gradient(to right, #150839 45%, #e95d74);
+    border-radius: 13px 13px 13px 13px;
+    padding:25px 10px;
+    margin-top:30px ;
+
+}
+
+/* Style the header links */
+.header a {
+    float: left;
+    color: black;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 25px;
+    border-radius: 4px;
+  }
+
+/* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
+.header a.logo {
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+/* Change the background color on mouse-over */
+.header a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  /* Style the active/current link*/
+  .header a.active {
+    background-color: lightcoral;
+    color: white;
+  }
+
+  /* Float the link section to the right */
+  .header-right {
+    float: right;
+  }
+
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+    .header {
+        padding: 15px 10px; /* Adjust padding for smaller screens */
+    }
+
+    .header a {
+        float: none;
+        display: block;
+        text-align: left;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px; /* Adjust padding for better spacing */
+    }
+
+    .header-right {
+        float: none;
+        text-align: left;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px; /* Adjust padding for better spacing */
+    }
+}
+
+
+
+
+
+.terminal-image {
+    max-width: 600px;
+    margin: 20px auto;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.terminal-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Auth card used by login/register to standardize width and appearance */
+.auth-card {
+    width: 40%;
+    min-width: 320px;
+    max-width: 480px;
+    margin: 48px auto;
+    background: rgba(255,255,255,0.98);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    padding: 28px 24px;
+    box-sizing: border-box;
+}
+.auth-card h2 { color: #f14e32; margin-bottom: 14px; text-align:center }
+.auth-card label { display:block; margin-top:10px; color: #333; font-weight:600 }
+.auth-card input[type="text"], .auth-card input[type="email"], .auth-card input[type="password"] {
+    width: 100%; padding: 10px; margin-top:8px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box;
+}
+
+/* Typography standardization for auth pages */
+.auth-card {
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #222;
+}
+.auth-card h2 { font-size: 1.5rem; font-weight: 700; }
+.auth-card label { font-size: 0.95rem; }
+.auth-card input, .auth-card button { font-family: inherit; font-size: 1rem; }
+
+@media (max-width: 900px) {
+    .auth-card { width: 80%; }
+}
+
+/* Buttons used across pages (ensure index.html gets same look) */
+.form-btn,
+.form-btn {
+    margin-top: 10px;
+    padding: 14px 28px;
+    font-size: 1.2em;
+    background: #f14e32; /* orange unified */
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    box-shadow: 0 6px 14px rgba(241,78,50,0.18);
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.08s ease;
+}
+.form-btn:hover {
+    background: #e95d74; /* lighter orange on hover */
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+/* reinforce button sizing inside the header/auth area used on index.html */
+.auth-buttons .form-btn {
+    font-size: 1.2em;
+    padding: 14px 28px;
+}

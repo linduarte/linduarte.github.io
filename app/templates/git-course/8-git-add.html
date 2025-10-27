@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Add</title>
+    <link rel="stylesheet" href="/app/static/css/style.css">
+    <link rel="stylesheet" href="/app/static/css/common-styles.css">
+    <link rel="stylesheet" href="/app/static/css/git-course.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
+    <style>
+        .footer-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-link {
+            color: var(--neutral);
+            text-decoration: none;
+            font-family: 'Victor Mono', monospace;
+            font-size: 12px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.7);
+            transition: all 0.3s;
+        }
+
+        .footer-link:hover {
+            color: #f14e32;
+            background: rgba(255,255,255,0.9);
+        }
+
+        /* Botões alinhados à direita com mesmo estilo */
+        .footer-buttons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .logout-button, .form-btn {
+            font-family: 'Victor Mono', monospace;
+            font-size: 13px !important;
+            padding: 8px 16px !important;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f14e32;
+            color: white;
+        }
+
+        .logout-button:hover, .form-btn:hover {
+            background: #d63916;
+            transform: translateY(-1px);
+        }
+
+        .footer-instruction {
+            text-align: center;
+            font-family: 'Victor Mono', monospace;
+            margin-top: 12px;
+            font-size: 13px !important; /* Fonte menor */
+            color: #6c757d;
+            line-height: 1.4;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            font-family: 'Victor Mono', monospace;
+            margin-bottom: 15px;
+            font-size: 12px;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        /* Footer badges */
+        .footer-badges {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .github-link, .w3c-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .github-link:hover, .w3c-link:hover {
+            color: #f14e32;
+        }
+
+        .footer-logo {
+            height: 20px;
+            width: auto;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-logo:hover {
+            opacity: 1;
+        }
+        @media (max-width: 768px) {
+            .github-pages-logo {
+                width: 80px;
+                top: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById("markCompletedButton");
+        if (!btn) return;
+        btn.addEventListener("click", async () => {
+            const origText = btn.innerText;
+            btn.disabled = true;
+            btn.innerText = 'Enviando...';
+            const token = localStorage.getItem('access_token');
+            const topicId = btn.dataset.topicId;
+            try {
+                const response = await fetch('/progress', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ topic_id: topicId, completed: true, feedback: 'Muito bom este tópico!' }),
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    btn.innerText = 'Concluído ✓';
+                    btn.classList.add('completed');
+                } else {
+                    btn.disabled = false;
+                    btn.innerText = origText;
+                    alert('Erro ao marcar o progresso');
+                }
+            } catch (err) {
+                btn.disabled = false;
+                btn.innerText = origText;
+                alert('Erro de conexão ao marcar progresso');
+            }
+        });
+    });
+    </script>
+    <script src="/app/static/js/config.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            window.location.href = '/landing.html';
+            return;
+        }
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('access_token');
+                window.location.href = '/landing.html';
+            });
+        }
+    });
+    </script>
+</head>
+<body class="intro-page">
+
+    <div class="container">
+        <h1>git add</h1>
+
+            <h4>Adicionando arquivos ao projeto</h4>
+            <p>Antes de usar o comando <code class="language-bash">git add</code>, é importante ter arquivos novos no seu projeto. Este comando é usado para adicionar essas mudanças ao stage, preparando-as para o próximo commit.</p>
+            <p><strong>Passos para adicionar arquivos ao repositório:</strong></p>
+            <ol>
+                <li style="font-size: 18px;">Faça o download dos arquivos usando este <a href="https://github.com/robertovormittag/phonetic-website">link.</a></li>
+                <li style="font-size: 18px;">Descompacte os arquivos e copie cole no site "simple-website".</li>
+                <li style="font-size: 18px;">Verifique pelo Windows Explorer a estrutura agora completa do repositório.</li>
+            </ol>
+
+            <img src="/app/static/images/git-status-after-copy.webp" alt="Imagem ...">
+            <p class="image-description">Esta imagem mostra usando o comando <code class="language-bash">git status</code> que representa como os arquivos do repositório estão em relação ao Git, ou seja em vermelho,
+            que os arquivos não estão sendo rastreados pelo git, "untracked", indica que se use o comando <code class="language-bash">git add</code>
+            para mudar o status dos arquivos. Sinaliza mais embaixo dizendo que nada foi adicionado para a realização do "commit".
+        Mais embaixo temos a estrurura to repositório mostrada com os arquivos e um pasta 'style'.</p>
+
+        <pre><code class="language-bash">git add path/to/file</code></pre>
+        <p>Esse comando é usado quando você deseja preparar um arquivo específico para um <strong>commit</strong>.
+            Por exemplo, você pode estar trabalhando em vários arquivos, mas apenas um está pronto para ser confirmado.
+            Ao preparar esse arquivo individualmente, você pode garantir que ele seja o único incluído no próximo <strong>commit,</strong>
+            mantendo o histórico de <strong>commits</strong> limpo e organizado.</p>
+    <ul class="git-add-steps-list">
+            <li style="font-size: 18px;"><strong>'git add':</strong>O comando base para preparar arquivos para <strong>commit</strong>.</li>
+            <li style="font-size: 18px;"><strong>'path/to/file':</strong>O caminho específico do arquivo que você deseja adicionar ao <strong>index</strong></li>
+        </ul>
+        <div class="note">
+            <strong>Nota:</strong> O comando <code class="language-bash">git add .</code> adiciona todos os arquivos. Use <code class="language-bash">git add &lt;arquivo&gt;</code> para adicionar arquivos específicos.
+            <img src="/app/static/images/git%20add_all.webp" alt="Imagem GitGraph">
+            <p class="image-description">Na imagem anterior podemos notar a aplicação do comando 'git add' em duas situações - na primeira aplicado na
+                pasta 'style' contendo 4 arquivos e no segundo comando 'git add' aplicado usando o curinga '*' para aplicar em todos os arquivos com extensão 'html'.
+                Ao se aplicar o comando <strong>git status</strong> observa-se que todos os arquivos foram 'staged', ou seja prontos para receberem a confirmação via o comando <strong>git commit</strong>.
+                Alguns arquivos que já tiverem passados pelo comando <strong>git add</strong> podem ser alterados ou seja modificados e assim estes deverão também
+                ser alvo do comando <strong>git add</strong> para que eles mudem de status, ou fiquem na condição 'staged', prontos para serem comitados.
+            </p>
+
+            <!-- filepath:https://commandmasters.com/commands/git-init-common/-->
+        </div>
+        <footer class="footer">
+            <div class="footer-copyright">
+                © 2025 Curso de Git. Todos os direitos reservados.
+            </div>
+
+            <div class="footer-flex">
+                <nav class="footer-nav">
+                    <a href="7-git-status.html" class="footer-link">← Voltar</a>
+                    <a href="9-git-commit.html" class="footer-link">Próximo: Git commit →</a>
+                </nav>
+
+                <div class="footer-buttons">
+                    <button id="logoutButton" type="button" class="logout-button">Logout</button>
+                    <button type="button" id="markCompletedButton" data-topic-id="4" class="form-btn">Concluído ✓</button>
+                </div>
+            </div>
+
+            <div class="footer-instruction">
+                Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Concluído.
+            </div>
+
+            <div class="footer-badges">
+                <a href="https://pages.github.com/" class="github-link">
+                    <span>🐙 GitHub Pages</span>
+                <img src="/app/static/images/github-mark-white.png"
+                         alt="GitHub Logo"
+                         class="footer-logo" width="16" height="16">
+                </a>
+                <a href="https://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
+                    <img src="https://jigsaw.w3.org/css-validator/images/vcss"
+                         alt="CSS válido!"
+                         class="footer-logo" width="45" height="16">
+                </a>
+            </div>
+      </footer>
+    <script src="/app/static/js/git-course-functions.js"></script>
+    <script>Prism.highlightAll();</script>
+    </div>
+</body>
+</html>

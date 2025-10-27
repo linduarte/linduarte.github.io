@@ -1,0 +1,117 @@
+:root {
+    --primary:#0d6efd;
+    --primary-hover:#0a58ca;
+    --neutral:#343a40;
+    --neutral-hover:#565e64;
+    --bg:#f5f7fb;
+}
+body {
+    margin:0;
+    font-family: system-ui,Segoe UI,Roboto,Arial,sans-serif;
+    background: linear-gradient(135deg,#eef2f7,#dfe7f1);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+}
+.card {
+    background:#fff;
+    width:100%;
+    max-width:400px;
+    padding:40px 32px 36px;
+    border-radius:18px;
+    box-shadow:0 8px 28px -6px rgba(31,38,135,.25),0 0 1px rgba(0,0,0,.15);
+    position:relative;
+    overflow:hidden;
+}
+.card:before {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(circle at 85% 15%,rgba(13,110,253,0.15),transparent 55%),
+      radial-gradient(circle at 15% 85%,rgba(111,66,193,0.18),transparent 60%);
+    pointer-events:none;
+}
+.logo {
+    display:block;
+    margin:0 auto 12px;
+    width:130px;
+    height:auto;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,.15));
+}
+h1 {
+    font-size:1.55rem;
+    text-align:center;
+    margin:0 0 10px;
+    letter-spacing:.5px;
+}
+.subtitle {
+    text-align:center;
+    font-size:.95rem;
+    color:#555;
+    margin:0 0 26px;
+    line-height:1.4;
+}
+.actions {
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-bottom:18px;
+}
+.btn {
+    cursor:pointer;
+    border:none;
+    border-radius:10px;
+    padding:14px 18px;
+    font-size:.95rem;
+    font-weight:600;
+    letter-spacing:.4px;
+    background:var(--primary);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    transition:.2s;
+    box-shadow:0 3px 10px -2px rgba(13,110,253,.35);
+}
+.btn:hover { background:var(--primary-hover); }
+.btn.secondary {
+    background:var(--neutral);
+    box-shadow:0 3px 10px -2px rgba(108,117,125,.35);
+}
+.btn.secondary:hover { background:var(--neutral-hover); }
+.extra-links {
+    text-align:center;
+    margin-top:8px;
+    font-size:.8rem;
+    color:#666;
+}
+.extra-links a {
+    color:var(--primary);
+    text-decoration:none;
+}
+.extra-links a:hover { text-decoration:underline; }
+footer {
+    text-align:center;
+    font-size:.7rem;
+    margin-top:28px;
+    color:#888;
+}
+/* Make images with .img-full responsive to avoid distortion when width/height attrs are present */
+.img-full {
+    display:block;
+    max-width:100%;
+    height:auto;
+}
+/* Ensure footer badges keep a consistent small height via CSS instead of inline attributes */
+.footer-logo {
+    height: 16px;
+    width: auto;
+}
+@media (max-width:480px) {
+    .card { padding:34px 22px 30px; border-radius:16px; }
+    h1 { font-size:1.35rem; }
+}

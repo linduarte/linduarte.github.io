@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Git Course</title>
+  <link rel="stylesheet" href="/app/static/css/git-course-c.css">
+  <style>
+    body {
+  background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
+      font-family: 'Victor Mono', monospace;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .dashboard-container {
+      max-width: 700px;
+      margin: 80px auto;
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+      text-align: center;
+    }
+
+    .github-pages-logo {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 120px;
+      height: auto;
+      z-index: 1000;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+
+    .github-pages-logo:hover {
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .github-pages-logo {
+        width: 80px;
+        top: 10px;
+        right: 10px;
+      }
+    }
+
+    h1 {
+      color: #f14e32;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.1em;
+      margin-bottom: 30px;
+    }
+
+    button {
+      background: #f14e32;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 24px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin: 6px;
+    }
+
+    button:hover {
+      background: #5c4033;
+    }
+
+    .status {
+      margin-top: 20px;
+      font-weight: 600;
+      color: #5c4033;
+    }
+
+    .topics {
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    .topics h3 {
+      color: #f14e32;
+    }
+
+    .topics ul {
+      list-style-type: square;
+      padding-left: 20px;
+    }
+
+    .topics li {
+      margin: 8px 0;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <h1>Bem-vindo ao Git Course!</h1>
+    <p id="welcomeMessage">Carregando...</p>
+  <button type="button" id="btnProgress">Ver Progresso</button>
+  <button type="button" id="btnLogout">Logout</button>
+
+    <div id="result" class="status"></div>
+
+    <div class="topics" id="topicsList" style="display:none;">
+      <h3>Seus Tópicos de Aprendizado:</h3>
+      <ul id="topicsUl"></ul>
+    </div>
+
+    <!-- Embedded progress section (consolidated from progress-menu.html) -->
+    <section id="progressSection" style="display:none; margin-top:24px; text-align:left;">
+      <h2>Progresso</h2>
+      <div id="progressSummary">Carregando resumo...</div>
+
+      <div id="progressListContainer" style="display:none; margin-top:12px;">
+        <h3>Lista de Progresso</h3>
+        <div id="progressList">Carregando...</div>
+      </div>
+    </section>
+  </div>
+
+  <script src="/app/static/js/config.js"></script>
+  <script>
+    const token = localStorage.getItem('access_token');
+    const resultDiv = document.getElementById('result');
+    const topicsList = document.getElementById('topicsList');
+    const topicsUl = document.getElementById('topicsUl');
+    const welcome = document.getElementById('welcomeMessage');
+
+    if (!token) {
+      window.location.href = "login.html";
+    } else {
+      try {
+        // Decodifica o token JWT (sem biblioteca externa)
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const username = payload.sub || "Usuário";
+        welcome.textContent = `Olá, ${username}! 🚀 Pronto para continuar seus estudos?`;
+      } catch {
+        welcome.textContent = "Bem-vindo!";
+      }
+    }
+
+    document.getElementById('btnLogout').addEventListener('click', () => {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      window.location.href = "login.html";
+    });
+
+    document.getElementById('btnProgress').addEventListener('click', async () => {
+      // Toggle the embedded progress section and load data when shown
+      const section = document.getElementById('progressSection');
+      if (!section) return;
+      if (section.style.display === 'block') {
+        section.style.display = 'none';
+        return;
+      }
+      section.style.display = 'block';
+      await loadProgress();
+    });
+
+    async function loadProgress() {
+      const section = document.getElementById('progressSection');
+      const summaryEl = document.getElementById('progressSummary');
+      const listContainer = document.getElementById('progressListContainer');
+      const listEl = document.getElementById('progressList');
+
+      if (!token) { window.location.href = 'login.html'; return; }
+
+      // Summary
+      summaryEl.textContent = 'Carregando resumo...';
+      try {
+        const resp = await fetch(`${API_URL}/progress/summary`, { headers: { 'Authorization': `Bearer ${token}` } });
+        const data = await resp.json();
+        if (resp.ok) {
+          summaryEl.innerHTML = `<b>Total:</b> ${data.total}<br>` +
+            `<b>Concluídos:</b> ${data.concluidos}<br>` +
+            `<b>Pendentes:</b> ${data.pendentes}<br>` +
+            `<b>Tópicos concluídos:</b> ${data.completados?.length ? data.completados.join(', ') : 'Nenhum'}`;
+        } else {
+          summaryEl.textContent = data.detail || 'Erro ao carregar resumo.';
+        }
+      } catch (e) {
+        summaryEl.textContent = 'Erro ao conectar com o servidor.';
+        console.error(e);
+      }
+
+      // List
+      listEl.textContent = 'Carregando...';
+      listContainer.style.display = 'none';
+      try {
+        const resp2 = await fetch(`${API_URL}/progress`, { headers: { 'Authorization': `Bearer ${token}` } });
+        const data2 = await resp2.json();
+        if (resp2.ok) {
+          if (!Array.isArray(data2) || data2.length === 0) {
+            listEl.textContent = 'Nenhum progresso registrado.';
+          } else {
+            listEl.innerHTML = `<ul>${data2.map(p => `<li>ID: ${p.id}, Tópico: ${p.topic_id}, Concluído: ${p.completed}, Feedback: ${p.feedback || '-'} </li>`).join('')}</ul>`;
+          }
+          listContainer.style.display = 'block';
+        } else {
+          listEl.textContent = data2.detail || 'Erro ao carregar lista.';
+        }
+      } catch (e) {
+        listEl.textContent = 'Erro ao carregar lista.';
+        console.error(e);
+      }
+    }
+
+    // React to progress updates from other tabs/windows (storage event)
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'progressUpdated') {
+        // If the embedded progress section is visible, refresh it
+        const section = document.getElementById('progressSection');
+        if (section && section.style.display === 'block') {
+          loadProgress();
+        }
+      }
+    });
+
+    // React to same-tab updates via custom event (dispatched by fetch wrapper)
+    window.addEventListener('progressUpdated', () => {
+      const section = document.getElementById('progressSection');
+      if (section && section.style.display === 'block') loadProgress();
+    });
+  </script>
+</body>
+</html>

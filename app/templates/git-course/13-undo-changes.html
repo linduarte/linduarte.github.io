@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Desfazer Alterações</title>
+    <link rel="stylesheet" href="/app/static/css/style.css">
+    <link rel="stylesheet" href="/app/static/css/common-styles.css">
+    <link rel="stylesheet" href="/app/static/css/git-course.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
+    <style>
+        .footer-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .footer-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-link {
+            color: var(--neutral);
+            text-decoration: none;
+            font-family: 'Victor Mono', monospace;
+            font-size: 15px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.7);
+            transition: all 0.3s;
+        }
+
+        .footer-link:hover {
+            color: #f14e32;
+            background: rgba(255,255,255,0.9);
+        }
+
+        /* Botões alinhados à direita com mesmo estilo */
+        .footer-buttons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .logout-button, .form-btn {
+            font-family: 'Victor Mono', monospace;
+            font-size: 14px !important;
+            padding: 8px 16px !important;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f14e32;
+            color: white;
+        }
+
+        .logout-button:hover, .form-btn:hover {
+            background: #d63916;
+            transform: translateY(-1px);
+        }
+
+        .footer-instruction {
+            text-align: center;
+            font-family: 'Victor Mono', monospace;
+            margin-top: 15px;
+            font-size: 15px !important; /* Fonte menor */
+            color: #6c757d;
+            line-height: 1.4;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            font-family: 'Victor Mono', monospace;
+            margin-bottom: 15px;
+            font-size: 15px;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        /* Footer badges */
+        .footer-badges {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .github-link, .w3c-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .github-link:hover, .w3c-link:hover {
+            color: #f14e32;
+        }
+
+        .footer-logo {
+            height: 20px;
+            width: auto;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-logo:hover {
+            opacity: 1;
+        }
+
+        .p-styled {
+            font-size: 1.2em;  /* Ou 18px, se preferir */
+            line-height: 1.6;  /* Espaçamento entre linhas para melhor leitura */
+            margin-bottom: 1em; /* Espaço abaixo de cada parágrafo */
+        }
+
+        @media (max-width: 768px) {
+            .github-pages-logo {
+                width: 80px;
+                top: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('markCompletedButton');
+        if (!btn) return;
+        btn.addEventListener('click', async () => {
+            const origText = btn.innerText;
+            btn.disabled = true;
+            btn.innerText = 'Enviando...';
+            const topicId = btn.dataset.topicId;
+            const token = localStorage.getItem('access_token');
+            try {
+                const response = await fetch('/progress', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ topic_id: topicId, completed: true, feedback: 'Concluído via UI' }),
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    btn.innerText = 'Concluído ✓';
+                    btn.classList.add('completed');
+                } else {
+                    btn.disabled = false;
+                    btn.innerText = origText;
+                    alert('Erro ao marcar o progresso');
+                }
+            } catch (err) {
+                btn.disabled = false;
+                btn.innerText = origText;
+                alert('Erro de conexão ao marcar progresso');
+            }
+        });
+    });
+    </script>
+    <script src="/app/static/js/config.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            window.location.href = '/landing.html';
+            return;
+        }
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('access_token');
+                window.location.href = '/landing.html';
+            });
+        }
+    });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Desfazendo alterações </h1>
+
+        <p class="p-styled  spaced-p">Um dos motivos para rastrear o histórico de um projeto é ter a capacidade de desfazer alterações. É uma situação comum no desenvolvimento de software:
+        você muda alguma coisa, testa a mudança e não funciona da maneira que você esperava. Em seguida, você decide reverter o código de volta para a versão anterior.
+        Com o Git, você pode fazer isso facilmente. </p>
+
+        <p class="p-styled  spaced-p">Existem três cenários possíveis de desfazer no Git:</p>
+
+        <ul>
+           <li class="left-list">Desfazer alterações no diretório de trabalho antes do 'staged'</li>
+           <li class="left-list">Desfazer alterações após o staged e antes de comitar.</li>
+           <li class="left-list">Desfazer alterações comitadas</li>
+        </ul>
+
+        <p class="p-styled  spaced-p">Os exercícios agora seguem o uso do arquivo pilots.html</p>
+
+        <p class="p-styled  spaced-p"><strong>Mudança não desejada - exercício</strong></p>
+
+        <p class="p-styled  spaced-p">Para demonstrar cada um dos cenários acima, precisaremos de uma alteração indesejada para desfazer. Nós vamos novamente usar o projeto Phonetic sistema
+            para experimentar.  Abra pilots.html em um editor de texto e exclua todas as palavras, exceto "Alfa", para que o alfabeto fique assim: </p>
+
+    <img src="/app/static/images/alpha.webp" alt="Exemplo de git reset" class="img-full" style="height:68px;max-width:100%;">
+
+       <p class="p-styled  spaced-p">Salve a alteração e verifique abrindo no navegador o arquivo pilots.html.
+        Vamos aprender agora a recuperar as letras apagadas usando as características de desfazer do git. No caso do exemplo parece ser simples recuperar as demais palavras
+     do arquivo mas imagine que o seu código tenha 500 linhas a serem recuperdas.</p>
+
+       <p class="p-styled  spaced-p">1 - Desfazendo as mudanças antes de adicioná-las ao <strong>'staged'.</strong></p>
+
+       <p class="p-styled  spaced-p">Para recuperar as palavras perdidas no pilots.html (seguindo o "Exercício de Alteração Indesejada" no início desta seção), tudo o que você precisa
+        fazer é reverter o arquivo de volta para sua última versão confirmada usando o comando <code class="language-bash">git checkout</code> da seguinte forma:
+      </p>
+
+    <img src="/app/static/images/1-checkout.webp" alt="Exemplo de git checkout" class="img-full">
+
+      <p>Abra o arquivo pilots.html em seu navegador e certifique-se todas as palavras foram recuperadas. O comando <code class="language-bash">git checkout</code> mostra na imagem acima que
+     o diretório de trabalho está limpo.</p>
+
+     <p class="p-styled  spaced-p">2 - Desfazendo as mudanças depois de adicioná-las ao <strong>'staged'.</strong></p>
+
+     <p class="p-styled  spaced-p">Repita o exercicio anterior no início desta seção apagando as palavras deixando somente a palavra "Alfa". Agora voce deve adicionar a alteração
+        usando o comando <code class="language-bash">git add</code>.
+     </p>
+
+    <img src="/app/static/images/2-add.webp" alt="Exemplo de git add" class="img-full">
+
+     <p class="p-styled  spaced-p">Ao acionar o <code class="language-bash">git status</code> mostra que o pilots.html está pronto para ser comitado. Na tela podemos ver ainda a sugestão de rodar o
+        <code class="language-bash">git reset HEAD file</code> para retornar com o arquivo para  o diretório de trabalho. E é isto que precisamos fazer primeiro.
+     </p>
+
+    <img src="/app/static/images/3-reset.webp" alt="Exemplo de git reset" class="img-full">
+
+     <p class="p-styled  spaced-p"> O <code class="language-bash">git reset</code> removeu o arquivo do index (area de staging) entretanto a mudança não desejada ainda se encontra no diretório de
+    trabalho como se pode ver na imagem acima pelo comando <code class="language-bash">git status</code>. Para recuperar as palavras perdidas voce ainda necessita repetir
+   o processo de desfazer a mudança que se encontra no diretório de trabalho. Para isto basta repetir a ação anterior usando o comando <code class="language-bash">git checkout</code> restaurar
+    o arquivo. </p>
+
+    <img src="/app/static/images/4-checkout.webp" alt="Exemplo de git chekout" class="img-full">
+
+    <p class="p-styled  spaced-p">Repita a verificação do arquivo pilots.html no seu navegar para constatar que o mesmo está completo</p>
+
+    <p class="p-styled  spaced-p">3 - Desfazendo as mudanças comitadas.</p>
+
+    <p class="p-styled  spaced-p">Repita o exercicio anterior no início desta seção apagando as palavras deixando somente a palavra "Alfa". Agora voce deve adicionar a alteração
+        usando o comando <code class="language-bash">git add</code> bem como comitar a alteração com o comando <code class="language-bash">git commit</code>.
+     </p>
+
+    <img src="/app/static/images/5-commit.webp" alt="Exemplo de git commit" class="img-full">
+
+     <p class="p-styled  spaced-p">Agora vamos usar o <code class="language-bash">git log</code> para nos mostrar o novo comite.</p>
+
+    <img src="/app/static/images/6-log.webp" alt="Exemplo de git log" class="img-full">
+
+     <p class="p-styled  spaced-p"> Para desfazermos do comite voce necessita rodar  o <code class="language-bash">git revert</code>especificando o hash associado à mudança indesejada
+    conforme vimos pelo <code class="language-bash">git log</code> aplicado.</p>
+
+    <img src="/app/static/images/7-revert.webp" alt="Exemplo de git revert" class="img-full">
+
+    <p class="p-styled  spaced-p">A expressão ou 'flag'<strong>"--no-edit"</strong> previne que o comite abra o editor configurado no <strong>git config global...</strong>
+    Vá até o navegador e certifique-se que o arquivo pilots.html está completo.</p>
+
+    <p class="p-styled  spaced-p">Podemos agora verificar o histórico do projeto até o presente momento:</p>
+
+    <img src="/app/static/images/8-log.webp" alt="Exemplo de git log" class="img-full">
+
+    <p class="p-styled  spaced-p">Como você pode ver na saída do log do git, um commit de reversão foi adicionado para cancelar o efeito da alteração indesejada.
+        O Git foi projetado para nunca perder o histórico, por isso mantém o commit que você deseja reverter e o substitui por um novo. </p>
+
+        <p class="p-styled  spaced-p">Abordamos nesta seção três cenários básicos de desfazer alterações para um único arquivo. Mais adiante , aprenderemos como navegar na história e fazer com que todo o
+        projeto volte para uma versão anterior.</p>
+
+    <h4>Marcando versões</h4>
+
+    <p class="p-styled  spaced-p">Você pode usar o Git para anexar uma tag para identificar facilmente uma versão estável de um projeto com o comando <code class="language-bash">git tag</code>.
+        A tag pode ser qualquer string arbitrária, mas os esquemas de controle de versão tradicionais atribuem uma sequência numérica começando com zero.</p>
+
+    <p class="p-styled  spaced-p">
+         Por exemplo, suponha que você queira atribuir a tag v0.1 à versão (commit) em que adicionou a letra F ao projeto Site Fonético. Primeiro, você precisa
+         descobrir qual é o hash curto para o commit correspondente do log de histórico (no nosso caso, 333a382) e, em seguida, digitar o seguinte comando para marcá-lo:
+    </p>
+
+    <img src="/app/static/images/tag.webp" alt="Exemplo de git tag" class="img-full" width="900" height="506" style="height:auto;max-width:100%;">
+
+    <p class="p-styled  spaced-p">Na mesma imagem podemos ver a comando <code class="language-bash">git log</code> mostrando a alteração no comite da letra F com a tag. </p>
+
+    <p class="p-styled  spaced-p">Agora você pode consultar esta versão do site usando a tag atribuída em vez do hash curto. Vamos verificar o status da árvore de trabalho: </p>
+
+    <img src="/app/static/images/git-st.webp" alt="Exemplo de git st" class="img-full" width="900" height="506" style="height:auto;max-width:100%;">
+
+    <p>Na imagem anterior podemos verificar que as várias alterações feitas constituiram um total de 5 comites que estão defasados em relação ao repositório remoto.</p>
+
+    <img src="/app/static/images/git-push-st.webp" alt="Exemplo de git push e git st" class="img-full" width="900" height="506" style="height:auto;max-width:100%;">
+
+    <p>Na imagem anterior foi realizado o comando <code class="language-bash">git push</code>, ou seja, igualarmos o repositório local com o remoto. Na mesma imagem temos o <strong>git status</strong> confirmando
+    que os repositórios estão iguais e nada para ser comitado.</p>
+
+
+    <h1>Complemento ao processo de 'desfazer mudanças'</h1>
+
+
+        <p class="p-styled  spaced-p">O Git é um poderoso sistema de controle de versão, mas pode ser complicado navegar quando as coisas dão errado.
+            Três dos comandos mais comumente incompreendidos são <code class="language-bash">git reset</code>, <code class="language-bash">git revert</code> e <code class="language-bash">git restore</code>(Não será tratado no curso). Cada um serve a um propósito único para desfazer
+            alterações e saber quando usar, o que pode evitar muitas dores de cabeça. Nesta página, detalharemos as diferenças entre esses comandos,
+            explicaremos quando usar cada um e mostraremos como reverter alterações em plataformas populares como GitHub, GitLab e Bitbucket.
+        </p>
+
+        <h4>Compreendendo as três seções de um projeto Git</h4>
+
+        <p class="p-styled  spaced-p">Voce pode estar se perguntando porque repetir este tópico abordado no git status. Porque são lançados alguns conceitos que nos ajudam
+            a reforçar alguns pontos e entender o processo de desfazer alterações.
+        </p>
+
+        <p class="p-styled  spaced-p">Diretório Git Diretório de trabalho (ou árvore de trabalho) Área de staging O diretório Git (localizado em SEU-PROJETO-CAMINHO/.git/)
+             é onde o Git armazena tudo o que precisa para rastrear o projeto com precisão. Isso inclui metadados e um banco de dados de objetos que inclui
+             versões comprimidas dos arquivos do projeto..</p>
+
+        <p class="p-styled  spaced-p">O diretório de trabalho é onde um usuário faz alterações locais em um projeto. O diretório de trabalho puxa os arquivos do
+            projeto do banco de dados de objetos do diretório Git e os coloca na máquina local do usuário. </p>
+
+        <p class="p-styled  spaced-p">Diretório também é conhecido como Repositório ou a forma abreviada repo. O repo na máquina local do usuário é chamado
+           de "repo local", enquanto o repo no servidor Git é chamado de "repo remoto". </p>
+
+        <p class="p-styled  spaced-p">A área de staging é um arquivo (também chamado de "índice", "stage" ou "cache") que armazena informações sobre o que irá
+            entrar no seu próximo commit. Um commit é quando você diz ao Git para salvar essas alterações staged. O Git tira uma captura instantânea dos arquivos
+            como eles estão e armazena permanentemente essa captura no diretório Git. </p>
+
+       <p class="p-styled  spaced-p">Com três seções, há três estados principais que um arquivo pode estar em qualquer momento: modificado, committed ou staged.
+        Você modifica um arquivo a qualquer momento em que faz alterações nele no seu diretório de trabalho. Em seguida, ele é staged quando você o move para a área
+        de staging. Finalmente, ele é committed após um commit.
+       </p>
+
+       <pre class="spaced-pre code-block"><code class="language-bash">git reset</code></pre>
+
+       <p class="p-styled  spaced-p">O <code class="language-bash">git reset</code> é como retroceder o histórico do projeto para um ponto específico. Tecnicamente, o comando move o <strong>HEAD</strong> e o ponteiro de ramificação para uma
+            confirmação (comite) específica. Um ponteiro de ramificação é uma referência que aponta para a confirmação mais recente no histórico de uma ramificação específica. Um commit é um instantâneo de todo o
+            repositório em um determinado momento. Entenda o conceito de <strong>"confirmação"</strong> como sendo um "commit".</p>
+
+        <p class="p-styled  spaced-p"><strong>HEAD</strong> é um ponteiro para a confirmação mais recente no branch atual. É sua posição atual no repositório. Se você fizer uma nova confirmação, HEAD se moverá para
+            apontar para a nova confirmação. Isso significa que <strong>HEAD</strong> sempre aponta para as alterações mais recentes que você fez em seu código.</p>
+
+       <h4>Git reset possui trê modos a saber:</h4>
+
+       <ul>
+        <li><p class="p-styled  spaced-p"><strong>Soft Reset (--soft)</strong>: soft reset no Git é uma maneira de desfazer alterações em seu diretório de trabalho e voltar a um
+            commit específico, mantendo as alterações que você preparou. Esse modo move o ponteiro de ramificação e o HEAD para a confirmação de destino,
+            mas deixa suas alterações na área de preparo. A área de preparo (também conhecida como índice) no Git é uma área de retenção temporária para alterações
+            que ainda não foram confirmadas. Quando você faz alterações em um arquivo, as alterações são colocadas primeiro no diretório de trabalho. Em seguida,
+            você pode usar o comando git add para preparar as alterações para o próximo commit. Uma soft reset geralmente é usada quando você deseja "desconfirmar"
+             suas alterações, mas mantê-las em sua área de teste para outra confirmação.</p></li>
+       <li><p class="p-styled spaced-p"><strong>Mixed Reset (padrão)</strong>: O modo padrão de redefinição do git é uma 'mixed reset'. Ele move o ponteiro de ramificação e o HEAD
+        para a confirmação de destino enquanto limpa a área de preparo. Isso é útil quando você deseja cancelar a confirmação e cancelar o estágio de suas alterações,
+        mas mantê-las em seu diretório de trabalho.</p></li>
+        <li><p class="p-styled spaced-p"><strong>Hard Reset (--hard)</strong>: Esse modo move o ponteiro de branch e o HEAD para a confirmação de destino, limpa a área de preparo
+          e descarta todas as alterações no diretório de trabalho. Tenha cuidado com esse modo, pois ele exclui permanentemente as alterações não confirmadas.</p></li>
+       </ul>
+
+       <p class="p-styled  spaced-p">Digamos que você tenha feito uma série de commits e perceba que o último commit deve incluir algo diferente de algumas das alterações que você preparou.
+        Você pode usar git reset para remover essas alterações, mantendo-as em seu diretório de trabalho.</p>
+
+        <p class="p-styled  spaced-p">Para testar o <code class="language-bash">git reset</code>, crie um novo diretório: Nota - passe o mouse por sobre a imagem para ver a sequencia de ações.</p>
+
+        <div class="image-container">
+            <img src="/app/static/images/commit_exemplo.webp" alt="Exemplo de git reset" class="img-full">
+            <div class="hover-text">
+           <ul>
+            <li>Inicialize um novo repositório Git e crie um arquivo de texto simples:</li>
+            <li>Com git add, você adicionou o file.txt à área de preparo (staged).</li>
+            <li>Agora, confirme as alterações.</li>
+            <li>O sinalizador -m é usado para especificar uma mensagem de confirmação. A mensagem de confirmação é uma nota breve e descritiva.
+            </li>
+              </ul>
+          </div>
+          </div>
+          <div class="image-container">
+            <img src="/app/static/images/reset.webp" alt="Exemplo de git reset" class="img-full">
+            <div class="hover-text">
+           <ul>
+            <li>Agora, faça algumas alterações no file.txt. Em seguida, prepare-os e confirme-os:</li>
+            <li>Execute o comando git log para rastrear o histórico de confirmação do branch e entender quais alterações foram feitas.</li>
+            <li>agora use git reset HEAD~1 para remover as alterações:</li>
+            <li>O HEAD é um ponteiro para a confirmação mais recente no branch atual. O ~1 no comando diz ao Git para redefinir para o commit que é um antes
+                do HEAD atual (aquele antes de "Add Line 2").</li>
+           <li>As alterações na última confirmação agora não são preparadas (M file.txt) e o ponteiro de branch foi movido de volta para a confirmação anterior.
+            "M" significa "modificado" aqui.</li>
+            <li>Você pode ver que Head -> main agora está apontando para o commit inicial.</li>
+              </ul>
+          </div>
+          </div>
+
+          <p class="p-styled  spaced-p">Neste exemplo, <code class="language-bash">git reset HEAD~1</code> executa uma redefinição mista, movendo o ponteiro do branch e HEAD para o commit anterior, mantendo suas
+            alterações no diretório de trabalho.</p>
+
+        <h4>git revert</h4>
+        <p class="p-styled  spaced-p">O <code class="language-bash">git revert</code> é um comando usado para criar uma nova confirmação que desfaz as alterações introduzidas por uma confirmação
+             específica.</p>
+
+            <p class="p-styled  spaced-p">Ao contrário do <code class="language-bash">git reset</code>, que modifica o histórico do projeto, o git revert cria uma nova confirmação que efetivamente cancela as alterações
+             feitas na confirmação de destino. Esta é uma maneira segura de desfazer alterações sem alterar o histórico de confirmação.</p>
+
+        <p class="p-styled  spaced-p">Suponha que você tenha um repositório Git com um histórico de confirmação e queira desfazer uma confirmação específica que introduziu uma alteração que não
+            é mais necessária. Você pode usar o <code class="language-bash">git revert</code> para criar uma nova confirmação que desfaz as alterações da confirmação de destino.</p>
+
+        <p class="p-styled  spaced-p">Para testar o <code class="language-bash">git revert</code>, crie um novo diretório: </p>
+
+    <img src="/app/static/images/reset.webp" alt="Exemplo de git reset" class="img-full">
+
+         <p class="p-styled  spaced-p">Desta vez, usarei o comando <code class="language-bash">git reflog</code>. O <code class="language-bash">git reflog</code> é um comando usado para exibir o log de referência, que registra as alterações nos ponteiros
+            de ramificação e HEAD. </p>
+
+    <img src="/app/static/images/git-reflog.webp" alt="Exemplo de git reset" class="img-full">
+
+       <p class="p-styled  spaced-p">Em seguida, executarei o <code class="language-bash">git revert</code> para criar uma nova confirmação que desfaz as alterações introduzidas pela confirmação
+        de destino.</p>
+
+    <img src="/app/static/images/git-revert-head.webp" alt="Exemplo de git reset" class="img-full">
+
+        <p class="p-styled  spaced-p">Você verá uma nova confirmação refletindo as alterações feitas pela confirmação de reversão.
+
+            Quando você executa o <code class="language-bash">git reflog</code> novamente, você pode ver que o local principal do Head -> é diferente.</p>
+
+       <h4>git reset x git revert</h4>
+
+       <p class="p-styled  spaced-p">Os comandos <code class="language-bash">git reset</code> e <code class="language-bash">git revert</code> são usados para desfazer alterações no Git. Saber quando cada comando deve ser utilizado,
+        bem como qual modo é adequado para sua situação, garantirá um histórico de controle de versão mais confiável. A tabela abaixo resume
+        as diferenças entre <code class="language-bash">git reset</code> e <code class="language-bash">git revert</code>.</p>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Recurso</th>
+                        <th><em>git reset</em></th>
+                        <th><em>git revert</em></th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                        <td>Muda o ponteiro HEAD </td>
+                        <td>Sim</td>
+                        <td>Não</td>
+                    </tr>
+                    <tr>
+                        <td>Cria um novo comite</td>
+                        <td>Não</td>
+                        <td>Sim</td>
+                    </tr>
+                    <tr>
+                        <td>Descarta mudanças</td>
+                        <td>Sim, por padrão</td>
+                        <td>Não</td>
+                    </tr>
+                    <tr>
+                        <td>Preserva a histório dos comites</td>
+                        <td>Não, por padrão</td>
+                        <td>Sim</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p>Use o git reset quando quiser descartar as alterações feitas na árvore de trabalho. Isso pode ser útil se você cometeu um erro ou se quiser começar de novo.</p>
+
+        <!-- filepath:https://4sysops.com/archives/git-reset-vs-git-revert/-->
+
+        <footer class="footer">
+            <div class="footer-copyright">
+                © 2025 Curso de Git. Todos os direitos reservados.
+            </div>
+
+            <div class="footer-flex">
+                <nav class="footer-nav">
+                    <a href="12-git-diff.html" class="footer-link">Voltar</a>
+                    <a href="14-git-init.html" class="footer-link">Próximo: git-init</a>
+                </nav>
+
+                <div class="footer-buttons">
+                    <button id="logoutButton" type="button" class="logout-button">Logout</button>
+                    <button type="button" id="markCompletedButton" data-topic-id="4" class="form-btn">Concluído ✓</button>
+                </div>
+            </div>
+
+            <div class="footer-instruction">
+                Para sair da sua conta, clique em Logout. Para registrar seu progresso, clique em Concluído.
+            </div>
+
+            <div class="footer-badges">
+                <a href="https://pages.github.com/" class="github-link">
+                    <span>🐙 GitHub Pages</span>
+                    <img src="/app/static/images/github-mark-white.png"
+                         alt="GitHub Logo"
+                         class="footer-logo">
+                </a>
+                <a href="https://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
+                    <img src="https://jigsaw.w3.org/css-validator/images/vcss"
+                         alt="CSS válido!"
+                         class="footer-logo" width="45" height="16">
+                </a>
+            </div>
+      </footer>
+    <script src="/app/static/js/git-course-functions.js"></script>
+    <script>Prism.highlightAll();</script>
+    </div>
+</body>
+</html>
