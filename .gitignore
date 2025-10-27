@@ -87,3 +87,6 @@ scripts/
 
 # Local html-validate config and reports
 .htmlvalidate.json
+
+# Build output: generated distribution files
+dist/
