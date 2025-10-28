@@ -85,8 +85,5 @@ scripts/commit_html_only.ps1
 # Ignore all local helper scripts (decided to keep them untracked)
 scripts/
 
-# Local html-validate config and reports
-.htmlvalidate.json
-
 # Build output: generated distribution files
 dist/
