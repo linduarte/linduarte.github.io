@@ -68,7 +68,8 @@ jobs:
           ls -l .htmlvalidate.json || true
 
       - name: Run HTML validation
-        run: npx html-validate --config ./.htmlvalidate.json "app/templates/**/*.html" landing.html
+        # Update the path to the config file to include the subdirectory (e.g., 'app/')
+        run: npx html-validate --config app/.htmlvalidate.json "app/templates/**/*.html" landing.html
         working-directory: ${{ github.workspace }}
 
   e2e:
