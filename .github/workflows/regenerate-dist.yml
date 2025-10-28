@@ -61,6 +61,12 @@ jobs:
       - name: Install html-validate
         run: npm install --no-save html-validate
 
+      - name: Debug list files
+        run: |
+          pwd
+          ls -l .
+          ls -l .htmlvalidate.json || true
+
       - name: Run HTML validation
         run: npx html-validate --config ./.htmlvalidate.json "app/templates/**/*.html" landing.html
         working-directory: ${{ github.workspace }}
