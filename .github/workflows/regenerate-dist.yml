@@ -29,7 +29,7 @@ jobs:
           path: dist
 
   check:
-    name: Run tests and HTML validation
+    name: Run HTML validation
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -62,7 +62,7 @@ jobs:
         run: npm install --no-save html-validate
 
       - name: Run HTML validation
-        run: npx html-validate "app/templates/**/*.html" landing.html
+        run: npx html-validate --config .htmlvalidate.json "app/templates/**/*.html" landing.html
 
   e2e:
     name: Playwright E2E tests

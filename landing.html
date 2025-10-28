@@ -71,7 +71,7 @@
             box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
             border-radius: 12px !important;
             border-top: 1px solid rgba(233,236,239,0.5) !important;
-            color: #343a40 !important;
+            color: #6c757d !important;
             font-size: 14px !important;
         }
 
@@ -88,7 +88,7 @@
             display: inline-flex !important;
             align-items: center !important;
             gap: 8px !important;
-            color: #343a40 !important;
+            color: #6c757d !important;
             text-decoration: none !important;
             font-size: 14px !important;
         }
@@ -117,7 +117,7 @@
             margin-bottom: 20px !important;
         }
 
-        .subject-title h4, .subject-title h2, .curse-title h4, .curse-title h2 {
+        .subject-title h4, .curse-title h4 {
             margin: 0 !important;
             color: #f14e32 !important;
         }
@@ -135,18 +135,19 @@
     </style>
 </head>
 <body>
-    <main id="main" class="main-container">
+    <div class="main-container">
         <!-- construction-section inlined from includes/under-construction.html -->
         <div class="construction-section">
             <div style="flex-shrink: 0;">
                 <!-- Use single under-construction.webp as fallback; regenerate variants in CI if desired -->
-             <img src="/app/static/images/under-construction.webp"
-                 alt="Site em construção"
-                 style="max-width:150px;height:auto;border-radius:8px;">
+                <img src="/app/static/images/under-construction.webp"
+                     alt="Site em construção"
+                     width="150" height="100"
+                     style="max-width:150px;height:auto;border-radius:8px;">
             </div>
             <div style="flex-grow: 1;">
-                <h2 style="margin: 0 0 10px 0; color: #f14e32;">Site em Construção</h2>
-                <p style="margin: 0; color: #343a40; line-height: 1.5;">
+                <h3 style="margin: 0 0 10px 0; color: #f14e32;">Site em Construção</h3>
+                <p style="margin: 0; color: #6c757d; line-height: 1.5;">
                     Curso Git em desenvolvimento ativo. Novas funcionalidades sendo adicionadas regularmente.
                 </p>
             </div>
@@ -154,9 +155,9 @@
 
         <header class="header logo" >
             <img alt="Git Logo"
+            width="150" height="63"
             src="/app/static/images/GitLogo_sp.png"
-            srcset="/app/static/images/GitLogo_sp-2x.png 2x, /app/static/images/GitLogo_sp-3x.png 3x"
-            style="max-width:150px;height:auto;">
+            srcset="/app/static/images/GitLogo_sp-2x.png 2x, /app/static/images/GitLogo_sp-3x.png 3x">
             <div class="call">
                 <h1 class="banner-message">Aprenda Git de forma prática e eficiente!</h1>
                 <p class="banner-submessage">
@@ -168,7 +169,7 @@
         <div class="grid-container">
             <div class="column1 grid-item">
                 <div class="column1 grid-item subject-title">
-                   <h2><strong>O que é <em>'Git'</em>? E por que ele é importante!</strong></h2>
+                   <h4><strong>O que é <em>'Git'</em>? E por que ele é importante!</strong></h4>
                 </div>
                 <div>
                     <p><strong><em>É um sistema de controle de versão distribuída</em></strong> permitindo que vários desenvolvedores possam colaborar em um projeto de maneira simultanea.<br>
@@ -181,7 +182,7 @@
 
                 <section>
                     <h5>Navegação</h5>
-                    <nav class="nav" aria-label="Navegação principal">
+                    <nav class="nav">
                         <ul>
                             <li class="active hover"><a href="#base1">Principais estados dos arquivos no Git</a></li>
                             <li class="active hover"><a href="#base2">Conceitos chave:'Repositories','Commits' e 'Branches'</a></li>
@@ -223,7 +224,6 @@
                         Esta transparência é de todo crucial para o entendimento das complexidades do controle de versão permitindo atuações de maneira imediata.<br>
                         Deve-se salientar ainda que o terminal permite criar 'scripts' que auxiliam os desenvolvedores a automatizar tarefas repetitivas ou customizar
                         fluxos de trabalho específicos de seus projetos.<br>
-                        </p>
                         <div>
                                                 <picture class="cl">
                                                                                 <img src="/app/static/images/cl_new-tr.webp"
@@ -417,7 +417,7 @@
 
                 <section>
                     <h5>Navegação</h5>
-                    <nav class="mynav" aria-label="Navegação secundária">
+                    <nav class="mynav">
                         <ul>
                           <li class="active hover"><a href="#about1">Sobre o Git</a></li>
                           <li class="active hover"><a href="#about2">Por que se chama Git?</a></li>
@@ -459,24 +459,26 @@
                 </section>
             </div>
         </div>
-    </main>
 
-    <!-- Footer principal unificado -->
-    <footer class="site-footer">
+        <!-- Footer principal unificado -->
+        <footer class="site-footer">
             <p>&copy; 2025 Curso de Git. Todos os direitos reservados.</p>
             <div class="footer-badges">
                 <a href="https://pages.github.com/" class="github-link">
                     <span>🐙 GitHub Pages</span>
-                <img src="/app/static/images/github-mark-white.png"
-                    alt="GitHub Logo"
-                class="footer-logo">
+                    <img src="/app/static/images/github-mark-white.png"
+                         alt="GitHub Logo"
+                    class="footer-logo"
+                    width="20" height="20">
                 </a>
                 <a href="http://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
                 <img src="https://jigsaw.w3.org/css-validator/images/vcss"
                     alt="CSS válido!"
-                    class="footer-logo">
+                    class="footer-logo"
+                    width="88" height="31">
                 </a>
             </div>
         </footer>
-    </body>
+    </div>
+</body>
 </html>
