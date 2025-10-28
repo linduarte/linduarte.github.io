@@ -63,6 +63,7 @@ jobs:
 
       - name: Run HTML validation
         run: npx html-validate --config ./.htmlvalidate.json "app/templates/**/*.html" landing.html
+        working-directory: ${{ github.workspace }}
 
   e2e:
     name: Playwright E2E tests
