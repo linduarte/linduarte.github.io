@@ -6,148 +6,22 @@
     <title>Curso Git - Aprenda de forma prática e eficiente</title>
     <link rel="stylesheet" href="app/static/css/style_io.css">
     <link rel="stylesheet" href="app/static/css/common-styles.css">
-    <link rel="stylesheet" href="app/static/css/git-course.css">
-    <style>
-        body {
-            background: url('app/static/images/waves.webp') center/cover no-repeat fixed !important;
-            background-size: cover !important;
-            background-position: center center !important;
-            background-attachment: fixed !important;
-            font-family: 'Victor Mono', monospace !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            min-height: 100vh !important;
-            width: 100% !important;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            max-width: 100vw;
-        }
-
-        .main-container {
-            background: rgba(255,255,255,0.75) !important;
-            border-radius: 16px !important;
-            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25) !important;
-            margin: 40px auto !important;
-            padding: 40px !important;
-            max-width: 1100px !important;
-            backdrop-filter: blur(8px) !important;
-            -webkit-backdrop-filter: blur(8px) !important;
-            border: 1px solid rgba(255,255,255,0.2) !important;
-        }
-
-        .construction-section {
-            display: flex !important;
-            align-items: center !important;
-            gap: 30px !important;
-            padding: 20px !important;
-            background: rgba(248,249,250,0.6) !important;
-            border-radius: 12px !important;
-            margin-bottom: 30px !important;
-        }
-
-        /* Transparência no conteúdo principal */
-        .grid-container {
-            background: rgba(255,255,255,0.3) !important;
-            border-radius: 12px !important;
-            padding: 20px !important;
-            margin: 20px 0 !important;
-        }
-
-        .column1, .column2 {
-            background: rgba(255,255,255,0.2) !important;
-            border-radius: 8px !important;
-            padding: 15px !important;
-            margin: 10px 0 !important;
-        }
-
-        /* Site footer (landing page) */
-        .site-footer {
-            text-align: center !important;
-            padding: 20px !important;
-            margin-top: 40px !important;
-            background-color: rgba(234, 216, 231, 0.8);
-            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
-            border-radius: 12px !important;
-            border-top: 1px solid rgba(233,236,239,0.5) !important;
-            color: #6c757d !important;
-            font-size: 14px !important;
-        }
-
-        .footer-badges {
-            display: flex !important;
-            justify-content: center !important;
-            align-items: center !important;
-            gap: 20px !important;
-            margin-top: 15px !important;
-            flex-wrap: wrap !important;
-        }
-
-        .github-link, .w3c-link {
-            display: inline-flex !important;
-            align-items: center !important;
-            gap: 8px !important;
-            color: #6c757d !important;
-            text-decoration: none !important;
-            font-size: 14px !important;
-        }
-
-        .github-link:hover, .w3c-link:hover {
-            color: #f14e32 !important;
-        }
-
-        .footer-logo {
-            height: 20px !important;
-            width: auto !important;
-            opacity: 0.8 !important;
-            transition: opacity 0.3s !important;
-        }
-
-        .footer-logo:hover {
-            opacity: 1 !important;
-        }
-
-        /* Garantir que os títulos tenham fundo destacado igual ao "Introdução ao Git" */
-        .subject-title, .curse-title {
-            background: rgba(241, 78, 50, 0.1) !important;
-            padding: 15px !important;
-            border-radius: 8px !important;
-            border-left: 4px solid #f14e32 !important;
-            margin-bottom: 20px !important;
-        }
-
-        .subject-title h4, .curse-title h4 {
-            margin: 0 !important;
-            color: #f14e32 !important;
-        }
-
-        @media (max-width: 768px) {
-            .construction-section {
-                flex-direction: column !important;
-                text-align: center !important;
-            }
-            .footer-badges {
-                flex-direction: column !important;
-                gap: 10px !important;
-            }
-        }
-    </style>
+	    <link rel="stylesheet" href="app/static/css/git-course.css">
+	    <link rel="stylesheet" href="landing.css">
 </head>
 <body>
-    <div class="main-container">
+    <main id="main" class="main-container">
         <!-- construction-section inlined from includes/under-construction.html -->
         <div class="construction-section">
-            <div style="flex-shrink: 0;">
+	            <div class="construction-img-wrapper">
                 <!-- Use single under-construction.webp as fallback; regenerate variants in CI if desired -->
-                <img src="/app/static/images/under-construction.webp"
-                     alt="Site em construção"
-                     width="150" height="100"
-                     style="max-width:150px;height:auto;border-radius:8px;">
+             <img src="/app/static/images/under-construction.webp"
+	                 alt="Site em construção"
+	                 class="construction-img">
             </div>
-            <div style="flex-grow: 1;">
-                <h3 style="margin: 0 0 10px 0; color: #f14e32;">Site em Construção</h3>
-                <p style="margin: 0; color: #6c757d; line-height: 1.5;">
+	            <div class="construction-text-container">
+	                <h2 class="construction-title">Site em Construção</h2>
+	                <p class="construction-paragraph">
                     Curso Git em desenvolvimento ativo. Novas funcionalidades sendo adicionadas regularmente.
                 </p>
             </div>
@@ -155,9 +29,9 @@
 
         <header class="header logo" >
             <img alt="Git Logo"
-            width="150" height="63"
             src="/app/static/images/GitLogo_sp.png"
-            srcset="/app/static/images/GitLogo_sp-2x.png 2x, /app/static/images/GitLogo_sp-3x.png 3x">
+	            srcset="/app/static/images/GitLogo_sp-2x.png 2x, /app/static/images/GitLogo_sp-3x.png 3x"
+	            class="git-logo-img">
             <div class="call">
                 <h1 class="banner-message">Aprenda Git de forma prática e eficiente!</h1>
                 <p class="banner-submessage">
@@ -169,7 +43,7 @@
         <div class="grid-container">
             <div class="column1 grid-item">
                 <div class="column1 grid-item subject-title">
-                   <h4><strong>O que é <em>'Git'</em>? E por que ele é importante!</strong></h4>
+                   <h2><strong>O que é <em>'Git'</em>? E por que ele é importante!</strong></h2>
                 </div>
                 <div>
                     <p><strong><em>É um sistema de controle de versão distribuída</em></strong> permitindo que vários desenvolvedores possam colaborar em um projeto de maneira simultanea.<br>
@@ -182,7 +56,7 @@
 
                 <section>
                     <h5>Navegação</h5>
-                    <nav class="nav">
+                    <nav class="nav" aria-label="Navegação principal">
                         <ul>
                             <li class="active hover"><a href="#base1">Principais estados dos arquivos no Git</a></li>
                             <li class="active hover"><a href="#base2">Conceitos chave:'Repositories','Commits' e 'Branches'</a></li>
@@ -224,6 +98,7 @@
                         Esta transparência é de todo crucial para o entendimento das complexidades do controle de versão permitindo atuações de maneira imediata.<br>
                         Deve-se salientar ainda que o terminal permite criar 'scripts' que auxiliam os desenvolvedores a automatizar tarefas repetitivas ou customizar
                         fluxos de trabalho específicos de seus projetos.<br>
+                        </p>
                         <div>
                                                 <picture class="cl">
                                                                                 <img src="/app/static/images/cl_new-tr.webp"
@@ -231,8 +106,8 @@
                                                                                     sizes="(max-width: 800px) 100vw, 50vw"
                                                                                     alt="Terminal Git bash"
                                                                                     width="800" height="450"
-                                                                                    loading="lazy"
-                                                                                    style="max-width:100%;height:auto;aspect-ratio:16/9;">
+	                                                                                    loading="lazy"
+	                                                                                    class="terminal-img">
                                                                         </picture>
                         </div>
 
@@ -417,7 +292,7 @@
 
                 <section>
                     <h5>Navegação</h5>
-                    <nav class="mynav">
+                    <nav class="mynav" aria-label="Navegação secundária">
                         <ul>
                           <li class="active hover"><a href="#about1">Sobre o Git</a></li>
                           <li class="active hover"><a href="#about2">Por que se chama Git?</a></li>
@@ -428,30 +303,29 @@
                         </ul>
                     </nav>
 
-                    <article>
-                        <h5 id="about1">Sobre o Git</h5>
-                        <p style="font-size:16px" class="paragraph">Com mais de 57000 alterações 'comitadas' e mais de 1300 colaboradores o <strong>Git</strong> se tornou a ferramenta de controle de versões mais usada mundo afora.<br>
+                    <article>	                        <h5 id="about1">Sobre o Git</h5>
+	                        <p class="about-paragraph paragraph">Com mais de 57000 alterações 'comitadas'e mais de 1300 colaboradores o <strong>Git</strong> se tornou a ferramenta de controle de versões mais usada mundo afora.<br>
                         Seu criador é ninguem menos do que 'Linus Torvalds', o criador do 'Linux'.<br>
                         O <strong>Git</strong> nasceu em 2005 quando da criação do kernel do sistema operacional Linux.<br>
                         Desde então o seu mantenedor principal, Junio Hamano, um japonês, cuida da evolução do <strong>Git</strong> junto aos inúmeros colaboradores deste sistema de código aberto (open source).</p>
 
-                        <h5 id="about2">Por que se chama Git?</h5>
-                        <p style="font-size:16px" class="paragraph">'Git' é uma gíria do inglês britânico que significa 'pessoa desagradável'. E este nome foi dado pelo próprio criador.</p>
+	                        <h5 id="about2">Por que se chama Git?</h5>
+	                        <p class="about-paragraph paragraph">'Git' é uma gíria do inglês britânico que significa 'pessoa desagradável'. E este nome foi dado pelo próprio criador.</p>
 
                         <h5 id="about3">Por que Linus Torvalds criou o Git?</h5>
                         <p style="font-size:16px" class="paragraph">Linus em seu desenvolvimento do Kernel do Linux usava como controle de versão uma ferramenta denominada 'BitKeeper'. Em um dado momento o dono dos direitos autorais desta ferramenta retirou o uso gratuíto.
                         O que restou a Linus foi criar algo para substituir e ele o fez tornando a ferramenta gratuíta e de código aberto.</p>
 
-                        <h5 id="about4">Um pouco mais sobre Git</h5>
-                        <p style="font-size:16px" class="paragraph">Já sabemos que o <strong>Git</strong> é um sistema de controle de versão distribuída que rastreia as alterações ocorridas nos arquivos dos computadores.
+	                        <h5 id="about4">Um pouco mais sobre Git</h5>
+	                        <p class="about-paragraph paragraph">Já sabemos que o <strong>Git</strong> é um sistema de controle de versão distribuída que rastreia as alterações ocorridas nos arquivos dos computadores.
                         Mas não se presta somente para atividades voltadas para códigos fonte de programas mas também serve como gestor de alterações em configurações complexas de bancos dados.
                         Até escritores de artigos de toda natureza fazem uso do <strong>Git</strong> coomo forma de manter suas edições atualizadas.</p>
 
-                        <h5 id="about5">Uma vantagem do Git</h5>
-                        <p style="font-size:16px" class="paragraph">O <strong>Git</strong> roda localmente em seu computador ou seja não depende de nenhum serviço de hospedagem em nuvem. Ele é auto-suficiente.</p>
+	                        <h5 id="about5">Uma vantagem do Git</h5>
+	                        <p class="about-paragraph paragraph">O <strong>Git</strong> roda localmente em seu computador ou seja não depende de nenhum serviço de hospedagem em nuvem. Ele é auto-suficiente.</p>
 
-                        <h5 id="about6">Alternativas ao Git</h5>
-                        <p style="font-size:16px" class="paragraph">Algumas alternativas ao uso do <strong>Git</strong>, o qual é de uso gratuíto, são:  - Azure DevOPS Server; Helix Core, AWS Code Commit, Subversion e Rational ClearCase.
+	                        <h5 id="about6">Alternativas ao Git</h5>
+	                        <p class="about-paragraph paragraph">Algumas alternativas ao uso do <strong>Git</strong>, o qual é de uso gratuíto, são:  - Azure DevOPS Server; Helix Core, AWS Code Commit, Subversion e Rational ClearCase.
                            Estas ferramentas são pagas e em um processo de avaliação deste citado grupo destaca-se a lentidão no retorno do investimento bem como algumas muito caras.
                            Dentre estas uma se destaca e se chama "Mercurial" por ser fácil de configurar e administrar.
                         </p>
@@ -459,26 +333,24 @@
                 </section>
             </div>
         </div>
+    </main>
 
-        <!-- Footer principal unificado -->
-        <footer class="site-footer">
+    <!-- Footer principal unificado -->
+    <footer class="site-footer">
             <p>&copy; 2025 Curso de Git. Todos os direitos reservados.</p>
             <div class="footer-badges">
                 <a href="https://pages.github.com/" class="github-link">
                     <span>🐙 GitHub Pages</span>
-                    <img src="/app/static/images/github-mark-white.png"
-                         alt="GitHub Logo"
-                    class="footer-logo"
-                    width="20" height="20">
+                <img src="/app/static/images/github-mark-white.png"
+                    alt="GitHub Logo"
+                class="footer-logo">
                 </a>
                 <a href="http://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
                 <img src="https://jigsaw.w3.org/css-validator/images/vcss"
                     alt="CSS válido!"
-                    class="footer-logo"
-                    width="88" height="31">
+                    class="footer-logo">
                 </a>
             </div>
         </footer>
-    </div>
-</body>
+    </body>
 </html>
