@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="app/static/css/style_io.css">
     <link rel="stylesheet" href="app/static/css/common-styles.css">
 	    <link rel="stylesheet" href="app/static/css/git-course.css">
-	    <link rel="stylesheet" href="landing.css">
+	    <link rel="stylesheet" href="app/static/css/landing.css">
 </head>
 <body>
-    <main id="main" class="main-container">
+    <main id="main" class="main-container" aria-label="Conteúdo principal da landing page">
         <!-- construction-section inlined from includes/under-construction.html -->
         <div class="construction-section">
 	            <div class="construction-img-wrapper">
@@ -27,7 +27,7 @@
             </div>
         </div>
 
-        <header class="header logo" >
+    <header class="header logo" aria-label="Cabeçalho principal da landing page">
             <img alt="Git Logo"
             src="/app/static/images/GitLogo_sp.png"
 	            srcset="/app/static/images/GitLogo_sp-2x.png 2x, /app/static/images/GitLogo_sp-3x.png 3x"
@@ -313,7 +313,7 @@
 	                        <p class="about-paragraph paragraph">'Git' é uma gíria do inglês britânico que significa 'pessoa desagradável'. E este nome foi dado pelo próprio criador.</p>
 
                         <h5 id="about3">Por que Linus Torvalds criou o Git?</h5>
-                        <p style="font-size:16px" class="paragraph">Linus em seu desenvolvimento do Kernel do Linux usava como controle de versão uma ferramenta denominada 'BitKeeper'. Em um dado momento o dono dos direitos autorais desta ferramenta retirou o uso gratuíto.
+                        <p class="paragraph">Linus em seu desenvolvimento do Kernel do Linux usava como controle de versão uma ferramenta denominada 'BitKeeper'. Em um dado momento o dono dos direitos autorais desta ferramenta retirou o uso gratuíto.
                         O que restou a Linus foi criar algo para substituir e ele o fez tornando a ferramenta gratuíta e de código aberto.</p>
 
 	                        <h5 id="about4">Um pouco mais sobre Git</h5>
@@ -333,24 +333,23 @@
                 </section>
             </div>
         </div>
-    </main>
-
-    <!-- Footer principal unificado -->
-    <footer class="site-footer">
-            <p>&copy; 2025 Curso de Git. Todos os direitos reservados.</p>
-            <div class="footer-badges">
-                <a href="https://pages.github.com/" class="github-link">
-                    <span>🐙 GitHub Pages</span>
-                <img src="/app/static/images/github-mark-white.png"
-                    alt="GitHub Logo"
-                class="footer-logo">
-                </a>
-                <a href="http://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
-                <img src="https://jigsaw.w3.org/css-validator/images/vcss"
-                    alt="CSS válido!"
+        <!-- Footer principal unificado -->
+        <footer class="site-footer" aria-label="Rodapé principal da landing page">
+                <p>&copy; 2025 Curso de Git. Todos os direitos reservados.</p>
+                <div class="footer-badges">
+                    <a href="https://pages.github.com/" class="github-link">
+                        <span>🐙 GitHub Pages</span>
+                    <img src="/app/static/images/github-mark-white.png"
+                        alt="GitHub Logo"
                     class="footer-logo">
-                </a>
-            </div>
-        </footer>
+                    </a>
+                    <a href="http://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
+                    <img src="https://jigsaw.w3.org/css-validator/images/vcss"
+                        alt="CSS válido!"
+                        class="footer-logo">
+                    </a>
+                </div>
+            </footer>
+    </main>
     </body>
 </html>
