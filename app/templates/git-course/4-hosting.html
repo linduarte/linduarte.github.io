@@ -6,159 +6,12 @@
     <title>Hospedagem</title>
     <link rel="stylesheet" href="/app/static/css/common-styles.css">
     <link rel="stylesheet" href="/app/static/css/git-course.css">
+    <link rel="stylesheet" href="/app/static/css/hosting.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
-            font-family: 'Victor Mono', monospace;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            background: rgba(255,255,255,0.75);
-            border-radius: 16px;
-            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
-            margin: 40px auto;
-            padding: 40px;
-            max-width: 900px;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
 
-        /* Corrigir tamanho do botão */
-        .form-btn {
-            font-size: 12px !important;
-            padding: 6px 12px !important;
-            margin: 0 5px !important;
-        }
-
-        /* Footer */
-        .footer {
-            background-color: rgba(234, 216, 231, 0.8);
-            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
-            height: 200px;
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 40px;
-        }
-
-        .footer-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .footer-nav {
-            display: flex;
-            gap: 15px;
-        }
-
-        .footer-link {
-            color: var(--neutral);
-            text-decoration: none;
-            font-family: 'Victor Mono', monospace;
-            font-size: 12px;
-            padding: 8px 12px;
-            border-radius: 6px;
-            background: rgba(255,255,255,0.7);
-            transition: all 0.3s;
-        }
-
-        .footer-link:hover {
-            color: #f14e32;
-            background: rgba(255,255,255,0.9);
-        }
-
-        /* Botões alinhados à direita com mesmo estilo */
-        .footer-buttons {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .logout-button, .form-btn {
-            font-family: 'Victor Mono', monospace;
-            font-size: 13px !important;
-            padding: 8px 16px !important;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: #f14e32;
-            color: white;
-        }
-
-        .logout-button:hover, .form-btn:hover {
-            background: #d63916;
-            transform: translateY(-1px);
-        }
-
-        .footer-instruction {
-            text-align: center;
-            font-family: 'Victor Mono', monospace;
-            margin-top: 12px;
-            font-size: 13px !important; /* Fonte menor */
-            color: #6c757d;
-            line-height: 1.4;
-        }
-
-        .footer-copyright {
-            text-align: center;
-            font-family: 'Victor Mono', monospace;
-            margin-bottom: 15px;
-            font-size: 12px;
-            color: #6c757d;
-            font-weight: 500;
-        }
-
-        /* Footer badges */
-        .footer-badges {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-
-        .github-link, .w3c-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: #6c757d;
-            text-decoration: none;
-            font-size: 12px;
-        }
-
-        .github-link:hover, .w3c-link:hover {
-            color: #f14e32;
-        }
-
-        .footer-logo {
-            height: 20px;
-            width: auto;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
-
-        .footer-logo:hover {
-            opacity: 1;
-        }
-
-        @media (max-width: 768px) {
-            .github-pages-logo {
-                width: 80px;
-                top: 10px;
-                right: 10px;
-            }
-        }
-    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-bash.min.js"></script>
     <script src="/app/static/js/config.js"></script>
@@ -203,15 +56,15 @@
       <h4>Etapas</h4>
       <p><strong>Estas são as etapas essenciais para iniciar seu projeto no GitHub:</strong></p>
       <ol class="etapas-list">
-      <li class="left-list"><strong>1:</strong> Crie sua conta no GitHub</li>
-      <li class="left-list"><strong>2:</strong> Faça login em sua conta no GitHub.</li>
-      <li class="left-list"><strong>3:</strong> Crie um repositório no GitHub usando o ícone "+" e selecione "New repository".</li>
-      <li class="left-list"><strong>4:</strong> Nomeie o repositório como 'simple-website'</li>
-      <li class="left-list"><strong>5:</strong> Descreva o projeto como "Phonetic alphabet website"</li>
-      <li class="left-list"><strong>6:</strong> Selecione o repositório como 'Public'</li>
-      <li class="left-list"><strong>7:</strong> Marque "Initialize this repository with a README file"</li>
-      <li class="left-list"><strong>8:</strong> Deixe '.gitignore' e 'license' como "None"</li>
-      <li class="left-list"><strong>9:</strong> Clique em "Create repository"</li>
+      <li class="left-list"><strong></strong> Crie sua conta no GitHub</li>
+      <li class="left-list"><strong></strong> Faça login em sua conta no GitHub.</li>
+      <li class="left-list"><strong></strong> Crie um repositório no GitHub usando o ícone "+" e selecione "New repository".</li>
+      <li class="left-list"><strong></strong> Nomeie o repositório como 'simple-website'</li>
+      <li class="left-list"><strong></strong> Descreva o projeto como "Phonetic alphabet website"</li>
+      <li class="left-list"><strong></strong> Selecione o repositório como 'Public'</li>
+      <li class="left-list"><strong></strong> Marque "Initialize this repository with a README file"</li>
+      <li class="left-list"><strong></strong> Deixe '.gitignore' e 'license' como "None"</li>
+      <li class="left-list"><strong></strong> Clique em "Create repository"</li>
       </ol>
 
       <figure>
