@@ -1,3 +1,14 @@
+/* For dashboard.html: replaces inline style display:none, margin-top, text-align */
+.hidden-section {
+  display: none;
+}
+.progress-section-align {
+  margin-top: 24px;
+  text-align: left;
+}
+.progress-list-margin {
+  margin-top: 12px;
+}
 body {
       background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
       font-family: 'Victor Mono', monospace;

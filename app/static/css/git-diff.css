@@ -1,3 +1,7 @@
+/* Large list items for code explanations */
+.li-large {
+    font-size: 18px;
+}
         body {
             background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
             font-family: 'Victor Mono', monospace;

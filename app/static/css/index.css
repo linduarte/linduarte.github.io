@@ -1,3 +1,9 @@
+/* For index.html: replaces inline style on <body> */
+.centered-body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 20vh;
+}
 :root {
     --primary:#0d6efd;
     --primary-hover:#0a58ca;
