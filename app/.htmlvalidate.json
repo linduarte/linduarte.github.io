@@ -11,7 +11,7 @@
                 "style": "omit"
             }
         ],
-        "no-inline-style": "on",
+        "no-inline-style": "error",
         "attribute-empty-style": "off",
         "no-raw-characters": "error"
     }
