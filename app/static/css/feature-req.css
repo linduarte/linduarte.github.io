@@ -1,4 +1,4 @@
-body {
+        body {
             background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
             font-family: 'Victor Mono', monospace;
             margin: 0;
@@ -136,3 +136,13 @@ body {
                 right: 10px;
             }
         }
+
+        /* Defensive image rules to avoid oversized/distorted images */
+        .img-full, .img-half {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        /* Provide sensible maximum widths for layout but keep images responsive */
+        .img-half { max-width: 400px; }
+        .img-full { max-width: 100%; }
