@@ -1,3 +1,9 @@
+/* Responsive image helpers for branch-2 */
+.img-halfwidth, .img-fullwidth {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
         body {
             background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
             font-family: 'Victor Mono', monospace;

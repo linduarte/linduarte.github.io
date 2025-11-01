@@ -1,3 +1,13 @@
+/* For login.html: replaces inline style on login-success-banner and register link */
+.login-success-banner {
+  display: none;
+  margin-top: 12px;
+  font-weight: 700;
+  color: #388e3c;
+}
+.login-register-link {
+  margin-top: 16px;
+}
 body {
       background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
       font-family: 'Victor Mono', monospace;

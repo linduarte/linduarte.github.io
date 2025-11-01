@@ -1,3 +1,7 @@
+/* For progress-menu.html: replaces inline style display:none on sections */
+.hidden-section {
+    display: none;
+}
     body {
             background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
             font-family: 'Victor Mono', monospace;
