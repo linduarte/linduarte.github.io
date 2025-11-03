@@ -1,0 +1,114 @@
+/* For dashboard.html: replaces inline style display:none, margin-top, text-align */
+.hidden-section {
+  display: none;
+}
+.progress-section-align {
+  margin-top: 24px;
+  text-align: left;
+}
+.progress-list-margin {
+  margin-top: 12px;
+}
+body {
+      background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
+      font-family: 'Victor Mono', monospace;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .dashboard-container {
+      max-width: 700px;
+      margin: 80px auto;
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+      text-align: center;
+    }
+
+    .github-pages-logo {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 120px;
+      height: auto;
+      z-index: 1000;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+
+    .github-pages-logo:hover {
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .github-pages-logo {
+        width: 80px;
+        top: 10px;
+        right: 10px;
+      }
+    }
+
+    h1 {
+      color: #f14e32;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.1em;
+      margin-bottom: 30px;
+    }
+
+    button {
+      background: #f14e32;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 24px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin: 6px;
+    }
+
+    button:hover {
+      background: #5c4033;
+    }
+
+    .status {
+      margin-top: 20px;
+      font-weight: 600;
+      color: #5c4033;
+    }
+
+    .topics {
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    .topics h3 {
+      color: #f14e32;
+    }
+
+    .topics ul {
+      list-style-type: square;
+      padding-left: 20px;
+    }
+
+    .topics li {
+      margin: 8px 0;
+    }
+
+    /* Defensive image rules to avoid oversized/distorted images */
+    .img-full, .img-half {
+            max-width: 100%;
+            height: auto;
+            display: block;
+    }
+    /* Provide sensible maximum widths for layout but keep images responsive */
+    .img-half { max-width: 400px; }
+    .img-full { max-width: 100%; }

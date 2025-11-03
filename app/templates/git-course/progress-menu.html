@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Menu de Progresso</title>
+    <link rel="stylesheet" href="/app/static/css/style.css">
+    <link rel="stylesheet" href="/app/static/css/common-styles.css">
+    <link rel="stylesheet" href="/app/static/css/git-course.css">
+    <link rel="stylesheet" href="/app/static/css/footer-course.css">
+    <link rel="stylesheet" href="/app/static/css/progress-menu.css">
+
+        <script src="/app/static/js/git-course-functions.js"></script>
+        <script>
+        // Lightweight apiCall wrapper for pages that expect it (adds auth header)
+        if (typeof apiCall === 'undefined') {
+            function apiCall(path, init) {
+                const token = localStorage.getItem('access_token');
+                init = init || {};
+                init.headers = init.headers || {};
+                if (token) init.headers['Authorization'] = `Bearer ${token}`;
+                return fetch(path, init);
+            }
+        }
+        </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+            // redirect to site entry (landing.html) when not authenticated
+            window.location.href = '/landing.html';
+            return;
+        }
+        const logoutBtn = document.getElementById('logoutButton');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('access_token');
+                window.location.href = '/landing.html';
+            });
+        }
+    });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Menu de Progresso do Curso Git</h1>
+        </header>
+
+    <nav class="progress-nav" aria-label="Menu de progresso">
+            <button type="button" onclick="showSection('summary')" class="nav-btn">Resumo</button>
+            <button type="button" onclick="showSection('list')" class="nav-btn">Listar Progresso</button>
+            <button type="button" onclick="showSection('create')" class="nav-btn">Criar Progresso</button>
+            <button type="button" onclick="showSection('update')" class="nav-btn">Atualizar Progresso</button>
+            <button type="button" onclick="showSection('delete')" class="nav-btn">Deletar Progresso</button>
+        </nav>
+
+        <div id="section-summary" class="content-section">
+            <h2>Resumo do Progresso</h2>
+            <div class="progress-summary">Carregando...</div>
+        </div>
+
+    <div id="section-list" class="content-section hidden-section">
+            <h2>Lista de Progresso</h2>
+            <div class="progress-list">Carregando...</div>
+        </div>
+
+    <div id="section-create" class="content-section hidden-section">
+            <h2>Registrar Novo Progresso</h2>
+            <form id="formCreate" class="progress-form">
+                <label>Tópico ID: <input type="number" name="topic_id" required></label>
+                <label>Concluído:
+                    <select name="completed">
+                        <option value="true">Sim</option>
+                        <option value="false">Não</option>
+                    </select>
+                </label>
+                <label>Feedback: <textarea name="feedback"></textarea></label>
+                <button type="submit" class="submit-btn">Registrar</button>
+            </form>
+            <div id="resultCreate" class="result-message"></div>
+        </div>
+
+    <div id="section-update" class="content-section hidden-section">
+            <h2>Atualizar Progresso</h2>
+            <form id="formUpdate" class="progress-form">
+                <label>ID do Progresso: <input type="number" name="progress_id" required></label>
+                <label>Concluído:
+                    <select name="completed">
+                        <option value="true">Sim</option>
+                        <option value="false">Não</option>
+                    </select>
+                </label>
+                <label>Feedback: <textarea name="feedback"></textarea></label>
+                <button type="submit" class="submit-btn">Atualizar</button>
+            </form>
+            <div id="resultUpdate" class="result-message"></div>
+        </div>
+
+    <div id="section-delete" class="content-section hidden-section">
+            <h2>Deletar Progresso</h2>
+            <form id="formDelete" class="progress-form">
+                <label>ID do Progresso: <input type="number" name="progress_id" required></label>
+                <button type="submit" class="submit-btn delete-btn">Deletar</button>
+            </form>
+            <div id="resultDelete" class="result-message"></div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-copyright">
+                © 2025 Curso de Git. Todos os direitos reservados.
+            </div>
+
+            <div class="footer-flex">
+                <nav class="footer-nav" aria-label="Footer navigation">
+                    <a href="1-prefacio.html" class="footer-link">← Voltar</a>
+                </nav>
+
+                <div class="footer-buttons">
+                    <button id="logoutButton" type="button" class="logout-button">Logout</button>
+				</div>
+            </div>
+
+            <div class="footer-instruction">
+                Para sair da sua conta, clique em Logout.
+            </div>
+
+            <div class="footer-badges">
+                <a href="https://pages.github.com/" class="github-link">
+                    <span>🐙 GitHub Pages</span>
+                    <img src="/app/static/images/github-mark-white.png"
+                         alt="GitHub Logo"
+                         class="footer-logo">
+                </a>
+                <a href="https://jigsaw.w3.org/css-validator/check/referer" class="w3c-link">
+                    <img src="https://jigsaw.w3.org/css-validator/images/vcss"
+                         alt="CSS válido!"
+                         class="footer-logo" width="45" height="16">
+                </a>
+            </div>
+            </footer>
+    </div>
+
+    <script>
+        function requireToken() {
+            const token = localStorage.getItem("access_token");
+            if(!token) {
+                alert("Sessão não encontrada. Faça login.");
+                window.location.href = "login.html";
+                return null;
+            }
+            return token;
+        }
+
+        function showSection(section) {
+            ["summary","list","create","update","delete"].forEach(s => {
+                const el = document.getElementById(`section-${s}`);
+                if (el) el.style.display = s === section ? "block" : "none";
+            });
+            if(section === "summary") fetchSummary();
+            if(section === "list") fetchList();
+        }
+
+        async function fetchSummary() {
+            const token = requireToken(); if(!token) return;
+            const box = document.querySelector('#section-summary .progress-summary');
+            if (!box) return;
+            box.innerHTML = 'Carregando...';
+            try {
+                const resp = await apiCall('/progress/summary');
+                // If server signals not-found or no content, show friendly empty message
+                if (!resp.ok) { box.innerHTML = 'Nenhum progresso registrado.'; return; }
+                // Try to parse JSON safely — handle 204/no-body
+                let data = null;
+                try {
+                    data = await resp.json();
+                } catch (parseErr) {
+                    box.innerHTML = 'Nenhum progresso registrado.'; return;
+                }
+                // If fields missing or empty, show friendly message
+                if (!data || (typeof data.total === 'undefined' && !Array.isArray(data.completados))) {
+                    box.innerHTML = 'Nenhum progresso registrado.'; return;
+                }
+                box.innerHTML =
+                  `<b>Total:</b> ${data.total ?? 0}<br>` +
+                  `<b>Concluídos:</b> ${data.concluidos ?? 0}<br>` +
+                  `<b>Pendentes:</b> ${data.pendentes ?? 0}<br>` +
+                  `<b>Tópicos concluídos:</b> ${data.completados?.length ? data.completados.join(', ') : 'Nenhum'}`;
+            } catch(e) {
+                // Network or unexpected error — treat as empty state to avoid alarming users
+                console.error(e);
+                box.innerHTML = 'Nenhum progresso registrado.';
+            }
+        }
+
+        async function fetchList() {
+            const token = requireToken(); if(!token) return;
+                const box = document.querySelector('#section-list .progress-list');
+                if (!box) return;
+                box.innerHTML = 'Carregando...';
+            try {
+                const resp = await apiCall("/progress");
+                const data = await resp.json();
+                if(!data.length) { box.innerHTML = "Nenhum progresso registrado."; return; }
+                    box.innerHTML = `<ul>${data.map(p => `<li>ID: ${p.id}, Tópico: ${p.topic_id}, Concluído: ${p.completed}, Feedback: ${p.feedback || '-'} </li>`).join('')}</ul>`;
+            } catch(e) { box.innerHTML = "Erro ao carregar lista."; console.error(e); }
+        }
+
+        document.getElementById("formCreate")?.addEventListener("submit", async e => {
+            e.preventDefault();
+            const token = requireToken(); if(!token) return;
+            const f = e.target;
+            const body = {
+                topic_id: parseInt(f.topic_id.value),
+                completed: f.completed.value === "true",
+                feedback: f.feedback.value
+            };
+            const out = document.getElementById("resultCreate");
+            out.textContent = "Enviando...";
+            try {
+                const resp = await apiCall("/progress", {
+                    method: "POST",
+                    body: JSON.stringify(body)
+                });
+                const data = await resp.json();
+                out.textContent = resp.ok ? "Progresso registrado!" : (data.detail || "Erro");
+            } catch(e){ out.textContent = "Erro de rede."; console.error(e); }
+        });
+
+        document.getElementById("formUpdate")?.addEventListener("submit", async e => {
+            e.preventDefault();
+            const token = requireToken(); if(!token) return;
+            const f = e.target;
+            const body = {
+                completed: f.completed.value === "true",
+                feedback: f.feedback.value
+            };
+            const id = f.progress_id.value;
+            const out = document.getElementById("resultUpdate");
+            out.textContent = "Atualizando...";
+            try {
+                const resp = await apiCall(`/progress/${id}`, {
+                    method: "PUT",
+                    body: JSON.stringify(body)
+                });
+                const data = await resp.json();
+                out.textContent = resp.ok ? "Progresso atualizado!" : (data.detail || "Erro");
+            } catch(e){ out.textContent = "Erro de rede."; console.error(e); }
+        });
+
+        document.getElementById("formDelete")?.addEventListener("submit", async e => {
+            e.preventDefault();
+            const token = requireToken(); if(!token) return;
+            const f = e.target;
+            const id = f.progress_id.value;
+            const out = document.getElementById("resultDelete");
+            out.textContent = "Removendo...";
+            try {
+                const resp = await apiCall(`/progress/${id}`, { method: "DELETE" });
+                out.textContent = resp.ok ? "Progresso deletado!" : "Erro ao deletar";
+            } catch(e){ out.textContent = "Erro de rede."; console.error(e); }
+        });
+
+        // Default view
+        showSection("summary");
+    </script>
+</body>
+</html>

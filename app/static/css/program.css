@@ -1,0 +1,69 @@
+        body {
+            background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
+            font-family: 'Victor Mono', monospace;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background: rgba(255,255,255,0.75);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
+            margin: 40px auto;
+            padding: 40px;
+            max-width: 900px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        /* Site footer (landing page) */
+        .site-footer {
+            text-align: center !important;
+            padding: 20px !important;
+            margin-top: 40px !important;
+            background-color: rgba(234, 216, 231, 0.8);
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
+            border-radius: 12px !important;
+            border-top: 1px solid rgba(233,236,239,0.5) !important;
+            color: var(--neutral) !important;
+            font-size: 14px !important;
+        }
+
+        .footer-badges {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 20px !important;
+            margin-top: 15px !important;
+            flex-wrap: wrap !important;
+        }
+
+        .github-link, .w3c-link {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            color: #6c757d !important;
+            text-decoration: none !important;
+            font-size: 14px !important;
+        }
+
+        .github-link:hover, .w3c-link:hover {
+            color: #f14e32 !important;
+        }
+
+        .footer-logo {
+            height: 20px !important;
+            width: auto !important;
+            opacity: 0.8 !important;
+            transition: opacity 0.3s !important;
+        }
+
+        .footer-logo:hover {
+            opacity: 1 !important;
+        }
+        @media (max-width: 768px) {
+            .github-pages-logo {
+                width: 80px;
+                top: 10px;
+                right: 10px;
+            }
+        }

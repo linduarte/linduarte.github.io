@@ -1,0 +1,98 @@
+/* For login.html: replaces inline style on login-success-banner and register link */
+.login-success-banner {
+  display: none;
+  margin-top: 12px;
+  font-weight: 700;
+  color: #388e3c;
+}
+.login-register-link {
+  margin-top: 16px;
+}
+body {
+      background: url('/app/static/images/waves.webp') center/cover no-repeat fixed;
+      font-family: 'Victor Mono', monospace;
+      margin: 0;
+      padding: 0;
+    }
+    .login-container {
+      background: rgba(255,255,255,0.75);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.25);
+      margin: 60px auto;
+      padding: 32px 24px;
+      max-width: 350px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+      text-align: center;
+    }
+    .site-footer {
+      text-align: center;
+      padding: 15px;
+      margin-top: 30px;
+      background: rgba(248,249,250,0.6);
+      border-radius: 12px;
+      color: var(--neutral);
+      font-size: 12px;
+    }
+    .footer-badges {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    .github-link, .w3c-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--neutral);
+      text-decoration: none;
+      font-size: 12px;
+    }
+    .github-link:hover, .w3c-link:hover {
+      color: #f14e32;
+    }
+    .footer-logo {
+      height: 16px;
+      width: auto;
+      opacity: 0.8;
+    }
+    h2 {
+      color: #f14e32;
+      margin-bottom: 18px;
+    }
+    label {
+      color: #5c4033;
+      font-weight: 600;
+      margin-top: 12px;
+      display: block;
+      text-align: left;
+    }
+    input[type='email'], input[type='password'] {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0 16px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+    button {
+      background: #dc391d; /* darker orange for contrast */
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 24px;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #a53320; /* hover darker */
+    }
+    #result {
+      margin-top: 18px;
+      color: #5c4033;
+      font-weight: 600;
+    }

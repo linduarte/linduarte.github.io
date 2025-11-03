@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro - Git Course</title>
+  <link rel="stylesheet" href="/app/static/css/git-course-c.css">
+  <link rel="stylesheet" href="/app/static/css/register.css">
+</head>
+<body>
+  <main>
+  <div class="register-container">
+    <h2>Crie sua conta</h2>
+    <form id="registerForm">
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email" aria-required="true" required>
+      <label for="password">Senha:</label>
+      <input type="password" id="password" name="password" aria-required="true" required>
+      <button type="submit">Registrar</button>
+    </form>
+    <div id="result"></div>
+  <p class="register-login-link">Já tem conta? <a href="login.html">Faça login</a></p>
+  </div>
+  </main>
+
+  <!-- Configuração global de API -->
+  <script src="/app/static/js/config.js"></script>
+
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async function(e){
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const body = { email, password };
+
+      const resultEl = document.getElementById('result');
+      resultEl.textContent = 'Conectando...';
+
+      // Detectar se está em desenvolvimento local ou produção
+      const isLocalDev = window.location.hostname === 'localhost' ||
+                         window.location.hostname === '127.0.0.1' ||
+                         window.location.protocol === 'file:';
+
+      // URLs baseadas no ambiente
+      const API_URLS = isLocalDev
+        ? ["http://191.252.204.249:8000"]  // Dev: só HTTP
+        : [
+            "https://191.252.204.249:8000",   // Prod: HTTPS padrão
+            "https://191.252.204.249:443",    // Prod: HTTPS porta padrão
+            "https://191.252.204.249"         // Prod: HTTPS sem porta
+          ];
+
+      console.log('Ambiente:', isLocalDev ? 'Desenvolvimento' : 'Produção');
+      console.log('URLs a testar:', API_URLS);
+
+      for (const API_URL of API_URLS) {
+        try {
+          console.log(`🔄 Tentando: ${API_URL}/auth/register`);
+
+          // Timeout de 10 segundos
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+          const r = await fetch(`${API_URL}/auth/register`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(body),
+            mode: 'cors',
+            signal: controller.signal
+          });
+
+          clearTimeout(timeoutId);
+
+          console.log('✅ Resposta recebida:', r.status, r.statusText);
+
+          const payload = await r.json();
+          console.log('📦 Payload:', payload);
+
+          if (r.ok && payload.access_token) {
+            localStorage.setItem('access_token', payload.access_token);
+            resultEl.style.color = '#388e3c';
+            resultEl.textContent = 'Registro bem-sucedido! Redirecionando para login...';
+            setTimeout(() => window.location.href = 'login.html', 800);
+            return;
+          } else {
+            throw new Error(`${r.status}: ${payload.detail || payload.message || 'Erro no registro'}`);
+          }
+        } catch (err) {
+          console.error(`❌ Falhou ${API_URL}:`, err.name, err.message);
+
+          if (err.name === 'AbortError') {
+            console.error('⏰ Timeout - servidor não respondeu em 10s');
+          } else if (err.name === 'TypeError' && err.message.includes('fetch')) {
+            console.error('🚫 CORS/Rede - provavelmente bloqueado pelo navegador');
+          }
+
+          continue;
+        }
+      }
+
+      // Todas falharam - modo simulação para GitHub Pages
+      console.warn('🔄 Modo simulação ativado (todas as URLs falharam)');
+      if (email && password && email.includes('@')) {
+        localStorage.setItem('access_token', 'demo_token_' + Date.now());
+        resultEl.style.color = '#388e3c';
+        resultEl.textContent = 'Registro simulado OK! Agora faça login...';
+        setTimeout(() => window.location.href = 'login.html', 1200);
+      } else {
+        resultEl.style.color = '#d32f2f';
+        resultEl.textContent = 'Servidor indisponível. Tente: email válido e senha não vazia.';
+      }
+    });
+  </script>
+</body>
+</html>

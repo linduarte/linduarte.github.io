@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Redirecionando...</title>
+  <script>
+    // Always redirect the site root to the landing page.
+    // This avoids exposing the protected prefácio page as the default landing.
+    (function () {
+      try {
+        window.location.replace('/landing.html');
+      } catch (e) {
+        // Fallback: relative path
+        window.location.replace('landing.html');
+      }
+    })();
+  </script>
+</head>
+<body class="centered-body">
+  <p>Redirecionando...</p>
+  <p>
+    Se não redirecionar automaticamente:
+    <a href="landing.html">Landing</a> |
+    <a href="app/templates/git-course/register.html">Registrar</a> |
+    <a href="app/templates/git-course/login.html">Login</a>
+  </p>
+
+  <script>
+    function navigate(path) {
+      fetch(path)
+        .then(response => {
+          if (response.ok) {
+            window.location.href = path;
+          } else {
+            alert('Página não encontrada: ' + path);
+          }
+        })
+        .catch(() => {
+          alert('Erro ao acessar a página: ' + path);
+        });
+    }
+  </script>
+</body>
+</html>
