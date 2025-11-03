@@ -195,28 +195,9 @@
         }
       }
 
-      // Modo simulação - aceita qualquer email/senha válidos
-      console.warn('🔄 Modo simulação login ativado');
-      // In simulation mode accept any non-empty credentials (tests use demo values)
-    if (email && password) {
-    localStorage.setItem('access_token', 'demo_login_token_' + Date.now());
-  resultEl.style.color = '#388e3c';
-  // use Portuguese 'Sucesso' to satisfy test regex
-  const banner = document.getElementById('login-success-banner');
-  banner.textContent = 'Sucesso (simulado)! Success. Redirecionando...';
-  banner.setAttribute('data-test', 'login-success');
-  banner.style.display = 'block';
-  resultEl.textContent = 'Sucesso (simulado)! Success. Redirecionando...';
-  resultEl.setAttribute('data-test', 'login-success');
-  resultEl.style.display = 'block';
-  try { sessionStorage.setItem('login_success', '1'); } catch (e) { }
-  // redirect with a short delay so storage writes complete
-  try { if (!localStorage.getItem('access_token')) localStorage.setItem('access_token', 'demo_login_token_' + Date.now()); } catch (e) {}
-  setTimeout(() => { window.location.href = '1a-prefacio.html?login=1'; }, __login_redirect_delay);
-      } else {
-        resultEl.style.color = '#d32f2f';
-        resultEl.textContent = 'Servidor indisponível. Tente: email válido e senha.';
-      }
+      // Se chegou aqui, todas as tentativas de login falharam
+      resultEl.style.color = '#d32f2f';
+      resultEl.textContent = 'Servidor indisponível ou credenciais inválidas. Tente novamente.';
     });
   </script>
 </body>
