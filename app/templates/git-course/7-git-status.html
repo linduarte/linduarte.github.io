@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <script>
+    const API_URL = 'http://191.252.204.249:8000'; // futuramente será https://api.git-learn.com.br
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Git Status</title>
@@ -26,7 +29,7 @@
             const token = localStorage.getItem('access_token');
             const topicId = btn.dataset.topicId;
             try {
-                const response = await fetch('/progress', {
+                const response = await fetch(`${API_URL}/progress/`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                     body: JSON.stringify({ topic_id: topicId, completed: true, feedback: 'Muito bom este tópico!' }),

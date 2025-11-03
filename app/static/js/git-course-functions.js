@@ -221,7 +221,7 @@ function attachMarkCompletedHandler() {
         const token = localStorage.getItem('access_token');
         const topicId = btn.dataset.topicId;
         try {
-          const response = await fetch('/progress', {
+          const response = await fetch(`${window.API_URL || 'http://191.252.204.249:8000'}/progress/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
             body: JSON.stringify({ topic_id: topicId, completed: true, feedback: 'Concluído via UI' })
