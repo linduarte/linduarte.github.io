@@ -41,7 +41,7 @@
                          window.location.protocol === 'file:';
 
       // URLs baseadas no ambiente
-      const API_URLS = isLocalDev
+      const API_URLS = 'https://api.git-learn.com.br'
         ? ["http://191.252.204.249:8000"]  // Dev: só HTTP
         : [
             "https://191.252.204.249:8000",   // Prod: HTTPS padrão

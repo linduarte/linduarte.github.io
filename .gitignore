@@ -87,3 +87,4 @@ scripts/
 
 # Build output: generated distribution files
 dist/
+artifacts/
