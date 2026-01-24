@@ -88,3 +88,6 @@ scripts/
 # Build output: generated distribution files
 dist/
 artifacts/
+
+# Ignore build output directory
+build/
