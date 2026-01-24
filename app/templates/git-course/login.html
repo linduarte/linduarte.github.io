@@ -95,7 +95,7 @@
 
       // URLs baseadas no ambiente
       // Use local API for local development, otherwise use production URLs
-      const API_URLS = 'https://api.git-learn.com.br'
+      const API_URLS = isLocalDev
         ? ["http://127.0.0.1:8000"]
         : [
             "https://191.252.204.249:8000",
