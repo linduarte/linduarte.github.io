@@ -1,0 +1,42 @@
+.progress-summary-box,
+.progress-topics-box {
+    margin: 20px 0;
+    padding: 20px;
+    background: #f7f7f7;
+    border-radius: 8px;
+}
+
+#progress-topics {
+    list-style: none;
+    padding: 0;
+}
+
+.topic-item {
+    padding: 10px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.topic-item.completed {
+    color: #2e7d32;
+    font-weight: bold;
+}
+
+.topic-item.completed::before {
+    content: "✔ ";
+    color: #2e7d32;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 18px;
+    background: #ddd;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: #2e7d32;
+    border-radius: 10px;
+}

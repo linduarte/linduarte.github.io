@@ -60,7 +60,8 @@
       e.preventDefault();
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
-      const body = { username: email, password }; // Backend espera 'username'
+  // Prepare form-encoded body for OAuth2
+  const body = `username=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
 
       const resultEl = document.getElementById('result');
       resultEl.textContent = 'Conectando...';
@@ -70,62 +71,32 @@
                          window.location.hostname === '127.0.0.1' ||
                          window.location.protocol === 'file:';
 
-      // If the test submits the demo credentials, perform immediate simulated login
+      // Only trigger simulated login for demo credentials
       if (email === 'demo_user' && password === 'demo_pass') {
-  localStorage.setItem('access_token', 'demo_login_token_' + Date.now());
-  resultEl.style.color = '#388e3c';
-  resultEl.textContent = 'Sucesso (simulado)! Success. Redirecionando...';
-  resultEl.setAttribute('data-test', 'login-success');
-  resultEl.style.display = 'block';
-  const banner = document.getElementById('login-success-banner');
-  if (banner) {
-    banner.textContent = 'Sucesso (simulado)! Success. Redirecionando...';
-    banner.setAttribute('data-test', 'login-success');
-    banner.style.display = 'block';
-  }
-  // persist a transient flag so the destination page can show a success banner
-  try { sessionStorage.setItem('login_success', '1'); } catch (e) { /* ignore */ }
-  // redirect immediately so tests that inspect URL pass
-  // append a query param to signal a test-triggered login (more deterministic
-  // than relying only on sessionStorage across navigation). Use a short
-  // timeout to allow localStorage/sessionStorage writes to complete in
-  // headless/CI environments before navigation.
-  try {
-    // Redundantly persist token to reduce CI race conditions
-    const existing = localStorage.getItem('access_token');
-    if (!existing) localStorage.setItem('access_token', 'demo_login_token_' + Date.now());
-  } catch (e) { /* ignore */ }
-  setTimeout(__redirectToPrefacio, __login_redirect_delay);
-        return;
-      }
-
-      // If running on local dev (Playwright), skip external fetch attempts and
-      // run simulated login immediately for deterministic tests.
-      if (isLocalDev) {
-  localStorage.setItem('access_token', 'demo_login_token_' + Date.now());
-  resultEl.style.color = '#388e3c';
-  resultEl.textContent = 'Sucesso (simulado)! Success. Redirecionando...';
-  resultEl.setAttribute('data-test', 'login-success');
-  resultEl.style.display = 'block';
-  const banner = document.getElementById('login-success-banner');
-  if (banner) {
-    banner.textContent = 'Sucesso (simulado)! Success. Redirecionando...';
-    banner.setAttribute('data-test', 'login-success');
-    banner.style.display = 'block';
-  }
-  try { sessionStorage.setItem('login_success', '1'); } catch (e) { }
-  // redirect with a short delay so storage writes complete
-  try {
-    const existing = localStorage.getItem('access_token');
-    if (!existing) localStorage.setItem('access_token', 'demo_login_token_' + Date.now());
-  } catch (e) {}
-  setTimeout(__redirectToPrefacio, __login_redirect_delay);
+        localStorage.setItem('access_token', 'demo_login_token_' + Date.now());
+        resultEl.style.color = '#388e3c';
+        resultEl.textContent = 'Sucesso (simulado)! Success. Redirecionando...';
+        resultEl.setAttribute('data-test', 'login-success');
+        resultEl.style.display = 'block';
+        const banner = document.getElementById('login-success-banner');
+        if (banner) {
+          banner.textContent = 'Sucesso (simulado)! Success. Redirecionando...';
+          banner.setAttribute('data-test', 'login-success');
+          banner.style.display = 'block';
+        }
+        try { sessionStorage.setItem('login_success', '1'); } catch (e) { /* ignore */ }
+        try {
+          const existing = localStorage.getItem('access_token');
+          if (!existing) localStorage.setItem('access_token', 'demo_login_token_' + Date.now());
+        } catch (e) { /* ignore */ }
+        setTimeout(__redirectToPrefacio, __login_redirect_delay);
         return;
       }
 
       // URLs baseadas no ambiente
+      // Use local API for local development, otherwise use production URLs
       const API_URLS = isLocalDev
-        ? ["http://191.252.204.249:8000"]
+        ? ["http://127.0.0.1:8000"]
         : [
             "https://191.252.204.249:8000",
             "https://191.252.204.249:443",
@@ -145,10 +116,10 @@
           const response = await fetch(`${API_URL}/auth/login`, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
+              'Content-Type': 'application/x-www-form-urlencoded',
               'Accept': 'application/json'
             },
-            body: JSON.stringify(body),
+            body: body,
             mode: 'cors',
             signal: controller.signal
           });

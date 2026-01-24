@@ -567,3 +567,13 @@ input[type="radio"], input[type="checkbox"] {
     font-size: 1.2em;
     padding: 14px 28px;
 }
+
+.completed {
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+.completed::before {
+  content: "✔ ";
+  color: #2e7d32;
+}
